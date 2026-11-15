@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First Principles · CFA Level III, from the basics</title>
+<meta name="description" content="Animated CFA Level III lessons that take every idea back to first principles: pictures before formulas, intuition before memorising, and worked exam questions.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-roman.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+
+:root {
+  --black: #000000;   /* the canvas of every video */
+  --ink: #ECECEC;     /* soft white: pure white glows on black */
+  --soft: #BBBBBB;    /* body text */
+  --dim: #888888;     /* captions */
+  --rule: #444444;    /* hairlines */
+  --blue: #58C4DD;    /* "First", data, links */
+  --yellow: #FFFF00;  /* the point on the i, used once */
+  --measure: 34rem;
+}
+* { box-sizing: border-box; }
+html { background: var(--black); }
+body {
+  margin: 0; background: var(--black); color: var(--soft);
+  font: 400 1.1875rem/1.62 "CMU Serif", "Latin Modern Roman", Georgia, serif;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: var(--blue); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+h1, h2, h3 { color: var(--ink); font-weight: 400; margin: 0; }
+p { margin: 0 0 1em; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------------------------------------------------------- hero: the ident */
+.hero { position: relative; height: min(100svh, 56rem); min-height: 30rem; }
+.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hero .line {
+  position: absolute; left: 0; right: 0; bottom: clamp(2.5rem, 9vh, 5rem);
+  text-align: center; padding: 0 1rem; margin: 0;
+  font-style: italic; color: var(--soft); font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.hero.done .line { opacity: 1; }
+
+/* ---------------------------------------------------------- page */
+main { padding: 0 1rem 6rem; }
+section { max-width: 62rem; margin: 0 auto; padding: clamp(4rem, 10vw, 7.5rem) 0 0; }
+h2 { font-size: clamp(1.9rem, 4.2vw, 2.6rem); line-height: 1.15; margin-bottom: 1.2rem; max-width: 26ch; }
+.lead { max-width: var(--measure); color: var(--soft); }
+.lead em { color: var(--ink); }
+
+/* approach: text beside the HHI picture */
+.approach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+figure { margin: 0; }
+figure svg { width: 100%; height: auto; display: block; max-width: 26rem; }
+figcaption { color: var(--dim); font-size: 0.95rem; line-height: 1.55; margin-top: 1rem; max-width: 26rem; }
+figcaption i, .lead i { font-style: italic; }
+
+/* courses */
+.courses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem clamp(2rem, 6vw, 5rem); margin-top: 2.5rem; }
+.course h3 { font-size: 1.45rem; line-height: 1.25; }
+.course .reading { color: var(--dim); font-style: italic; margin: 0.25rem 0 1.25rem; font-size: 1rem; }
+.course ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
+.course li { display: grid; grid-template-columns: 4.2rem 1fr; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); color: var(--ink); }
+.course li span { color: var(--dim); }
+
+/* what a lesson holds */
+.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem clamp(2rem, 6vw, 5rem); margin-top: 2rem; }
+.parts h3 { font-size: 1.2rem; margin-bottom: 0.35rem; }
+.parts p { color: var(--soft); max-width: 28rem; margin: 0; }
+.status { margin-top: 3.5rem; color: var(--ink); font-size: 1.3rem; max-width: var(--measure); }
+
+footer { max-width: 62rem; margin: 0 auto; padding: 3rem 1rem 3rem; border-top: 1px solid var(--rule); color: var(--dim); font-size: 0.875rem; line-height: 1.6; }
+footer p { max-width: 46rem; }
+.mark { color: var(--ink); }
+.mark b { color: var(--blue); font-weight: 400; }
+
+@media (max-width: 760px) {
+  .approach, .courses, .parts { grid-template-columns: 1fr; }
+  body { font-size: 1.0625rem; }
+}
+@media (prefers-reduced-motion: reduce) { .hero .line { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="hero" id="hero">
+  <h1 class="sr-only">First Principles</h1>
+  <canvas id="ident" aria-hidden="true"></canvas>
+  <p class="line">CFA Level III, taken back to the basics and drawn until it is obvious.</p>
+</header>
+
+<main>
+  <section class="approach" aria-labelledby="approach-h">
+    <div>
+      <h2 id="approach-h">Pictures before formulas</h2>
+      <p class="lead">Every lesson starts from what is true, builds the idea one step at a time, and only then writes the formula. By that point the formula just says what you can already see.</p>
+      <p class="lead">Take index concentration. The curriculum gives you <i>HHI = Σ w²</i> to memorise. Draw it instead, and it becomes something you will not forget.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 400 400" role="img" aria-labelledby="hhi-t hhi-d">
+        <title id="hhi-t">The Herfindahl–Hirschman Index drawn as an area</title>
+        <desc id="hhi-d">A square of side one is cut at each stock's index weight, 40, 25, 15, 12 and 8 percent, along both edges. The five squares on the diagonal have areas equal to the squared weights and together cover 27 percent of the square.</desc>
+        <g id="hhi"></g>
+      </svg>
+      <figcaption>Cut a unit square at each stock's weight, along both edges. The squares on the diagonal have areas <i>w</i>², so together they <em>are</em> the HHI: 0.27 of the board. This five-stock index behaves like 1 / 0.27 ≈ 3.8 equal-weighted stocks.</figcaption>
+    </figure>
+  </section>
+
+  <section aria-labelledby="courses-h">
+    <h2 id="courses-h">The first course: CFA Level III equity</h2>
+    <p class="lead">Two readings, each split into six short lessons of ten to fifteen minutes, grouped by learning outcome.</p>
+    <div class="courses">
+      <div class="course">
+        <h3>Index-Based Equity Strategies</h3>
+        <p class="reading">Six lessons</p>
+        <ol>
+          <li><span>Part 1</span>Foundations: what makes a good index</li>
+          <li><span>Part 2</span>Factor-based strategies</li>
+          <li><span>Part 3</span>Mutual funds, ETFs and derivatives</li>
+          <li><span>Part 4</span>Building the portfolio</li>
+          <li><span>Part 5</span>Tracking error</li>
+          <li><span>Part 6</span>Attribution, securities lending and activism</li>
+        </ol>
+      </div>
+      <div class="course">
+        <h3>Active Equity Investing: Strategies</h3>
+        <p class="reading">Six lessons</p>
+        <ol>
+          <li><span>Part 1</span>Fundamental and quantitative: two approaches</li>
+          <li><span>Part 2</span>Bottom-up strategies</li>
+          <li><span>Part 3</span>Top-down strategies and activism</li>
+          <li><span>Part 4</span>Factor-based strategies</li>
+          <li><span>Part 5</span>Arbitrage and the research process</li>
+          <li><span>Part 6</span>The quantitative process and style analysis</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="lesson-h">
+    <h2 id="lesson-h">What every lesson gives you</h2>
+    <div class="parts">
+      <div><h3>The idea, animated</h3><p>Charts that build themselves, real-looking market data, and one idea on screen at a time.</p></div>
+      <div><h3>The intuition behind it</h3><p>Short first-principles asides: why a result has to be true, told with an everyday analogy.</p></div>
+      <div><h3>Pause and predict</h3><p>Quick questions in the middle of the lesson, so you test yourself before the answer appears.</p></div>
+      <div><h3>Exam questions, solved</h3><p>Worked vignette questions, read and answered the way the exam asks them, with why each wrong option is wrong.</p></div>
+    </div>
+    <p class="status">The lessons are in production and open in 2027.</p>
+  </section>
+</main>
+
+<footer>
+  <p class="mark"><b>First</b> Principles</p>
+  <p>CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by First Principles. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.</p>
+  <p>© 2026 First Principles. Typeset in Computer Modern (CMU Serif, SIL Open Font License).</p>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------ HHI figure */
+(function () {
+  const w = [0.40, 0.25, 0.15, 0.12, 0.08], S = 360, o = 20, g = document.getElementById("hhi");
+  const ns = "http://www.w3.org/2000/svg";
+  const el = (n, a) => { const e = document.createElementNS(ns, n); for (const k in a) e.setAttribute(k, a[k]); g.appendChild(e); return e; };
+  let c = 0;
+  w.forEach((wi) => {
+    el("rect", { x: o + c * S, y: o + c * S, width: wi * S, height: wi * S, fill: "#58C4DD", "fill-opacity": 0.75 });
+    c += wi;
+  });
+  c = 0;
+  w.slice(0, -1).forEach((wi) => {
+    c += wi;
+    el("line", { x1: o + c * S, y1: o, x2: o + c * S, y2: o + S, stroke: "#444", "stroke-width": 1 });
+    el("line", { x1: o, y1: o + c * S, x2: o + S, y2: o + c * S, stroke: "#444", "stroke-width": 1 });
+  });
+  el("rect", { x: o, y: o, width: S, height: S, fill: "none", stroke: "#BBBBBB", "stroke-width": 1.5 });
+  c = 0;
+  w.forEach((wi) => {
+    const t = el("text", { x: o + (c + wi / 2) * S, y: o + (c + wi / 2) * S + 6, "text-anchor": "middle",
+      fill: "#000", "font-family": "CMU Serif, serif", "font-size": Math.max(12, wi * 70) });
+    t.textContent = Math.round(wi * 100) + "%";
+    c += wi;
+  });
+})();
+
+/* ------------------------------------------------------------------ the ident
+   The same story as the video intro: a market chart, a dive into one point,
+   and that point becomes the dot on the i of "First Principles". */
+(function () {
+  const hero = document.getElementById("hero"), cv = document.getElementById("ident"), ctx = cv.getContext("2d");
+  const BLUE = "#58C4DD", BLUE_B = "#9CDCEB", INK = "#ECECEC", YELLOW = "#FFFF00";
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let W = 0, H = 0, dpr = 1;
+
+  // a jagged random walk, the same every visit (seeded)
+  function rng(seed) { return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+  const r = rng(12), n = 46, k = (n >> 1) + 2, ys = [];
+  let y = 0;
+  for (let i = 0; i < n; i++) { const u = r() || 1e-9, v = r(); y += 0.03 + 0.4 * Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); ys.push(y); }
+
+  function size() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // where the wordmark sits, and where its i-dot is (found by scanning a drawn "i")
+  function layout() {
+    const s = Math.max(44, Math.min(W * (W < 700 ? 0.2 : 0.125), H * 0.2, 150));
+    const font = `400 ${s}px "CMU Serif", Georgia, serif`;
+    ctx.font = font;
+    const wF = ctx.measureText("F").width, w1 = ctx.measureText("Fırst").width, w2 = ctx.measureText("Principles").width;
+    const block = Math.max(w1, w2), x0 = (W - block) / 2, gap = s * 1.02, base1 = H * 0.46 - gap * 0.15, base2 = base1 + gap;
+    const off = document.createElement("canvas"), oc = off.getContext("2d"), pad = Math.ceil(s * 1.2);
+    off.width = pad * 2; off.height = pad * 2; oc.font = font; oc.fillStyle = "#fff"; oc.fillText("i", pad, pad);
+    const img = oc.getImageData(0, 0, off.width, off.height).data, rowInk = (row) => {
+      let a = 1e9, b = -1;
+      for (let x = 0; x < off.width; x++) if (img[(row * off.width + x) * 4 + 3] > 100) { a = Math.min(a, x); b = Math.max(b, x); }
+      return b < 0 ? null : [a, b];
+    };
+    let top = -1, bottom = -1, xa = 1e9, xb = -1;
+    for (let row = 0; row < off.height; row++) {
+      const ink = rowInk(row);
+      if (ink && top < 0) top = row;
+      if (top >= 0) { if (!ink) { bottom = row; break; } xa = Math.min(xa, ink[0]); xb = Math.max(xb, ink[1]); }
+    }
+    const dot = { x: x0 + wF + ((xa + xb) / 2 - pad), y: base1 + ((top + bottom) / 2 - pad), r: Math.max(2, (bottom - top) * 0.56) };
+    return { font, x0, base1, base2, dot, s };
+  }
+
+  function chartPoints() {
+    const xs = [], span = W * 0.92;
+    let lo = Infinity, hi = -Infinity;
+    ys.forEach((v) => { lo = Math.min(lo, v - ys[k]); hi = Math.max(hi, v - ys[k]); });
+    const scaleY = Math.min((H * 0.3) / Math.max(Math.abs(lo), Math.abs(hi), 1e-6), span / 6);
+    for (let i = 0; i < n; i++) xs.push([W / 2 + (i - k) * span / (n - 1), H * 0.46 - (ys[i] - ys[k]) * scaleY]);
+    return xs;
+  }
+
+  const ease = (t) => t * t * t;                      // rush into
+  const smooth = (t) => t * t * (3 - 2 * t);
+  const clamp = (t) => Math.max(0, Math.min(1, t));
+
+  function frame(t, L, P) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    const cx = P[k][0], cy = P[k][1];
+    // 1. the chart draws itself (0 to 1.0 s), points and the star appear (1.0 to 1.3 s)
+    // 2. dive into the star (1.45 to 2.75 s)
+    const dive = ease(clamp((t - 1.45) / 1.3)), zoom = 1 + 33 * dive, fade = 1 - dive;
+    if (fade > 0.01) {
+      ctx.save();
+      ctx.translate(cx, cy); ctx.scale(zoom, zoom); ctx.translate(-cx, -cy);
+      ctx.globalAlpha = fade;
+      const drawn = clamp(t / 1.0) * (n - 1);
+      ctx.strokeStyle = BLUE; ctx.lineWidth = 2.4 / zoom; ctx.lineJoin = "miter"; ctx.beginPath();
+      ctx.moveTo(P[0][0], P[0][1]);
+      for (let i = 1; i <= Math.floor(drawn); i++) ctx.lineTo(P[i][0], P[i][1]);
+      const f = drawn - Math.floor(drawn), j = Math.floor(drawn);
+      if (j < n - 1) ctx.lineTo(P[j][0] + (P[j + 1][0] - P[j][0]) * f, P[j][1] + (P[j + 1][1] - P[j][1]) * f);
+      ctx.stroke();
+      const dots = clamp((t - 1.0) / 0.25);
+      if (dots > 0) {
+        ctx.globalAlpha = fade * dots; ctx.fillStyle = BLUE_B;
+        P.forEach((p, i) => { if (i !== k) { ctx.beginPath(); ctx.arc(p[0], p[1], 3.2 / zoom, 0, 7); ctx.fill(); } });
+      }
+      ctx.restore();
+    }
+    // the star: born at the chart's point, grows during the dive, then becomes the i-dot
+    if (t >= 1.0) {
+      const grow = 4 + 40 * dive;
+      const land = smooth(clamp((t - 2.9) / 1.1));
+      const x = cx + (L.dot.x - cx) * land, y = cy + (L.dot.y - cy) * land;
+      const rad = grow + (L.dot.r - grow) * land;
+      ctx.globalAlpha = 1; ctx.fillStyle = YELLOW;
+      ctx.beginPath(); ctx.arc(x, y, rad, 0, 7); ctx.fill();
+      const flash = clamp((t - 1.0) / 0.45);
+      if (flash > 0 && flash < 1) {
+        ctx.strokeStyle = YELLOW; ctx.lineWidth = 2; ctx.globalAlpha = 1 - flash;
+        for (let a = 0; a < 12; a++) {
+          const ang = a / 12 * Math.PI * 2, r0 = 10 + 18 * flash, r1 = r0 + 9;
+          ctx.beginPath(); ctx.moveTo(cx + r0 * Math.cos(ang), cy + r0 * Math.sin(ang)); ctx.lineTo(cx + r1 * Math.cos(ang), cy + r1 * Math.sin(ang)); ctx.stroke();
+        }
+        ctx.globalAlpha = 1;
+      }
+    }
+    // 3. the name is written (from 2.9 s)
+    const name = smooth(clamp((t - 2.9) / 1.0));
+    if (name > 0) {
+      ctx.font = L.font; ctx.textBaseline = "alphabetic";
+      ctx.globalAlpha = name; ctx.fillStyle = BLUE; ctx.fillText("Fırst", L.x0, L.base1);
+      ctx.globalAlpha = clamp((t - 3.25) / 1.0); ctx.fillStyle = INK; ctx.fillText("Principles", L.x0, L.base2);
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  let L, P, start = 0, finished = false;
+  function rebuild() { size(); L = layout(); P = chartPoints(); }
+  function run(now) {
+    if (!start) start = now;
+    const t = (now - start) / 1000;
+    frame(t, L, P);
+    if (t < 4.6) requestAnimationFrame(run); else { finished = true; hero.classList.add("done"); }
+  }
+  const go = () => {
+    rebuild();
+    if (still) { frame(10, L, P); finished = true; hero.classList.add("done"); }
+    else requestAnimationFrame(run);
+  };
+  window.addEventListener("resize", () => { rebuild(); if (finished) frame(10, L, P); });
+  (document.fonts && document.fonts.load) ? document.fonts.load('400 64px "CMU Serif"').then(go, go) : go();
+})();
+</script>
+</body>
+</html>
