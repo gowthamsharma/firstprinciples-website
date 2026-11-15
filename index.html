@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>First Principles · CFA Level III, from the basics</title>
-<meta name="description" content="Animated CFA Level III lessons that take every idea back to first principles: pictures before formulas, intuition before memorising, and worked exam questions.">
+<title>First Principles · CFA, from the basics</title>
+<meta name="description" content="Animated CFA lessons that take every idea back to first principles: pictures before formulas, intuition before memorising, and exam questions solved step by step. Opening in 2027.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,144 +13,196 @@
 @font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 
 :root {
-  --black: #000000;   /* the canvas of every video */
-  --ink: #ECECEC;     /* soft white: pure white glows on black */
-  --soft: #BBBBBB;    /* body text */
-  --dim: #888888;     /* captions */
-  --rule: #444444;    /* hairlines */
-  --blue: #58C4DD;    /* "First", data, links */
-  --yellow: #FFFF00;  /* the point on the i, used once */
-  --measure: 34rem;
+  --black: #000000; --ink: #ECECEC; --soft: #BBBBBB; --dim: #888888; --rule: #333333;
+  --blue: #58C4DD; --teal: #5CD0B3; --yellow: #FFFF00;
 }
 * { box-sizing: border-box; }
 html { background: var(--black); }
 body {
   margin: 0; background: var(--black); color: var(--soft);
   font: 400 1.1875rem/1.62 "CMU Serif", "Latin Modern Roman", Georgia, serif;
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden;
 }
-a { color: var(--blue); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+a { color: var(--blue); text-underline-offset: 0.18em; }
 h1, h2, h3 { color: var(--ink); font-weight: 400; margin: 0; }
 p { margin: 0 0 1em; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 1rem; }
 
-/* ---------------------------------------------------------- hero: the ident */
-.hero { position: relative; height: min(100svh, 56rem); min-height: 30rem; }
+/* the price line along the top grows as you read */
+#tape { position: fixed; top: 0; left: 0; width: 100%; height: 26px; z-index: 5; pointer-events: none; }
+
+/* hero */
+.hero { position: relative; height: 100svh; min-height: 30rem; }
 .hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hero .line {
-  position: absolute; left: 0; right: 0; bottom: clamp(2.5rem, 9vh, 5rem);
-  text-align: center; padding: 0 1rem; margin: 0;
-  font-style: italic; color: var(--soft); font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-  opacity: 0; transition: opacity 1.2s ease;
-}
-.hero.done .line { opacity: 1; }
+.hero .line { position: absolute; left: 0; right: 0; bottom: clamp(3.5rem, 11vh, 6rem); text-align: center; padding: 0 1rem; margin: 0;
+  font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.35rem); opacity: 0; transition: opacity 1.2s ease; }
+.hero .cue { position: absolute; left: 50%; bottom: 1.4rem; width: 1px; height: 2.4rem; background: linear-gradient(var(--blue), transparent);
+  opacity: 0; transition: opacity 1.2s ease; animation: drip 2.2s ease-in-out infinite; }
+.hero.done .line, .hero.done .cue { opacity: 1; }
+@keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
 
-/* ---------------------------------------------------------- page */
-main { padding: 0 1rem 6rem; }
-section { max-width: 62rem; margin: 0 auto; padding: clamp(4rem, 10vw, 7.5rem) 0 0; }
-h2 { font-size: clamp(1.9rem, 4.2vw, 2.6rem); line-height: 1.15; margin-bottom: 1.2rem; max-width: 26ch; }
-.lead { max-width: var(--measure); color: var(--soft); }
-.lead em { color: var(--ink); }
+/* ticker */
+.ticker { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); overflow: hidden; white-space: nowrap; padding: 0.9rem 0; color: var(--ink); font-style: italic; }
+.ticker div { display: inline-block; animation: run 48s linear infinite; }
+.ticker span { margin: 0 1.6rem; }
+.ticker span::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); margin-left: 3.2rem; vertical-align: middle; }
+@keyframes run { to { transform: translateX(-50%); } }
 
-/* approach: text beside the HHI picture */
-.approach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
-figure { margin: 0; }
-figure svg { width: 100%; height: auto; display: block; max-width: 26rem; }
-figcaption { color: var(--dim); font-size: 0.95rem; line-height: 1.55; margin-top: 1rem; max-width: 26rem; }
-figcaption i, .lead i { font-style: italic; }
+/* pinned scroll scenes */
+.scene { position: relative; }
+#levels { height: 460vh; }
+#option { height: 300vh; }
+.pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center; gap: clamp(1.5rem, 5vw, 4.5rem); max-width: 72rem; margin: 0 auto; padding: 2rem 1rem 1rem; }
+.pin canvas { width: 100%; height: min(68svh, 34rem); display: block; }
+.copy p { max-width: 30rem; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; margin: 0 0 1.8rem; align-items: end; }
+.steps span { color: var(--dim); font-size: 0.95rem; transition: color .4s; }
+.steps span.on { color: var(--ink); }
+.steps b { display: block; background: #1a1a1a; margin-bottom: 0.45rem; position: relative; overflow: hidden; }
+.steps span:nth-child(1) b { height: 0.6rem; } .steps span:nth-child(2) b { height: 1.2rem; } .steps span:nth-child(3) b { height: 1.8rem; }
+.steps i { position: absolute; inset: 0; background: var(--blue); transform-origin: left; transform: scaleX(0); }
+.lvls { position: relative; min-height: 11rem; }
+.lvl { position: absolute; inset: 0 0 auto 0; opacity: 0; transform: translateY(1rem); transition: opacity .5s ease, transform .5s ease; }
+.lvl.on { opacity: 1; transform: none; }
+.lvl h3 { font-size: 1.5rem; margin-bottom: 0.6rem; }
+.readout { color: var(--ink); font-size: 1.25rem; }
+.readout b { color: var(--blue); font-weight: 400; font-variant-numeric: tabular-nums; display: inline-block; min-width: 2.6em; }
 
-/* courses */
-.courses { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3rem clamp(2rem, 6vw, 5rem); margin-top: 2.5rem; }
-.course h3 { font-size: 1.45rem; line-height: 1.25; }
-.course .reading { color: var(--dim); font-style: italic; margin: 0.25rem 0 1.25rem; font-size: 1rem; }
-.course ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
-.course li { display: grid; grid-template-columns: 4.2rem 1fr; padding: 0.7rem 0; border-bottom: 1px solid var(--rule); color: var(--ink); }
-.course li span { color: var(--dim); }
+/* pictures before formulas */
+.approach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; padding: clamp(5rem, 12vw, 9rem) 1rem; }
+.approach canvas { width: 100%; max-width: 28rem; aspect-ratio: 1; display: block; }
+.approach .cap { color: var(--dim); font-size: 0.95rem; margin-top: 1rem; max-width: 28rem; }
+.approach .cap b { color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
 
-/* what a lesson holds */
-.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem clamp(2rem, 6vw, 5rem); margin-top: 2rem; }
+/* formula wall */
+.wall { position: relative; height: 150vh; overflow: hidden; display: grid; place-items: center; }
+.wall h2 { position: relative; z-index: 2; text-shadow: 0 0 18px #000, 0 0 36px #000, 0 0 60px #000; text-align: center; max-width: 16ch; padding: 0 1rem; }
+.wall .f { position: absolute; white-space: nowrap; color: var(--blue); will-change: transform; font-style: italic; }
+.wall .f.far { color: #2e5f6b; font-size: 0.95rem; } .wall .f.mid { color: #4a9db0; font-size: 1.3rem; } .wall .f.near { font-size: 1.9rem; }
+.wall sub { font-size: 0.65em; }
+
+/* lessons */
+.lessons { padding: clamp(5rem, 12vw, 9rem) 1rem; }
+.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.6rem clamp(2rem, 6vw, 5rem); margin-top: 2.4rem; }
+.parts > div { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1.1rem; align-items: start; }
+.parts svg { width: 3.2rem; height: 3.2rem; overflow: visible; }
+.parts svg * { fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s ease; }
+.parts .on svg * { stroke-dashoffset: 0; }
 .parts h3 { font-size: 1.2rem; margin-bottom: 0.35rem; }
-.parts p { color: var(--soft); max-width: 28rem; margin: 0; }
-.status { margin-top: 3.5rem; color: var(--ink); font-size: 1.3rem; max-width: var(--measure); }
+.parts p { margin: 0; max-width: 28rem; }
 
-footer { max-width: 62rem; margin: 0 auto; padding: 3rem 1rem 3rem; border-top: 1px solid var(--rule); color: var(--dim); font-size: 0.875rem; line-height: 1.6; }
+/* 2027 */
+.soon { min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 6rem 1rem; position: relative; overflow: hidden; }
+.soon canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.soon > div { position: relative; }
+.soon .kick { color: var(--soft); font-style: italic; font-size: clamp(1.1rem, 2.4vw, 1.5rem); margin-bottom: 0.5rem; }
+.year { font-size: clamp(5rem, 22vw, 15rem); line-height: 1; color: var(--ink); display: inline-flex; letter-spacing: -0.02em; }
+.year .roll { display: inline-block; height: 1em; overflow: hidden; color: var(--yellow); }
+.year .roll span { display: block; will-change: transform; }
+.soon p.lead { max-width: 34rem; margin: 1.6rem auto 0; }
+
+footer { max-width: 72rem; margin: 0 auto; padding: 3rem 1rem; border-top: 1px solid var(--rule); color: var(--dim); font-size: 0.875rem; line-height: 1.6; }
 footer p { max-width: 46rem; }
-.mark { color: var(--ink); }
-.mark b { color: var(--blue); font-weight: 400; }
+.mark { color: var(--ink); } .mark b { color: var(--blue); font-weight: 400; }
 
 @media (max-width: 760px) {
-  .approach, .courses, .parts { grid-template-columns: 1fr; }
   body { font-size: 1.0625rem; }
+  .pin { grid-template-columns: 1fr; align-content: center; gap: 0.6rem; padding-top: 2.4rem; }
+  .pin canvas { height: 46svh; }
+  .lvls { min-height: 9.5rem; }
+  .copy h2 { font-size: 1.8rem; margin-bottom: 0.6rem; }
+  .steps { margin-bottom: 0.8rem; }
+  .approach, .parts { grid-template-columns: 1fr; }
+  .wall .f.far { font-size: 0.8rem; } .wall .f.mid { font-size: 1rem; } .wall .f.near { font-size: 1.3rem; }
 }
-@media (prefers-reduced-motion: reduce) { .hero .line { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .ticker div, .hero .cue { animation: none; }
+  .lvl, .parts svg *, .hero .line { transition: none; }
+}
 </style>
 </head>
 <body>
+<canvas id="tape" aria-hidden="true"></canvas>
 
 <header class="hero" id="hero">
   <h1 class="sr-only">First Principles</h1>
   <canvas id="ident" aria-hidden="true"></canvas>
-  <p class="line">CFA Level III, taken back to the basics and drawn until it is obvious.</p>
+  <p class="line">The CFA Program, taken back to the basics and drawn until it is obvious.</p>
+  <span class="cue" aria-hidden="true"></span>
 </header>
 
+<div class="ticker" aria-hidden="true"><div>
+  <span>Time value of money</span><span>Duration and convexity</span><span>Black–Scholes</span><span>Efficient frontier</span><span>Discounted cash flow</span><span>Factor models</span><span>Swaps and forwards</span><span>Capital market line</span><span>Tracking error</span><span>Hypothesis testing</span>
+  <span>Time value of money</span><span>Duration and convexity</span><span>Black–Scholes</span><span>Efficient frontier</span><span>Discounted cash flow</span><span>Factor models</span><span>Swaps and forwards</span><span>Capital market line</span><span>Tracking error</span><span>Hypothesis testing</span>
+</div></div>
+
 <main>
-  <section class="approach" aria-labelledby="approach-h">
+  <section class="scene" id="levels" aria-labelledby="levels-h">
+    <div class="pin">
+      <div class="copy">
+        <h2 id="levels-h">Three levels, one staircase</h2>
+        <div class="steps" aria-hidden="true"><span><b><i></i></b>Level I</span><span><b><i></i></b>Level II</span><span><b><i></i></b>Level III</span></div>
+        <div class="lvls">
+          <article class="lvl on"><h3>Level I: the tools</h3><p>The time value of money, statistics, accounting and the language of markets. Small ideas that compound, like money does.</p></article>
+          <article class="lvl"><h3>Level II: valuation</h3><p>What is an asset worth today? Bring every future cash flow back to the present, and question every assumption on the way.</p></article>
+          <article class="lvl"><h3>Level III: portfolio management</h3><p>Putting it all together for a real client: risk against return, and the one line every portfolio is trying to reach.</p></article>
+        </div>
+      </div>
+      <canvas id="levels-cv" aria-hidden="true"></canvas>
+    </div>
+  </section>
+
+  <section class="wrap approach" id="approach" aria-labelledby="approach-h">
     <div>
       <h2 id="approach-h">Pictures before formulas</h2>
-      <p class="lead">Every lesson starts from what is true, builds the idea one step at a time, and only then writes the formula. By that point the formula just says what you can already see.</p>
-      <p class="lead">Take index concentration. The curriculum gives you <i>HHI = Σ w²</i> to memorise. Draw it instead, and it becomes something you will not forget.</p>
+      <p>Every lesson starts from what is true and builds the idea one step at a time. The formula comes last, and by then it only says what you can already see.</p>
+      <p>Take concentration in a portfolio. On paper it is <i>Σ w²</i>. Cut a square at each weight, along both edges, and the squares on the diagonal <em>are</em> that sum.</p>
     </div>
-    <figure>
-      <svg viewBox="0 0 400 400" role="img" aria-labelledby="hhi-t hhi-d">
-        <title id="hhi-t">The Herfindahl–Hirschman Index drawn as an area</title>
-        <desc id="hhi-d">A square of side one is cut at each stock's index weight, 40, 25, 15, 12 and 8 percent, along both edges. The five squares on the diagonal have areas equal to the squared weights and together cover 27 percent of the square.</desc>
-        <g id="hhi"></g>
-      </svg>
-      <figcaption>Cut a unit square at each stock's weight, along both edges. The squares on the diagonal have areas <i>w</i>², so together they <em>are</em> the HHI: 0.27 of the board. This five-stock index behaves like 1 / 0.27 ≈ 3.8 equal-weighted stocks.</figcaption>
-    </figure>
-  </section>
-
-  <section aria-labelledby="courses-h">
-    <h2 id="courses-h">The first course: CFA Level III equity</h2>
-    <p class="lead">Two readings, each split into six short lessons of ten to fifteen minutes, grouped by learning outcome.</p>
-    <div class="courses">
-      <div class="course">
-        <h3>Index-Based Equity Strategies</h3>
-        <p class="reading">Six lessons</p>
-        <ol>
-          <li><span>Part 1</span>Foundations: what makes a good index</li>
-          <li><span>Part 2</span>Factor-based strategies</li>
-          <li><span>Part 3</span>Mutual funds, ETFs and derivatives</li>
-          <li><span>Part 4</span>Building the portfolio</li>
-          <li><span>Part 5</span>Tracking error</li>
-          <li><span>Part 6</span>Attribution, securities lending and activism</li>
-        </ol>
-      </div>
-      <div class="course">
-        <h3>Active Equity Investing: Strategies</h3>
-        <p class="reading">Six lessons</p>
-        <ol>
-          <li><span>Part 1</span>Fundamental and quantitative: two approaches</li>
-          <li><span>Part 2</span>Bottom-up strategies</li>
-          <li><span>Part 3</span>Top-down strategies and activism</li>
-          <li><span>Part 4</span>Factor-based strategies</li>
-          <li><span>Part 5</span>Arbitrage and the research process</li>
-          <li><span>Part 6</span>The quantitative process and style analysis</li>
-        </ol>
-      </div>
+    <div>
+      <canvas id="hhi" aria-hidden="true"></canvas>
+      <p class="cap">Weights 40, 25, 15, 12 and 8 percent. Squares so far: <b id="hhi-v">0.000</b> of the board, so the portfolio behaves like <b id="hhi-n">∞</b> equal-weighted holdings.</p>
     </div>
   </section>
 
-  <section aria-labelledby="lesson-h">
+  <section class="scene" id="option" aria-labelledby="option-h">
+    <div class="pin">
+      <div class="copy">
+        <h2 id="option-h">Watch time run out</h2>
+        <p>An option is worth its payoff plus time value. Keep scrolling and expiry gets closer: the curve sinks onto the hockey stick, because on the last day only the payoff is left.</p>
+        <p class="readout">Time to expiry: <b id="opt-t">1.00</b> years</p>
+      </div>
+      <canvas id="option-cv" aria-hidden="true"></canvas>
+    </div>
+  </section>
+
+  <section class="wall" id="wall" aria-labelledby="wall-h">
+    <h2 id="wall-h">Every formula is a picture waiting to be drawn</h2>
+  </section>
+
+  <section class="wrap lessons" aria-labelledby="lesson-h">
     <h2 id="lesson-h">What every lesson gives you</h2>
     <div class="parts">
-      <div><h3>The idea, animated</h3><p>Charts that build themselves, real-looking market data, and one idea on screen at a time.</p></div>
-      <div><h3>The intuition behind it</h3><p>Short first-principles asides: why a result has to be true, told with an everyday analogy.</p></div>
-      <div><h3>Pause and predict</h3><p>Quick questions in the middle of the lesson, so you test yourself before the answer appears.</p></div>
-      <div><h3>Exam questions, solved</h3><p>Worked vignette questions, read and answered the way the exam asks them, with why each wrong option is wrong.</p></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" pathLength="1"/><path d="M19 15 L34 24 L19 33 Z" pathLength="1"/></svg>
+        <div><h3>The idea, animated</h3><p>Charts that build themselves, realistic market data, and one idea on screen at a time.</p></div></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 30 C10 24 12 6 24 6 C36 6 38 24 31 30 L31 36 L17 36 Z" pathLength="1"/><path d="M19 42 L29 42" pathLength="1"/></svg>
+        <div><h3>The intuition behind it</h3><p>Short first-principles asides: why a result has to be true, told with an everyday analogy.</p></div></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 15 C15 4 33 4 33 15 C33 23 24 23 24 31" pathLength="1"/><path d="M24 39 L24 41" pathLength="1"/></svg>
+        <div><h3>Pause and predict</h3><p>Quick questions in the middle of a lesson, so you test yourself before the answer appears.</p></div></div>
+      <div><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="38" height="38" rx="3" pathLength="1"/><path d="M13 25 L21 33 L36 15" pathLength="1"/></svg>
+        <div><h3>Exam questions, solved</h3><p>Vignette questions read and answered the way the exam asks them, with why each wrong option is wrong.</p></div></div>
     </div>
-    <p class="status">The lessons are in production and open in 2027.</p>
+  </section>
+
+  <section class="soon" id="soon" aria-labelledby="soon-h">
+    <canvas id="soon-cv" aria-hidden="true"></canvas>
+    <div>
+      <p class="kick">A CFA course, opening in</p>
+      <h2 id="soon-h" class="year" aria-label="2027">202<span class="roll"><span>6</span><span>7</span></span></h2>
+      <p class="lead">Short animated lessons, intuition first, with exam-style questions solved step by step. Built through 2026, open in 2027.</p>
+    </div>
   </section>
 </main>
 
@@ -161,32 +213,6 @@ footer p { max-width: 46rem; }
 </footer>
 
 <script>
-/* ------------------------------------------------------------------ HHI figure */
-(function () {
-  const w = [0.40, 0.25, 0.15, 0.12, 0.08], S = 360, o = 20, g = document.getElementById("hhi");
-  const ns = "http://www.w3.org/2000/svg";
-  const el = (n, a) => { const e = document.createElementNS(ns, n); for (const k in a) e.setAttribute(k, a[k]); g.appendChild(e); return e; };
-  let c = 0;
-  w.forEach((wi) => {
-    el("rect", { x: o + c * S, y: o + c * S, width: wi * S, height: wi * S, fill: "#58C4DD", "fill-opacity": 0.75 });
-    c += wi;
-  });
-  c = 0;
-  w.slice(0, -1).forEach((wi) => {
-    c += wi;
-    el("line", { x1: o + c * S, y1: o, x2: o + c * S, y2: o + S, stroke: "#444", "stroke-width": 1 });
-    el("line", { x1: o, y1: o + c * S, x2: o + S, y2: o + c * S, stroke: "#444", "stroke-width": 1 });
-  });
-  el("rect", { x: o, y: o, width: S, height: S, fill: "none", stroke: "#BBBBBB", "stroke-width": 1.5 });
-  c = 0;
-  w.forEach((wi) => {
-    const t = el("text", { x: o + (c + wi / 2) * S, y: o + (c + wi / 2) * S + 6, "text-anchor": "middle",
-      fill: "#000", "font-family": "CMU Serif, serif", "font-size": Math.max(12, wi * 70) });
-    t.textContent = Math.round(wi * 100) + "%";
-    c += wi;
-  });
-})();
-
 /* ------------------------------------------------------------------ the ident
    The same story as the video intro: a market chart, a dive into one point,
    and that point becomes the dot on the i of "First Principles". */
@@ -315,6 +341,231 @@ footer p { max-width: 46rem; }
   window.addEventListener("resize", () => { rebuild(); if (finished) frame(10, L, P); });
   (document.fonts && document.fonts.load) ? document.fonts.load('400 64px "CMU Serif"').then(go, go) : go();
 })();
+/* ------------------------------------------------------------------ scroll scenes
+   Every scene is driven by how far you have scrolled (never by a timer), eased so it glides. */
+(function () {
+  const C = { blue: "#58C4DD", blueB: "#9CDCEB", ink: "#ECECEC", soft: "#BBBBBB", dim: "#888888", rule: "#333333",
+              yellow: "#FFFF00", teal: "#5CD0B3", red: "#FC6255" };
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const clamp = (t, a = 0, b = 1) => Math.max(a, Math.min(b, t));
+  const smooth = (t) => t * t * (3 - 2 * t);
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const FONT = '"CMU Serif", Georgia, serif';
+  function rng(seed) { return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
+  function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x);
+    return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); }
+  const Ncdf = (x) => 0.5 * (1 + erf(x / Math.SQRT2));
+
+  function stage(cv) {
+    const s = { cv, ctx: cv.getContext("2d"), W: 0, H: 0 };
+    s.fit = () => { const d = Math.min(window.devicePixelRatio || 1, 2); s.W = cv.clientWidth; s.H = cv.clientHeight;
+      cv.width = Math.max(1, Math.round(s.W * d)); cv.height = Math.max(1, Math.round(s.H * d)); s.ctx.setTransform(d, 0, 0, d, 0, 0); };
+    s.fit(); return s;
+  }
+  // how far through a pinned scene (0 at its top, 1 when its end reaches the bottom of the screen)
+  const pinned = (el) => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(r.height - innerHeight, 1)); };
+  // how far a normal section has come into view
+  const entering = (el) => { const r = el.getBoundingClientRect(); return clamp((innerHeight * 0.92 - r.top) / (innerHeight * 0.65)); };
+  const near = (el) => { const r = el.getBoundingClientRect(); return r.bottom > -200 && r.top < innerHeight + 200; };
+
+  function text(ctx, s, x, y, o = {}) {
+    ctx.save(); ctx.globalAlpha *= o.alpha ?? 1; ctx.fillStyle = o.color || C.soft;
+    ctx.font = `${o.italic ? "italic " : ""}400 ${o.size || 16}px ${FONT}`; ctx.textAlign = o.align || "left";
+    ctx.textBaseline = o.base || "alphabetic"; ctx.fillText(s, x, y); ctx.restore();
+  }
+  function axes(ctx, x0, y0, x1, y1, xl, yl) {
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
+    if (xl) text(ctx, xl, x1, y0 + 26, { align: "right", italic: true, color: C.dim, size: 15 });
+    if (yl) text(ctx, yl, x0 + 8, y1 - 18, { italic: true, color: C.dim, size: 15 });
+  }
+  function box(W, H) { const sm = W < 480; return { x0: sm ? 34 : 48, x1: W - 12, y0: H - 36, y1: sm ? 46 : 58, sm }; }
+
+  /* ---------------- Level I: compounding, then the bell curve ---------------- */
+  function levelOne(ctx, W, H, q) {
+    const { x0, x1, y0, y1, sm } = box(W, H), a = clamp(q / 0.5), b = clamp((q - 0.52) / 0.45), n = 11, max = Math.pow(1.1, n - 1);
+    axes(ctx, x0, y0, x1, y1, b < 0.5 ? "years" : "outcome", b < 0.5 ? "value" : "how often");
+    if (b < 1) {
+      ctx.save(); ctx.globalAlpha = 1 - b; const step = (x1 - x0) / n, bw = step * 0.62, tops = [];
+      for (let i = 0; i < n; i++) {
+        const g = smooth(clamp(a * (n + 3) * 0.75 - i * 0.75)); if (g <= 0) continue;
+        const h = (y0 - y1) * 0.88 * Math.pow(1.1, i) / max * g, x = x0 + (i + 0.5) * step;
+        ctx.fillStyle = C.blue; ctx.globalAlpha = (1 - b) * 0.85; ctx.fillRect(x - bw / 2, y0 - h, bw, h); tops.push([x, y0 - h]);
+      }
+      if (tops.length > 1) { ctx.globalAlpha = 1 - b; ctx.strokeStyle = C.ink; ctx.lineWidth = 1.5; ctx.beginPath(); tops.forEach((p, i) => i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])); ctx.stroke(); }
+      ctx.restore();
+      text(ctx, "FV = PV × (1 + r)ⁿ", x0 + 14, y1 + 34, { color: C.ink, size: sm ? 18 : 22, alpha: a * (1 - b) });
+      text(ctx, "10% a year doubles money in about 7 years", x0 + 14, y1 + 60, { color: C.dim, italic: true, size: 15, alpha: clamp(a * 2 - 1) * (1 - b) });
+    }
+    if (b > 0) {
+      const mu = (x0 + x1) / 2, sd = (x1 - x0) / 7.5, pk = (y0 - y1) * 0.82, f = (x) => y0 - pk * Math.exp(-0.5 * ((x - mu) / sd) ** 2);
+      const sh = smooth(clamp((b - 0.45) / 0.45));
+      if (sh > 0) { ctx.fillStyle = C.teal; ctx.globalAlpha = 0.35; ctx.beginPath(); ctx.moveTo(mu - sd, y0);
+        for (let x = mu - sd; x <= mu - sd + 2 * sd * sh; x += 2) ctx.lineTo(x, f(x)); ctx.lineTo(mu - sd + 2 * sd * sh, y0); ctx.fill(); ctx.globalAlpha = 1; }
+      const end = x0 + (x1 - x0) * smooth(clamp(b / 0.55));
+      ctx.strokeStyle = C.blue; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(x0, f(x0)); for (let x = x0; x <= end; x += 2) ctx.lineTo(x, f(x)); ctx.stroke();
+      text(ctx, sm ? "68% land within one σ" : "68% of outcomes land within one σ of the mean", x0 + 14, y1 + 34, { color: C.ink, size: sm ? 15 : 19, alpha: sh });
+      [-1, 1].forEach((k) => { ctx.strokeStyle = C.dim; ctx.globalAlpha = sh; ctx.setLineDash([3, 4]); ctx.beginPath(); ctx.moveTo(mu + k * sd, y0); ctx.lineTo(mu + k * sd, f(mu + k * sd)); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+        text(ctx, k < 0 ? "μ − σ" : "μ + σ", mu + k * sd, y0 + 22, { align: "center", italic: true, color: C.dim, size: 14, alpha: sh }); });
+    }
+  }
+
+  /* ---------------- Level II: discount every cash flow back to today ---------------- */
+  const CF = [3, 3.5, 4, 4.5, 5, 5.5, 6, 18], R = 0.12, PV = CF.map((c, i) => c / Math.pow(1 + R, i + 1)), TOTAL = PV.reduce((s, v) => s + v, 0);
+  function levelTwo(ctx, W, H, q) {
+    const { x0, x1, y0, y1, sm } = box(W, H), a = clamp(q / 0.3), b = clamp((q - 0.3) / 0.55), c = smooth(clamp((q - 0.82) / 0.18));
+    axes(ctx, x0, y0, x1, y1, "year", "cash flow");
+    const step = (x1 - x0) / 9, bw = step * 0.6, k = (y0 - y1 - 70) / Math.max(18, TOTAL), X = (t) => x0 + (t + 0.5) * step;
+    for (let t = 0; t <= 8; t++) text(ctx, t ? String(t) : "today", X(t), y0 + 20, { align: "center", color: t ? C.dim : C.ink, size: 14 });
+    let stack = 0;
+    CF.forEach((cf, i) => {
+      const g = smooth(clamp(a * 10 - i)), m = smooth(clamp((b - i * 0.07) / 0.5));
+      const h = lerp(cf * k * g, PV[i] * k, m), x = lerp(X(i + 1), X(0), m), base = y0 - stack * k * m;
+      ctx.fillStyle = m > 0.5 ? C.teal : C.blue; ctx.globalAlpha = 0.88; ctx.fillRect(x - bw / 2, base - h, bw, h); ctx.globalAlpha = 1;
+      if (m > 0.98) { ctx.strokeStyle = "#000"; ctx.lineWidth = 1; ctx.strokeRect(x - bw / 2, base - h, bw, h); }
+      if (m < 0.2 && g > 0.9 && !sm) text(ctx, cf.toFixed(1), X(i + 1), y0 - cf * k - 8, { align: "center", color: C.dim, size: 13, alpha: 1 - m * 5 });
+      stack += PV[i] * m;
+    });
+    text(ctx, "V = Σ CFₜ / (1 + r)ᵗ", x0 + 14, y1 + 6, { color: C.ink, size: sm ? 18 : 22, alpha: a });
+    text(ctx, `worth ${TOTAL.toFixed(1)} today, at 12%`, X(0) + bw / 2 + 12, y0 - TOTAL * k + 6, { color: C.teal, size: sm ? 15 : 18, alpha: c, italic: true });
+  }
+
+  /* ---------------- Level III: thousands of portfolios, one frontier, one line ---------------- */
+  const S0 = 0.09, M0 = 0.07, KF = 0.42, RF = 0.03, front = (s) => M0 + KF * Math.sqrt(Math.max(0, s * s - S0 * S0));
+  const PTS = (() => { const r = rng(7), out = []; for (let i = 0; i < 320; i++) { const s = S0 + 0.21 * Math.pow(r(), 0.8);
+    const u = 2 * Math.pow(r(), 0.7) - 1; out.push([s + 0.004 * r(), M0 + KF * Math.sqrt(s * s - S0 * S0) * u * 0.95 - 0.004 * r()]); } return out; })();
+  const TAN = (() => { let best = null; for (let s = S0; s < 0.32; s += 0.0005) { const sh = (front(s) - RF) / s; if (!best || sh > best[2]) best = [s, front(s), sh]; } return best; })();
+  function levelThree(ctx, W, H, q, t) {
+    const { x0, x1, y0, y1, sm } = box(W, H), a = clamp(q / 0.38), b = smooth(clamp((q - 0.36) / 0.3)), c = smooth(clamp((q - 0.66) / 0.3));
+    axes(ctx, x0, y0, x1, y1, "risk σ", "return");
+    const X = (s) => x0 + s / 0.32 * (x1 - x0), Y = (m) => y0 - m / 0.21 * (y0 - y1);
+    PTS.forEach((p, i) => { const g = clamp(a * PTS.length / 18 - i / 18); if (g <= 0) return;
+      const lift = b * 0.35 * (front(p[0]) - p[1]);   // the cloud leans toward the frontier
+      ctx.fillStyle = C.blueB; ctx.globalAlpha = 0.55 * g; ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1] + lift), 2.3 * (0.4 + 0.6 * g), 0, 7); ctx.fill(); });
+    ctx.globalAlpha = 1;
+    if (b > 0) { ctx.strokeStyle = C.ink; ctx.lineWidth = 2.4; ctx.beginPath(); const e = S0 + (0.3 - S0) * b;
+      for (let s = S0; s <= e; s += 0.002) { const x = X(s), y = Y(front(s)); s === S0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke();
+      text(ctx, "efficient frontier", X(0.29), Y(front(0.29)) + 24, { align: "right", italic: true, color: C.ink, size: 16, alpha: b }); }
+    if (c > 0) { const sEnd = lerp(0, 0.32, c); ctx.strokeStyle = C.yellow; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(0), Y(RF)); ctx.lineTo(X(sEnd), Y(RF + TAN[2] * sEnd)); ctx.stroke();
+      text(ctx, "capital market line", X(0.012), Y(RF + TAN[2] * 0.012) - 14, { italic: true, color: C.yellow, size: 16, alpha: c });
+      if (sEnd > TAN[0]) { const pulse = still ? 0 : Math.sin(t / 260) * 0.5 + 0.5; ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(X(TAN[0]), Y(TAN[1]), 6 + 3 * pulse, 0, 7); ctx.fill();
+        ctx.strokeStyle = C.yellow; ctx.globalAlpha = 0.4 * (1 - pulse); ctx.beginPath(); ctx.arc(X(TAN[0]), Y(TAN[1]), 12 + 14 * pulse, 0, 7); ctx.stroke(); ctx.globalAlpha = 1;
+        text(ctx, "the market portfolio", X(TAN[0]) - 16, Y(TAN[1]) - 14, { align: "right", color: C.ink, size: sm ? 14 : 16 }); } }
+    text(ctx, "Sharpe = (E(R) − Rf) / σ", x0 + 14, y1 + 6, { color: C.ink, size: sm ? 17 : 21, alpha: c });
+  }
+
+  /* ---------------- option: time value melts away ---------------- */
+  function callPrice(S, K, T, r, v) { if (T <= 1e-6) return Math.max(S - K, 0); const d1 = (Math.log(S / K) + (r + v * v / 2) * T) / (v * Math.sqrt(T)), d2 = d1 - v * Math.sqrt(T); return S * Ncdf(d1) - K * Math.exp(-r * T) * Ncdf(d2); }
+  function optionScene(ctx, W, H, p) {
+    const { x0, x1, y0, y1, sm } = box(W, H), T = lerp(1, 0, smooth(p)), K = 100, lo = 60, hi = 140, vmax = 45;
+    axes(ctx, x0, y0, x1, y1, "share price", "option value");
+    const X = (s) => x0 + (s - lo) / (hi - lo) * (x1 - x0), Y = (v) => y0 - v / vmax * (y0 - y1);
+    // time value: the gap between curve and payoff
+    ctx.fillStyle = C.blue; ctx.globalAlpha = 0.16; ctx.beginPath(); ctx.moveTo(X(lo), Y(0));
+    for (let s = lo; s <= hi; s += 0.5) ctx.lineTo(X(s), Y(callPrice(s, K, T, 0.03, 0.25)));
+    for (let s = hi; s >= lo; s -= 0.5) ctx.lineTo(X(s), Y(Math.max(s - K, 0))); ctx.fill(); ctx.globalAlpha = 1;
+    ctx.strokeStyle = C.dim; ctx.setLineDash([5, 5]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(X(lo), Y(0)); ctx.lineTo(X(K), Y(0)); ctx.lineTo(X(hi), Y(hi - K)); ctx.stroke(); ctx.setLineDash([]);
+    ctx.strokeStyle = C.blue; ctx.lineWidth = 3; ctx.beginPath();
+    for (let s = lo; s <= hi; s += 0.5) { const x = X(s), y = Y(callPrice(s, K, T, 0.03, 0.25)); s === lo ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke();
+    text(ctx, "K = 100", X(K), y0 + 20, { align: "center", color: C.dim, size: 14 });
+    text(ctx, "payoff at expiry", X(hi) - 6, Y(hi - K) + 22, { align: "right", italic: true, color: C.dim, size: 15 });
+    const tv = callPrice(K, K, T, 0.03, 0.25);
+    text(ctx, `time value at the strike: ${tv.toFixed(2)}`, x0 + 14, y1 + 6, { color: C.ink, size: sm ? 15 : 19 });
+    // a dot riding the curve at the strike
+    ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(X(K), Y(tv), 5, 0, 7); ctx.fill();
+    document.getElementById("opt-t").textContent = T.toFixed(2);
+  }
+
+  /* ---------------- concentration as area ---------------- */
+  const WGT = [0.40, 0.25, 0.15, 0.12, 0.08];
+  function hhiScene(ctx, W, H, p) {
+    const pad = 14, S = Math.min(W, H) - pad * 2, o = pad, grid = smooth(clamp(p / 0.25));
+    ctx.strokeStyle = C.soft; ctx.lineWidth = 1.5; ctx.globalAlpha = grid; ctx.strokeRect(o, o, S, S);
+    let c = 0; ctx.strokeStyle = "#444"; ctx.lineWidth = 1;
+    WGT.slice(0, -1).forEach((w) => { c += w; const L = S * grid;
+      ctx.beginPath(); ctx.moveTo(o + c * S, o); ctx.lineTo(o + c * S, o + L); ctx.moveTo(o, o + c * S); ctx.lineTo(o + L, o + c * S); ctx.stroke(); });
+    ctx.globalAlpha = 1; c = 0; let h = 0;
+    WGT.forEach((w, i) => { const g = smooth(clamp((p - 0.25 - i * 0.12) / 0.16)); if (g > 0) {
+        const side = w * S * g, cx = o + (c + w / 2) * S, cy = o + (c + w / 2) * S;
+        ctx.fillStyle = C.blue; ctx.globalAlpha = 0.8; ctx.fillRect(cx - side / 2, cy - side / 2, side, side); ctx.globalAlpha = 1;
+        if (g > 0.6) text(ctx, Math.round(w * 100) + "%", cx, cy + 5, { align: "center", color: "#000", size: Math.max(11, w * S * 0.2), alpha: (g - 0.6) / 0.4 });
+        h += w * w * g * g; }
+      c += w; });
+    document.getElementById("hhi-v").textContent = h.toFixed(3);
+    document.getElementById("hhi-n").textContent = h > 0.001 ? (1 / h).toFixed(1) : "∞";
+  }
+
+  /* ---------------- 2027: a field of rising price paths ---------------- */
+  const PATHS = (() => { const r = rng(2027), out = []; for (let i = 0; i < 26; i++) { let y = 0; const pts = [];
+    for (let j = 0; j < 60; j++) { const u = r() || 1e-9, v = r(); y += 0.012 + 0.05 * Math.sqrt(-2 * Math.log(u)) * Math.cos(6.283 * v); pts.push(y); } out.push(pts); } return out; })();
+  function soonScene(ctx, W, H, p) {
+    const g = smooth(p);
+    PATHS.forEach((pts, i) => { ctx.strokeStyle = i % 9 === 0 ? C.blue : "#1f3a42"; ctx.lineWidth = i % 9 === 0 ? 1.6 : 1; ctx.beginPath();
+      const n = Math.max(2, Math.floor(pts.length * g));
+      for (let j = 0; j < n; j++) { const x = j / (pts.length - 1) * W, y = H * 0.82 - pts[j] * H * 0.45; j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); });
+  }
+
+  /* ---------------- the tape along the top ---------------- */
+  const TAPE = (() => { const r = rng(5), out = []; let y = 0; for (let i = 0; i < 400; i++) { const u = r() || 1e-9, v = r(); y += 0.04 * Math.sqrt(-2 * Math.log(u)) * Math.cos(6.283 * v) + 0.004; out.push(y); } return out; })();
+  function tapeScene(ctx, W, H, p) {
+    const n = Math.max(2, Math.floor(TAPE.length * p)); let lo = Infinity, hi = -Infinity; TAPE.forEach((v) => { lo = Math.min(lo, v); hi = Math.max(hi, v); });
+    ctx.strokeStyle = C.blue; ctx.globalAlpha = 0.85; ctx.lineWidth = 1.4; ctx.beginPath();
+    for (let i = 0; i < n; i++) { const x = i / (TAPE.length - 1) * W, y = H - 4 - (TAPE[i] - lo) / (hi - lo) * (H - 8); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+    ctx.globalAlpha = 1; const lx = (n - 1) / (TAPE.length - 1) * W, ly = H - 4 - (TAPE[n - 1] - lo) / (hi - lo) * (H - 8);
+    ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(lx, ly, 2.6, 0, 7); ctx.fill();
+  }
+
+  /* ---------------- wiring ---------------- */
+  const levelsEl = document.getElementById("levels"), lvls = [...levelsEl.querySelectorAll(".lvl")], steps = [...levelsEl.querySelectorAll(".steps span")], fills = [...levelsEl.querySelectorAll(".steps i")];
+  let shown = 0;
+  const scenes = [
+    { el: levelsEl, cv: "levels-cv", target: () => pinned(levelsEl), draw(ctx, W, H, p, t) {
+        const k = Math.min(2, Math.floor(p * 3)), q = clamp((p * 3 - k) / 0.82), fade = still ? 1 : smooth(clamp((p * 3 - k) / 0.08));
+        if (k !== shown) { lvls[shown].classList.remove("on"); lvls[k].classList.add("on"); shown = k; }
+        steps.forEach((s, i) => s.classList.toggle("on", i <= k)); fills.forEach((f, i) => { f.style.transform = `scaleX(${clamp(p * 3 - i)})`; });
+        ctx.globalAlpha = k === 0 ? 1 : fade; [levelOne, levelTwo, levelThree][k](ctx, W, H, q, t); ctx.globalAlpha = 1; }, live: true },
+    { el: document.getElementById("approach"), cv: "hhi", target: () => entering(document.getElementById("hhi")) * 1.15, draw: (ctx, W, H, p) => hhiScene(ctx, W, H, clamp(p)) },
+    { el: document.getElementById("option"), cv: "option-cv", target: () => pinned(document.getElementById("option")), draw: (ctx, W, H, p) => optionScene(ctx, W, H, p) },
+    { el: document.getElementById("soon"), cv: "soon-cv", target: () => entering(document.getElementById("soon")), draw: (ctx, W, H, p) => soonScene(ctx, W, H, p) },
+    { el: document.body, cv: "tape", target: () => clamp(scrollY / Math.max(document.documentElement.scrollHeight - innerHeight, 1)), draw: tapeScene, always: true },
+  ].map((s) => Object.assign(s, { st: stage(document.getElementById(s.cv)), p: -1, last: -1 }));
+
+  // the formula wall: three depths drift past at different speeds as you scroll
+  const wall = document.getElementById("wall");
+  const FORMULAS = ["PV = FV / (1 + r)ⁿ", "E(Rᵢ) = R<sub>f</sub> + βᵢ [E(R<sub>m</sub>) − R<sub>f</sub>]", "σ²ₚ = w′Σw", "C = S N(d₁) − K e^(−rT) N(d₂)", "ΔP/P ≈ −D Δy + ½ C (Δy)²",
+    "HHI = Σ wᵢ²", "IR = α / ω", "F = S₀ (1 + r)ᵀ", "Sharpe = (Rₚ − R<sub>f</sub>) / σₚ", "ROE = NI/S × S/A × A/E", "V₀ = D₁ / (r − g)", "TE = σ(Rₚ − R<sub>b</sub>)",
+    "z = (x̄ − μ) / (σ / √n)", "P = Σ c / (1 + y)ᵗ", "IR ≈ IC × √BR", "S₀ = Σ Dₜ / (1 + r)ᵗ"];
+  const fr = rng(11), floaters = FORMULAS.map((f, i) => { const s = document.createElement("span"), depth = i % 3;
+    s.className = "f " + ["far", "mid", "near"][depth]; s.innerHTML = f; s.setAttribute("aria-hidden", "true");
+    s.style.left = (3 + fr() * (innerWidth < 700 ? 42 : 68)) + "%"; s.style.top = (6 + (i / FORMULAS.length) * 86) + "%"; wall.appendChild(s);
+    return { s, speed: [0.25, 0.6, 1.1][depth], spin: (fr() - 0.5) * 16 }; });
+  let wallP = -1;
+
+  // the year rolls from 2026 to 2027
+  const rolls = document.querySelectorAll(".year .roll span"), soon = document.getElementById("soon");
+  // the lesson icons draw themselves once seen
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { threshold: 0.6 }) : null;
+  document.querySelectorAll(".parts > div").forEach((d) => io ? io.observe(d) : d.classList.add("on"));
+
+  let resized = true;
+  window.addEventListener("resize", () => { resized = true; });
+  function loop(t) {
+    if (resized) { scenes.forEach((s) => s.st.fit()); resized = false; scenes.forEach((s) => { s.last = -1; }); wallP = -1; }
+    scenes.forEach((s) => {
+      if (!s.always && !near(s.el)) return;
+      const goal = s.target(); s.p = s.p < 0 || still ? goal : lerp(s.p, goal, 0.12);
+      if (Math.abs(s.p - s.last) < 0.0004 && !(s.live && s.p > 0.62)) return;   // nothing changed (the market portfolio keeps pulsing)
+      s.last = s.p; const { ctx, W, H } = s.st; ctx.clearRect(0, 0, W, H); s.draw(ctx, W, H, s.p, t);
+    });
+    if (near(wall)) { const r = wall.getBoundingClientRect(), p = clamp((innerHeight - r.top) / (innerHeight + r.height));
+      wallP = wallP < 0 || still ? p : lerp(wallP, p, 0.12);
+      floaters.forEach((f) => { const d = (0.5 - wallP) * f.speed * 700; f.s.style.transform = still ? "none" : `translate3d(0, ${d}px, 0) rotate(${(wallP - 0.5) * f.spin}deg)`; }); }
+    if (near(soon)) { const q = smooth(clamp(entering(soon) * 1.4 - 0.35)); rolls.forEach((sp) => { sp.style.transform = `translateY(${-q * 100}%)`; }); }
+    requestAnimationFrame(loop);
+  }
+  const begin = () => requestAnimationFrame(loop);
+  (document.fonts && document.fonts.load) ? document.fonts.load('400 16px "CMU Serif"').then(begin, begin) : begin();
+})();
+
 </script>
 </body>
 </html>
