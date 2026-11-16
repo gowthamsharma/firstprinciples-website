@@ -24,7 +24,7 @@ jobs:
           curl -fsSL -o cmu-serif-500-roman.woff2  $base/fonts/cmu-serif-500-roman.woff2
           curl -fsSL -o cmu-serif-500-italic.woff2 $base/fonts/cmu-serif-500-italic.woff2
           curl -fsSL -o OFL.txt $base/OFL.txt
-          mkdir -p _site && cp index.html CNAME favicon.svg robots.txt sitemap.xml OFL.txt *.woff2 _site/ && touch _site/.nojekyll
+          mkdir -p _site && rsync -a --exclude '.git*' --exclude '_site' --exclude '*.py' --exclude 'content' --exclude 'README.md' ./ _site/ && touch _site/.nojekyll
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
