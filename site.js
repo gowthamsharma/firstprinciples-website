@@ -242,3 +242,21 @@
   };
   document.querySelectorAll("[data-widget]").forEach(function (w) { var k = w.getAttribute("data-widget"); if (W[k]) W[k](w); });
 })();
+
+/* ---- header menu: burger on small screens, tap-to-open sections, Escape closes ---- */
+(function () {
+  var burger = document.querySelector(".burger"), nav = document.getElementById("mainnav");
+  if (!burger || !nav) return;
+  burger.addEventListener("click", function () { var open = !nav.classList.contains("open"); nav.classList.toggle("open", open); burger.setAttribute("aria-expanded", open ? "true" : "false"); });
+  nav.querySelectorAll(".mx").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var m = b.parentNode.querySelector(".mega"), open = !m.classList.contains("open");
+      m.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (document.activeElement && nav.contains(document.activeElement)) document.activeElement.blur();
+    nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
+  });
+})();
