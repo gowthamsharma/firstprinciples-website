@@ -140,7 +140,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <footer><div class="wrap">
   <div><p class="fb"><b>First</b> Principles</p>
   <p>CFA Program lessons, built from the basics. Video course opening in 2027.</p>
-  <nav><a href="cfa-program.html">CFA guide</a><a href="prerequisites.html">Prerequisites</a><a href="blog.html">Study blog</a><a href="index.html#about">About</a></nav></div>
+  <nav><a href="cfa-program.html">CFA guide</a><a href="prerequisites.html">Prerequisites</a><a href="blog.html">Study blog</a><a href="glossary.html">Glossary</a><a href="index.html#about">About</a></nav></div>
   <div><p>{DISCLAIMER}</p>
   <p>Exam facts on this site were checked against CFA Institute's published pages on {CHECKED}. Dates, fees and policies change: always confirm on cfainstitute.org before you register. Explanations are original and are not taken from the CFA Program curriculum.</p>
   <p>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</p></div>
@@ -153,12 +153,32 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
     return path
 
 
+def faq_pairs(p):
+    m = re.search(r"\n## Questions people ask\n(.*?)(?=\n## |\Z)", p["body_md"], re.S)
+    if not m:
+        return []
+    return [(q.strip(), re.sub(r"\s+", " ", a).strip()) for q, a in re.findall(r"### (.+?)\n\n(.+?)(?=\n### |\Z)", m.group(1), re.S)]
+
+
+def tags(p):
+    return [t.strip() for t in p.get("tags", "").split(",") if t.strip()]
+
+
 def jsonld(p, url):
+    out = ""
+    faq = faq_pairs(p)
+    if faq:
+        out += '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"[*_]", "", a)}} for q, a in faq]}) + "</script>"
     data = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p.get("summary", ""),
             "image": f"{SITE}/thumb-{p['slug']}.svg",
             "author": {"@type": "Person", "name": NAME}, "datePublished": "2026-11-16", "dateModified": TODAY,
-            "mainEntityOfPage": url, "publisher": {"@type": "Organization", "name": "First Principles"}}
-    return f'<script type="application/ld+json">{json.dumps(data)}</script>'
+            "mainEntityOfPage": url, "publisher": {"@type": "Organization", "name": "First Principles"}, "keywords": ", ".join(tags(p))}
+    return out + f'<script type="application/ld+json">{json.dumps(data)}</script>'
+
+
+def slugify(t):
+    return re.sub(r"[^a-z0-9]+", "-", t.lower()).strip("-")
 
 
 def card(p, chip, foot, feat=False):
@@ -167,8 +187,10 @@ def card(p, chip, foot, feat=False):
             f'<span class="cb"><span class="cm">{minutes(p)} min read</span><h4>{p["title"]}</h4><p>{p.get("summary", "")}</p><span class="cf">{foot}</span></span></a>')
 
 
-def article(p, crumbs, eyebrow, pager="", keep=""):
+def article(p, crumbs, eyebrow, pager="", keep="", suffix="First Principles"):
     url = f"{SITE}/{p['slug']}.html"
+    tg = tags(p)
+    also = (f'<aside class="also"><span class="eyebrow">Also searched as</span><p>' + " · ".join(f'<a href="glossary.html#{slugify(t)}">{t}</a>' for t in tg) + "</p></aside>") if tg else ""
     main = f"""<main>
 <section class="pagehead"><div class="wrap">
   <div>
@@ -178,12 +200,13 @@ def article(p, crumbs, eyebrow, pager="", keep=""):
     <p class="lead">{p.get('summary', '')}</p>
     <p class="meta">{minutes(p)} min read &nbsp;/&nbsp; By {NAME}</p>
   </div>
-  <img class="art" src="thumb-{p['slug']}.svg" alt="" width="640" height="360">
+  <img class="art" src="thumb-{p['slug']}.svg" alt="Diagram: {html.escape(p['title'])}" width="640" height="360">
 </div></section>
-<div class="wrap"><article class="post"><div class="body">{render_md(p)}</div>{pager}</article></div>
+<div class="wrap"><article class="post"><div class="body">{render_md(p)}</div>{also}{pager}</article></div>
 {keep}
 </main>"""
-    return page(p["slug"] + ".html", f"{p['title']} | First Principles", p.get("summary", ""), main, extra_head=jsonld(p, url),
+    kw = f'<meta name="keywords" content="{html.escape(", ".join(tg))}">' if tg else ""
+    return page(p["slug"] + ".html", f"{p['title']} | {suffix}", p.get("summary", ""), main, extra_head=kw + jsonld(p, url),
                 image=f"thumb-{p['slug']}.svg")
 
 
@@ -204,10 +227,10 @@ def build():
         make_thumb(p)
 
     for i, p in enumerate(cfa):
-        built.append(article(p, '<a href="index.html">Home</a> › <a href="cfa-program.html">CFA guide</a>', "CFA Program guide",
+        built.append(article(p, '<a href="index.html">Home</a> › <a href="cfa-program.html">CFA guide</a>', "CFA Program guide", suffix="CFA Program guide | First Principles",
                              keep=keep_reading(nxt(cfa, i), lambda q: "CFA guide", lambda q: "CFA Program guide")))
     for i, p in enumerate(blog):
-        built.append(article(p, '<a href="index.html">Home</a> › <a href="blog.html">Study blog</a>', "Study blog",
+        built.append(article(p, '<a href="index.html">Home</a> › <a href="blog.html">Study blog</a>', "Study blog", suffix="CFA study blog | First Principles",
                              keep=keep_reading(nxt(blog, i), lambda q: "Study blog", lambda q: "Study strategy")))
     for i, p in enumerate(pre):
         prev_p, next_p = (pre[i - 1] if i else None), (pre[i + 1] if i + 1 < len(pre) else None)
@@ -216,7 +239,7 @@ def build():
         pager += (f'<a class="next" href="{next_p["slug"]}.html"><span>Next concept</span>{next_p["title"]}</a>' if next_p else "")
         pager += "</nav>"
         crumbs = f'<a href="index.html">Home</a> › <a href="prerequisites.html">Prerequisites</a> › {p["topic"]}'
-        built.append(article(p, crumbs, f'Concept {p["n"]} of {len(pre)} &nbsp;/&nbsp; {p["topic"]}', pager,
+        built.append(article(p, crumbs, f'Concept {p["n"]} of {len(pre)} &nbsp;/&nbsp; {p["topic"]}', pager, suffix="CFA prerequisite explained",
                              keep=keep_reading(nxt(pre, i), lambda q: f'Concept {q["n"]:02d}', lambda q: q["topic"])))
 
     # ---- prerequisites index
@@ -263,6 +286,7 @@ def build():
                       "Practical strategies for the CFA exams: study plans, Level II item sets, Level III constructed response, ethics, mock exams and exam day.",
                       main, active="blog.html"))
 
+    built.append(glossary(cfa + blog + pre))
     home(cfa, blog, pre)
 
     page("404.html", "Page not found | First Principles", "This page does not exist.",
@@ -271,6 +295,32 @@ def build():
     urls = "".join(f"  <url><loc>{SITE}/{'' if b == 'index.html' else b}</loc><lastmod>{TODAY}</lastmod></url>\n" for b in sorted(set(built)))
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
     print(f"built {len(set(built))} pages + 404 + sitemap + {len(cfa + blog + pre)} thumbnails")
+
+
+def glossary(items):
+    terms = {}
+    for p in items:
+        for t in tags(p) + [p["title"]]:
+            terms.setdefault(t.lower(), (t, []))[1].append(p)
+    groups = {}
+    for key in sorted(terms):
+        t, ps = terms[key]
+        letter = key[0].upper() if key[0].isalpha() else "#"
+        links = ", ".join(f'<a href="{q["slug"]}.html">{q["title"]}</a>' for q in dict((q["slug"], q) for q in ps).values())
+        groups.setdefault(letter, []).append(f'<li id="{slugify(t)}"><b>{t}</b><span>{links}</span></li>')
+    nav = " ".join(f'<a href="#letter-{L}">{L}</a>' for L in groups)
+    body = "".join(f'<section class="gl" id="letter-{L}"><h2>{L}</h2><ul>{"".join(v)}</ul></section>' for L, v in groups.items())
+    main = f"""<main>
+<section class="pagehead"><div class="wrap solo"><div>
+  <p class="crumbs"><a href="index.html">Home</a> › Glossary</p>
+  <span class="eyebrow">{len(terms)} terms</span>
+  <h1>CFA glossary, A to Z</h1>
+  <p class="lead">Every term, synonym and question covered on this site, with a link to the page that explains it from first principles: accounting, economics, exam format, pass rates and study strategy.</p>
+</div></div></section>
+<div class="wrap" style="padding-bottom:4rem"><p class="letters">{nav}</p>{body}</div>
+</main>"""
+    return page("glossary.html", "CFA glossary: financial statement analysis, economics and exam terms explained | First Principles",
+                f"An A to Z of {len(terms)} CFA terms in financial statement analysis, economics, exam format and study strategy, each linked to a plain-English explanation.", main)
 
 
 def home(cfa, blog, pre):

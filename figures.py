@@ -177,21 +177,20 @@ def _weights(rows, label, title2=None, xmax=None):
 
 
 def weights_l1():
-    return _weights([("Ethical & Professional Standards", 15, 20, 10, 15), ("Quantitative Methods", 6, 9, 11, 14), ("Economics", 6, 9, 6, 9),
-                     ("Financial Statement Analysis", 11, 14, 11, 14), ("Corporate Issuers / Finance", 6, 9, 6, 9), ("Equity Investments / Equities", 11, 14, 11, 14),
-                     ("Fixed Income", 11, 14, 11, 14), ("Derivatives (& Risk Mgmt)", 5, 8, 6, 9), ("Alternative Investments", 7, 10, 6, 9),
-                     ("Portfolio Mgmt / Construction", 8, 12, 8, 12)], "Level I topic weight ranges, 2026 against 2027")
+    return _weights([("Ethics", 15, 20, 10, 15), ("Financial statements", 11, 14, 11, 14), ("Equities", 11, 14, 11, 14), ("Bonds (fixed income)", 11, 14, 11, 14),
+                     ("Quant", 6, 9, 11, 14), ("Portfolio management", 8, 12, 8, 12), ("Alternatives", 7, 10, 6, 9), ("Economics", 6, 9, 6, 9),
+                     ("Corporate finance", 6, 9, 6, 9), ("Derivatives and risk", 5, 8, 6, 9)], "Level I topic weight ranges, 2026 against 2027")
 
 
 def weights_l2():
-    return _weights([("Quantitative Methods", 5, 10), ("Economics", 5, 10), ("Financial Statement Analysis", 10, 15), ("Corporate Finance", 5, 10),
-                     ("Equities", 10, 15), ("Fixed Income", 10, 15), ("Derivatives & Risk Management", 5, 10), ("Alternative Investments", 5, 10),
-                     ("Portfolio Construction", 10, 15), ("Ethical & Professional Standards", 10, 15)], "Level II topic weight ranges")
+    return _weights([("Financial statements", 10, 15), ("Equities", 10, 15), ("Bonds (fixed income)", 10, 15), ("Portfolio construction", 10, 15),
+                     ("Ethics", 10, 15), ("Quant", 5, 10), ("Economics", 5, 10), ("Corporate finance", 5, 10), ("Derivatives and risk", 5, 10),
+                     ("Alternatives", 5, 10)], "Level II topic weight ranges")
 
 
 def weights_l3():
-    return _weights([("Asset Allocation", 15, 20), ("Portfolio Construction", 15, 20), ("Performance Measurement", 5, 10),
-                     ("Derivatives & Risk Management", 10, 15), ("Ethical & Professional Standards", 10, 15), ("Your pathway", 30, 35)], "Level III topic weight ranges")
+    return _weights([("Your chosen pathway", 30, 35), ("Asset allocation", 15, 20), ("Building portfolios", 15, 20), ("Derivatives and risk", 10, 15),
+                     ("Ethics", 10, 15), ("Measuring performance", 5, 10)], "Level III topic weight ranges")
 
 
 def pass_rates():

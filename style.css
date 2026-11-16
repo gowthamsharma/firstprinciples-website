@@ -287,3 +287,20 @@ footer nav a:hover { color: var(--sky); }
   .fx .live, .replay { display: none; }
   .card, .card .thumb img, .tile, .feature .pane.in { transition: none; animation: none; }
 }
+
+/* "also searched as" line and glossary */
+.also { max-width: var(--read); border-top: 1px solid var(--line); margin-top: 2.4rem; padding-top: 1.2rem; }
+.also .eyebrow { color: var(--muted); font-size: 0.72rem; margin-bottom: 0.5rem; }
+.also p { font-size: 0.92rem; color: var(--muted); margin: 0; }
+.also a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); }
+.also a:hover { color: var(--blue); border-color: var(--sky); }
+.letters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 2.4rem 0 0; }
+.letters a { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; border: 1px solid var(--line); text-decoration: none; font-weight: 700; color: var(--head); transition: border-color .25s var(--ease), color .25s var(--ease); }
+.letters a:hover { border-color: var(--sky); color: var(--blue); }
+.gl h2 { font-size: 1.6rem; margin: 2.4rem 0 0.6rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--line); }
+.gl ul { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 3rem; }
+.gl li { break-inside: avoid; padding: 0.5rem 0; border-bottom: 1px solid var(--mist); scroll-margin-top: 6rem; }
+.gl li b { display: block; color: var(--head); font-weight: 600; }
+.gl li span { font-size: 0.9rem; }
+.gl li:target { background: #EAF6FD; }
+@media (max-width: 760px) { .gl ul { columns: 1; } }
