@@ -23,6 +23,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://firstprinciples.courses"
 TODAY = datetime.date.today().isoformat()
 NAME, EMAIL = "Gowtham Kumar", "gkinba@gmail.com"
+CF_BEACON = "a9877ea4bed648d990739f9b34199681"  # Cloudflare Web Analytics token (cookieless); empty = no tracking
 CHECKED = "16 November 2026"
 
 DISCLAIMER = ("CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by "
@@ -110,6 +111,7 @@ NAV = [("cfa-program.html", "CFA guide", ""), ("prerequisites.html", "Prerequisi
 
 
 def page(path, title, desc, main, active="", extra_head="", image="intro-poster.jpg"):
+    beacon = (f"\n<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{{\"token\": \"{CF_BEACON}\"}}'></script>") if CF_BEACON else ""
     nav = "".join(f'<a href="{h}"' + (f' class="{c}"' if c else "") + (' aria-current="page"' if h == active else "") + f">{t}</a>" for h, t, c in NAV)
     canon = SITE + "/" + ("" if path == "index.html" else path)
     out = f"""<!doctype html>
@@ -145,7 +147,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p>Exam facts on this site were checked against CFA Institute's published pages on {CHECKED}. Dates, fees and policies change: always confirm on cfainstitute.org before you register. Explanations are original and are not taken from the CFA Program curriculum.</p>
   <p>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</p></div>
 </div></footer>
-<script src="site.js" defer></script>
+<script src="site.js" defer></script>{beacon}
 </body>
 </html>
 """
