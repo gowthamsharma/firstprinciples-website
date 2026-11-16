@@ -260,3 +260,56 @@
     nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
   });
 })();
+
+/* ---- "Are you ready for Level I?" self-check ---- */
+(function () {
+  var box = document.querySelector('[data-widget="readiness"]');
+  if (!box) return;
+  var Q = [
+    ["time", "How many hours a week can you study, every week, for five to six months?", ["Under 6", "6 to 11", "12 or more"]],
+    ["time", "How settled are the next six months (exams, moves, a new job, a newborn)?", ["Very busy", "Some disruption", "Fairly stable"]],
+    ["math", "Can you work out 1,000 × 1.05⁵, or rearrange an equation to solve for a rate?", ["Not yet", "With some effort", "Comfortably"]],
+    ["math", "Have you met mean, standard deviation and a basic probability rule before?", ["No", "Long ago", "Yes, recently"]],
+    ["acct", "Could you explain what a balance sheet, income statement and cash flow statement each show?", ["No", "Roughly", "Yes"]],
+    ["acct", "Do you know why profit and cash flow can differ in the same year?", ["No", "Vaguely", "Yes"]],
+    ["econ", "Can you sketch supply and demand and say what happens to price when demand rises?", ["No", "Roughly", "Yes"]],
+    ["eng", "How comfortable are you reading dense English under time pressure?", ["It's a struggle", "OK", "Comfortable"]],
+    ["why", "Do you know which job you want the CFA to help you get?", ["Not really", "A rough idea", "Yes, clearly"]],
+    ["admin", "Do you meet the entry rule (final year of a degree, a degree, or 4,000 hours of work and/or study) and have a valid passport?", ["No / not sure", "Will soon", "Yes"]]
+  ];
+  var html = '<div class="rd"><p class="rd-intro">Answer honestly; nothing is sent anywhere.</p><ol>';
+  Q.forEach(function (q, i) {
+    html += '<li><p>' + q[1] + '</p><div class="rd-opts" role="radiogroup">' + q[2].map(function (o, j) {
+      return '<label><input type="radio" name="rq' + i + '" value="' + j + '"><span>' + o + "</span></label>";
+    }).join("") + "</div></li>";
+  });
+  html += '</ol><div class="rd-out" aria-live="polite"><p>Answer the questions to see your result.</p></div></div>';
+  box.innerHTML = html;
+  var out = box.querySelector(".rd-out");
+  var ADV = {
+    time: 'Time is the biggest risk. Most people who pass report <b>300+ hours</b>; at under 6 hours a week that takes about a year. Book a later window or free up hours first.',
+    math: 'Brush up on algebra, compounding and basic statistics for two or three weeks before you start. Our <a href="blog-ba-ii-plus-calculator-guide.html">calculator guide</a> covers the time-value maths.',
+    acct: 'Accounting is about an eighth of Level I and the base of Level II. Read our free <a href="prerequisites.html">financial statement concepts</a> first.',
+    econ: 'Economics is a smaller topic, but start with our free <a href="prerequisites.html">economics concepts</a> so it does not slow you down later.',
+    eng: 'The exam is in English only. Practise timed reading with question banks early, not just at the end.',
+    why: 'Be clear why you are doing it: the motivation has to last 300 hours. See <a href="blog-cfa-jobs-salaries.html">CFA jobs and salaries</a>.',
+    admin: 'Check eligibility before anything else: see <a href="blog-cfa-requirements.html">CFA requirements</a>.'
+  };
+  box.addEventListener("change", function () {
+    var sc = {}, n = 0, tot = 0;
+    Q.forEach(function (q, i) {
+      var c = box.querySelector('input[name="rq' + i + '"]:checked');
+      if (!c) return;
+      n++; var v = +c.value; tot += v; sc[q[0]] = Math.min(sc[q[0]] === undefined ? 2 : sc[q[0]], v);
+    });
+    if (n < Q.length) { out.innerHTML = "<p>" + (Q.length - n) + " question" + (Q.length - n > 1 ? "s" : "") + " to go.</p>"; return; }
+    var pct = Math.round(tot / (2 * Q.length) * 100), verdict;
+    if (sc.admin === 0) verdict = "First check that you can register: the entry rules come before everything else.";
+    else if (pct >= 80) verdict = "You look ready. Pick a window five to six months away, register early and start this week.";
+    else if (pct >= 55) verdict = "Nearly ready. Fix the gaps below in the first month of your plan, then follow a normal five-to-six-month schedule.";
+    else verdict = "Not yet. Spend one or two months on the foundations below, then start the full plan; you will save time overall.";
+    var tips = Object.keys(ADV).filter(function (k) { return sc[k] !== undefined && sc[k] < 2; }).map(function (k) { return "<li>" + ADV[k] + "</li>"; }).join("");
+    out.innerHTML = '<p class="rd-score"><b>' + pct + "%</b> ready</p><p>" + verdict + "</p>" + (tips ? "<ul>" + tips + "</ul>" : "") +
+      '<p><a class="btn" href="free-resources.html#planner">Get the free study planner</a></p>';
+  });
+})();
