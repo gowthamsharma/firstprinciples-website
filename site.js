@@ -3,11 +3,65 @@
   document.documentElement.classList.add("js");
   var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- reveal diagrams once ---- */
+  /* ---- diagrams: draw when seen, then stay alive (tracers, flowing arrows, pulsing dots); replay on request ---- */
+  var NSV = "http://www.w3.org/2000/svg";
   var figs = document.querySelectorAll(".fx");
+  function lastT(f) { var m = 0; f.querySelectorAll("[style*='--t']").forEach(function (e) { var v = parseFloat(e.style.getPropertyValue("--t")) || 0; if (v > m) m = v; }); return m; }
+  function npts(p) { return ((p.getAttribute("d") || "").match(/L/g) || []).length; }
+  function build(f) {
+    if (f._live) return f._live;
+    var layer = document.createElementNS(NSV, "g"); layer.setAttribute("class", "live"); f.appendChild(layer);
+    var curves = [], arrows = [];
+    f.querySelectorAll("path.d").forEach(function (p) { if (p.closest(".live")) return; var n = npts(p); if (n >= 25) curves.push(p); else if (n >= 1 && n <= 4 && !p.getAttribute("stroke-dasharray")) arrows.push(p); });
+    curves.sort(function (a, b) { return b.getTotalLength() - a.getTotalLength(); });
+    var tr = curves.slice(0, 3).map(function (p, i) {
+      var g = document.createElementNS(NSV, "g"), c = p.getAttribute("stroke");
+      var halo = document.createElementNS(NSV, "circle"); halo.setAttribute("r", 9); halo.setAttribute("fill", c); halo.setAttribute("fill-opacity", ".18");
+      var dot = document.createElementNS(NSV, "circle"); dot.setAttribute("r", 3.6); dot.setAttribute("fill", "#fff");
+      g.appendChild(halo); g.appendChild(dot); layer.appendChild(g);
+      return { p: p, g: g, L: p.getTotalLength(), off: i * 0.37, sp: 5200 + i * 900 };
+    });
+    arrows.slice(0, 14).forEach(function (p, i) {
+      var q = p.cloneNode(); q.setAttribute("class", "flow"); q.setAttribute("stroke", "#fff"); q.setAttribute("stroke-opacity", ".85");
+      q.setAttribute("stroke-width", Math.max(2, +p.getAttribute("stroke-width") + 0.6)); q.style.animationDelay = (-i * 0.31) + "s"; layer.appendChild(q);
+    });
+    f._live = { tr: tr, t0: 0 }; return f._live;
+  }
+  var running = new Set(), raf = 0;
+  function tick(now) {
+    running.forEach(function (f) {
+      var L = f._live; if (!L.t0) L.t0 = now;
+      L.tr.forEach(function (t) {
+        var u = ((now - L.t0) / t.sp + t.off) % 1, e = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+        var pt = t.p.getPointAtLength(e * t.L); t.g.setAttribute("transform", "translate(" + pt.x + "," + pt.y + ")");
+        t.g.style.opacity = Math.min(1, Math.min(u, 1 - u) * 8);
+      });
+    });
+    raf = running.size ? requestAnimationFrame(tick) : 0;
+  }
+  function goLive(f) { if (still) return; build(f); f.classList.add("live"); running.add(f); if (!raf) raf = requestAnimationFrame(tick); }
+  function stopLive(f) { running.delete(f); f.classList.remove("live"); }
+  function play(f) {
+    clearTimeout(f._tm); f._done = false; stopLive(f); f.classList.remove("on"); void f.getBoundingClientRect(); f.classList.add("on");
+    if (f._live) f._live.t0 = 0;
+    f._tm = setTimeout(function () { f._done = true; if (f._vis !== false) goLive(f); }, (lastT(f) + 1.5) * 1000);
+  }
+  figs.forEach(function (f) {
+    var host = f.closest("figure");
+    if (host && !still) {
+      var b = document.createElement("button"); b.type = "button"; b.className = "replay"; b.textContent = "Replay";
+      b.setAttribute("aria-label", "Replay this diagram"); b.addEventListener("click", function () { play(f); }); var cap = host.querySelector("figcaption"); host.insertBefore(b, cap ? cap.nextSibling : null); host.classList.add("hasreplay");
+    }
+  });
   if (!("IntersectionObserver" in window) || still) { figs.forEach(function (f) { f.classList.add("on"); }); }
   else {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }); }, { threshold: 0.35 });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var f = e.target; f._vis = e.isIntersecting;
+        if (e.isIntersecting) { if (!f.classList.contains("on")) play(f); else if (f._done) goLive(f); }
+        else stopLive(f);
+      });
+    }, { threshold: 0.3 });
     figs.forEach(function (f) { io.observe(f); });
   }
 

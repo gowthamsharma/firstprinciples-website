@@ -138,13 +138,15 @@ table.left td, table.left th { text-align: left !important; }
 /* ---------- diagrams: drawn once when they come into view ---------- */
 .fx { width: 100%; height: auto; overflow: visible; }
 .fx text { font-family: "CMU Serif", Georgia, serif; }
-.js .fx .d { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.3s ease var(--t, 0s); }
+.js .fx .d { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.5s cubic-bezier(.45,0,.55,1) var(--t, 0s); }
 .js .fx.on .d { stroke-dashoffset: 0; }
-.js .fx .g { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); transition: transform .9s cubic-bezier(.2,.7,.2,1) var(--t, 0s); }
+.js .fx .g { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); transition: transform 1s cubic-bezier(.45,0,.55,1) var(--t, 0s); }
 .js .fx.on .g { transform: scaleY(1); }
-.js .fx .gx { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); transition: transform .9s cubic-bezier(.2,.7,.2,1) var(--t, 0s); }
+.js .fx .gx { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(0); transition: transform 1s cubic-bezier(.45,0,.55,1) var(--t, 0s); }
 .js .fx.on .gx { transform: scaleX(1); }
-.js .fx .f { opacity: 0; transition: opacity .7s ease var(--t, 0s); }
+.js .fx .f { opacity: 0; transition: opacity .8s ease var(--t, 0s), filter .8s ease var(--t, 0s); }
+.js .fx text.f { filter: blur(3px); }
+.js .fx.on text.f { filter: none; }
 .js .fx.on .f { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .js .fx .d, .js .fx .g, .js .fx .gx, .js .fx .f { transition: none; stroke-dashoffset: 0; transform: none; opacity: 1; }
@@ -173,3 +175,16 @@ footer nav a { color: var(--dim); margin-right: 1rem; }
   footer .wrap { grid-template-columns: 1fr; }
   .reel { max-height: none; }
 }
+
+/* live layer: after a diagram has drawn itself */
+.fx .live { pointer-events: none; }
+.fx .live > g { opacity: 0; }
+.fx:not(.live) .live { display: none; }
+.fx .flow { stroke-dasharray: .07 .93; animation: flow 2.2s linear infinite; }
+@keyframes flow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.fx.live circle[fill="#FFFF00"] { transform-box: fill-box; transform-origin: center; animation: breathe 2.4s ease-in-out infinite; }
+@keyframes breathe { 50% { transform: scale(1.45); } }
+.replay { display: block; margin: .5rem 0 0 auto; font: inherit; font-size: .8rem; color: var(--dim, #8C8C8C); background: #000; border: 1px solid #3a3a3a; padding: .15rem .55rem; cursor: pointer; opacity: .7; transition: opacity .2s, color .2s, border-color .2s; }
+figure:hover .replay, .replay:focus-visible { opacity: 1; }
+.replay:hover { color: #58C4DD; border-color: #58C4DD; }
+@media (prefers-reduced-motion: reduce) { .fx .live, .replay { display: none; } }
