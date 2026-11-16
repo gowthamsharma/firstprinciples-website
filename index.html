@@ -4,589 +4,137 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>First Principles · CFA, from the basics</title>
-<meta name="description" content="Animated CFA lessons that take every idea back to first principles: pictures before formulas, intuition before memorising, and exam questions solved step by step. Opening in 2027.">
+<meta name="description" content="A CFA course that takes every idea back to first principles: pictures before formulas, intuition before memorising, exam questions solved step by step. Opening in 2027.">
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="cmu-serif-500-roman.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-roman.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
 @font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-
-:root {
-  --black: #000000; --ink: #ECECEC; --soft: #BBBBBB; --dim: #888888; --rule: #333333;
-  --blue: #58C4DD; --teal: #5CD0B3; --yellow: #FFFF00;
-}
+:root { --ink: #ECECEC; --soft: #BBBBBB; --dim: #888888; --rule: #2a2a2a; --blue: #58C4DD; --yellow: #FFFF00; }
 * { box-sizing: border-box; }
-html { background: var(--black); }
-body {
-  margin: 0; background: var(--black); color: var(--soft);
-  font: 400 1.1875rem/1.62 "CMU Serif", "Latin Modern Roman", Georgia, serif;
-  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden;
-}
-a { color: var(--blue); text-underline-offset: 0.18em; }
+html, body { background: #000; }
+body { margin: 0; color: var(--soft); font: 400 1.1875rem/1.62 "CMU Serif", "Latin Modern Roman", Georgia, serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { color: var(--ink); font-weight: 400; margin: 0; }
 p { margin: 0 0 1em; }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-h2 { font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
-.wrap { max-width: 72rem; margin: 0 auto; padding: 0 1rem; }
+.wrap { max-width: 66rem; margin: 0 auto; padding: 0 1.25rem; }
+section { padding: clamp(4rem, 9vw, 7rem) 0; border-top: 1px solid var(--rule); }
+h2 { font-size: clamp(1.9rem, 4vw, 2.7rem); line-height: 1.12; margin-bottom: 1rem; }
+svg { display: block; width: 100%; height: auto; }
 
-/* the price line along the top grows as you read */
-#tape { position: fixed; top: 0; left: 0; width: 100%; height: 26px; z-index: 5; pointer-events: none; }
+/* masthead */
+.mast { min-height: 88svh; display: grid; align-content: center; padding: 4rem 0; }
+.mark { font-size: clamp(3.6rem, 13vw, 9rem); line-height: 1; letter-spacing: -0.01em; }
+.mark .first { color: var(--blue); }
+.mark .i { position: relative; }
+.mark .i::after { content: ""; position: absolute; left: 50%; top: 0.255em; width: 0.115em; height: 0.115em; margin-left: -0.0575em; border-radius: 50%; background: var(--yellow); }
+.mark .second { display: block; color: var(--ink); }
+.mast .line { font-style: italic; font-size: clamp(1.1rem, 2.3vw, 1.45rem); margin: 2.4rem 0 0; max-width: 34rem; }
+.mast .soon { color: var(--ink); margin-top: 0.8rem; }
+.mast .soon b { color: var(--yellow); font-weight: 400; }
 
-/* hero */
-.hero { position: relative; height: 100svh; min-height: 30rem; }
-.hero canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.hero .line { position: absolute; left: 0; right: 0; bottom: clamp(3.5rem, 11vh, 6rem); text-align: center; padding: 0 1rem; margin: 0;
-  font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.35rem); opacity: 0; transition: opacity 1.2s ease; }
-.hero .cue { position: absolute; left: 50%; bottom: 1.4rem; width: 1px; height: 2.4rem; background: linear-gradient(var(--blue), transparent);
-  opacity: 0; transition: opacity 1.2s ease; animation: drip 2.2s ease-in-out infinite; }
-.hero.done .line, .hero.done .cue { opacity: 1; }
-@keyframes drip { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+/* three levels */
+.levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 4vw, 3rem); margin-top: 2.6rem; }
+.levels .lv { color: var(--blue); font-style: italic; margin: 1.2rem 0 0.1rem; }
+.levels h3 { font-size: 1.45rem; margin-bottom: 0.5rem; }
+.levels p { font-size: 1.02rem; }
 
-/* ticker */
-.ticker { border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); overflow: hidden; white-space: nowrap; padding: 0.9rem 0; color: var(--ink); font-style: italic; }
-.ticker div { display: inline-block; animation: run 48s linear infinite; }
-.ticker span { margin: 0 1.6rem; }
-.ticker span::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); margin-left: 3.2rem; vertical-align: middle; }
-@keyframes run { to { transform: translateX(-50%); } }
-
-/* pinned scroll scenes */
-.scene { position: relative; }
-#option { height: 300vh; }
-.pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  align-items: center; gap: clamp(1.5rem, 5vw, 4.5rem); max-width: 72rem; margin: 0 auto; padding: 2rem 1rem 1rem; }
-.pin canvas { width: 100%; height: min(68svh, 34rem); display: block; }
-.copy p { max-width: 30rem; }
-.readout { color: var(--ink); font-size: 1.25rem; }
-.readout b { color: var(--blue); font-weight: 400; font-variant-numeric: tabular-nums; display: inline-block; min-width: 2.6em; }
-
-/* the staircase: three cards, each one step higher */
-.stairs { padding: clamp(5rem, 11vw, 8rem) 1rem 0; }
-.stairs .intro { max-width: 34rem; }
-.steps3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 2rem); margin-top: 3rem; align-items: start; }
-.step { border-top: 1px solid var(--blue); padding-top: 1.1rem; }
-.step:nth-child(1) { margin-top: 9rem; } .step:nth-child(2) { margin-top: 4.5rem; }
-.step .lv { color: var(--blue); font-style: italic; margin: 0 0 0.2rem; }
-.step h3 { font-size: 1.55rem; margin-bottom: 0.6rem; }
-.step p { font-size: 1.02rem; }
-.step canvas { width: 100%; height: 19rem; display: block; margin-top: 0.6rem; }
-.step:nth-child(1) canvas { cursor: pointer; }
-
-/* pictures before formulas */
-.approach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; padding: clamp(5rem, 12vw, 9rem) 1rem; }
-.approach canvas { width: 100%; max-width: 28rem; aspect-ratio: 1; display: block; }
-.approach .cap { color: var(--dim); font-size: 0.95rem; margin-top: 1rem; max-width: 28rem; }
-.approach .cap b { color: var(--ink); font-weight: 400; font-variant-numeric: tabular-nums; }
-
-/* formula wall */
-.wall { position: relative; height: 150vh; overflow: hidden; display: grid; place-items: center; }
-.wall h2 { position: relative; z-index: 2; text-shadow: 0 0 18px #000, 0 0 36px #000, 0 0 60px #000; text-align: center; max-width: 16ch; padding: 0 1rem; }
-.wall .f { position: absolute; white-space: nowrap; color: var(--blue); will-change: transform; font-style: italic; }
-.wall .f.far { color: #2e5f6b; font-size: 0.95rem; } .wall .f.mid { color: #4a9db0; font-size: 1.3rem; } .wall .f.near { font-size: 1.9rem; }
-.wall sub { font-size: 0.65em; }
+/* text beside a picture */
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.pair figure { margin: 0; }
+.pair figcaption { color: var(--dim); font-size: 0.95rem; margin-top: 0.8rem; }
+.hhi svg { max-width: 24rem; }
 
 /* lessons */
-.lessons { padding: clamp(5rem, 12vw, 9rem) 1rem; }
-.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.6rem clamp(2rem, 6vw, 5rem); margin-top: 2.4rem; }
-.parts > div { display: grid; grid-template-columns: 3.2rem 1fr; gap: 1.1rem; align-items: start; }
-.parts svg { width: 3.2rem; height: 3.2rem; overflow: visible; }
-.parts svg * { fill: none; stroke: var(--blue); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.4s ease; }
-.parts .on svg * { stroke-dashoffset: 0; }
-.parts h3 { font-size: 1.2rem; margin-bottom: 0.35rem; }
-.parts p { margin: 0; max-width: 28rem; }
+.parts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem clamp(2rem, 6vw, 5rem); margin-top: 2rem; }
+.parts h3 { font-size: 1.2rem; margin-bottom: 0.3rem; }
+.parts p { margin: 0; }
 
 /* 2027 */
-.soon { min-height: 100svh; display: grid; place-items: center; text-align: center; padding: 6rem 1rem; position: relative; overflow: hidden; }
-.soon canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
-.soon > div { position: relative; }
-.soon .kick { color: var(--soft); font-style: italic; font-size: clamp(1.1rem, 2.4vw, 1.5rem); margin-bottom: 0.5rem; }
-.year { font-size: clamp(5rem, 22vw, 15rem); line-height: 1; color: var(--ink); display: inline-flex; letter-spacing: -0.02em; }
-.year .roll { display: inline-block; height: 1em; overflow: hidden; color: var(--yellow); }
-.year .roll span { display: block; will-change: transform; }
-.soon p.lead { max-width: 34rem; margin: 1.6rem auto 0; }
+.open { text-align: center; }
+.open .year { font-size: clamp(5rem, 20vw, 13rem); line-height: 1; color: var(--ink); }
+.open .year span { color: var(--yellow); }
+.open p { max-width: 32rem; margin: 1.4rem auto 0; }
 
-footer { max-width: 72rem; margin: 0 auto; padding: 3rem 1rem; border-top: 1px solid var(--rule); color: var(--dim); font-size: 0.875rem; line-height: 1.6; }
+footer { border-top: 1px solid var(--rule); padding: 2.5rem 0 3rem; color: var(--dim); font-size: 0.875rem; }
 footer p { max-width: 46rem; }
-.mark { color: var(--ink); } .mark b { color: var(--blue); font-weight: 400; }
+footer .name { color: var(--ink); } footer .name b { color: var(--blue); font-weight: 400; }
 
 @media (max-width: 760px) {
   body { font-size: 1.0625rem; }
-  .pin { grid-template-columns: 1fr; align-content: center; gap: 0.6rem; padding-top: 2.4rem; }
-  .pin canvas { height: 46svh; }
-    .copy h2 { font-size: 1.8rem; margin-bottom: 0.6rem; }
-    .approach, .parts, .steps3 { grid-template-columns: 1fr; }
-  .step:nth-child(1), .step:nth-child(2) { margin-top: 0; }
-  .steps3 { gap: 3rem; }
-  .wall .f.far { font-size: 0.8rem; } .wall .f.mid { font-size: 1rem; } .wall .f.near { font-size: 1.3rem; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .ticker div, .hero .cue { animation: none; }
-  .parts svg *, .hero .line { transition: none; }
+  .levels, .pair, .parts { grid-template-columns: 1fr; }
+  .levels { gap: 2.6rem; }
 }
 </style>
 </head>
 <body>
-<canvas id="tape" aria-hidden="true"></canvas>
-
-<header class="hero" id="hero">
-  <h1 class="sr-only">First Principles</h1>
-  <canvas id="ident" aria-hidden="true"></canvas>
+<header class="wrap mast">
+  <h1 class="mark" aria-label="First Principles"><span class="first">F<span class="i">ı</span>rst</span><span class="second">Principles</span></h1>
   <p class="line">The CFA Program, taken back to the basics and drawn until it is obvious.</p>
-  <span class="cue" aria-hidden="true"></span>
+  <p class="soon">A CFA course, opening in <b>2027</b>.</p>
 </header>
 
-<div class="ticker" aria-hidden="true"><div>
-  <span>Time value of money</span><span>Duration and convexity</span><span>Black–Scholes</span><span>Efficient frontier</span><span>Discounted cash flow</span><span>Factor models</span><span>Swaps and forwards</span><span>Capital market line</span><span>Tracking error</span><span>Hypothesis testing</span>
-  <span>Time value of money</span><span>Duration and convexity</span><span>Black–Scholes</span><span>Efficient frontier</span><span>Discounted cash flow</span><span>Factor models</span><span>Swaps and forwards</span><span>Capital market line</span><span>Tracking error</span><span>Hypothesis testing</span>
-</div></div>
-
 <main>
-  <section class="wrap stairs" id="levels" aria-labelledby="levels-h">
-    <h2 id="levels-h">Three levels, one staircase</h2>
-    <p class="intro">The CFA Program climbs in three steps. Each one has a picture at its heart.</p>
-    <div class="steps3">
-      <article class="step">
-        <p class="lv">Level I</p><h3>The tools</h3>
-        <p>Statistics, the time value of money, accounting. Bounce a ball left or right at random enough times and the bell curve appears by itself.</p>
-        <canvas id="lv1" aria-hidden="true"></canvas>
-      </article>
-      <article class="step">
-        <p class="lv">Level II</p><h3>Valuation</h3>
-        <p>What is it worth today? Every future cash flow travels back to the present and shrinks on the way.</p>
-        <canvas id="lv2" aria-hidden="true"></canvas>
-      </article>
-      <article class="step">
-        <p class="lv">Level III</p><h3>Portfolio management</h3>
-        <p>Thousands of possible portfolios, one frontier, and the single line every investor would like to be on.</p>
-        <canvas id="lv3" aria-hidden="true"></canvas>
-      </article>
-    </div>
-  </section>
-
-  <section class="wrap approach" id="approach" aria-labelledby="approach-h">
-    <div>
-      <h2 id="approach-h">Pictures before formulas</h2>
-      <p>Every lesson starts from what is true and builds the idea one step at a time. The formula comes last, and by then it only says what you can already see.</p>
-      <p>Take concentration in a portfolio. On paper it is <i>Σ w²</i>. Cut a square at each weight, along both edges, and the squares on the diagonal <em>are</em> that sum.</p>
-    </div>
-    <div>
-      <canvas id="hhi" aria-hidden="true"></canvas>
-      <p class="cap">Weights 40, 25, 15, 12 and 8 percent. Squares so far: <b id="hhi-v">0.000</b> of the board, so the portfolio behaves like <b id="hhi-n">∞</b> equal-weighted holdings.</p>
-    </div>
-  </section>
-
-  <section class="scene" id="option" aria-labelledby="option-h">
-    <div class="pin">
-      <div class="copy">
-        <h2 id="option-h">Watch time run out</h2>
-        <p>An option is worth its payoff plus time value. Keep scrolling and expiry gets closer: the curve sinks onto the hockey stick, because on the last day only the payoff is left.</p>
-        <p class="readout">Time to expiry: <b id="opt-t">1.00</b> years</p>
+  <section>
+    <div class="wrap">
+      <h2>Three levels, one picture each</h2>
+      <p style="max-width:36rem">The CFA Program climbs in three steps. At the heart of each one is an idea you can draw.</p>
+      <div class="levels">
+        <div><svg viewBox="0 0 320 220" role="img" aria-label="A histogram of coin-flip outcomes forming a bell curve, with the middle 68 percent highlighted"><path d="M20,30 L20,190 L300,190" fill="none" stroke="#333333" stroke-width="1"/><rect x="23.1" y="189.4" width="19.3" height="0.6" fill="#58C4DD" fill-opacity="0.55"/><rect x="48.5" y="184.2" width="19.3" height="5.8" fill="#58C4DD" fill-opacity="0.55"/><rect x="74.0" y="164.0" width="19.3" height="26.0" fill="#58C4DD" fill-opacity="0.55"/><rect x="99.4" y="120.6" width="19.3" height="69.4" fill="#58C4DD" fill-opacity="0.55"/><rect x="124.9" y="68.5" width="19.3" height="121.5" fill="#5CD0B3" fill-opacity="0.85"/><rect x="150.3" y="44.2" width="19.3" height="145.8" fill="#5CD0B3" fill-opacity="0.85"/><rect x="175.8" y="68.5" width="19.3" height="121.5" fill="#5CD0B3" fill-opacity="0.85"/><rect x="201.2" y="120.6" width="19.3" height="69.4" fill="#58C4DD" fill-opacity="0.55"/><rect x="226.7" y="164.0" width="19.3" height="26.0" fill="#58C4DD" fill-opacity="0.55"/><rect x="252.1" y="184.2" width="19.3" height="5.8" fill="#58C4DD" fill-opacity="0.55"/><rect x="277.6" y="189.4" width="19.3" height="0.6" fill="#58C4DD" fill-opacity="0.55"/><path d="M20.0,189.6 L22.5,189.6 L25.1,189.5 L27.6,189.3 L30.2,189.2 L32.7,189.0 L35.3,188.8 L37.8,188.5 L40.4,188.2 L42.9,187.8 L45.5,187.4 L48.0,186.9 L50.5,186.3 L53.1,185.6 L55.6,184.8 L58.2,183.9 L60.7,182.9 L63.3,181.7 L65.8,180.3 L68.4,178.8 L70.9,177.1 L73.5,175.2 L76.0,173.1 L78.5,170.7 L81.1,168.1 L83.6,165.3 L86.2,162.2 L88.7,158.8 L91.3,155.2 L93.8,151.3 L96.4,147.2 L98.9,142.8 L101.5,138.1 L104.0,133.2 L106.5,128.1 L109.1,122.8 L111.6,117.4 L114.2,111.8 L116.7,106.1 L119.3,100.4 L121.8,94.7 L124.4,89.0 L126.9,83.4 L129.5,77.9 L132.0,72.6 L134.5,67.6 L137.1,62.8 L139.6,58.4 L142.2,54.4 L144.7,50.9 L147.3,47.8 L149.8,45.2 L152.4,43.1 L154.9,41.7 L157.5,40.8 L160.0,40.5 L162.5,40.8 L165.1,41.7 L167.6,43.1 L170.2,45.2 L172.7,47.8 L175.3,50.9 L177.8,54.4 L180.4,58.4 L182.9,62.8 L185.5,67.6 L188.0,72.6 L190.5,77.9 L193.1,83.4 L195.6,89.0 L198.2,94.7 L200.7,100.4 L203.3,106.1 L205.8,111.8 L208.4,117.4 L210.9,122.8 L213.5,128.1 L216.0,133.2 L218.5,138.1 L221.1,142.8 L223.6,147.2 L226.2,151.3 L228.7,155.2 L231.3,158.8 L233.8,162.2 L236.4,165.3 L238.9,168.1 L241.5,170.7 L244.0,173.1 L246.5,175.2 L249.1,177.1 L251.6,178.8 L254.2,180.3 L256.7,181.7 L259.3,182.9 L261.8,183.9 L264.4,184.8 L266.9,185.6 L269.5,186.3 L272.0,186.9 L274.5,187.4 L277.1,187.8 L279.6,188.2 L282.2,188.5 L284.7,188.8 L287.3,189.0 L289.8,189.2 L292.4,189.3 L294.9,189.5 L297.5,189.6 L300.0,189.6" fill="none" stroke="#FFFF00" stroke-width="1.6"/><text x="300" y="36" text-anchor="end" fill="#ECECEC" font-size="15" font-family="CMU Serif, Georgia, serif">68% within one σ</text></svg><p class="lv">Level I</p><h3>The tools</h3><p>Statistics, the time value of money and accounting. Toss a coin ten times, over and over, and the bell curve appears on its own.</p></div>
+        <div><svg viewBox="0 0 320 220" role="img" aria-label="Eight future cash flows, each with a smaller filled bar for its present value, stacked at year zero into a value of 26.8"><path d="M20,30 L20,190 L300,190" fill="none" stroke="#333333" stroke-width="1"/><rect x="57.3" y="173.3" width="18.7" height="16.7" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="57.3" y="175.1" width="18.7" height="14.9" fill="#58C4DD" fill-opacity="0.7"/><text x="66.7" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">1</text><rect x="88.4" y="170.6" width="18.7" height="19.4" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="88.4" y="174.5" width="18.7" height="15.5" fill="#58C4DD" fill-opacity="0.7"/><text x="97.8" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">2</text><rect x="119.6" y="167.8" width="18.7" height="22.2" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="119.6" y="174.2" width="18.7" height="15.8" fill="#58C4DD" fill-opacity="0.7"/><text x="128.9" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">3</text><rect x="150.7" y="165.0" width="18.7" height="25.0" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="150.7" y="174.1" width="18.7" height="15.9" fill="#58C4DD" fill-opacity="0.7"/><text x="160.0" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">4</text><rect x="181.8" y="162.2" width="18.7" height="27.8" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="181.8" y="174.2" width="18.7" height="15.8" fill="#58C4DD" fill-opacity="0.7"/><text x="191.1" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">5</text><rect x="212.9" y="159.4" width="18.7" height="30.6" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="212.9" y="174.5" width="18.7" height="15.5" fill="#58C4DD" fill-opacity="0.7"/><text x="222.2" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">6</text><rect x="244.0" y="156.7" width="18.7" height="33.3" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="244.0" y="174.9" width="18.7" height="15.1" fill="#58C4DD" fill-opacity="0.7"/><text x="253.3" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">7</text><rect x="275.1" y="90.0" width="18.7" height="100.0" fill="none" stroke="#58C4DD" stroke-width="1.2"/><rect x="275.1" y="149.6" width="18.7" height="40.4" fill="#58C4DD" fill-opacity="0.7"/><text x="284.4" y="206" text-anchor="middle" fill="#888888" font-size="11" font-family="CMU Serif, Georgia, serif">8</text><rect x="26.2" y="175.1" width="18.7" height="14.9" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="159.6" width="18.7" height="15.5" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="143.8" width="18.7" height="15.8" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="127.9" width="18.7" height="15.9" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="112.2" width="18.7" height="15.8" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="96.7" width="18.7" height="15.5" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="81.6" width="18.7" height="15.1" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><rect x="26.2" y="41.2" width="18.7" height="40.4" fill="#5CD0B3" stroke="#000" stroke-width="0.8"/><text x="35.6" y="206" text-anchor="middle" fill="#ECECEC" font-size="11" font-family="CMU Serif, Georgia, serif">0</text><text x="51.1" y="53.2" fill="#5CD0B3" font-size="14" font-style="italic" font-family="CMU Serif, Georgia, serif">  26.8 today</text></svg><p class="lv">Level II</p><h3>Valuation</h3><p>What is an asset worth today? Each future cash flow (outline) shrinks to its present value (filled), and the pieces add up to the price.</p></div>
+        <div><svg viewBox="0 0 320 220" role="img" aria-label="A cloud of portfolios under the efficient frontier, with the capital market line touching it at the market portfolio"><path d="M20,30 L20,190 L300,190" fill="none" stroke="#333333" stroke-width="1"/><text x="300" y="212" text-anchor="end" fill="#888888" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">risk</text><text x="26" y="22" fill="#888888" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">return</text><circle cx="157.2" cy="102.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="222.9" cy="78.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="115.3" cy="121.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="180.1" cy="172.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="120.3" cy="115.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="278.5" cy="112.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="196.1" cy="119.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="221.7" cy="93.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="249.3" cy="130.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="199.9" cy="92.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="180.3" cy="127.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="126.0" cy="121.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="257.7" cy="138.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="145.1" cy="103.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="132.9" cy="132.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="196.8" cy="168.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="131.1" cy="124.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="248.3" cy="184.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="221.8" cy="78.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="162.4" cy="120.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="178.6" cy="142.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="206.4" cy="102.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="170.7" cy="156.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="263.8" cy="101.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="183.4" cy="87.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="201.7" cy="159.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="160.1" cy="100.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="218.9" cy="122.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="144.3" cy="132.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="145.1" cy="169.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="235.6" cy="91.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="137.9" cy="127.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="243.5" cy="76.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="181.9" cy="133.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="227.1" cy="86.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="204.9" cy="125.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="250.3" cy="66.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="173.4" cy="98.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="150.9" cy="143.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="275.1" cy="87.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="151.2" cy="163.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="167.7" cy="104.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="246.3" cy="160.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="205.9" cy="98.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="190.1" cy="140.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="178.5" cy="152.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="263.3" cy="164.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="233.5" cy="98.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="194.1" cy="147.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="208.3" cy="140.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="128.0" cy="136.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="198.5" cy="101.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="261.8" cy="83.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="155.8" cy="116.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="218.4" cy="179.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="243.5" cy="82.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="214.8" cy="87.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="117.3" cy="124.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="193.3" cy="83.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="269.3" cy="166.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="165.5" cy="103.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="254.3" cy="61.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="275.4" cy="206.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="265.2" cy="158.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="279.6" cy="159.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="271.3" cy="73.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="228.6" cy="114.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="182.0" cy="155.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="108.9" cy="149.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="135.8" cy="117.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="124.9" cy="136.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="202.8" cy="80.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="147.2" cy="125.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="205.4" cy="132.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="210.7" cy="180.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="233.2" cy="155.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="194.4" cy="158.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="244.3" cy="90.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="192.6" cy="166.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="269.5" cy="189.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="218.7" cy="166.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="259.3" cy="136.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="227.2" cy="125.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="163.1" cy="138.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="234.0" cy="145.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="104.7" cy="129.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="214.6" cy="112.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="246.8" cy="115.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="166.7" cy="151.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="275.8" cy="77.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="109.3" cy="138.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="207.4" cy="179.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="208.4" cy="84.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="191.8" cy="89.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="102.5" cy="128.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="158.4" cy="132.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="273.1" cy="157.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="136.0" cy="109.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="136.3" cy="139.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="110.8" cy="131.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="145.4" cy="118.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="271.4" cy="126.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="117.8" cy="120.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="196.4" cy="185.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="206.7" cy="99.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="166.9" cy="134.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="215.8" cy="86.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="278.8" cy="99.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="129.8" cy="161.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="149.0" cy="104.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="218.0" cy="90.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="235.6" cy="94.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="141.1" cy="121.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="154.6" cy="164.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="268.7" cy="110.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="181.3" cy="97.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="256.6" cy="110.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="101.0" cy="136.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="257.3" cy="68.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="250.2" cy="149.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="278.8" cy="221.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="279.4" cy="160.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="209.0" cy="87.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="189.6" cy="112.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="241.2" cy="80.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="201.4" cy="148.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="161.5" cy="135.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="185.3" cy="107.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="258.7" cy="131.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="132.5" cy="120.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="189.9" cy="110.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="253.2" cy="168.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="265.1" cy="83.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="198.3" cy="131.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="175.8" cy="165.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="170.8" cy="130.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="155.3" cy="115.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="120.3" cy="120.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="278.8" cy="87.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="110.7" cy="130.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="262.6" cy="169.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="250.2" cy="138.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="178.4" cy="158.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="253.3" cy="137.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="105.3" cy="135.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="187.8" cy="125.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="258.2" cy="145.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="237.6" cy="183.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="214.3" cy="125.0" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="220.6" cy="160.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="156.4" cy="131.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="268.7" cy="70.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="167.2" cy="131.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="145.8" cy="144.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="234.1" cy="82.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="260.7" cy="84.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="277.5" cy="178.9" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="234.7" cy="96.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="181.0" cy="153.5" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="241.6" cy="71.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="144.2" cy="129.8" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="157.7" cy="134.1" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="114.1" cy="138.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="160.3" cy="98.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="107.8" cy="138.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="248.6" cy="122.6" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="184.9" cy="116.7" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="250.1" cy="165.3" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="225.2" cy="97.2" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><circle cx="207.9" cy="185.4" r="1.7" fill="#9CDCEB" fill-opacity="0.5"/><path d="M98.8,136.7 L101.4,129.2 L104.0,126.0 L106.6,123.5 L109.2,121.3 L111.9,119.4 L114.5,117.6 L117.1,115.9 L119.8,114.3 L122.4,112.7 L125.0,111.3 L127.6,109.8 L130.2,108.4 L132.9,107.1 L135.5,105.8 L138.1,104.5 L140.8,103.2 L143.4,101.9 L146.0,100.7 L148.6,99.5 L151.2,98.3 L153.9,97.1 L156.5,95.9 L159.1,94.7 L161.8,93.6 L164.4,92.4 L167.0,91.3 L169.6,90.1 L172.2,89.0 L174.9,87.9 L177.5,86.8 L180.1,85.7 L182.7,84.6 L185.4,83.5 L188.0,82.4 L190.6,81.3 L193.2,80.2 L195.9,79.2 L198.5,78.1 L201.1,77.0 L203.8,76.0 L206.4,74.9 L209.0,73.8 L211.6,72.8 L214.2,71.7 L216.9,70.7 L219.5,69.6 L222.1,68.6 L224.8,67.5 L227.4,66.5 L230.0,65.5 L232.6,64.4 L235.2,63.4 L237.9,62.4 L240.5,61.3 L243.1,60.3 L245.8,59.3 L248.4,58.3 L251.0,57.2 L253.6,56.2 L256.2,55.2 L258.9,54.2 L261.5,53.2 L264.1,52.2 L266.8,51.1 L269.4,50.1 L272.0,49.1 L274.6,48.1 L277.2,47.1 L279.9,46.1 L282.5,45.1" fill="none" stroke="#ECECEC" stroke-width="2"/><line x1="20.0" y1="167.1" x2="300.0" y2="18.1" stroke="#FFFF00" stroke-width="1.6"/><circle cx="128.5" cy="109.4" r="5" fill="#FFFF00"/><text x="118.5" y="99.4" text-anchor="end" fill="#ECECEC" font-size="13" font-family="CMU Serif, Georgia, serif">market portfolio</text></svg><p class="lv">Level III</p><h3>Portfolio management</h3><p>Every dot is a possible portfolio. The best ones lie on the frontier, and the yellow line shows the best mix of all.</p></div>
       </div>
-      <canvas id="option-cv" aria-hidden="true"></canvas>
     </div>
   </section>
 
-  <section class="wall" id="wall" aria-labelledby="wall-h">
-    <h2 id="wall-h">Every formula is a picture waiting to be drawn</h2>
-  </section>
-
-  <section class="wrap lessons" aria-labelledby="lesson-h">
-    <h2 id="lesson-h">What every lesson gives you</h2>
-    <div class="parts">
-      <div><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="21" pathLength="1"/><path d="M19 15 L34 24 L19 33 Z" pathLength="1"/></svg>
-        <div><h3>The idea, animated</h3><p>Charts that build themselves, realistic market data, and one idea on screen at a time.</p></div></div>
-      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 30 C10 24 12 6 24 6 C36 6 38 24 31 30 L31 36 L17 36 Z" pathLength="1"/><path d="M19 42 L29 42" pathLength="1"/></svg>
-        <div><h3>The intuition behind it</h3><p>Short first-principles asides: why a result has to be true, told with an everyday analogy.</p></div></div>
-      <div><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 15 C15 4 33 4 33 15 C33 23 24 23 24 31" pathLength="1"/><path d="M24 39 L24 41" pathLength="1"/></svg>
-        <div><h3>Pause and predict</h3><p>Quick questions in the middle of a lesson, so you test yourself before the answer appears.</p></div></div>
-      <div><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="5" width="38" height="38" rx="3" pathLength="1"/><path d="M13 25 L21 33 L36 15" pathLength="1"/></svg>
-        <div><h3>Exam questions, solved</h3><p>Vignette questions read and answered the way the exam asks them, with why each wrong option is wrong.</p></div></div>
+  <section>
+    <div class="wrap pair hhi">
+      <div>
+        <h2>Pictures before formulas</h2>
+        <p>Every lesson starts from what is true and builds the idea one step at a time. The formula comes last, and by then it only says what you can already see.</p>
+        <p>Take how concentrated a portfolio is. On paper it is <i>Σ w²</i>. Cut a square at each weight, along both edges, and the squares on the diagonal <em>are</em> that sum.</p>
+      </div>
+      <figure><svg viewBox="0 0 400 400" role="img" aria-label="A unit square cut at weights 40, 25, 15, 12 and 8 percent; the diagonal squares cover 27 percent of it"><rect x="20.0" y="20.0" width="144.0" height="144.0" fill="#58C4DD" fill-opacity="0.8"/><text x="92.0" y="97.0" text-anchor="middle" fill="#000" font-size="24" font-family="CMU Serif, Georgia, serif">40%</text><rect x="164.0" y="164.0" width="90.0" height="90.0" fill="#58C4DD" fill-opacity="0.8"/><text x="209.0" y="214.0" text-anchor="middle" fill="#000" font-size="15" font-family="CMU Serif, Georgia, serif">25%</text><rect x="254.0" y="254.0" width="54.0" height="54.0" fill="#58C4DD" fill-opacity="0.8"/><text x="281.0" y="286.0" text-anchor="middle" fill="#000" font-size="11" font-family="CMU Serif, Georgia, serif">15%</text><rect x="308.0" y="308.0" width="43.2" height="43.2" fill="#58C4DD" fill-opacity="0.8"/><text x="329.6" y="334.6" text-anchor="middle" fill="#000" font-size="11" font-family="CMU Serif, Georgia, serif">12%</text><rect x="351.2" y="351.2" width="28.8" height="28.8" fill="#58C4DD" fill-opacity="0.8"/><text x="365.6" y="370.6" text-anchor="middle" fill="#000" font-size="11" font-family="CMU Serif, Georgia, serif">8%</text><line x1="164.0" y1="20" x2="164.0" y2="380" stroke="#444"/><line x1="20" y1="164.0" x2="380" y2="164.0" stroke="#444"/><line x1="254.0" y1="20" x2="254.0" y2="380" stroke="#444"/><line x1="20" y1="254.0" x2="380" y2="254.0" stroke="#444"/><line x1="308.0" y1="20" x2="308.0" y2="380" stroke="#444"/><line x1="20" y1="308.0" x2="380" y2="308.0" stroke="#444"/><line x1="351.2" y1="20" x2="351.2" y2="380" stroke="#444"/><line x1="20" y1="351.2" x2="380" y2="351.2" stroke="#444"/><rect x="20" y="20" width="360" height="360" fill="none" stroke="#BBBBBB" stroke-width="1.5"/></svg><figcaption>The diagonal covers 0.27 of the square, so these five holdings behave like 1 / 0.27 ≈ 3.8 equal ones.</figcaption></figure>
     </div>
   </section>
 
-  <section class="soon" id="soon" aria-labelledby="soon-h">
-    <canvas id="soon-cv" aria-hidden="true"></canvas>
-    <div>
-      <p class="kick">A CFA course, opening in</p>
-      <h2 id="soon-h" class="year" aria-label="2027">202<span class="roll"><span>6</span><span>7</span></span></h2>
-      <p class="lead">Short animated lessons, intuition first, with exam-style questions solved step by step. Built through 2026, open in 2027.</p>
+  <section>
+    <div class="wrap pair">
+      <div>
+        <h2>Why options lose value as time passes</h2>
+        <p>An option is worth its payoff plus time value. The same option is drawn a year, five months and one month before expiry: each curve sits closer to the dashed payoff, because there is less time left for the price to move.</p>
+      </div>
+      <figure><svg viewBox="0 0 520 330" role="img" aria-label="Call option value against share price for one year, five months and one month to expiry, sinking towards the payoff line"><path d="M40,30 L40,290 L500,290" fill="none" stroke="#333333" stroke-width="1"/><text x="500" y="312" text-anchor="end" fill="#888888" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">share price</text><text x="46" y="22" fill="#888888" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">option value</text><path d="M40.0,290.0 L270.0,290.0 L500.0,58.9" fill="none" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 5"/><path d="M40.0,288.9 L42.9,288.8 L45.8,288.6 L48.6,288.5 L51.5,288.4 L54.4,288.2 L57.2,288.1 L60.1,287.9 L63.0,287.7 L65.9,287.6 L68.8,287.4 L71.6,287.2 L74.5,286.9 L77.4,286.7 L80.2,286.5 L83.1,286.2 L86.0,285.9 L88.9,285.6 L91.8,285.3 L94.6,285.0 L97.5,284.7 L100.4,284.3 L103.2,284.0 L106.1,283.6 L109.0,283.2 L111.9,282.8 L114.8,282.3 L117.6,281.9 L120.5,281.4 L123.4,280.9 L126.2,280.4 L129.1,279.8 L132.0,279.3 L134.9,278.7 L137.8,278.1 L140.6,277.5 L143.5,276.8 L146.4,276.2 L149.2,275.5 L152.1,274.8 L155.0,274.0 L157.9,273.3 L160.8,272.5 L163.6,271.7 L166.5,270.8 L169.4,270.0 L172.2,269.1 L175.1,268.2 L178.0,267.3 L180.9,266.3 L183.8,265.3 L186.6,264.3 L189.5,263.3 L192.4,262.3 L195.2,261.2 L198.1,260.1 L201.0,259.0 L203.9,257.8 L206.8,256.6 L209.6,255.4 L212.5,254.2 L215.4,252.9 L218.2,251.7 L221.1,250.3 L224.0,249.0 L226.9,247.7 L229.8,246.3 L232.6,244.9 L235.5,243.5 L238.4,242.0 L241.2,240.5 L244.1,239.0 L247.0,237.5 L249.9,235.9 L252.8,234.4 L255.6,232.8 L258.5,231.1 L261.4,229.5 L264.2,227.8 L267.1,226.1 L270.0,224.4 L272.9,222.7 L275.8,220.9 L278.6,219.2 L281.5,217.4 L284.4,215.5 L287.2,213.7 L290.1,211.8 L293.0,209.9 L295.9,208.0 L298.8,206.1 L301.6,204.2 L304.5,202.2 L307.4,200.2 L310.2,198.2 L313.1,196.2 L316.0,194.1 L318.9,192.1 L321.8,190.0 L324.6,187.9 L327.5,185.8 L330.4,183.7 L333.2,181.5 L336.1,179.4 L339.0,177.2 L341.9,175.0 L344.8,172.8 L347.6,170.5 L350.5,168.3 L353.4,166.0 L356.2,163.8 L359.1,161.5 L362.0,159.2 L364.9,156.9 L367.8,154.5 L370.6,152.2 L373.5,149.8 L376.4,147.5 L379.2,145.1 L382.1,142.7 L385.0,140.3 L387.9,137.9 L390.8,135.4 L393.6,133.0 L396.5,130.5 L399.4,128.1 L402.2,125.6 L405.1,123.1 L408.0,120.6 L410.9,118.1 L413.8,115.6 L416.6,113.1 L419.5,110.5 L422.4,108.0 L425.2,105.4 L428.1,102.9 L431.0,100.3 L433.9,97.7 L436.8,95.2 L439.6,92.6 L442.5,90.0 L445.4,87.3 L448.2,84.7 L451.1,82.1 L454.0,79.5 L456.9,76.8 L459.8,74.2 L462.6,71.5 L465.5,68.9 L468.4,66.2 L471.2,63.5 L474.1,60.9 L477.0,58.2 L479.9,55.5 L482.8,52.8 L485.6,50.1 L488.5,47.4 L491.4,44.7 L494.2,42.0 L497.1,39.2 L500.0,36.5" fill="none" stroke="#58C4DD" stroke-opacity="1.0" stroke-width="2.4"/><circle cx="270.0" cy="224.4" r="3" fill="#58C4DD" fill-opacity="1.0"/><text x="261.4" y="220.4" text-anchor="end" fill="#58C4DD" fill-opacity="1.0" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">1 year</text><path d="M40.0,290.0 L42.9,290.0 L45.8,290.0 L48.6,290.0 L51.5,290.0 L54.4,290.0 L57.2,290.0 L60.1,289.9 L63.0,289.9 L65.9,289.9 L68.8,289.9 L71.6,289.9 L74.5,289.9 L77.4,289.9 L80.2,289.8 L83.1,289.8 L86.0,289.8 L88.9,289.7 L91.8,289.7 L94.6,289.7 L97.5,289.6 L100.4,289.6 L103.2,289.5 L106.1,289.4 L109.0,289.4 L111.9,289.3 L114.8,289.2 L117.6,289.1 L120.5,289.0 L123.4,288.8 L126.2,288.7 L129.1,288.6 L132.0,288.4 L134.9,288.2 L137.8,288.1 L140.6,287.8 L143.5,287.6 L146.4,287.4 L149.2,287.1 L152.1,286.9 L155.0,286.6 L157.9,286.3 L160.8,285.9 L163.6,285.6 L166.5,285.2 L169.4,284.8 L172.2,284.4 L175.1,283.9 L178.0,283.4 L180.9,282.9 L183.8,282.4 L186.6,281.8 L189.5,281.2 L192.4,280.6 L195.2,279.9 L198.1,279.2 L201.0,278.5 L203.9,277.7 L206.8,277.0 L209.6,276.1 L212.5,275.3 L215.4,274.4 L218.2,273.4 L221.1,272.5 L224.0,271.5 L226.9,270.4 L229.8,269.3 L232.6,268.2 L235.5,267.1 L238.4,265.9 L241.2,264.6 L244.1,263.4 L247.0,262.1 L249.9,260.7 L252.8,259.3 L255.6,257.9 L258.5,256.5 L261.4,255.0 L264.2,253.4 L267.1,251.9 L270.0,250.3 L272.9,248.6 L275.8,246.9 L278.6,245.2 L281.5,243.5 L284.4,241.7 L287.2,239.9 L290.1,238.0 L293.0,236.2 L295.9,234.3 L298.8,232.3 L301.6,230.3 L304.5,228.3 L307.4,226.3 L310.2,224.2 L313.1,222.1 L316.0,220.0 L318.9,217.9 L321.8,215.7 L324.6,213.5 L327.5,211.2 L330.4,209.0 L333.2,206.7 L336.1,204.4 L339.0,202.1 L341.9,199.7 L344.8,197.4 L347.6,195.0 L350.5,192.6 L353.4,190.2 L356.2,187.7 L359.1,185.2 L362.0,182.8 L364.9,180.3 L367.8,177.7 L370.6,175.2 L373.5,172.7 L376.4,170.1 L379.2,167.5 L382.1,164.9 L385.0,162.3 L387.9,159.7 L390.8,157.1 L393.6,154.4 L396.5,151.8 L399.4,149.1 L402.2,146.4 L405.1,143.7 L408.0,141.0 L410.9,138.3 L413.8,135.6 L416.6,132.9 L419.5,130.2 L422.4,127.4 L425.2,124.7 L428.1,121.9 L431.0,119.1 L433.9,116.4 L436.8,113.6 L439.6,110.8 L442.5,108.0 L445.4,105.3 L448.2,102.5 L451.1,99.7 L454.0,96.8 L456.9,94.0 L459.8,91.2 L462.6,88.4 L465.5,85.6 L468.4,82.8 L471.2,79.9 L474.1,77.1 L477.0,74.3 L479.9,71.4 L482.8,68.6 L485.6,65.7 L488.5,62.9 L491.4,60.0 L494.2,57.2 L497.1,54.3 L500.0,51.5" fill="none" stroke="#58C4DD" stroke-opacity="0.7" stroke-width="2.4"/><circle cx="270.0" cy="250.3" r="3" fill="#58C4DD" fill-opacity="0.7"/><text x="261.4" y="246.3" text-anchor="end" fill="#58C4DD" fill-opacity="0.7" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">5 months</text><path d="M40.0,290.0 L42.9,290.0 L45.8,290.0 L48.6,290.0 L51.5,290.0 L54.4,290.0 L57.2,290.0 L60.1,290.0 L63.0,290.0 L65.9,290.0 L68.8,290.0 L71.6,290.0 L74.5,290.0 L77.4,290.0 L80.2,290.0 L83.1,290.0 L86.0,290.0 L88.9,290.0 L91.8,290.0 L94.6,290.0 L97.5,290.0 L100.4,290.0 L103.2,290.0 L106.1,290.0 L109.0,290.0 L111.9,290.0 L114.8,290.0 L117.6,290.0 L120.5,290.0 L123.4,290.0 L126.2,290.0 L129.1,290.0 L132.0,290.0 L134.9,290.0 L137.8,290.0 L140.6,290.0 L143.5,290.0 L146.4,290.0 L149.2,290.0 L152.1,290.0 L155.0,290.0 L157.9,290.0 L160.8,290.0 L163.6,290.0 L166.5,290.0 L169.4,290.0 L172.2,289.9 L175.1,289.9 L178.0,289.9 L180.9,289.9 L183.8,289.8 L186.6,289.8 L189.5,289.8 L192.4,289.7 L195.2,289.6 L198.1,289.5 L201.0,289.4 L203.9,289.3 L206.8,289.1 L209.6,289.0 L212.5,288.7 L215.4,288.5 L218.2,288.2 L221.1,287.9 L224.0,287.5 L226.9,287.1 L229.8,286.7 L232.6,286.2 L235.5,285.6 L238.4,284.9 L241.2,284.2 L244.1,283.5 L247.0,282.6 L249.9,281.7 L252.8,280.7 L255.6,279.6 L258.5,278.5 L261.4,277.2 L264.2,275.9 L267.1,274.5 L270.0,273.0 L272.9,271.5 L275.8,269.8 L278.6,268.1 L281.5,266.3 L284.4,264.4 L287.2,262.5 L290.1,260.4 L293.0,258.4 L295.9,256.2 L298.8,254.0 L301.6,251.7 L304.5,249.4 L307.4,247.0 L310.2,244.6 L313.1,242.1 L316.0,239.6 L318.9,237.1 L321.8,234.5 L324.6,231.9 L327.5,229.2 L330.4,226.5 L333.2,223.8 L336.1,221.1 L339.0,218.4 L341.9,215.6 L344.8,212.8 L347.6,210.0 L350.5,207.2 L353.4,204.4 L356.2,201.6 L359.1,198.8 L362.0,195.9 L364.9,193.1 L367.8,190.2 L370.6,187.3 L373.5,184.5 L376.4,181.6 L379.2,178.7 L382.1,175.9 L385.0,173.0 L387.9,170.1 L390.8,167.2 L393.6,164.4 L396.5,161.5 L399.4,158.6 L402.2,155.7 L405.1,152.8 L408.0,149.9 L410.9,147.0 L413.8,144.2 L416.6,141.3 L419.5,138.4 L422.4,135.5 L425.2,132.6 L428.1,129.7 L431.0,126.8 L433.9,123.9 L436.8,121.1 L439.6,118.2 L442.5,115.3 L445.4,112.4 L448.2,109.5 L451.1,106.6 L454.0,103.7 L456.9,100.8 L459.8,97.9 L462.6,95.1 L465.5,92.2 L468.4,89.3 L471.2,86.4 L474.1,83.5 L477.0,80.6 L479.9,77.7 L482.8,74.8 L485.6,71.9 L488.5,69.1 L491.4,66.2 L494.2,63.3 L497.1,60.4 L500.0,57.5" fill="none" stroke="#58C4DD" stroke-opacity="0.45" stroke-width="2.4"/><circle cx="270.0" cy="273.0" r="3" fill="#58C4DD" fill-opacity="0.45"/><text x="261.4" y="269.0" text-anchor="end" fill="#58C4DD" fill-opacity="0.6" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">1 month</text><text x="270.0" y="310" text-anchor="middle" fill="#888888" font-size="13" font-family="CMU Serif, Georgia, serif">strike 100</text><text x="367.8" y="249.6" text-anchor="start" fill="#888888" font-size="13" font-style="italic" font-family="CMU Serif, Georgia, serif">payoff at expiry</text></svg></figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>What every lesson gives you</h2>
+      <div class="parts">
+        <div><h3>The idea, drawn</h3><p>Clear diagrams and realistic market data, one idea at a time.</p></div>
+        <div><h3>The intuition behind it</h3><p>Why a result has to be true, told with an everyday analogy.</p></div>
+        <div><h3>Pause and predict</h3><p>Short questions inside the lesson, so you test yourself before the answer.</p></div>
+        <div><h3>Exam questions, solved</h3><p>Vignette questions answered the way the exam asks them, and why each wrong option is wrong.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="open">
+    <div class="wrap">
+      <p style="font-style:italic;margin:0">A CFA course, opening in</p>
+      <h2 class="year">202<span>7</span></h2>
+      <p>Short video lessons, intuition first, with exam-style questions solved step by step.</p>
     </div>
   </section>
 </main>
 
 <footer>
-  <p class="mark"><b>First</b> Principles</p>
-  <p>CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by First Principles. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.</p>
-  <p>© 2026 First Principles. Typeset in Computer Modern (CMU Serif, SIL Open Font License).</p>
+  <div class="wrap">
+    <p class="name"><b>First</b> Principles</p>
+    <p>CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by First Principles. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.</p>
+    <p>© 2026 First Principles. Typeset in Computer Modern (CMU Serif, SIL Open Font License).</p>
+  </div>
 </footer>
-
-<script>
-/* ------------------------------------------------------------------ the ident
-   The same story as the video intro: a market chart, a dive into one point,
-   and that point becomes the dot on the i of "First Principles". */
-(function () {
-  const hero = document.getElementById("hero"), cv = document.getElementById("ident"), ctx = cv.getContext("2d");
-  const BLUE = "#58C4DD", BLUE_B = "#9CDCEB", INK = "#ECECEC", YELLOW = "#FFFF00";
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let W = 0, H = 0, dpr = 1;
-
-  // a jagged random walk, the same every visit (seeded)
-  function rng(seed) { return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
-  const r = rng(12), n = 46, k = (n >> 1) + 2, ys = [];
-  let y = 0;
-  for (let i = 0; i < n; i++) { const u = r() || 1e-9, v = r(); y += 0.03 + 0.4 * Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); ys.push(y); }
-
-  function size() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = cv.clientWidth; H = cv.clientHeight;
-    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  // where the wordmark sits, and where its i-dot is (found by scanning a drawn "i")
-  function layout() {
-    const s = Math.max(44, Math.min(W * (W < 700 ? 0.2 : 0.125), H * 0.2, 150));
-    const font = `400 ${s}px "CMU Serif", Georgia, serif`;
-    ctx.font = font;
-    const wF = ctx.measureText("F").width, w1 = ctx.measureText("Fırst").width, w2 = ctx.measureText("Principles").width;
-    const block = Math.max(w1, w2), x0 = (W - block) / 2, gap = s * 1.02, base1 = H * 0.46 - gap * 0.15, base2 = base1 + gap;
-    const off = document.createElement("canvas"), oc = off.getContext("2d"), pad = Math.ceil(s * 1.2);
-    off.width = pad * 2; off.height = pad * 2; oc.font = font; oc.fillStyle = "#fff"; oc.fillText("i", pad, pad);
-    const img = oc.getImageData(0, 0, off.width, off.height).data, rowInk = (row) => {
-      let a = 1e9, b = -1;
-      for (let x = 0; x < off.width; x++) if (img[(row * off.width + x) * 4 + 3] > 100) { a = Math.min(a, x); b = Math.max(b, x); }
-      return b < 0 ? null : [a, b];
-    };
-    let top = -1, bottom = -1, xa = 1e9, xb = -1;
-    for (let row = 0; row < off.height; row++) {
-      const ink = rowInk(row);
-      if (ink && top < 0) top = row;
-      if (top >= 0) { if (!ink) { bottom = row; break; } xa = Math.min(xa, ink[0]); xb = Math.max(xb, ink[1]); }
-    }
-    const dot = { x: x0 + wF + ((xa + xb) / 2 - pad), y: base1 + ((top + bottom) / 2 - pad), r: Math.max(2, (bottom - top) * 0.56) };
-    return { font, x0, base1, base2, dot, s };
-  }
-
-  function chartPoints() {
-    const xs = [], span = W * 0.92;
-    let lo = Infinity, hi = -Infinity;
-    ys.forEach((v) => { lo = Math.min(lo, v - ys[k]); hi = Math.max(hi, v - ys[k]); });
-    const scaleY = Math.min((H * 0.3) / Math.max(Math.abs(lo), Math.abs(hi), 1e-6), span / 6);
-    for (let i = 0; i < n; i++) xs.push([W / 2 + (i - k) * span / (n - 1), H * 0.46 - (ys[i] - ys[k]) * scaleY]);
-    return xs;
-  }
-
-  const ease = (t) => t * t * t;                      // rush into
-  const smooth = (t) => t * t * (3 - 2 * t);
-  const clamp = (t) => Math.max(0, Math.min(1, t));
-
-  function frame(t, L, P) {
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
-    const cx = P[k][0], cy = P[k][1];
-    // 1. the chart draws itself (0 to 1.0 s), points and the star appear (1.0 to 1.3 s)
-    // 2. dive into the star (1.45 to 2.75 s)
-    const dive = ease(clamp((t - 1.45) / 1.3)), zoom = 1 + 33 * dive, fade = 1 - dive;
-    if (fade > 0.01) {
-      ctx.save();
-      ctx.translate(cx, cy); ctx.scale(zoom, zoom); ctx.translate(-cx, -cy);
-      ctx.globalAlpha = fade;
-      const drawn = clamp(t / 1.0) * (n - 1);
-      ctx.strokeStyle = BLUE; ctx.lineWidth = 2.4 / zoom; ctx.lineJoin = "miter"; ctx.beginPath();
-      ctx.moveTo(P[0][0], P[0][1]);
-      for (let i = 1; i <= Math.floor(drawn); i++) ctx.lineTo(P[i][0], P[i][1]);
-      const f = drawn - Math.floor(drawn), j = Math.floor(drawn);
-      if (j < n - 1) ctx.lineTo(P[j][0] + (P[j + 1][0] - P[j][0]) * f, P[j][1] + (P[j + 1][1] - P[j][1]) * f);
-      ctx.stroke();
-      const dots = clamp((t - 1.0) / 0.25);
-      if (dots > 0) {
-        ctx.globalAlpha = fade * dots; ctx.fillStyle = BLUE_B;
-        P.forEach((p, i) => { if (i !== k) { ctx.beginPath(); ctx.arc(p[0], p[1], 3.2 / zoom, 0, 7); ctx.fill(); } });
-      }
-      ctx.restore();
-    }
-    // the star: born at the chart's point, grows during the dive, then becomes the i-dot
-    if (t >= 1.0) {
-      const grow = 4 + 40 * dive;
-      const land = smooth(clamp((t - 2.9) / 1.1));
-      const x = cx + (L.dot.x - cx) * land, y = cy + (L.dot.y - cy) * land;
-      const rad = grow + (L.dot.r - grow) * land;
-      ctx.globalAlpha = 1; ctx.fillStyle = YELLOW;
-      ctx.beginPath(); ctx.arc(x, y, rad, 0, 7); ctx.fill();
-      const flash = clamp((t - 1.0) / 0.45);
-      if (flash > 0 && flash < 1) {
-        ctx.strokeStyle = YELLOW; ctx.lineWidth = 2; ctx.globalAlpha = 1 - flash;
-        for (let a = 0; a < 12; a++) {
-          const ang = a / 12 * Math.PI * 2, r0 = 10 + 18 * flash, r1 = r0 + 9;
-          ctx.beginPath(); ctx.moveTo(cx + r0 * Math.cos(ang), cy + r0 * Math.sin(ang)); ctx.lineTo(cx + r1 * Math.cos(ang), cy + r1 * Math.sin(ang)); ctx.stroke();
-        }
-        ctx.globalAlpha = 1;
-      }
-    }
-    // 3. the name is written (from 2.9 s)
-    const name = smooth(clamp((t - 2.9) / 1.0));
-    if (name > 0) {
-      ctx.font = L.font; ctx.textBaseline = "alphabetic";
-      ctx.globalAlpha = name; ctx.fillStyle = BLUE; ctx.fillText("Fırst", L.x0, L.base1);
-      ctx.globalAlpha = clamp((t - 3.25) / 1.0); ctx.fillStyle = INK; ctx.fillText("Principles", L.x0, L.base2);
-      ctx.globalAlpha = 1;
-    }
-  }
-
-  let L, P, start = 0, finished = false;
-  function rebuild() { size(); L = layout(); P = chartPoints(); }
-  function run(now) {
-    if (!start) start = now;
-    const t = (now - start) / 1000;
-    frame(t, L, P);
-    if (t < 4.6) requestAnimationFrame(run); else { finished = true; hero.classList.add("done"); }
-  }
-  const go = () => {
-    rebuild();
-    if (still) { frame(10, L, P); finished = true; hero.classList.add("done"); }
-    else requestAnimationFrame(run);
-  };
-  window.addEventListener("resize", () => { rebuild(); if (finished) frame(10, L, P); });
-  (document.fonts && document.fonts.load) ? document.fonts.load('400 64px "CMU Serif"').then(go, go) : go();
-})();
-/* ------------------------------------------------------------------ scroll scenes
-   Every scene is driven by how far you have scrolled (never by a timer), eased so it glides. */
-(function () {
-  const C = { blue: "#58C4DD", blueB: "#9CDCEB", ink: "#ECECEC", soft: "#BBBBBB", dim: "#888888", rule: "#333333",
-              yellow: "#FFFF00", teal: "#5CD0B3", red: "#FC6255" };
-  const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const clamp = (t, a = 0, b = 1) => Math.max(a, Math.min(b, t));
-  const smooth = (t) => t * t * (3 - 2 * t);
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const FONT = '"CMU Serif", Georgia, serif';
-  function rng(seed) { return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; }; }
-  function erf(x) { const s = Math.sign(x); x = Math.abs(x); const t = 1 / (1 + 0.3275911 * x);
-    return s * (1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x)); }
-  const Ncdf = (x) => 0.5 * (1 + erf(x / Math.SQRT2));
-
-  function stage(cv) {
-    const s = { cv, ctx: cv.getContext("2d"), W: 0, H: 0 };
-    s.fit = () => { const d = Math.min(window.devicePixelRatio || 1, 2); s.W = cv.clientWidth; s.H = cv.clientHeight;
-      cv.width = Math.max(1, Math.round(s.W * d)); cv.height = Math.max(1, Math.round(s.H * d)); s.ctx.setTransform(d, 0, 0, d, 0, 0); };
-    s.fit(); return s;
-  }
-  // how far through a pinned scene (0 at its top, 1 when its end reaches the bottom of the screen)
-  const pinned = (el) => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(r.height - innerHeight, 1)); };
-  // how far a normal section has come into view
-  const entering = (el) => { const r = el.getBoundingClientRect(); return clamp((innerHeight * 0.92 - r.top) / (innerHeight * 0.65)); };
-  const near = (el) => { const r = el.getBoundingClientRect(); return r.bottom > -200 && r.top < innerHeight + 200; };
-
-  function text(ctx, s, x, y, o = {}) {
-    ctx.save(); ctx.globalAlpha *= o.alpha ?? 1; ctx.fillStyle = o.color || C.soft;
-    ctx.font = `${o.italic ? "italic " : ""}400 ${o.size || 16}px ${FONT}`; ctx.textAlign = o.align || "left";
-    ctx.textBaseline = o.base || "alphabetic"; ctx.fillText(s, x, y); ctx.restore();
-  }
-  function axes(ctx, x0, y0, x1, y1, xl, yl) {
-    ctx.strokeStyle = C.rule; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x0, y1); ctx.lineTo(x0, y0); ctx.lineTo(x1, y0); ctx.stroke();
-    if (xl) text(ctx, xl, x1, y0 + 26, { align: "right", italic: true, color: C.dim, size: 15 });
-    if (yl) text(ctx, yl, x0 + 8, y1 - 18, { italic: true, color: C.dim, size: 15 });
-  }
-  function box(W, H) { const sm = W < 480; return { x0: sm ? 34 : 48, x1: W - 12, y0: H - 36, y1: sm ? 46 : 58, sm }; }
-
-  /* ---------------- Level II: discount every cash flow back to today ---------------- */
-  const CF = [3, 3.5, 4, 4.5, 5, 5.5, 6, 18], R = 0.12, PV = CF.map((c, i) => c / Math.pow(1 + R, i + 1)), TOTAL = PV.reduce((s, v) => s + v, 0);
-  function levelTwo(ctx, W, H, q) {
-    const { x0, x1, y0, y1, sm } = box(W, H), a = clamp(q / 0.3), b = clamp((q - 0.3) / 0.55), c = smooth(clamp((q - 0.82) / 0.18));
-    axes(ctx, x0, y0, x1, y1, "", "cash flow");
-    const step = (x1 - x0) / 9, bw = step * 0.6, k = (y0 - y1 - 70) / Math.max(18, TOTAL), X = (t) => x0 + (t + 0.5) * step;
-    for (let t = 0; t <= 8; t++) text(ctx, t ? String(t) : "today", X(t), y0 + 20, { align: "center", color: t ? C.dim : C.ink, size: 14 });
-    let stack = 0;
-    CF.forEach((cf, i) => {
-      const g = smooth(clamp(a * 10 - i)), m = smooth(clamp((b - i * 0.07) / 0.5));
-      const h = lerp(cf * k * g, PV[i] * k, m), x = lerp(X(i + 1), X(0), m), base = y0 - stack * k * m;
-      ctx.fillStyle = m > 0.5 ? C.teal : C.blue; ctx.globalAlpha = 0.88; ctx.fillRect(x - bw / 2, base - h, bw, h); ctx.globalAlpha = 1;
-      if (m > 0.98) { ctx.strokeStyle = "#000"; ctx.lineWidth = 1; ctx.strokeRect(x - bw / 2, base - h, bw, h); }
-      if (m < 0.2 && g > 0.9 && !sm) text(ctx, cf.toFixed(1), X(i + 1), y0 - cf * k - 8, { align: "center", color: C.dim, size: 13, alpha: 1 - m * 5 });
-      stack += PV[i] * m;
-    });
-    text(ctx, "V = Σ CFₜ / (1 + r)ᵗ", x0 + 14, y1 + 6, { color: C.ink, size: sm ? 18 : 22, alpha: a });
-    text(ctx, `worth ${TOTAL.toFixed(1)} today, at 12%`, X(0) + bw / 2 + 12, y0 - TOTAL * k + 6, { color: C.teal, size: sm ? 15 : 18, alpha: c, italic: true });
-  }
-
-  /* ---------------- Level III: thousands of portfolios, one frontier, one line ---------------- */
-  const S0 = 0.09, M0 = 0.07, KF = 0.42, RF = 0.03, front = (s) => M0 + KF * Math.sqrt(Math.max(0, s * s - S0 * S0));
-  const PTS = (() => { const r = rng(7), out = []; for (let i = 0; i < 320; i++) { const s = S0 + 0.21 * Math.pow(r(), 0.8);
-    const u = 2 * Math.pow(r(), 0.7) - 1; out.push([s + 0.004 * r(), M0 + KF * Math.sqrt(s * s - S0 * S0) * u * 0.95 - 0.004 * r()]); } return out; })();
-  const TAN = (() => { let best = null; for (let s = S0; s < 0.32; s += 0.0005) { const sh = (front(s) - RF) / s; if (!best || sh > best[2]) best = [s, front(s), sh]; } return best; })();
-  function levelThree(ctx, W, H, q, t) {
-    const { x0, x1, y0, y1, sm } = box(W, H), a = clamp(q / 0.38), b = smooth(clamp((q - 0.36) / 0.3)), c = smooth(clamp((q - 0.66) / 0.3));
-    axes(ctx, x0, y0, x1, y1, "risk σ", "return");
-    const X = (s) => x0 + s / 0.32 * (x1 - x0), Y = (m) => y0 - m / 0.21 * (y0 - y1);
-    PTS.forEach((p, i) => { const g = clamp(a * PTS.length / 18 - i / 18); if (g <= 0) return;
-      const lift = b * 0.35 * (front(p[0]) - p[1]);   // the cloud leans toward the frontier
-      ctx.fillStyle = C.blueB; ctx.globalAlpha = 0.55 * g; ctx.beginPath(); ctx.arc(X(p[0]), Y(p[1] + lift), 2.3 * (0.4 + 0.6 * g), 0, 7); ctx.fill(); });
-    ctx.globalAlpha = 1;
-    if (b > 0) { ctx.strokeStyle = C.ink; ctx.lineWidth = 2.4; ctx.beginPath(); const e = S0 + (0.3 - S0) * b;
-      for (let s = S0; s <= e; s += 0.002) { const x = X(s), y = Y(front(s)); s === S0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke();
-      text(ctx, "efficient frontier", X(0.29), Y(front(0.29)) + 24, { align: "right", italic: true, color: C.ink, size: 16, alpha: b }); }
-    if (c > 0) { const sEnd = lerp(0, 0.32, c); ctx.strokeStyle = C.yellow; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(X(0), Y(RF)); ctx.lineTo(X(sEnd), Y(RF + TAN[2] * sEnd)); ctx.stroke();
-      text(ctx, "capital market line", X(0.012), Y(RF + TAN[2] * 0.012) - 14, { italic: true, color: C.yellow, size: 16, alpha: c });
-      if (sEnd > TAN[0]) { const pulse = still ? 0 : Math.sin(t / 260) * 0.5 + 0.5; ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(X(TAN[0]), Y(TAN[1]), 6 + 3 * pulse, 0, 7); ctx.fill();
-        ctx.strokeStyle = C.yellow; ctx.globalAlpha = 0.4 * (1 - pulse); ctx.beginPath(); ctx.arc(X(TAN[0]), Y(TAN[1]), 12 + 14 * pulse, 0, 7); ctx.stroke(); ctx.globalAlpha = 1;
-        text(ctx, "the market portfolio", X(TAN[0]) - 16, Y(TAN[1]) - 14, { align: "right", color: C.ink, size: sm ? 14 : 16 }); } }
-    text(ctx, "Sharpe = (E(R) − Rf) / σ", x0 + 14, y1 + 6, { color: C.ink, size: sm ? 17 : 21, alpha: c });
-  }
-
-  /* ---------------- option: time value melts away ---------------- */
-  function callPrice(S, K, T, r, v) { if (T <= 1e-6) return Math.max(S - K, 0); const d1 = (Math.log(S / K) + (r + v * v / 2) * T) / (v * Math.sqrt(T)), d2 = d1 - v * Math.sqrt(T); return S * Ncdf(d1) - K * Math.exp(-r * T) * Ncdf(d2); }
-  function optionScene(ctx, W, H, p) {
-    const { x0, x1, y0, y1, sm } = box(W, H), T = lerp(1, 0, smooth(p)), K = 100, lo = 60, hi = 140, vmax = 45;
-    axes(ctx, x0, y0, x1, y1, "share price", "option value");
-    const X = (s) => x0 + (s - lo) / (hi - lo) * (x1 - x0), Y = (v) => y0 - v / vmax * (y0 - y1);
-    // time value: the gap between curve and payoff
-    ctx.fillStyle = C.blue; ctx.globalAlpha = 0.16; ctx.beginPath(); ctx.moveTo(X(lo), Y(0));
-    for (let s = lo; s <= hi; s += 0.5) ctx.lineTo(X(s), Y(callPrice(s, K, T, 0.03, 0.25)));
-    for (let s = hi; s >= lo; s -= 0.5) ctx.lineTo(X(s), Y(Math.max(s - K, 0))); ctx.fill(); ctx.globalAlpha = 1;
-    ctx.strokeStyle = C.dim; ctx.setLineDash([5, 5]); ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(X(lo), Y(0)); ctx.lineTo(X(K), Y(0)); ctx.lineTo(X(hi), Y(hi - K)); ctx.stroke(); ctx.setLineDash([]);
-    ctx.strokeStyle = C.blue; ctx.lineWidth = 3; ctx.beginPath();
-    for (let s = lo; s <= hi; s += 0.5) { const x = X(s), y = Y(callPrice(s, K, T, 0.03, 0.25)); s === lo ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke();
-    text(ctx, "K = 100", X(K), y0 + 20, { align: "center", color: C.dim, size: 14 });
-    text(ctx, "payoff at expiry", X(hi) - 6, Y(hi - K) + 22, { align: "right", italic: true, color: C.dim, size: 15 });
-    const tv = callPrice(K, K, T, 0.03, 0.25);
-    text(ctx, `time value at the strike: ${tv.toFixed(2)}`, x0 + 14, y1 + 6, { color: C.ink, size: sm ? 15 : 19 });
-    // a dot riding the curve at the strike
-    ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(X(K), Y(tv), 5, 0, 7); ctx.fill();
-    document.getElementById("opt-t").textContent = T.toFixed(2);
-  }
-
-  /* ---------------- concentration as area ---------------- */
-  const WGT = [0.40, 0.25, 0.15, 0.12, 0.08];
-  function hhiScene(ctx, W, H, p) {
-    const pad = 14, S = Math.min(W, H) - pad * 2, o = pad, grid = smooth(clamp(p / 0.25));
-    ctx.strokeStyle = C.soft; ctx.lineWidth = 1.5; ctx.globalAlpha = grid; ctx.strokeRect(o, o, S, S);
-    let c = 0; ctx.strokeStyle = "#444"; ctx.lineWidth = 1;
-    WGT.slice(0, -1).forEach((w) => { c += w; const L = S * grid;
-      ctx.beginPath(); ctx.moveTo(o + c * S, o); ctx.lineTo(o + c * S, o + L); ctx.moveTo(o, o + c * S); ctx.lineTo(o + L, o + c * S); ctx.stroke(); });
-    ctx.globalAlpha = 1; c = 0; let h = 0;
-    WGT.forEach((w, i) => { const g = smooth(clamp((p - 0.25 - i * 0.12) / 0.16)); if (g > 0) {
-        const side = w * S * g, cx = o + (c + w / 2) * S, cy = o + (c + w / 2) * S;
-        ctx.fillStyle = C.blue; ctx.globalAlpha = 0.8; ctx.fillRect(cx - side / 2, cy - side / 2, side, side); ctx.globalAlpha = 1;
-        if (g > 0.6) text(ctx, Math.round(w * 100) + "%", cx, cy + 5, { align: "center", color: "#000", size: Math.max(11, w * S * 0.2), alpha: (g - 0.6) / 0.4 });
-        h += w * w * g * g; }
-      c += w; });
-    document.getElementById("hhi-v").textContent = h.toFixed(3);
-    document.getElementById("hhi-n").textContent = h > 0.001 ? (1 / h).toFixed(1) : "∞";
-  }
-
-  /* ---------------- 2027: a field of rising price paths ---------------- */
-  const PATHS = (() => { const r = rng(2027), out = []; for (let i = 0; i < 26; i++) { let y = 0; const pts = [];
-    for (let j = 0; j < 60; j++) { const u = r() || 1e-9, v = r(); y += 0.012 + 0.05 * Math.sqrt(-2 * Math.log(u)) * Math.cos(6.283 * v); pts.push(y); } out.push(pts); } return out; })();
-  function soonScene(ctx, W, H, p) {
-    const g = smooth(p);
-    PATHS.forEach((pts, i) => { ctx.strokeStyle = i % 9 === 0 ? C.blue : "#1f3a42"; ctx.lineWidth = i % 9 === 0 ? 1.6 : 1; ctx.beginPath();
-      const n = Math.max(2, Math.floor(pts.length * g));
-      for (let j = 0; j < n; j++) { const x = j / (pts.length - 1) * W, y = H * 0.82 - pts[j] * H * 0.45; j ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); });
-  }
-
-  /* ---------------- the tape along the top ---------------- */
-  const TAPE = (() => { const r = rng(5), out = []; let y = 0; for (let i = 0; i < 400; i++) { const u = r() || 1e-9, v = r(); y += 0.04 * Math.sqrt(-2 * Math.log(u)) * Math.cos(6.283 * v) + 0.004; out.push(y); } return out; })();
-  function tapeScene(ctx, W, H, p) {
-    const n = Math.max(2, Math.floor(TAPE.length * p)); let lo = Infinity, hi = -Infinity; TAPE.forEach((v) => { lo = Math.min(lo, v); hi = Math.max(hi, v); });
-    ctx.strokeStyle = C.blue; ctx.globalAlpha = 0.85; ctx.lineWidth = 1.4; ctx.beginPath();
-    for (let i = 0; i < n; i++) { const x = i / (TAPE.length - 1) * W, y = H - 4 - (TAPE[i] - lo) / (hi - lo) * (H - 8); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
-    ctx.globalAlpha = 1; const lx = (n - 1) / (TAPE.length - 1) * W, ly = H - 4 - (TAPE[n - 1] - lo) / (hi - lo) * (H - 8);
-    ctx.fillStyle = C.yellow; ctx.beginPath(); ctx.arc(lx, ly, 2.6, 0, 7); ctx.fill();
-  }
-
-  /* ---------------- wiring ---------------- */
-
-  /* ---------------- Level I card: a Galton board ---------------- */
-  const ROWS = 10, NB = ROWS + 1, TARGET = 320, PMF = (() => { const c = [1]; for (let i = 1; i <= ROWS; i++) c.push(c[i - 1] * (ROWS - i + 1) / i); return c.map((v) => v / 1024); })();
-  const board = { balls: [], bins: new Array(NB).fill(0), clock: 0, total: 0, hold: 0, rand: rng(3) };
-  if (still) board.bins = PMF.map((p) => Math.round(p * TARGET));
-  function dropBall(n = 1) { for (let i = 0; i < n; i++) { const path = []; for (let r = 0; r < ROWS; r++) path.push(board.rand() < 0.5 ? 0 : 1); board.balls.push({ path, s: -board.rand() * 0.3 }); } }
-  function galton(ctx, W, H, dt) {
-    const top = 22, rowH = H * 0.48 / ROWS, dx = (W - 24) / NB, cx = W / 2, binTop = top + ROWS * rowH + 14, binH = H - binTop - 4;
-    const px = (r, k) => cx + (k - r / 2) * dx, unit = binH / (TARGET * 0.27);
-    if (!still) {
-      if (board.total + board.balls.length < TARGET) { board.clock += dt; while (board.clock > 0.045) { board.clock -= 0.045; dropBall(); } }
-      else if (!board.balls.length) { board.hold += dt; if (board.hold > 2.2) { board.bins.fill(0); board.total = 0; board.hold = 0; } }
-    }
-    // pegs
-    ctx.fillStyle = "#555"; for (let r = 0; r < ROWS; r++) for (let k = 0; k <= r; k++) { ctx.beginPath(); ctx.arc(px(r, k), top + r * rowH, 1.6, 0, 7); ctx.fill(); }
-    // bins
-    const fade = board.hold > 1.6 ? 1 - (board.hold - 1.6) / 0.6 : 1;
-    ctx.globalAlpha = fade; ctx.fillStyle = C.blue;
-    board.bins.forEach((n, k) => { const h = Math.min(binH, n * unit), x = cx + (k - ROWS / 2) * dx; ctx.fillRect(x - dx * 0.4, H - 4 - h, dx * 0.8, h); });
-    ctx.strokeStyle = C.yellow; ctx.lineWidth = 1.6; ctx.globalAlpha = 0.85 * fade * clamp(board.total / TARGET * 1.5); ctx.beginPath();
-    for (let z = -0.5; z <= ROWS + 0.5; z += 0.1) { const d = (z - ROWS / 2) / Math.sqrt(ROWS / 4), y = H - 4 - TARGET * Math.exp(-d * d / 2) / Math.sqrt(2 * Math.PI * ROWS / 4) * unit, x = cx + (z - ROWS / 2) * dx; z === -0.5 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }
-    ctx.stroke(); ctx.globalAlpha = 1;
-    // falling balls
-    ctx.fillStyle = C.ink;
-    board.balls = board.balls.filter((b) => {
-      b.s += dt * 13; if (b.s < 0) return true;
-      const r = Math.floor(b.s), f = b.s - r;
-      let k = 0; for (let i = 0; i < Math.min(r, ROWS); i++) k += b.path[i];
-      if (r >= ROWS) { const x = px(ROWS, k), y = binTop - 10 + (f + (r - ROWS)) * 40;
-        const floor = H - 4 - Math.min(binH, board.bins[k] * unit) - 3;
-        if (y >= floor) { board.bins[k]++; board.total++; return false; }
-        ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 7); ctx.fill(); return true; }
-      const x = lerp(px(r, k), px(r + 1, k + b.path[r]), f), y = top + (r + f) * rowH - Math.sin(f * Math.PI) * rowH * 0.45 - 4;
-      ctx.beginPath(); ctx.arc(x, y, 2.6, 0, 7); ctx.fill(); return true; });
-    text(ctx, `${board.total} balls`, 6, 14, { color: C.dim, italic: true, size: 13 });
-  }
-  document.getElementById("lv1").addEventListener("click", () => { if (!still) dropBall(25); });
-
-  /* the three cards play on their own while they are on screen */
-  const cards = [
-    { cv: "lv1", draw: (ctx, W, H, t, dt) => galton(ctx, W, H, dt) },
-    { cv: "lv2", draw: (ctx, W, H, t) => { const tt = (t / 1000) % 8.5, q = still ? 1 : clamp(tt / 6.2);
-        ctx.globalAlpha = still ? 1 : tt > 7.8 ? 1 - (tt - 7.8) / 0.7 : 1; levelTwo(ctx, W, H, q); ctx.globalAlpha = 1; } },
-    { cv: "lv3", draw: (ctx, W, H, t) => { const tt = (t / 1000) % 11, q = still ? 1 : clamp(tt / 7.5);
-        ctx.globalAlpha = still ? 1 : tt > 10.3 ? 1 - (tt - 10.3) / 0.7 : 1; levelThree(ctx, W, H, q, t); ctx.globalAlpha = 1; } },
-  ].map((c) => Object.assign(c, { st: stage(document.getElementById(c.cv)), el: document.getElementById(c.cv), t0: null, last: 0 }));
-  const scenes = [
-    { el: document.getElementById("approach"), cv: "hhi", target: () => entering(document.getElementById("hhi")) * 1.15, draw: (ctx, W, H, p) => hhiScene(ctx, W, H, clamp(p)) },
-    { el: document.getElementById("option"), cv: "option-cv", target: () => pinned(document.getElementById("option")), draw: (ctx, W, H, p) => optionScene(ctx, W, H, p) },
-    { el: document.getElementById("soon"), cv: "soon-cv", target: () => entering(document.getElementById("soon")), draw: (ctx, W, H, p) => soonScene(ctx, W, H, p) },
-    { el: document.body, cv: "tape", target: () => clamp(scrollY / Math.max(document.documentElement.scrollHeight - innerHeight, 1)), draw: tapeScene, always: true },
-  ].map((s) => Object.assign(s, { st: stage(document.getElementById(s.cv)), p: -1, last: -1 }));
-
-  // the formula wall: three depths drift past at different speeds as you scroll
-  const wall = document.getElementById("wall");
-  const FORMULAS = ["PV = FV / (1 + r)ⁿ", "E(Rᵢ) = R<sub>f</sub> + βᵢ [E(R<sub>m</sub>) − R<sub>f</sub>]", "σ²ₚ = w′Σw", "C = S N(d₁) − K e^(−rT) N(d₂)", "ΔP/P ≈ −D Δy + ½ C (Δy)²",
-    "HHI = Σ wᵢ²", "IR = α / ω", "F = S₀ (1 + r)ᵀ", "Sharpe = (Rₚ − R<sub>f</sub>) / σₚ", "ROE = NI/S × S/A × A/E", "V₀ = D₁ / (r − g)", "TE = σ(Rₚ − R<sub>b</sub>)",
-    "z = (x̄ − μ) / (σ / √n)", "P = Σ c / (1 + y)ᵗ", "IR ≈ IC × √BR", "S₀ = Σ Dₜ / (1 + r)ᵗ"];
-  const fr = rng(11), floaters = FORMULAS.map((f, i) => { const s = document.createElement("span"), depth = i % 3;
-    s.className = "f " + ["far", "mid", "near"][depth]; s.innerHTML = f; s.setAttribute("aria-hidden", "true");
-    s.style.left = (3 + fr() * (innerWidth < 700 ? 42 : 68)) + "%"; s.style.top = (6 + (i / FORMULAS.length) * 86) + "%"; wall.appendChild(s);
-    return { s, speed: [0.25, 0.6, 1.1][depth], spin: (fr() - 0.5) * 16 }; });
-  let wallP = -1;
-
-  // the year rolls from 2026 to 2027
-  const rolls = document.querySelectorAll(".year .roll span"), soon = document.getElementById("soon");
-  // the lesson icons draw themselves once seen
-  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); } }), { threshold: 0.6 }) : null;
-  document.querySelectorAll(".parts > div").forEach((d) => io ? io.observe(d) : d.classList.add("on"));
-
-  let resized = true;
-  window.addEventListener("resize", () => { resized = true; });
-  function loop(t) {
-    if (resized) { scenes.forEach((s) => s.st.fit()); cards.forEach((c) => c.st.fit()); resized = false; scenes.forEach((s) => { s.last = -1; }); wallP = -1; }
-    scenes.forEach((s) => {
-      if (!s.always && !near(s.el)) return;
-      const goal = s.target(); s.p = s.p < 0 || still ? goal : lerp(s.p, goal, 0.12);
-      if (Math.abs(s.p - s.last) < 0.0004 && !(s.live && s.p > 0.62)) return;   // nothing changed (the market portfolio keeps pulsing)
-      s.last = s.p; const { ctx, W, H } = s.st; ctx.clearRect(0, 0, W, H); s.draw(ctx, W, H, s.p, t);
-    });
-    cards.forEach((c) => { if (!near(c.el)) { c.last = 0; return; }
-      if (c.t0 === null) c.t0 = t; const dt = Math.min(0.05, c.last ? (t - c.last) / 1000 : 0.016); c.last = t;
-      const { ctx, W, H } = c.st; ctx.clearRect(0, 0, W, H); c.draw(ctx, W, H, t - c.t0, dt); });
-    if (near(wall)) { const r = wall.getBoundingClientRect(), p = clamp((innerHeight - r.top) / (innerHeight + r.height));
-      wallP = wallP < 0 || still ? p : lerp(wallP, p, 0.12);
-      floaters.forEach((f) => { const d = (0.5 - wallP) * f.speed * 700; f.s.style.transform = still ? "none" : `translate3d(0, ${d}px, 0) rotate(${(wallP - 0.5) * f.spin}deg)`; }); }
-    if (near(soon)) { const q = smooth(clamp(entering(soon) * 1.4 - 0.35)); rolls.forEach((sp) => { sp.style.transform = `translateY(${-q * 100}%)`; }); }
-    requestAnimationFrame(loop);
-  }
-  const begin = () => requestAnimationFrame(loop);
-  (document.fonts && document.fonts.load) ? document.fonts.load('400 16px "CMU Serif"').then(begin, begin) : begin();
-})();
-
-</script>
 </body>
 </html>
