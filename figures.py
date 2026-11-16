@@ -983,3 +983,177 @@ def money_multiplier():
     s.line([(x0, y0 - 500 * k), (x1, y0 - 500 * k)], DIM, 1, 1.2, dash="4 4")
     s.text("limit: 100 ÷ 20% = 500", x1, y0 - 500 * k - 8, 13, SOFT, "end", True, t=1.4)
     return s.svg()
+
+
+# =====================================================================  search-driven posts (Nov 2026)
+def eligibility():
+    s = S(640, 250, "When you can sit each level relative to your graduation month")
+    x0, x1 = 40, 600
+    X = lambda m: x0 + (m + 24) / 30 * (x1 - x0)          # months relative to graduation, -24 .. +6
+    s.line([(x0, 190), (x1, 190)], DIM, 1.4, 0)
+    for m in (-24, -18, -12, -6, 0, 6):
+        s.text(("+" if m > 0 else "") + str(m), X(m), 210, 11, DIM, "middle", cls="")
+    s.line([(X(0), 40), (X(0), 196)], YEL, 1.6, 0.2, dash="4 4")
+    s.text("graduation", X(0), 32, 12, YEL, "middle", True, t=0.3)
+    rows = [("Level I", -23, BLUE, "up to 23 months before"), ("Level II", -11, TEAL, "up to 11 months before"), ("Level III", 0, BLUEB, "degree done (or 4,000 hours)")]
+    for i, (lab, m, col, note) in enumerate(rows):
+        y = 60 + i * 42
+        s.rect(X(m), y, X(6) - X(m), 26, col, 0.8, 0.4 + i * 0.3, "gx")
+        if m < 0:
+            s.text(f"{lab}: {note}", X(m) + 8, y + 18, 13, "#000", t=0.6 + i * 0.3)
+        else:
+            s.text(lab, X(m) + 8, y + 18, 13, "#000", t=0.6 + i * 0.3)
+            s.text(note, X(m) - 8, y + 18, 12, SOFT, "end", True, t=0.7 + i * 0.3)
+    s.text("months relative to graduation", x1, 236, 11, DIM, "end", True, cls="")
+    return s.svg()
+
+
+def salary_india():
+    s = S(640, 280, "Average annual income of CFA charterholders in India, CFA Institute study 2026 (INR lakh)")
+    bars = [("Recently awarded charterholders", 32.4, "about 6 years' experience", BLUE), ("All charterholders", 66.6, "about 10 years' experience", TEAL)]
+    k = 440 / 70
+    for i, (lab, v, sub, col) in enumerate(bars):
+        y = 50 + i * 100
+        s.text(lab, 20, y - 8, 14, INK, t=i * 0.3)
+        s.rect(20, y, v * k, 36, col, 0.85, 0.2 + i * 0.3, "gx")
+        s.text(f"₹{v} lakh", 28 + v * k, y + 24, 15, YEL, t=0.8 + i * 0.3)
+        s.text(sub, 20, y + 56, 12, DIM, italic=True, t=0.9 + i * 0.3)
+    s.text("pay keeps rising with experience after the charter", 620, 268, 12, SOFT, "end", True, t=1.4)
+    return s.svg()
+
+
+def cost_bars():
+    s = S(640, 270, "CFA exam fees per level, early versus standard registration (USD)")
+    x0, y0, x1, y1 = 60, 220, 620, 50
+    s.axes(x0, y0, x1, y1, "", "")
+    Y = lambda v: y0 - v / 1900 * (y0 - y1)
+    lv = [("Level I", 1140, 1490), ("Level II", 1140, 1490), ("Level III", 1240, 1590)]
+    for i, (lab, e, st) in enumerate(lv):
+        cx = x0 + 70 + i * 175
+        s.rect(cx - 36, Y(e), 34, y0 - Y(e), TEAL, 0.85, i * 0.25)
+        s.rect(cx + 2, Y(st), 34, y0 - Y(st), BLUE, 0.85, 0.12 + i * 0.25)
+        s.text(f"{e:,}", cx - 19, Y(e) - 6, 11, TEAL, "middle", t=0.6 + i * 0.25)
+        s.text(f"{st:,}", cx + 19, Y(st) - 6, 11, BLUE, "middle", t=0.7 + i * 0.25)
+        s.text(lab, cx, y0 + 18, 13, INK, "middle", cls="")
+    s.rect(x0 + 10, 16, 12, 12, TEAL, 0.85, 1.2, "f"); s.text("early", x0 + 28, 27, 12, SOFT, t=1.2)
+    s.rect(x0 + 80, 16, 12, 12, BLUE, 0.85, 1.2, "f"); s.text("standard", x0 + 98, 27, 12, SOFT, t=1.2)
+    s.text("all three levels: 3,520 early to 4,570 standard", x1, 27, 13, YEL, "end", True, t=1.5)
+    return s.svg()
+
+
+def cfa_paths():
+    s = S(640, 230, "A fast path and a typical path through the three levels (illustrative)")
+    x0, x1 = 120, 620
+    X = lambda m: x0 + m / 48 * (x1 - x0)
+    for yr in range(0, 49, 12):
+        s.line([(X(yr), 40), (X(yr), 190)], RULE, 1, 0, dash="3 4")
+        s.text(f"year {yr // 12}" if yr else "start", X(yr), 208, 11, DIM, "middle", cls="")
+    paths = [("Fast", [(0, "I", BLUE), (6, "II", TEAL), (12, "III", BLUEB)], 70),
+             ("Typical", [(0, "I", BLUE), (9, "II", TEAL), (15, "II", TEAL), (24, "III", BLUEB), (30, "III", BLUEB)], 140)]
+    for j, (name, steps, y) in enumerate(paths):
+        s.text(name, 20, y + 5, 14, INK, t=j * 0.6)
+        s.line([(X(0), y), (X(steps[-1][0]), y)], DIM, 1.4, j * 0.6)
+        for i, (m, lab, col) in enumerate(steps):
+            last = i == len(steps) - 1
+            fail = (not last) and steps[i + 1][1] == lab
+            s.dot(X(m), y, 13, col if not fail else RED, 0.3 + j * 0.6 + i * 0.15)
+            s.text(lab, X(m), y + 5, 12, "#000", "middle", t=0.4 + j * 0.6 + i * 0.15)
+    s.text("red = a retake", 620, 32, 12, RED, "end", True, t=1.6)
+    return s.svg()
+
+
+def results_timeline():
+    s = S(640, 200, "From exam to result: the window closes, then 5 to 9 weeks")
+    x0, x1 = 30, 610
+    X = lambda w: x0 + w / 12 * (x1 - x0)
+    s.rect(X(0), 80, X(2.2) - X(0), 40, BLUE, 0.85, 0, "gx"); s.text("exam window", X(1.1), 105, 12, "#000", "middle", t=0.3)
+    s.rect(X(7.2), 80, X(11.2) - X(7.2), 40, YEL, 0.85, 0.8, "gx"); s.text("results email", X(9.2), 105, 13, "#000", "middle", t=1.1)
+    s.arrow(X(2.3), 100, X(7.1), 100, DIM, 0.5)
+    s.text("5–9 weeks after the window closes", X(4.7), 70, 12, SOFT, "middle", True, t=0.6)
+    for w in range(0, 13, 2):
+        s.text(str(w), X(w), 145, 11, DIM, "middle", cls="")
+    s.text("weeks", x1, 165, 11, DIM, "end", True, cls="")
+    s.text("no result until your Practical Skills Module is done", x0, 186, 12, TEAL, italic=True, t=1.4)
+    return s.svg()
+
+
+def worth_it():
+    s = S(640, 250, "Is the CFA worth it? It depends on where you want to work")
+    s.box(220, 20, 200, 44, "Your target role", YEL, size=14, t=0, color=YEL)
+    opts = [("Investment roles", "research, portfolio mgmt, wealth", "strong fit", TEAL, 110),
+            ("Finance, not investing", "corporate finance, banking ops", "useful, not essential", BLUE, 320),
+            ("Outside finance", "a different career", "weak fit", DIM, 530)]
+    for i, (a, b, verdict, col, cx) in enumerate(opts):
+        s.arrow(320, 66, cx, 110, DIM, 0.3 + i * 0.2)
+        s.box(cx - 95, 112, 190, 56, a, col, size=13, t=0.5 + i * 0.2, sub=b)
+        s.text(verdict, cx, 196, 14, col if col != DIM else SOFT, "middle", True, t=0.9 + i * 0.2)
+    return s.svg()
+
+
+def compare_quals():
+    s = S(640, 300, "Exams to pass and work experience required, by qualification")
+    rows = [("CFA", 3, 3, BLUE), ("FRM", 2, 2, TEAL), ("CPA (US)", 4, 1, BLUEB), ("CFP", 1, 3, YEL), ("ACCA", 13, 3, RED), ("CA (India)", 3, 2, SOFT)]
+    s.text("exams", 230, 30, 12, DIM, "middle", True, cls=""); s.text("experience (years, approx.)", 500, 30, 12, DIM, "middle", True, cls="")
+    for i, (n, ex, yr, col) in enumerate(rows):
+        y = 50 + i * 40
+        s.text(n, 20, y + 17, 14, INK, t=i * 0.12)
+        s.rect(120, y + 2, ex / 13 * 220, 22, col, 0.85, 0.2 + i * 0.12, "gx")
+        s.text(str(ex) if n not in ("CA (India)",) else "3 stages", 126 + ex / 13 * 220, y + 18, 12, SOFT, t=0.5 + i * 0.12)
+        s.rect(400, y + 2, yr / 3 * 180, 22, col, 0.55, 0.3 + i * 0.12, "gx")
+        s.text(str(yr), 406 + yr / 3 * 180, y + 18, 12, SOFT, t=0.6 + i * 0.12)
+    s.text("CPA experience varies by state (1–2 years); CA = articleship", 620, 292, 11, DIM, "end", True, cls="")
+    return s.svg()
+
+
+def cfa_vs_frm():
+    s = S(640, 250, "CFA and FRM side by side")
+    rows = [("Exams", 3, 2, "3", "2"), ("Study hours (approx.)", 900, 480, "≈900", "≈480"), ("Exam fees, early (USD)", 3520, 2000, "3,520", "2,000*"), ("Experience (years)", 3, 2, "3", "2")]
+    s.rect(380, 22, 12, 12, BLUE, 0.85, 0, "f"); s.text("CFA", 398, 33, 12, SOFT, cls="")
+    s.rect(440, 22, 12, 12, TEAL, 0.85, 0, "f"); s.text("FRM", 458, 33, 12, SOFT, cls="")
+    for i, (lab, a, b, ta, tb) in enumerate(rows):
+        y = 56 + i * 46; m = max(a, b)
+        s.text(lab, 20, y + 16, 13, INK, t=i * 0.15)
+        s.rect(200, y, a / m * 330, 16, BLUE, 0.85, 0.2 + i * 0.15, "gx"); s.text(ta, 206 + a / m * 330, y + 13, 11, SOFT, t=0.5 + i * 0.15)
+        s.rect(200, y + 19, b / m * 330, 16, TEAL, 0.85, 0.3 + i * 0.15, "gx"); s.text(tb, 206 + b / m * 330, y + 32, 11, SOFT, t=0.6 + i * 0.15)
+    s.text("* two parts at the early fee plus the one-time USD 400 enrolment fee", 620, 244, 11, DIM, "end", True, cls="")
+    return s.svg()
+
+
+def cfa_vs_mba():
+    s = S(640, 230, "CFA or MBA: match the tool to the goal")
+    goals = [("Go deep in investments", "analysis, valuation, portfolios", "CFA", BLUE), ("Change career or industry", "network, recruiting, brand", "MBA", TEAL), ("Lead teams and businesses", "strategy, operations, people", "MBA", TEAL), ("Investment leadership", "many people do both", "both", YEL)]
+    for i, (a, b, pick, col) in enumerate(goals):
+        y = 22 + i * 50
+        s.box(20, y, 300, 40, a, DIM, size=13, t=i * 0.2, sub=b)
+        s.arrow(324, y + 20, 440, y + 20, DIM, 0.3 + i * 0.2)
+        s.box(446, y + 2, 130, 36, pick, col, size=15, t=0.6 + i * 0.2, color=col)
+    return s.svg()
+
+
+def level_formats():
+    s = S(640, 260, "How the three exams differ in format")
+    rows = [("Level I", "180 standalone multiple-choice questions", "recall and apply", BLUE),
+            ("Level II", "22 case studies × 4 multiple-choice questions", "apply and analyse", TEAL),
+            ("Level III", "11 case studies + 11 written-answer sets", "judge and recommend", BLUEB)]
+    for i, (lv, fmt, skill, col) in enumerate(rows):
+        y = 26 + i * 76
+        s.rect(20, y, 110, 56, col, 0.85, i * 0.3, "gx")
+        s.text(lv, 75, y + 34, 15, "#000", "middle", t=0.2 + i * 0.3)
+        s.text(fmt, 150, y + 24, 14, INK, t=0.3 + i * 0.3)
+        s.text(skill, 150, y + 46, 13, col, italic=True, t=0.4 + i * 0.3)
+    return s.svg()
+
+
+def calc_keys():
+    s = S(640, 250, "Three settings to make on a BA II Plus before you start")
+    seqs = [("Show more decimals", ["2ND", "FORMAT", "9", "ENTER"]), ("One payment per year", ["2ND", "P/Y", "1", "ENTER"]), ("Normal order of operations", ["2ND", "FORMAT", "↓ to CHN", "2ND SET → AOS"])]
+    for i, (lab, keys) in enumerate(seqs):
+        y = 30 + i * 72
+        s.text(lab, 20, y + 6, 14, INK, t=i * 0.4)
+        x = 20
+        for j, k in enumerate(keys):
+            w = max(56, len(k) * 9 + 20)
+            s.box(x, y + 16, w, 34, k, YEL if k in ("ENTER",) else BLUE, size=13, t=0.2 + i * 0.4 + j * 0.1)
+            if j < len(keys) - 1: s.arrow(x + w + 2, y + 33, x + w + 16, y + 33, DIM, 0.25 + i * 0.4 + j * 0.1)
+            x += w + 20
+    return s.svg()

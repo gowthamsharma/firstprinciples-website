@@ -271,15 +271,17 @@ def build():
                       main, active="prerequisites.html"))
 
     # ---- blog index
+    order = ["Before you start: requirements, cost and careers", "The CFA compared", "How the exams work", "Strategy: how to tackle the exams", "Tools: formulas, calculator and self-study"]
+    blog_groups = "".join(f'<section class="group"><h2>{g}</h2><div class="grid" style="margin-top:1.4rem">' + "".join(card(p, "Study blog", g.split(":")[0]) for p in blog if p.get("group") == g) + "</div></section>" for g in order)
     main = f"""<main>
 <section class="pagehead"><div class="wrap solo"><div>
   <p class="crumbs"><a href="index.html">Home</a> › Study blog</p>
   <span class="eyebrow">Study blog</span>
-  <h1>How to tackle every level of the CFA Program</h1>
-  <p class="lead">Study plans, Level II vignettes, Level III written answers, ethics, mock exams and exam day. The advice draws on CFA Institute's own guidance and on what the main prep providers recommend, rewritten as one consistent method.</p>
+  <h1>Everything CFA candidates ask, answered</h1>
+  <p class="lead">Requirements, costs, salaries, how long it takes, how it compares with the FRM, MBA, CPA and ACCA, formulas and calculator settings, plus study plans, Level II vignettes, Level III written answers, ethics, mock exams and exam day. The advice draws on CFA Institute's own guidance and on what the main prep providers recommend, rewritten as one consistent method.</p>
 </div></div></section>
 <div class="wrap" style="padding-bottom:4rem">
-<section class="group"><h2>How to tackle the exams</h2><div class="grid" style="margin-top:1.4rem">{''.join(card(p, "Study blog", "Study strategy") for p in blog)}</div></section>
+{blog_groups}
 <section class="group"><h2>The CFA Program, in facts</h2><div class="grid" style="margin-top:1.4rem">{''.join(card(p, "CFA guide", "CFA Program guide") for p in cfa)}</div></section>
 <section class="group"><h2>Prerequisite concepts</h2><p style="margin-top:1rem"><a class="more" href="prerequisites.html">All {len(pre)} financial statement analysis and economics concepts</a></p></section>
 </div>
@@ -345,7 +347,7 @@ def home(cfa, blog, pre):
         cards = "".join(card(p, chip(p), foot(p), feat=(k == 0)) for k, p in enumerate(items))
         return f'<div class="rowhead"><h3><a href="{href}">{title}</a></h3></div><div class="row">{cards}</div>'
 
-    blog_row = row("Study blog", "blog.html", [pick[s] for s in ["blog-first-principles-method", "blog-study-plan", "blog-level-3-constructed-response", "blog-mock-exams"]],
+    blog_row = row("Study blog", "blog.html", [pick[s] for s in ["blog-is-cfa-worth-it", "blog-cfa-requirements", "blog-cfa-salary", "blog-cfa-level-1-formula-sheet"]],
                    lambda p: "Study blog", lambda p: "Study strategy")
     pre_row = row("Prerequisite concepts", "prerequisites.html", [pick[s] for s in ["prereq-deferred-tax", "prereq-three-statements", "prereq-price-elasticity", "prereq-lifo-reserve"]],
                   lambda p: f'Concept {p["n"]:02d}', lambda p: p["topic"])
