@@ -3,7 +3,7 @@ Build the whole First Principles website from content/ into this folder (flat .h
 
     content/cfa/*.md      the CFA Program guide (levels, dates, fees, pass rates)
     content/blog/*.md     study-strategy posts
-    content/prereq/*.md   the Level III prerequisite concepts (one page each)
+    content/prereq/*.md   the foundation concepts for all three levels (one page each)
 
 Each .md file starts with a small header between --- lines (title, summary, ...), then Markdown.
 In the text, [[figure]] places the page's diagram and [[widget:name]] a hands-on widget.
@@ -259,13 +259,13 @@ def build():
   <p class="crumbs"><a href="index.html">Home</a> › Prerequisites</p>
   <span class="eyebrow">{len(pre)} concepts, free</span>
   <h1>Prerequisites, from first principles</h1>
-  <p class="lead">CFA Institute asks Level III candidates to be fluent in two foundation areas: financial statement analysis and economics. These are the ideas from them that come up again and again, one short page each: what the idea is, why it has to be true, a diagram, one worked example and the traps examiners like.</p>
+  <p class="lead">Financial statement analysis and economics sit underneath every level of the CFA Program: Level I teaches them, Level II applies them to valuation, and Level III assumes you can use them without being reminded. These are the ideas from both areas that come up again and again, one short page each: what the idea is, why it has to be true, a diagram, a worked example and the traps examiners like.</p>
   <p class="meta">Written from scratch &nbsp;/&nbsp; Use alongside the official readings</p>
 </div></div></section>
 <div class="wrap" style="padding-bottom:4rem">{groups}</div>
 </main>"""
-    built.append(page("prerequisites.html", "Level III prerequisites: financial statements and economics, explained | First Principles",
-                      f"{len(pre)} core concepts from the CFA Level III prerequisite readings in financial statement analysis and economics, each explained from first principles with a diagram and a worked example.",
+    built.append(page("prerequisites.html", "CFA prerequisites for Levels I, II and III: financial statements and economics explained | First Principles",
+                      f"{len(pre)} core financial statement analysis and economics concepts for CFA Levels I, II and III, each explained from first principles with a diagram and a worked example.",
                       main, active="prerequisites.html"))
 
     # ---- blog index
