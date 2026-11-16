@@ -8,7 +8,7 @@ Every number in these pictures is invented for teaching; nothing is copied from 
 import math
 
 BLUE, TEAL, YEL, INK, SOFT, DIM, RULE, RED, BLUEB = "#58C4DD", "#5CD0B3", "#FFFF00", "#ECECEC", "#BDBDBD", "#8C8C8C", "#3a3a3a", "#FC6255", "#9CDCEB"
-FONT = 'font-family="CMU Serif, Georgia, serif"'
+FONT = 'font-family="Figtree, Segoe UI, Arial, sans-serif"'
 
 
 class S:
@@ -170,7 +170,7 @@ def _weights(rows, label, title2=None, xmax=None):
             s.rect(X(r[3]), y + 6, X(r[4]) - X(r[3]), 8, BLUE, 0.95, 0.3 + i * 0.05, "gx")
         else:
             s.rect(X(r[1]), y, X(r[2]) - X(r[1]), 10, BLUE, 0.95, i * 0.05, "gx")
-            s.text(f"{r[1]}–{r[2]}%", X(r[2]) + 6, y + 9, 12, INK, t=0.5 + i * 0.05)
+            (s.text(f"{r[1]}–{r[2]}%", X(r[2]) + 6, y + 9, 12, INK, t=0.5 + i * 0.05) if X(r[2]) + 52 < s.w else s.text(f"{r[1]}–{r[2]}%", X(r[1]) - 6, y + 9, 12, INK, "end", t=0.5 + i * 0.05))
     if two:
         s.text("grey: 2026   blue: 2027", x1, h - 2, 12, SOFT, "end", cls="")
     return s.svg()
@@ -458,8 +458,9 @@ def allowance():
     s.rect(110, 60, 120, 160, BLUE, 0.85, 0); s.text("Gross receivables 1,000", 170, 50, 13, INK, "middle", t=0.2)
     s.rect(290, 60, 120, 30, RED, 0.8, 0.4); s.text("Allowance 30", 350, 50, 13, INK, "middle", t=0.6)
     s.rect(290, 90, 120, 130, TEAL, 0.85, 0.7); s.text("Net 970", 350, 160, 15, "#000", "middle", t=1)
-    s.text("expense booked now, in the period of the sale,", 450, 120, 13, SOFT, italic=True, t=1.2)
-    s.text("not later, when a customer defaults", 450, 140, 13, SOFT, italic=True, t=1.3)
+    s.text("expense booked now,", 440, 112, 13, SOFT, italic=True, t=1.2)
+    s.text("in the period of the sale,", 440, 130, 13, SOFT, italic=True, t=1.25)
+    s.text("not when a customer defaults", 440, 148, 13, SOFT, italic=True, t=1.3)
     return s.svg()
 
 
@@ -575,7 +576,7 @@ def lifo_reserve():
     s.rect(x0 + 170, y0 - 600 * k, 110, 600 * k, BLUE, 0.85, 0.3)
     s.rect(x0 + 170, y0 - 1000 * k, 110, 400 * k, YEL, 0.85, 0.6); s.text("LIFO reserve 400", x0 + 225, y0 - 1000 * k - 8, 13, YEL, "middle", t=0.9)
     s.text("FIFO inventory 1,000", x0 + 225, y0 + 20, 13, SOFT, "middle", cls="")
-    s.text("ΔLIFO reserve = how much more", 470, 110, 13, INK, t=1.1); s.text("LIFO put into cost of sales", 470, 128, 13, INK, t=1.1)
+    s.text("ΔLIFO reserve = how much more", 440, 110, 13, INK, t=1.1); s.text("LIFO put into cost of sales", 440, 128, 13, INK, t=1.1)
     return s.svg()
 
 
@@ -589,7 +590,7 @@ def writedown():
     carry = [(0, 100), (1, 100), (2, 82), (3, 88), (4, 100)]
     s.line([(X(a), Y(b)) for a, b in carry], YEL, 3, 0.6)
     s.text("write-down", X(2) + 6, Y(82) + 18, 12, YEL, italic=True, t=1.2)
-    s.text("IFRS: reversal allowed, never above cost", X(3.05), Y(88) + 30, 12, SOFT, italic=True, t=1.4)
+    s.text("IFRS: reversal allowed, never above cost", x1, Y(88) + 30, 12, SOFT, "end", True, t=1.4)
     return s.svg()
 
 

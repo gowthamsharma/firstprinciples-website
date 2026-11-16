@@ -1,8 +1,6 @@
 /* First Principles: one stylesheet for every page.
    Light pages with a fixed white header, deep-navy bands for data and diagrams, Figtree for text,
-   Computer Modern kept inside the diagrams (the look of the animated lessons). */
-@font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-roman.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "CMU Serif"; src: url("cmu-serif-500-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+   Figtree everywhere, diagrams included. */
 
 :root {
   --navy: #112B4A; --navy-2: #18375D; --tile: #1D3F68; --deep: #0B1F38;
@@ -51,12 +49,11 @@ img { height: auto; }
 /* ---------- home hero ---------- */
 .hero { position: relative; min-height: clamp(26rem, 64vh, 38rem); background: var(--deep) url("hero-poster.jpg") center / cover; color: #fff; overflow: hidden; display: flex; align-items: center; }
 .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(11,31,56,.94) 0%, rgba(11,31,56,.78) 42%, rgba(11,31,56,.35) 100%), linear-gradient(0deg, rgba(11,31,56,.9) 0%, rgba(11,31,56,0) 40%); }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(11,31,56,.86) 0%, rgba(11,31,56,.72) 40%, rgba(11,31,56,.15) 62%, rgba(11,31,56,0) 80%), linear-gradient(0deg, rgba(11,31,56,.85) 0%, rgba(11,31,56,0) 32%); }
 .hero .wrap { position: relative; z-index: 2; width: 100%; padding-top: 3.5rem; padding-bottom: 7.5rem; }
 .hero h1 { color: #fff; font-weight: 300; font-size: clamp(2.6rem, 6.2vw, 4.9rem); line-height: 1.08; letter-spacing: 0.005em; max-width: 13ch; }
 .hero .lead { font-size: clamp(1.05rem, 1.8vw, 1.25rem); color: rgba(255,255,255,.86); max-width: 36rem; margin: 1.4rem 0 2rem; }
 .hero .actions { display: flex; gap: 0.9rem; flex-wrap: wrap; }
-.hero .pause { position: absolute; z-index: 3; right: 1.2rem; bottom: 1rem; font: inherit; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,.7); background: rgba(11,31,56,.6); border: 1px solid rgba(255,255,255,.3); padding: 0.3rem 0.7rem; cursor: pointer; }
 
 /* ---------- tabbed feature panel, overlapping the hero ---------- */
 .feature { position: relative; z-index: 5; margin-top: -5.2rem; }
@@ -216,7 +213,7 @@ table.left td, table.left th { text-align: left !important; }
 
 /* ---------- diagrams: draw when seen, then stay alive ---------- */
 .fx { width: 100%; height: auto; overflow: visible; }
-.fx text { font-family: "CMU Serif", Georgia, serif; }
+.fx text { font-family: "Figtree", "Segoe UI", Arial, sans-serif; font-weight: 500; }
 .js .fx .d { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s cubic-bezier(.65,0,.35,1) var(--t, 0s); }
 .js .fx.on .d { stroke-dashoffset: 0; }
 .js .fx .g { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); transition: transform 1.1s var(--ease) var(--t, 0s); }
@@ -246,7 +243,7 @@ table.left td, table.left th { text-align: left !important; }
 .widget .seg button[aria-pressed="true"] { background: var(--sky); color: var(--deep); }
 .widget .out { color: #fff; font-size: 0.98rem; min-height: 1.6em; margin: 0.4rem 0 0; }
 .widget .out b { color: var(--lime); font-weight: 600; }
-.wsvg text { font-family: "CMU Serif", Georgia, serif; }
+.wsvg text { font-family: "Figtree", "Segoe UI", Arial, sans-serif; font-weight: 500; }
 
 /* ---------- footer ---------- */
 footer { background: var(--deep); color: rgba(255,255,255,.6); padding: 3.5rem 0 3rem; font-size: 0.875rem; }

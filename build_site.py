@@ -126,7 +126,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <meta property="og:image" content="{SITE}/{image}">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,600;0,700;1,400&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
 <link rel="stylesheet" href="style.css">
 {extra_head}
 </head>
@@ -143,7 +143,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <nav><a href="cfa-program.html">CFA guide</a><a href="prerequisites.html">Prerequisites</a><a href="blog.html">Study blog</a><a href="index.html#about">About</a></nav></div>
   <div><p>{DISCLAIMER}</p>
   <p>Exam facts on this site were checked against CFA Institute's published pages on {CHECKED}. Dates, fees and policies change: always confirm on cfainstitute.org before you register. Explanations are original and are not taken from the CFA Program curriculum.</p>
-  <p>© 2026 {NAME}. Text set in Figtree; diagrams in Computer Modern (both SIL Open Font License).</p></div>
+  <p>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</p></div>
 </div></footer>
 <script src="site.js" defer></script>
 </body>
@@ -314,7 +314,6 @@ def home(cfa, blog, pre):
     <p class="lead">Short animated lessons that rebuild every CFA idea from what has to be true, so you understand it once instead of memorising it three times.</p>
     <div class="actions"><a class="btn" href="prerequisites.html">Start with {len(pre)} free concepts</a><a class="btn line" href="cfa-program.html">Read the CFA guide</a></div>
   </div>
-  <button class="pause" type="button" aria-label="Pause background video">Pause</button>
 </section>
 
 <section class="feature"><div class="wrap">

@@ -7,11 +7,10 @@
   var top = document.querySelector(".top");
   if (top) { var onScroll = function () { top.classList.toggle("scrolled", window.scrollY > 8); }; window.addEventListener("scroll", onScroll, { passive: true }); onScroll(); }
 
-  /* ---- hero video: loops quietly; pause button; still for reduced motion ---- */
-  var hv = document.querySelector(".hero video"), hb = document.querySelector(".hero .pause");
+  /* ---- hero video: loops quietly; still for reduced motion ---- */
+  var hv = document.querySelector(".hero video");
   if (hv) {
-    if (still) { hv.removeAttribute("autoplay"); hv.pause(); if (hb) hb.hidden = true; }
-    if (hb) hb.addEventListener("click", function () { if (hv.paused) { hv.play(); hb.textContent = "Pause"; } else { hv.pause(); hb.textContent = "Play"; } });
+    if (still) { hv.removeAttribute("autoplay"); hv.pause(); }
   }
 
   /* ---- featured tabs ---- */
@@ -97,7 +96,7 @@
   var NS = "http://www.w3.org/2000/svg", C = { blue: "#58C4DD", teal: "#5CD0B3", yellow: "#FFFF00", ink: "#ECECEC", dim: "#8C8C8C", rule: "#3a3a3a", red: "#FC6255" };
   function el(n, a, txt) { var e = document.createElementNS(NS, n); for (var k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; return e; }
   function svg(w, h) { return el("svg", { viewBox: "0 0 " + w + " " + h, class: "wsvg", role: "img" }); }
-  function T(s, x, y, o) { o = o || {}; return el("text", { x: x, y: y, fill: o.fill || C.dim, "font-size": o.size || 13, "text-anchor": o.anchor || "start", "font-style": o.italic ? "italic" : "normal", "font-family": "CMU Serif, Georgia, serif" }, s); }
+  function T(s, x, y, o) { o = o || {}; return el("text", { x: x, y: y, fill: o.fill || C.dim, "font-size": o.size || 13, "text-anchor": o.anchor || "start", "font-style": o.italic ? "italic" : "normal", "font-family": "Figtree, Segoe UI, Arial, sans-serif" }, s); }
   function axes(g, x0, y0, x1, y1, xl, yl) {
     g.appendChild(el("path", { d: "M" + x0 + "," + y1 + " L" + x0 + "," + y0 + " L" + x1 + "," + y0, fill: "none", stroke: C.rule }));
     if (xl) g.appendChild(T(xl, x1, y0 + 22, { anchor: "end", italic: true }));
