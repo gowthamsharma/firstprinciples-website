@@ -953,3 +953,33 @@ def j_curve():
     s.text("prices adjust first", X(1.5), Y(-36) + 16, 12, RED, "middle", True, t=0.8)
     s.text("volumes follow: Marshall–Lerner holds", X(7.5), Y(30) - 10, 12, YEL, "middle", True, t=1.2)
     return s.svg()
+
+
+# =====================================================================  extra concept pictures (used for thumbnails too)
+def dep_methods():
+    s = S(640, 280, "Book value under straight-line and double-declining-balance depreciation")
+    x0, y0, x1, y1 = frame(s, "year", "book value", 56, 244, 620, 34)
+    X = lambda t: x0 + t / 5 * (x1 - x0); Y = lambda v: y0 - v / 1000 * (y0 - y1)
+    sl = [(X(t), Y(1000 - 180 * t)) for t in range(6)]
+    db = []; v = 1000.0
+    for t in range(6):
+        db.append((X(t), Y(max(v, 100)))); v = max(v * 0.6, 100)
+    s.line(sl, BLUE, 2.4, 0.1); s.line(db, YEL, 2.4, 0.8)
+    for i, (x, y) in enumerate(db): s.dot(x, y, 4, YEL, 0.9 + i * 0.12)
+    s.text("straight-line", X(3.2), Y(1000 - 180 * 3.2) - 10, 13, BLUE, italic=True, t=1.0)
+    s.text("double-declining", X(1.4), Y(500), 13, YEL, italic=True, t=1.5)
+    return s.svg()
+
+
+def money_multiplier():
+    s = S(640, 280, "Each round of lending creates a smaller new deposit; the total approaches the first deposit divided by the reserve ratio")
+    x0, y0, x1, y1 = frame(s, "lending round", "deposits", 56, 244, 620, 34)
+    n = 12; bw = (x1 - x0) / (n + 1); k = (y0 - y1) / 520; tot = 0; pts = []
+    for i in range(n):
+        d = 100 * 0.8 ** i; tot += d
+        s.rect(x0 + (i + 0.5) * bw, y0 - d * k, bw * 0.7, d * k, BLUE, 0.85, i * 0.08)
+        pts.append((x0 + (i + 0.85) * bw, y0 - tot * k))
+    s.line(pts, YEL, 2.2, 1.0)
+    s.line([(x0, y0 - 500 * k), (x1, y0 - 500 * k)], DIM, 1, 1.2, dash="4 4")
+    s.text("limit: 100 ÷ 20% = 500", x1, y0 - 500 * k - 8, 13, SOFT, "end", True, t=1.4)
+    return s.svg()

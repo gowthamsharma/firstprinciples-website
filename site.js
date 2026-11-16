@@ -3,6 +3,26 @@
   document.documentElement.classList.add("js");
   var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+  /* ---- header shadow once the page scrolls ---- */
+  var top = document.querySelector(".top");
+  if (top) { var onScroll = function () { top.classList.toggle("scrolled", window.scrollY > 8); }; window.addEventListener("scroll", onScroll, { passive: true }); onScroll(); }
+
+  /* ---- hero video: loops quietly; pause button; still for reduced motion ---- */
+  var hv = document.querySelector(".hero video"), hb = document.querySelector(".hero .pause");
+  if (hv) {
+    if (still) { hv.removeAttribute("autoplay"); hv.pause(); if (hb) hb.hidden = true; }
+    if (hb) hb.addEventListener("click", function () { if (hv.paused) { hv.play(); hb.textContent = "Pause"; } else { hv.pause(); hb.textContent = "Play"; } });
+  }
+
+  /* ---- featured tabs ---- */
+  var tabs = document.querySelectorAll('.feature [role="tab"]');
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () {
+      tabs.forEach(function (u, j) { var on = u === t; u.setAttribute("aria-selected", on); var pn = document.getElementById(u.getAttribute("aria-controls")); pn.hidden = !on; pn.classList.toggle("in", on); });
+    });
+    t.addEventListener("keydown", function (e) { var k = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (k) { var n = tabs[(i + k + tabs.length) % tabs.length]; n.focus(); n.click(); } });
+  });
+
   /* ---- diagrams: draw when seen, then stay alive (tracers, flowing arrows, pulsing dots); replay on request ---- */
   var NSV = "http://www.w3.org/2000/svg";
   var figs = document.querySelectorAll(".fx");
@@ -16,41 +36,49 @@
     curves.sort(function (a, b) { return b.getTotalLength() - a.getTotalLength(); });
     var tr = curves.slice(0, 3).map(function (p, i) {
       var g = document.createElementNS(NSV, "g"), c = p.getAttribute("stroke");
-      var halo = document.createElementNS(NSV, "circle"); halo.setAttribute("r", 9); halo.setAttribute("fill", c); halo.setAttribute("fill-opacity", ".18");
+      var halo = document.createElementNS(NSV, "circle"); halo.setAttribute("r", 9); halo.setAttribute("fill", c); halo.setAttribute("fill-opacity", ".2");
       var dot = document.createElementNS(NSV, "circle"); dot.setAttribute("r", 3.6); dot.setAttribute("fill", "#fff");
       g.appendChild(halo); g.appendChild(dot); layer.appendChild(g);
-      return { p: p, g: g, L: p.getTotalLength(), off: i * 0.37, sp: 5200 + i * 900 };
+      /* sample the path once, so each frame is a cheap interpolation */
+      var L = p.getTotalLength(), N = Math.max(60, Math.min(400, Math.round(L / 3))), xs = new Float32Array(N + 1), ys = new Float32Array(N + 1);
+      for (var k = 0; k <= N; k++) { var q = p.getPointAtLength(L * k / N); xs[k] = q.x; ys[k] = q.y; }
+      return { g: g, xs: xs, ys: ys, N: N, off: i * 0.37, sp: (6500 + i * 1100) * Math.max(0.8, Math.min(1.6, L / 600)), shown: false };
     });
     arrows.slice(0, 14).forEach(function (p, i) {
       var q = p.cloneNode(); q.setAttribute("class", "flow"); q.setAttribute("stroke", "#fff"); q.setAttribute("stroke-opacity", ".85");
-      q.setAttribute("stroke-width", Math.max(2, +p.getAttribute("stroke-width") + 0.6)); q.style.animationDelay = (-i * 0.31) + "s"; layer.appendChild(q);
+      q.setAttribute("stroke-width", Math.max(2, +p.getAttribute("stroke-width") + 0.6)); q.style.animationDelay = (-i * 0.37) + "s"; layer.appendChild(q);
     });
     f._live = { tr: tr, t0: 0 }; return f._live;
   }
+  function ease(u) { return u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2; }
   var running = new Set(), raf = 0;
   function tick(now) {
     running.forEach(function (f) {
       var L = f._live; if (!L.t0) L.t0 = now;
       L.tr.forEach(function (t) {
-        var u = ((now - L.t0) / t.sp + t.off) % 1, e = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
-        var pt = t.p.getPointAtLength(e * t.L); t.g.setAttribute("transform", "translate(" + pt.x + "," + pt.y + ")");
-        t.g.style.opacity = Math.min(1, Math.min(u, 1 - u) * 8);
+        var u = ((now - L.t0) / t.sp + t.off) % 1, x = ease(u) * t.N, k = Math.floor(x), r = x - k, k2 = Math.min(k + 1, t.N);
+        t.g.setAttribute("transform", "translate(" + (t.xs[k] + (t.xs[k2] - t.xs[k]) * r).toFixed(2) + "," + (t.ys[k] + (t.ys[k2] - t.ys[k]) * r).toFixed(2) + ")");
+        var vis = u > 0.04 && u < 0.96; if (vis !== t.shown) { t.g.classList.toggle("vis", vis); t.shown = vis; }
       });
     });
-    raf = running.size ? requestAnimationFrame(tick) : 0;
+    raf = running.size && !document.hidden ? requestAnimationFrame(tick) : 0;
   }
-  function goLive(f) { if (still) return; build(f); f.classList.add("live"); running.add(f); if (!raf) raf = requestAnimationFrame(tick); }
+  function kick() { if (!raf && running.size && !document.hidden) raf = requestAnimationFrame(tick); }
+  document.addEventListener("visibilitychange", kick);
+  function goLive(f) { if (still) return; build(f); f.classList.add("live"); running.add(f); kick(); }
   function stopLive(f) { running.delete(f); f.classList.remove("live"); }
   function play(f) {
-    clearTimeout(f._tm); f._done = false; stopLive(f); f.classList.remove("on"); void f.getBoundingClientRect(); f.classList.add("on");
+    clearTimeout(f._tm); f._done = false; stopLive(f); f.classList.remove("on"); void f.getBoundingClientRect();
+    requestAnimationFrame(function () { f.classList.add("on"); });
     if (f._live) f._live.t0 = 0;
-    f._tm = setTimeout(function () { f._done = true; if (f._vis !== false) goLive(f); }, (lastT(f) + 1.5) * 1000);
+    f._tm = setTimeout(function () { f._done = true; if (f._vis !== false) goLive(f); }, (lastT(f) + 1.7) * 1000);
   }
   figs.forEach(function (f) {
     var host = f.closest("figure");
     if (host && !still) {
       var b = document.createElement("button"); b.type = "button"; b.className = "replay"; b.textContent = "Replay";
-      b.setAttribute("aria-label", "Replay this diagram"); b.addEventListener("click", function () { play(f); }); var cap = host.querySelector("figcaption"); host.insertBefore(b, cap ? cap.nextSibling : null); host.classList.add("hasreplay");
+      b.setAttribute("aria-label", "Replay this diagram"); b.addEventListener("click", function () { play(f); });
+      var cap = host.querySelector("figcaption"); host.insertBefore(b, cap ? cap.nextSibling : null);
     }
   });
   if (!("IntersectionObserver" in window) || still) { figs.forEach(function (f) { f.classList.add("on"); }); }
@@ -63,14 +91,6 @@
       });
     }, { threshold: 0.3 });
     figs.forEach(function (f) { io.observe(f); });
-  }
-
-  /* ---- intro reel: plays once, holds the wordmark; replay on request ---- */
-  var reel = document.querySelector(".reel video");
-  if (reel) {
-    var btn = document.querySelector(".reel button");
-    if (still) { reel.removeAttribute("autoplay"); reel.pause(); }
-    if (btn) btn.addEventListener("click", function () { reel.currentTime = 0; reel.play(); });
   }
 
   /* ---- helpers for widgets ---- */
