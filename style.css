@@ -36,10 +36,10 @@ img { height: auto; }
 /* ---------- header ---------- */
 .top { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); transition: box-shadow .3s var(--ease); }
 .top.scrolled { box-shadow: 0 6px 24px rgba(14, 34, 64, .08); }
-.top .wrap { display: flex; align-items: center; gap: 2.6rem; height: 6rem; }
+.top .wrap { display: flex; align-items: center; gap: 2.6rem; height: 8.5rem; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: var(--head); text-decoration: none; font-size: 1.22rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
-.brand img { width: auto; height: 5rem; display: block; }
-@media (max-width: 760px) { .top .wrap { height: 5rem; } .brand img { height: 4rem; } }
+.brand img { width: auto; height: 7.5rem; display: block; }
+@media (max-width: 760px) { .top .wrap { height: 6.5rem; } .brand img { height: 5.5rem; } }
 .brand b { color: var(--blue); font-weight: 600; }
 .top nav { display: flex; gap: 1.9rem; flex: 1; }
 .top nav a { color: var(--head); text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 0; border-bottom: 2px solid transparent; transition: border-color .25s var(--ease), color .25s var(--ease); }
