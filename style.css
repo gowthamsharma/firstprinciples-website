@@ -36,11 +36,11 @@ img { height: auto; }
 /* ---------- header ---------- */
 .top { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); transition: box-shadow .3s var(--ease); }
 .top.scrolled { box-shadow: 0 6px 24px rgba(14, 34, 64, .08); }
-.top .wrap { display: flex; align-items: center; gap: 1.5rem; height: 4.5rem; }
+.top .wrap { display: flex; align-items: center; gap: 1.5rem; height: 5.25rem; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: var(--head); text-decoration: none; font-size: 1.22rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
 .brand { flex: none; }
-.brand img { width: auto; height: 4.25rem; max-width: none; display: block; }
-@media (max-width: 760px) { .brand img { height: 3.9rem; } }
+.brand img { width: auto; height: 4.04rem; max-width: none; display: block; }
+@media (max-width: 760px) { .brand img { height: 3.7rem; } }
 .brand b { color: var(--blue); font-weight: 600; }
 .top nav { display: flex; gap: 1.9rem; flex: 1; }
 .top nav a { color: var(--head); text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 0; border-bottom: 2px solid transparent; transition: border-color .25s var(--ease), color .25s var(--ease); }
