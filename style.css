@@ -36,10 +36,11 @@ img { height: auto; }
 /* ---------- header ---------- */
 .top { position: sticky; top: 0; z-index: 50; background: #fff; border-bottom: 1px solid var(--line); transition: box-shadow .3s var(--ease); }
 .top.scrolled { box-shadow: 0 6px 24px rgba(14, 34, 64, .08); }
-.top .wrap { display: flex; align-items: center; gap: 2.6rem; height: 8.5rem; }
+.top .wrap { display: flex; align-items: center; gap: 1.5rem; height: 4.5rem; }
 .brand { display: flex; align-items: center; gap: 0.6rem; color: var(--head); text-decoration: none; font-size: 1.22rem; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
-.brand img { width: auto; height: 7.5rem; display: block; }
-@media (max-width: 760px) { .top .wrap { height: 6.5rem; } .brand img { height: 5.5rem; } }
+.brand { flex: none; }
+.brand img { width: auto; height: 4.25rem; max-width: none; display: block; }
+@media (max-width: 760px) { .brand img { height: 3.9rem; } }
 .brand b { color: var(--blue); font-weight: 600; }
 .top nav { display: flex; gap: 1.9rem; flex: 1; }
 .top nav a { color: var(--head); text-decoration: none; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.4rem 0; border-bottom: 2px solid transparent; transition: border-color .25s var(--ease), color .25s var(--ease); }
@@ -413,7 +414,7 @@ footer nav a:hover { color: var(--sky); }
 /* ---------- header menu with hover panels ---------- */
 .top nav { gap: 0; align-items: stretch; height: 100%; }
 .top nav .mi { position: static; display: flex; align-items: center; }
-.top nav .ml { display: flex; align-items: center; height: 100%; padding: 0 0.85rem; border-bottom: 3px solid transparent; font-size: 0.78rem; letter-spacing: 0.09em; white-space: nowrap; }
+.top nav .ml { display: flex; align-items: center; height: 100%; padding: 0 0.72rem; border-bottom: 3px solid transparent; font-size: 0.78rem; letter-spacing: 0.09em; white-space: nowrap; }
 .top nav .mi:hover > .ml, .top nav .mi:focus-within > .ml, .top nav .ml[aria-current="page"] { border-bottom-color: var(--sky); }
 .top nav .mi.has > .ml::after { content: ""; width: 6px; height: 6px; margin-left: 0.5rem; border-right: 2px solid var(--sky); border-bottom: 2px solid var(--sky); transform: rotate(45deg) translateY(-2px); transition: transform .2s var(--ease); }
 .top nav .mi.has:hover > .ml::after { transform: rotate(225deg) translateY(-2px); }
