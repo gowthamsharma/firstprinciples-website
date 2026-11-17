@@ -832,3 +832,18 @@ html.consent-open { overflow: hidden; }
   .fm-l { white-space: normal; }
   .try-f .fm { font-size: .95rem; padding: .7rem .7rem; }
 }
+
+/* ---------- dark header that blends into the page heroes (logo keeps its original colours) ---------- */
+.top { background: rgba(11, 31, 56, .9); -webkit-backdrop-filter: saturate(140%) blur(12px); backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid rgba(255,255,255,.08); }
+.top.scrolled { box-shadow: 0 6px 24px rgba(0, 0, 0, .28); }
+.top nav .ml, .top nav .ml[aria-current="page"] { color: #fff; }
+.top nav .mi:hover > .ml, .top nav .mi:focus-within > .ml { color: var(--sky); }
+.top .btn.outline { color: #fff; border-color: var(--sky); }
+.top .btn.outline:hover { background: var(--sky); color: var(--deep); }
+@media (max-width: 960px) {
+  .top { background: rgba(11, 31, 56, .96); }
+  .burger { border-color: rgba(255,255,255,.3); }
+  .burger span, .burger span::before, .burger span::after { background: #fff; }
+  .top nav { background: #0F2846; border-top-color: rgba(255,255,255,.1); }
+  .top nav .mi { border-bottom-color: rgba(255,255,255,.1); }
+}
