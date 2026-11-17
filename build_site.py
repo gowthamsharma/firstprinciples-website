@@ -18,6 +18,7 @@ import re
 import markdown
 
 import figures
+import calcviz
 
 ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://firstprinciples.courses"
@@ -87,10 +88,33 @@ def make_thumb(p):
     return name
 
 
-def try_box(title, keys, note=""):
+def _formula_html(f):
+    # {numerator}/{denominator} becomes a stacked fraction
+    f = re.sub(r"\{([^{}]+)\}/\{([^{}]+)\}", r'<span class="fr"><span>\1</span><span>\2</span></span>', f)
+    return f
+
+
+def try_box(title, keys, *rest):
+    note, extra = "", {}
+    for r in rest:
+        if re.match(r"^[fvm]=", r):
+            extra[r[0]] = r[2:].strip()
+        elif r:
+            note = r
     note = f'<p class="try-out">{markdown.markdown(note)[3:-4]}</p>' if note else ""
-    return (f'<div class="try" data-keys="{html.escape(keys, quote=True)}"><div class="try-head"><b>{html.escape(title)}</b>'
-            f'<button type="button" class="try-play">Play on the calculator</button></div><div class="chips" aria-label="Keys: {html.escape(keys)}"></div>{note}</div>')
+    setup = ""
+    if extra.get("f"):
+        lines = "".join(f'<div class="fm-l">{_formula_html(x.strip())}</div>' for x in extra["f"].split(";;"))
+        setup += f'<div class="try-f"><p class="try-lbl">The formula</p><div class="fm">{lines}</div></div>'
+    if extra.get("v"):
+        setup += f'<div class="try-v"><p class="try-lbl">The picture</p><div class="stage">{calcviz.visual(extra["v"])}</div></div>'
+    mem = ""
+    if extra.get("m"):
+        cells = "".join(f'<span class="mc"><b>{html.escape(x.split(":", 1)[0].strip())}</b>{html.escape(x.split(":", 1)[1].strip())}</span>' for x in extra["m"].split(";;"))
+        mem = f'<div class="try-mem"><p class="try-lbl">What each memory holds</p><div class="mcs">{cells}</div></div>'
+    keys_lbl = '<p class="try-lbl">The keys</p>' if setup else ""
+    return (f'<div class="try{" rich" if setup else ""}" data-keys="{html.escape(keys, quote=True)}"><div class="try-head"><b>{html.escape(title)}</b>'
+            f'<button type="button" class="try-play">Play on the calculator</button></div>{setup}{keys_lbl}<div class="chips" aria-label="Keys: {html.escape(keys)}"></div>{mem}{note}</div>')
 
 
 def render_md(p):
@@ -173,7 +197,7 @@ MENU_HTML = ""
 
 # feature tiles on the right of each menu panel: (title, text, link)
 PROMOS = {
-    "Most searched": [("A BA II Plus in your browser", "Press every key, or watch 50 worked examples play themselves.", "blog-ba-ii-plus-calculator-guide.html"),
+    "Most searched": [("A BA II Plus in your browser", "Press every key, or watch worked exam examples play out with the formula behind each one.", "blog-ba-ii-plus-calculator-guide.html"),
                       ("What a CFA earns, worldwide", "Base pay and bonuses in 19 countries, and the ten jobs charterholders do.", "blog-cfa-salary.html")],
     "Levels": [("Which topics are hardest?", "Weight times trouble: the topics that cost the most marks at each level.", "blog-hardest-cfa-topics.html"),
                ("Ready for Level I?", "Ten honest questions and a plan for the gaps, in two minutes.", "blog-ready-for-cfa-level-1.html")],
@@ -324,7 +348,7 @@ def card(p, chip, foot, feat=False):
 PROMO = {
     "default": ("Free CFA study planner", "An Excel planner that builds your weekly plan, tracks every topic and keeps your streak.", "free-resources.html#planner", "Get the planner"),
     "prereq": ("50 prerequisite concepts, free", "Financial statements and economics, rebuilt from the basics, each with its own animated diagram.", "prerequisites.html", "Start reading"),
-    "calc": ("A BA II Plus in your browser", "Press every key, or watch 50 worked examples play themselves on the calculator.", "blog-ba-ii-plus-calculator-guide.html", "Open the calculator"),
+    "calc": ("A BA II Plus in your browser", "Press every key, or watch worked exam examples play out, each with its formula and a picture.", "blog-ba-ii-plus-calculator-guide.html", "Open the calculator"),
 }
 
 
@@ -769,7 +793,7 @@ def home(cfa, blog, pre):
     <div class="dcards">
       <a class="dc wide" href="blog-ready-for-cfa-level-1.html" data-track="discover_ready"><h3>Are you ready for CFA Level I?</h3><p>A 5-minute self-check with visuals: normal distributions, present value, bond prices, inflation and more. Instant marking and a score for each area, so you know what to brush up on before you register.</p></a>
       <a class="dc" href="prerequisites.html"><h3>Take the prerequisites course</h3><p>{len(pre)} lessons in financial statements and economics, each with an animated diagram, a worked example and a graded quiz.</p></a>
-      <a class="dc" href="blog-ba-ii-plus-calculator-guide.html"><h3>Practise on a BA II Plus in your browser</h3><p>Press every key yourself, or watch 50 worked exam examples play out on the calculator, step by step.</p></a>
+      <a class="dc" href="blog-ba-ii-plus-calculator-guide.html"><h3>Practise on a BA II Plus in your browser</h3><p>Press every key yourself, or watch worked exam examples play out key by key, each with its formula.</p></a>
       <a class="dc" href="blog-cfa-salary.html"><h3>See what a CFA earns, worldwide</h3><p>Base pay and bonuses in 19 countries, and the jobs charterholders actually do, from real salary data.</p></a>
       <a class="dc" href="blog-why-cfa-is-prestigious.html"><h3>Why the charter carries weight</h3><p>Sixty years of history, fewer than half passing at every level, and an ethics pledge charterholders renew every year.</p></a>
     </div>

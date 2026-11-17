@@ -856,7 +856,7 @@
     host.appendChild(el);
     var tools = document.createElement("div");
     tools.className = "ba2-tools";
-    tools.innerHTML = '<button type="button" data-act="exam">Exam settings</button><button type="button" data-act="reset">Reset</button><button type="button" data-act="map" aria-pressed="false">Key map</button>';
+    tools.innerHTML = '<button type="button" data-act="exam">Exam settings</button><button type="button" data-act="reset">Reset</button><button type="button" data-act="map" aria-pressed="false">Key map</button><button type="button" data-act="speed" class="spd">Speed: slow</button>';
     var after = host.classList.contains("ba2-host") ? host.parentNode : host;
     if (after === host) host.appendChild(tools); else after.insertBefore(tools, host.nextSibling);
     var legend = document.createElement("div");
@@ -883,8 +883,10 @@
     function flash(id) {
       var b = el.querySelector('[data-k="' + id + '"]');
       if (!b) return;
-      b.classList.remove("hit"); void b.offsetWidth; b.classList.add("hit");
-      setTimeout(function () { b.classList.remove("hit"); }, 420);
+      el.querySelectorAll(".k.cur").forEach(function (x) { x.classList.remove("cur"); });
+      b.classList.remove("hit"); void b.offsetWidth; b.classList.add("hit", "cur");
+      clearTimeout(b._ht); b._ht = setTimeout(function () { b.classList.remove("hit"); }, 900);
+      clearTimeout(el._ct); el._ct = setTimeout(function () { b.classList.remove("cur"); }, playing ? 2600 : 700);
     }
     var _tracked = false;
     function press(id, quiet) { e.press(id); render(); if (!quiet) flash(id); if (!_tracked && !quiet && window.fpTrack) { _tracked = true; window.fpTrack("calculator_used"); } }
@@ -906,10 +908,14 @@
       stop();
       if (a === "reset") { e.factory(); render(); say("Reset to factory settings: 2 decimals, chain maths, P/Y = 1."); }
       if (a === "exam") { examSettings(); render(); say("Exam settings: 9 decimals (floating), AOS maths, P/Y = C/Y = 1, END mode."); }
+      if (a === "speed") { spIdx = (spIdx + 1) % SPEEDS.length; try { localStorage.setItem("fp-ba2-speed", spIdx); } catch (x) {} b.textContent = "Speed: " + SPEEDS[spIdx][0]; return; }
       if (a === "map") { var on = !el.classList.contains("map"); el.classList.toggle("map", on); legend.hidden = !on; b.setAttribute("aria-pressed", on ? "true" : "false"); }
     });
     function examSettings() { e.factory(); e.fmt.dec = 9; e.fmt.aos = true; }
 
+    var SPEEDS = [["slow", 1150], ["normal", 750], ["fast", 420]], spIdx = 0;
+    try { var sv = parseInt(localStorage.getItem("fp-ba2-speed"), 10); if (sv >= 0 && sv < 3) spIdx = sv; } catch (x) {}
+    tools.querySelector(".spd").textContent = "Speed: " + SPEEDS[spIdx][0];
     var capTimer;
     function say(t) { cap.textContent = t; cap.classList.add("show"); clearTimeout(capTimer); capTimer = setTimeout(function () { cap.classList.remove("show"); }, 3200); }
 
@@ -926,7 +932,7 @@
         for (var k = 0; k < st.keys.length; k++) queue.push({ key: st.keys[k], chip: ci, last: k === st.keys.length - 1, step: st });
         ci++;
       }
-      var q = 0, dt = speed || 430;
+      var q = 0, dt = speed || SPEEDS[spIdx][1];
       function tick() {
         if (job.cancel) return;
         if (q >= queue.length) { chips.forEach(function (c) { c.classList.remove("now"); }); playing = null; if (done) done(); return; }
@@ -939,7 +945,8 @@
         chips.forEach(function (c, i) { c.classList.toggle("now", i === it.chip); c.classList.toggle("done", i < it.chip); });
         press(it.key);
         if (it.last) say(it.step.chip.sec ? "2ND, then " + it.step.chip.label : it.step.chip.label);
-        setTimeout(tick, it.step.chip.num && !it.last ? dt * 0.45 : dt);
+        // digits inside one number go quicker; a pause after each finished entry lets you read the screen
+        setTimeout(tick, it.step.chip.num && !it.last ? dt * 0.4 : (it.key === "2ND" ? dt * 0.6 : dt));
       }
       tick();
       return job;

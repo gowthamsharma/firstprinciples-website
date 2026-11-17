@@ -345,8 +345,13 @@ footer nav a:hover { color: var(--sky); }
 .ba2-keys .k-div, .ba2-keys .k-mul, .ba2-keys .k-sub, .ba2-keys .k-add { font-size: 18px; font-weight: 500; }
 .ba2-keys .k:hover { filter: brightness(1.12); }
 .ba2-keys .k:active, .ba2-keys .k.hit { transform: translateY(2px); box-shadow: 0 0 0 #121418, 0 1px 2px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.12); }
-.ba2-keys .k.hit::after { content: ""; position: absolute; inset: -4px; border-radius: 10px; border: 2px solid var(--sky); animation: ba2ring .42s ease-out forwards; pointer-events: none; }
-@keyframes ba2ring { from { opacity: 1; transform: scale(.92); } to { opacity: 0; transform: scale(1.12); } }
+.ba2-keys .k.cur { background: #3DBEF0 !important; color: #0B1F38 !important; box-shadow: 0 0 0 3px rgba(61,190,240,.45), 0 0 18px rgba(61,190,240,.75); }
+.ba2-keys .k.second.cur { background: #DCE33A !important; color: #1c2230 !important; box-shadow: 0 0 0 3px rgba(220,227,58,.45), 0 0 18px rgba(220,227,58,.75); }
+.ba2-keys .k.hit::before, .ba2-keys .k.hit::after { content: ""; position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; border: 3px solid #3DBEF0; animation: ba2ring .9s ease-out forwards; pointer-events: none; }
+.ba2-keys .k.hit::after { animation-delay: .22s; opacity: 0; }
+.ba2-keys .k.second.hit::before, .ba2-keys .k.second.hit::after { border-color: #DCE33A; }
+@keyframes ba2ring { 0% { opacity: .95; transform: scale(.55); } 100% { opacity: 0; transform: scale(1.9); } }
+@media (prefers-reduced-motion: reduce) { .ba2-keys .k.hit::before, .ba2-keys .k.hit::after { animation: none; display: none; } }
 .ba2-calc.map .k { box-shadow: 0 2px 0 #121418, inset 0 0 0 2px var(--c, transparent); }
 .ba2-calc.map .cat-tvm { --c: #3DBEF0; } .ba2-calc.map .cat-cf { --c: #5CD0B3; } .ba2-calc.map .cat-nav { --c: #C6D0DB; }
 .ba2-calc.map .cat-ws { --c: #DCE33A; } .ba2-calc.map .cat-mem { --c: #F29D52; } .ba2-calc.map .cat-math { --c: #8C7BE6; }
@@ -394,7 +399,8 @@ footer nav a:hover { color: var(--sky); }
 .chip-k.num { background: #5a616a; }
 .chip-k.sec small { background: #DCE33A; color: #1c2230; border-radius: 3px; padding: 0 4px; font-size: .62rem; font-weight: 800; }
 .chip-k.sec { color: #E9EE8A; }
-.chip-k.now { background: var(--sky); color: var(--deep); transform: translateY(-2px); }
+.chip-k.now { background: var(--sky); color: var(--deep); transform: translateY(-3px) scale(1.12); box-shadow: 0 0 0 3px rgba(61,190,240,.35), 0 4px 10px rgba(14,34,64,.25); animation: chippulse 1s ease-in-out infinite; }
+@keyframes chippulse { 50% { box-shadow: 0 0 0 7px rgba(61,190,240,.12), 0 4px 10px rgba(14,34,64,.25); } }
 .chip-k.now small { background: var(--deep); color: #fff; }
 .chip-k.done { opacity: .55; }
 .try-out { margin: .2rem 0 0; font-size: .92rem; color: var(--muted); }
@@ -805,3 +811,22 @@ html.consent-open { overflow: hidden; }
 @keyframes cfade { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .consent { animation: none; } }
 @media (max-width: 420px) { .consent-b { grid-template-columns: 1fr; } .consent-b .btn.line { order: 2; } }
+
+/* calculator guide: formula, picture, keys */
+.try.rich { padding-bottom: 1.1rem; }
+.try-lbl { margin: .9rem 0 .4rem; font-size: .78rem; font-weight: 700; color: var(--muted); letter-spacing: .02em; }
+.try-f .fm { background: #F4F8FC; border: 1px solid var(--line); border-radius: 3px; padding: .8rem 1rem; font-size: 1.02rem; color: var(--head); line-height: 2.1; overflow-x: auto; }
+.fm-l { white-space: nowrap; }
+.fm sub, .fm sup { font-size: .68em; }
+.fr { display: inline-flex; flex-direction: column; vertical-align: middle; text-align: center; margin: 0 .18em; line-height: 1.35; }
+.fr > span:first-child { border-bottom: 1.4px solid currentColor; padding: 0 .25em .05em; }
+.fr > span:last-child { padding: .1em .25em 0; }
+.try-v .stage { padding: .6rem .8rem; }
+.try-mem .mcs { display: flex; flex-wrap: wrap; gap: .5rem; }
+.try-mem .mc { display: inline-flex; gap: .5rem; align-items: baseline; background: #FFF5EA; border: 1px solid #F2C79B; border-radius: 3px; padding: .35rem .6rem; font-size: .88rem; color: var(--head); }
+.try-mem .mc b { color: #B4580E; font-weight: 700; }
+@media (max-width: 640px) {
+  .try-v .fx text { font-size: 21px; }
+  .fm-l { white-space: normal; }
+  .try-f .fm { font-size: .95rem; padding: .7rem .7rem; }
+}
