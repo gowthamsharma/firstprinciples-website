@@ -781,3 +781,12 @@ footer.foot .legal a:first-of-type { padding-left: 0; }
   .cd-stats b { font-size: 1.3rem; }
   .cd-stats span { font-size: 0.7rem; line-height: 1.3; display: block; }
 }
+/* diagrams loop; click to pause */
+.replay { display: none !important; }
+.js .fx.rs .d, .js .fx.rs .g, .js .fx.rs .gx, .js .fx.rs .f { transition: none !important; }
+.loopable { position: relative; cursor: pointer; }
+.loopable:focus-visible { outline: 2px solid var(--sky); outline-offset: 3px; }
+.loopable::after { content: "Click to pause"; position: absolute; right: 0.6rem; bottom: 0.5rem; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,.55); background: rgba(3,11,36,.55); padding: 0.15rem 0.45rem; border-radius: 2px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.loopable:hover::after, .loopable:focus-visible::after { opacity: 1; }
+.loopable.paused::after { content: "Paused · click to play"; opacity: 1; color: #fff; }
+.fx.frozen .flow, .fx.frozen circle { animation-play-state: paused !important; }

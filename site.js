@@ -22,7 +22,7 @@
     t.addEventListener("keydown", function (e) { var k = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (k) { var n = tabs[(i + k + tabs.length) % tabs.length]; n.focus(); n.click(); } });
   });
 
-  /* ---- diagrams: draw when seen, then stay alive (tracers, flowing arrows, pulsing dots); replay on request ---- */
+  /* ---- diagrams: loop while on screen (draw, live effects, reset); click to pause or resume ---- */
   var NSV = "http://www.w3.org/2000/svg";
   var figs = document.querySelectorAll(".fx");
   function lastT(f) { var m = 0; f.querySelectorAll("[style*='--t']").forEach(function (e) { var v = parseFloat(e.style.getPropertyValue("--t")) || 0; if (v > m) m = v; }); return m; }
@@ -66,29 +66,52 @@
   document.addEventListener("visibilitychange", kick);
   function goLive(f) { if (still) return; build(f); f.classList.add("live"); running.add(f); kick(); }
   function stopLive(f) { running.delete(f); f.classList.remove("live"); }
-  function play(f) {
-    clearTimeout(f._tm); f._done = false; stopLive(f); f.classList.remove("on"); void f.getBoundingClientRect();
-    requestAnimationFrame(function () { f.classList.add("on"); });
+  /* loop: draw, hold (with live effects), reset, draw again. Click a diagram to pause or resume it. */
+  var HOLD = 3600;
+  function clearT(f) { clearTimeout(f._tm); clearTimeout(f._tm2); clearTimeout(f._tm3); }
+  function resetDraw(f) {
+    stopLive(f); f.classList.add("rs"); f.classList.remove("on"); void f.getBoundingClientRect(); f.classList.remove("rs");
+  }
+  function cycle(f) {
+    clearT(f);
+    if (f._paused || f._vis === false) return;
+    resetDraw(f);
     if (f._live) f._live.t0 = 0;
-    f._tm = setTimeout(function () { f._done = true; if (f._vis !== false) goLive(f); }, (lastT(f) + 1.7) * 1000);
+    f._tm = setTimeout(function () {
+      f.classList.add("on");
+      f._tm2 = setTimeout(function () {
+        goLive(f);
+        f._tm3 = setTimeout(function () { cycle(f); }, HOLD);
+      }, (lastT(f) + 1.7) * 1000);
+    }, 350);
+  }
+  function setPaused(f, p) {
+    f._paused = p;
+    var host = f.closest(".stage") || f.parentNode;
+    host.classList.toggle("paused", p);
+    host.setAttribute("aria-pressed", p ? "true" : "false");
+    if (p) { clearT(f); running.delete(f); f.classList.add("frozen"); }
+    else { f.classList.remove("frozen"); cycle(f); }
   }
   figs.forEach(function (f) {
-    var host = f.closest("figure");
-    if (host && !still) {
-      var b = document.createElement("button"); b.type = "button"; b.className = "replay"; b.textContent = "Replay";
-      b.setAttribute("aria-label", "Replay this diagram"); b.addEventListener("click", function () { play(f); });
-      var cap = host.querySelector("figcaption"); host.insertBefore(b, cap ? cap.nextSibling : null);
-    }
+    if (still) return;
+    var host = f.closest(".stage") || f.parentNode;
+    host.classList.add("loopable");
+    host.setAttribute("role", "button"); host.setAttribute("tabindex", "0");
+    host.setAttribute("aria-label", "Animated diagram. Press to pause or play."); host.setAttribute("aria-pressed", "false");
+    var toggle = function (e) { if (e.target.closest("a, button, input, select, textarea")) return; setPaused(f, !f._paused); };
+    host.addEventListener("click", toggle);
+    host.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setPaused(f, !f._paused); } });
   });
   if (!("IntersectionObserver" in window) || still) { figs.forEach(function (f) { f.classList.add("on"); }); }
   else {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        var f = e.target; f._vis = e.isIntersecting;
-        if (e.isIntersecting) { if (!f.classList.contains("on")) play(f); else if (f._done) goLive(f); }
-        else stopLive(f);
+        var f = e.target, was = f._vis; f._vis = e.isIntersecting;
+        if (e.isIntersecting) { if (was !== true && !f._paused) cycle(f); }
+        else { clearT(f); stopLive(f); }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
     figs.forEach(function (f) { io.observe(f); });
   }
 
