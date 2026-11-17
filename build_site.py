@@ -261,7 +261,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 </head>
 <body>
 <header class="top"><div class="wrap">
-  <a class="brand" href="index.html"><img src="logo.svg?v=6" alt="First Principles" width="160" height="70"></a>
+  <a class="brand" href="index.html"><img src="logo.svg?v=7" alt="First Principles" width="160" height="70"></a>
   <button type="button" class="burger" aria-expanded="false" aria-controls="mainnav" aria-label="Menu"><span></span></button>
   <nav aria-label="Main" id="mainnav">{nav}</nav>
   <a class="btn outline" href="prerequisites.html">Start learning</a>
