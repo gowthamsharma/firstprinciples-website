@@ -5,7 +5,59 @@
 
   /* ---- header shadow once the page scrolls ---- */
   var top = document.querySelector(".top");
-  if (top) { var onScroll = function () { top.classList.toggle("scrolled", window.scrollY > 8); }; window.addEventListener("scroll", onScroll, { passive: true }); onScroll(); }
+  /* CME-style: see-through over the page top, hides while you read down, comes back when you scroll up */
+  if (top) {
+    var lastY = window.scrollY, ticking = false;
+    var menuOpen = function () { var n = document.getElementById("mainnav"); return (n && n.classList.contains("open")) || top.matches(":hover") || top.contains(document.activeElement); };
+    var onScroll = function () {
+      var y = Math.max(window.scrollY, 0), h = top.offsetHeight;
+      top.classList.toggle("scrolled", y > 8);
+      top.classList.toggle("at-top", y < 8);
+      if (y < h * 1.5 || menuOpen()) top.classList.remove("hide");
+      else if (y > lastY + 4) top.classList.add("hide");
+      else if (y < lastY - 4) top.classList.remove("hide");
+      lastY = y; ticking = false;
+    };
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    top.addEventListener("focusin", function () { top.classList.remove("hide"); });
+    onScroll();
+  }
+
+  /* ---- share rail on articles ---- */
+  var art = document.querySelector("article.post");
+  if (art) {
+    var u = encodeURIComponent(location.href.split("#")[0]), t = encodeURIComponent(document.title);
+    var ic = {
+      li: '<svg viewBox="0 0 24 24"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5.2c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>',
+      x: '<svg viewBox="0 0 24 24"><path d="M17.8 3h3.1l-6.8 7.7L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L1.8 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.3 4.7H5.5z"/></svg>',
+      fb: '<svg viewBox="0 0 24 24"><path d="M14 8.5V6.8c0-.8.5-1 .9-1h2.4V2.1L14 2c-3.7 0-4.5 2.7-4.5 4.5v2H7.4V12h2.1v10H14V12h2.9l.4-3.5z"/></svg>',
+      wa: '<svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.2-1.2-.2-.2-.5-.3z"/></svg>',
+      em: '<svg viewBox="0 0 24 24"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7.3V17h16V7.3z"/></svg>',
+      cp: '<svg viewBox="0 0 24 24"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.5-3.5a3 3 0 1 1 4.2 4.2l-2.1 2.1-1.4-1.4 2.1-2.1a1 1 0 1 0-1.4-1.4L12 13.4a1 1 0 0 1-1.4 0zm2.8-2.8a1 1 0 0 1 0 1.4l-3.5 3.5a3 3 0 1 1-4.2-4.2l2.1-2.1 1.4 1.4-2.1 2.1a1 1 0 1 0 1.4 1.4L12 10.6a1 1 0 0 1 1.4 0z"/></svg>'
+    };
+    var links = [
+      ["li", "Share on LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + u],
+      ["x", "Share on X", "https://twitter.com/intent/tweet?url=" + u + "&text=" + t],
+      ["fb", "Share on Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + u],
+      ["wa", "Share on WhatsApp", "https://wa.me/?text=" + t + "%20" + u],
+      ["em", "Share by email", "mailto:?subject=" + t + "&body=" + u]
+    ];
+    var rail = document.createElement("div"); rail.className = "share"; rail.setAttribute("aria-label", "Share this article");
+    links.forEach(function (l) {
+      var a = document.createElement("a"); a.href = l[2]; a.title = l[1]; a.setAttribute("aria-label", l[1]); a.innerHTML = ic[l[0]];
+      if (l[0] !== "em") { a.target = "_blank"; a.rel = "noopener"; }
+      rail.appendChild(a);
+    });
+    var cb = document.createElement("button"); cb.type = "button"; cb.title = "Copy link"; cb.setAttribute("aria-label", "Copy link"); cb.innerHTML = ic.cp;
+    var ok = document.createElement("span"); ok.className = "ok"; ok.textContent = "Link copied";
+    cb.addEventListener("click", function () {
+      var done = function () { rail.classList.add("copied"); setTimeout(function () { rail.classList.remove("copied"); }, 1600); };
+      try { navigator.clipboard.writeText(location.href.split("#")[0]).then(done, done); } catch (e) { done(); }
+    });
+    rail.appendChild(cb); rail.appendChild(ok); document.body.appendChild(rail); document.body.classList.add("has-share");
+    var foot = document.querySelector("footer");
+    if (foot && "IntersectionObserver" in window) new IntersectionObserver(function (es) { rail.classList.toggle("away", es[0].isIntersecting); }).observe(foot);
+  }
 
   /* ---- hero video: loops quietly; still for reduced motion ---- */
   var hv = document.querySelector(".hero video");

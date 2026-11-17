@@ -847,3 +847,38 @@ html.consent-open { overflow: hidden; }
   .top nav { background: #0F2846; border-top-color: rgba(255,255,255,.1); }
   .top nav .mi { border-bottom-color: rgba(255,255,255,.1); }
 }
+
+/* ---------- CME-style header: floats over the dark page top, hides while reading, returns on scroll up ---------- */
+:root { --hh: 5.25rem; }
+@media (max-width: 960px) { :root { --hh: 4rem; } }
+.top { transition: transform .35s var(--ease), background-color .35s var(--ease), box-shadow .3s var(--ease); will-change: transform; }
+.top.at-top { background: rgba(11, 31, 56, .42); border-bottom-color: rgba(255,255,255,.12); }
+.top.hide { transform: translateY(-100%); box-shadow: none; }
+.top.hide .mega { visibility: hidden !important; opacity: 0 !important; }
+main { margin-top: calc(-1 * var(--hh)); }
+.hero { padding-top: var(--hh); }
+.pagehead { padding-top: calc(2.2rem + var(--hh)); }
+.ahead { height: calc(clamp(15rem, 33vw, 26rem) + var(--hh)); }
+.ahead .wrap { padding-top: calc(1.5rem + var(--hh)); }
+@media print { .top { position: static; } main { margin-top: 0; } }
+
+/* ---------- tables: navy header row, banded rows ---------- */
+thead th { background: var(--head); color: #fff; border-bottom: 0; }
+tbody tr:nth-child(even) { background: var(--mist); }
+tbody tr:hover { background: #EAF2FA; }
+
+/* ---------- share rail on articles ---------- */
+.share { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 40; display: flex; flex-direction: column; background: var(--head); border-radius: 4px 0 0 4px; overflow: hidden; box-shadow: 0 6px 20px rgba(14,34,64,.18); transition: opacity .3s var(--ease); }
+.share a, .share button { display: flex; align-items: center; justify-content: center; width: 2.6rem; height: 2.6rem; color: #fff; background: none; border: 0; cursor: pointer; transition: background .2s var(--ease), color .2s var(--ease); }
+.share a:hover, .share button:hover, .share a:focus-visible, .share button:focus-visible { background: var(--sky); color: var(--deep); }
+.share svg { width: 17px; height: 17px; fill: currentColor; }
+.share .ok { position: absolute; right: 2.9rem; bottom: .5rem; background: var(--head); color: #fff; font-size: .75rem; font-weight: 600; padding: .3rem .6rem; border-radius: 3px; white-space: nowrap; opacity: 0; transition: opacity .2s; pointer-events: none; }
+.share.copied .ok { opacity: 1; }
+.share.away { opacity: 0; pointer-events: none; }
+@media (max-width: 1100px) {
+  .share { top: auto; bottom: 0; left: 0; right: 0; transform: none; flex-direction: row; justify-content: center; border-radius: 0; box-shadow: 0 -4px 16px rgba(14,34,64,.15); }
+  .share a, .share button { flex: 1; max-width: 4.5rem; height: 2.8rem; }
+  .share .ok { right: auto; left: 50%; bottom: 3.2rem; transform: translateX(-50%); }
+}
+@media print { .share { display: none; } }
+@media (max-width: 1100px) { body.has-share footer { padding-bottom: 5.5rem; } }
