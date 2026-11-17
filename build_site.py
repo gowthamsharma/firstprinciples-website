@@ -23,6 +23,7 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://firstprinciples.courses"
 TODAY = datetime.date.today().isoformat()
 NAME, EMAIL = "Gowtham Kumar", "gkinba@gmail.com"
+CLARITY_ID = "zf2slpx8uv"  # Microsoft Clarity project ID; loads only after the visitor accepts the banner
 CF_BEACON = "a9877ea4bed648d990739f9b34199681"  # Cloudflare Web Analytics token (cookieless); empty = no tracking
 CHECKED = "16 November 2026"
 UPDATED = datetime.date.today().strftime("%d %b %Y").upper()
@@ -232,6 +233,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
 <link rel="stylesheet" href="style.css">
 {extra_head}
+{('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -251,7 +253,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <div class="fbar"><div class="wrap">
   <p>{DISCLAIMER}</p>
   <p>Exam facts on this site were checked against CFA Institute's published pages on {CHECKED}. Dates, fees and policies change: always confirm on cfainstitute.org before you register. Explanations are original and are not taken from the CFA Program curriculum.</p>
-  <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
+  <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
 <script src="site.js" defer></script>{beacon}
@@ -352,7 +354,7 @@ def quiz_html(p, total):
 def promo(kind):
     t, x, h, b = PROMO[kind]
     return (f'<aside class="promo"><div><h3>{t}</h3><p>{x}</p></div>'
-            f'<a class="go" href="{h}"><span>{b}</span><i aria-hidden="true"></i></a></aside>')
+            f'<a class="go" href="{h}" data-track="promo_click"><span>{b}</span><i aria-hidden="true"></i></a></aside>')
 
 
 def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles", kind="default", extra="", head_extra=""):
@@ -543,6 +545,7 @@ def build():
     built.append(free_resources(blog, pre))
     (ROOT / "glossary.html").write_text('<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="https://firstprinciples.courses/blog.html"><meta http-equiv="refresh" content="0; url=blog.html"><title>Moved</title><a href="blog.html">This page has moved to the study blog.</a>', encoding="utf-8")
     built.append(photo_credits())
+    built.append(privacy())
     home(cfa, blog, pre)
 
     page("404.html", "Page not found | First Principles", "This page does not exist.",
@@ -551,6 +554,29 @@ def build():
     urls = "".join(f"  <url><loc>{SITE}/{'' if b == 'index.html' else b}</loc><lastmod>{TODAY}</lastmod></url>\n" for b in sorted(set(built)))
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
     print(f"built {len(set(built))} pages + 404 + sitemap + {len(cfa + blog + pre)} thumbnails")
+
+
+def privacy():
+    main = f"""<main>
+<section class="pagehead"><div class="wrap solo"><div>
+  <p class="crumbs"><a href="index.html">Home</a> › Privacy</p>
+  <span class="eyebrow">Privacy</span>
+  <h1>Privacy and cookies</h1>
+  <p class="lead">What this site measures, why, and how to change your choice.</p>
+</div></div></section>
+<div class="wrap"><article class="post"><div class="body">
+<h2>Visit counts (always on, no cookies)</h2>
+<p>We use Cloudflare Web Analytics to count page views. It sets no cookies and does not track you across sites; it tells us which pages are read, where visitors come from (country, referring site) and which devices they use.</p>
+<h2>Usage insights (only if you accept)</h2>
+<p>If you click <b>Accept</b> on the banner, we load Microsoft Clarity. It records how pages are used: clicks, scrolling, time on page and anonymised session replays, so we can see which explanations work and redesign the ones that do not. Text you type into forms is masked. Clarity sets cookies and is provided by Microsoft; see the <a href="https://privacy.microsoft.com/privacystatement" rel="noopener">Microsoft privacy statement</a> and <a href="https://learn.microsoft.com/clarity/setup-and-installation/cookie-list" rel="noopener">Clarity's cookie list</a>.</p>
+<p>If you click <b>Decline</b>, Clarity is never loaded. You can change your choice at any time with <a href="#" data-consent-open>cookie settings</a>.</p>
+<h2>Your course progress</h2>
+<p>Quiz scores and course progress are stored only in your own browser (local storage). They are never sent to us, and you can erase them from the course page.</p>
+<h2>Contact</h2>
+<p>Questions about privacy: <a href="mailto:{obfuscate(EMAIL)}">email us</a>.</p>
+</div></article></div>
+</main>"""
+    return page("privacy.html", "Privacy and cookies | First Principles", "What First Principles measures, why, and how to change your cookie choice.", main)
 
 
 def photo_credits():
@@ -599,7 +625,7 @@ PLANNER_BOX = """<section class="planner" id="planner"><div class="pl-text">
 <li><b>A daily log</b> that feeds a dashboard: hours done against plan, accuracy, mock scores.</li>
 <li><b>A habit calendar and streak counter</b> built on a "never zero" daily minimum, plus time-management and discipline rules that work.</li>
 </ul>
-<p><a class="btn" href="cfa-study-planner.xlsx" download>Download the planner (.xlsx)</a></p>
+<p><a class="btn" href="cfa-study-planner.xlsx" download data-track="planner_download">Download the planner (.xlsx)</a></p>
 <p class="small">Works in Microsoft Excel, Google Sheets (File, Import) and LibreOffice. Levels I, II and III. Free, no sign-up.</p>
 </div><figure class="pl-fig"><div class="stage">{fig}</div></figure></section>"""
 

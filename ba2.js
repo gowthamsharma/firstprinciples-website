@@ -886,7 +886,8 @@
       b.classList.remove("hit"); void b.offsetWidth; b.classList.add("hit");
       setTimeout(function () { b.classList.remove("hit"); }, 420);
     }
-    function press(id, quiet) { e.press(id); render(); if (!quiet) flash(id); }
+    var _tracked = false;
+    function press(id, quiet) { e.press(id); render(); if (!quiet) flash(id); if (!_tracked && !quiet && window.fpTrack) { _tracked = true; window.fpTrack("calculator_used"); } }
 
     el.querySelector(".ba2-keys").addEventListener("click", function (ev) {
       var b = ev.target.closest("button[data-k]"); if (!b) return;

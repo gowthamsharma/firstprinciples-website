@@ -383,7 +383,50 @@
       return '<div class="rd-bar"><span>' + AREA[k] + '</span><i><b style="width:' + Math.max(p, 3) + '%;background:' + (p >= 75 ? C.g : p >= 50 ? C.y : C.r) + '"></b></i><em>' + a[0] + "/" + a[1] + "</em></div>"; }).join("");
     var tips = Object.keys(FIX).filter(function (k) { return area[k][0] < area[k][1]; }).map(function (k) { return "<li>" + FIX[k] + "</li>"; })
       .concat(Object.keys(ADV).filter(function (k) { return sc[k] !== undefined && sc[k] < 2; }).map(function (k) { return "<li>" + ADV[k] + "</li>"; })).join("");
+    if (window.fpTrack && !box._tracked) { box._tracked = 1; window.fpTrack("selfcheck_completed", "selfcheck_knowledge", kc); }
     out.innerHTML = '<div class="rd-scores"><p><b>' + sit + '%</b><span>situation</span></p><p><b>' + kc + "/" + K.length + '</b><span>knowledge</span></p></div>' + bars +
       "<p class=\"rd-verdict\">" + verdict + "</p>" + (tips ? "<ul>" + tips + "</ul>" : "") + '<p><a class="btn" href="prerequisites.html">Start the prerequisites course</a></p>';
+  });
+})();
+
+/* ---- consent + Microsoft Clarity (loads only after Accept) + named events ---- */
+(function () {
+  var meta = document.querySelector('meta[name="fp-clarity"]'), ID = meta && meta.content;
+  var KEY = "fp-consent";
+  function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  var loaded = false;
+  function load() {
+    if (loaded || !ID) return; loaded = true;
+    (function (c, l, a, r, i, t, y) { c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); }; t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i; y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y); })(window, document, "clarity", "script", ID);
+    window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
+    window.clarity("set", "page_type", (location.pathname.split("/").pop() || "index").replace(/-.*$/, "").replace(".html", ""));
+  }
+  /* named events for redesign analysis; no-ops until Clarity is loaded */
+  window.fpTrack = function (name, tag, val) {
+    if (!loaded || !window.clarity) return;
+    window.clarity("event", name);
+    if (tag) window.clarity("set", tag, String(val));
+  };
+  function banner() {
+    if (!ID || document.querySelector(".consent")) return;
+    var b = document.createElement("div"); b.className = "consent"; b.setAttribute("role", "dialog"); b.setAttribute("aria-label", "Cookie choice");
+    b.innerHTML = '<p>We would like to use Microsoft Clarity to see how pages are used (clicks, scrolling, time on page) so we can improve them. It sets cookies. <a href="privacy.html">Details</a></p>' +
+      '<div class="consent-b"><button type="button" class="btn line" data-c="no">Decline</button><button type="button" class="btn" data-c="yes">Accept</button></div>';
+    document.body.appendChild(b);
+    b.addEventListener("click", function (e) {
+      var c = e.target.getAttribute("data-c"); if (!c) return;
+      set(c === "yes" ? "granted" : "denied");
+      if (c === "yes") load();
+      else if (loaded && window.clarity) window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
+      b.remove();
+    });
+  }
+  var choice = get();
+  if (choice === "granted") load(); else if (!choice) banner();
+  document.addEventListener("click", function (e) {
+    var o = e.target.closest("[data-consent-open]"); if (o) { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (x) {} banner(); return; }
+    var t = e.target.closest("[data-track]"); if (t) window.fpTrack(t.getAttribute("data-track"));
+    var st = e.target.closest(".loopable"); if (st) window.fpTrack("diagram_toggle");
   });
 })();

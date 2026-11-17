@@ -29,6 +29,7 @@
       var d = load(), rec = d.lessons[slug] || { best: 0 };
       rec.best = Math.max(rec.best || 0, right); rec.last = right; rec.of = items.length; rec.at = today();
       d.lessons[slug] = rec; save(d); prev = rec;
+      if (window.fpTrack) window.fpTrack(right >= 2 ? "lesson_quiz_pass" : "lesson_quiz_fail", "last_lesson", slug);
       var done = Object.keys(d.lessons).filter(function (k) { return d.lessons[k].best >= 2; }).length, total = +lq.getAttribute("data-total");
       var nextA = document.querySelector(".pager .next");
       res.innerHTML = '<div class="lq-score ' + (right >= 2 ? "pass" : "fail") + '"><b>' + right + " / " + items.length + "</b><span>" +
@@ -158,6 +159,7 @@
       });
       var pct = right / N * 100, d = load(), best = d.test ? Math.max(d.test.best, right) : right;
       d.test = { best: best, of: N, last: right, at: today(), attempts: ((d.test && d.test.attempts) || 0) + 1 }; save(d);
+      if (window.fpTrack) window.fpTrack("final_test_submitted", "final_test_score", Math.round(pct));
       var bar = function (lab, x) { var p = x[1] ? Math.round(x[0] / x[1] * 100) : 0; return '<div class="rd-bar"><span>' + lab + '</span><i><b style="width:' + Math.max(p, 3) + "%;background:" + (p >= 75 ? "#0FA968" : p >= 50 ? "#F2C200" : "#D64545") + '"></b></i><em>' + x[0] + "/" + x[1] + "</em></div>"; };
       var lessons = {}; miss.forEach(function (q) { lessons[q.s] = q.t; });
       box.querySelector(".ct-res").innerHTML = '<div class="ct-score ' + (pct >= 70 ? "pass" : "fail") + '"><b>' + right + " / " + N + "</b><span>" + Math.round(pct) + "% · " + (pct >= 70 ? "Pass" : "Below the 70% mark") + "</span></div>" +
