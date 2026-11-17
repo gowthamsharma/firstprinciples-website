@@ -265,51 +265,102 @@
 (function () {
   var box = document.querySelector('[data-widget="readiness"]');
   if (!box) return;
-  var Q = [
+  var C = { b: "#1565C0", s: "#3DBEF0", y: "#F2C200", g: "#0FA968", r: "#D64545", t: "#5B6B7A", l: "#DCE3EA" };
+  function svg(w, h, body) { return '<svg viewBox="0 0 ' + w + " " + h + '" class="rd-vis" aria-hidden="true">' + body + "</svg>"; }
+  var V = {
+    normal: (function () {
+      var p = "", sh = "";
+      for (var i = 0; i <= 100; i++) { var x = -3 + i * 0.06, y = Math.exp(-x * x / 2); p += (i ? "L" : "M") + (10 + i * 2.2).toFixed(1) + "," + (100 - y * 80).toFixed(1); }
+      for (var j = 33; j <= 67; j++) { var xx = -3 + j * 0.06, yy = Math.exp(-xx * xx / 2); sh += (j === 33 ? "M" + (10 + j * 2.2) + ",100 L" : "L") + (10 + j * 2.2).toFixed(1) + "," + (100 - yy * 80).toFixed(1); }
+      sh += " L" + (10 + 67 * 2.2) + ",100 Z";
+      return svg(240, 120, '<path d="' + sh + '" fill="' + C.s + '" opacity=".35"/><path d="' + p + '" fill="none" stroke="' + C.b + '" stroke-width="2.5"/><line x1="10" x2="230" y1="100" y2="100" stroke="' + C.t + '"/>' +
+        '<text x="82" y="114" font-size="10" fill="' + C.t + '">−1σ</text><text x="116" y="114" font-size="10" fill="' + C.t + '">μ</text><text x="150" y="114" font-size="10" fill="' + C.t + '">+1σ</text><text x="120" y="70" font-size="13" text-anchor="middle" fill="' + C.b + '" font-weight="700">?</text>');
+    })(),
+    grow: svg(240, 120, [0, 1, 2, 3, 4, 5].map(function (k) { var h = 50 * Math.pow(1.05, k) * 1.25; return '<rect x="' + (20 + k * 36) + '" y="' + (106 - h) + '" width="24" height="' + h + '" fill="' + (k === 5 ? C.y : C.s) + '"/><text x="' + (32 + k * 36) + '" y="118" font-size="10" text-anchor="middle" fill="' + C.t + '">' + k + "</text>"; }).join("")),
+    pv: svg(240, 120, '<line x1="30" x2="210" y1="70" y2="70" stroke="' + C.t + '" stroke-width="2"/><circle cx="30" cy="70" r="5" fill="' + C.b + '"/><circle cx="210" cy="70" r="5" fill="' + C.y + '"/><text x="30" y="98" text-anchor="middle" font-size="11" fill="' + C.t + '">today</text><text x="210" y="98" text-anchor="middle" font-size="11" fill="' + C.t + '">1 year</text><text x="210" y="56" text-anchor="middle" font-size="13" fill="#102742" font-weight="700">1,100</text><text x="30" y="56" text-anchor="middle" font-size="13" fill="' + C.b + '" font-weight="700">?</text><path d="M195,40 Q120,10 45,40" fill="none" stroke="' + C.b + '" stroke-width="1.5" marker-end="url(#ah)"/><defs><marker id="ah" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="' + C.b + '"/></marker></defs><text x="120" y="22" text-anchor="middle" font-size="10" fill="' + C.t + '">discount at 10%</text>'),
+    spread: svg(240, 120, (function () {
+      var a = [112, 116, 120, 121, 124, 128, 118], b = [60, 85, 102, 130, 150, 172, 190], o = '<text x="8" y="40" font-size="12" fill="#102742" font-weight="700">A</text><text x="8" y="90" font-size="12" fill="#102742" font-weight="700">B</text><line x1="24" x2="232" y1="36" y2="36" stroke="' + C.l + '"/><line x1="24" x2="232" y1="86" y2="86" stroke="' + C.l + '"/>';
+      a.forEach(function (x) { o += '<circle cx="' + x + '" cy="36" r="5" fill="' + C.s + '"/>'; }); b.forEach(function (x) { o += '<circle cx="' + x + '" cy="86" r="5" fill="' + C.b + '"/>'; }); return o; })()),
+    bs: svg(240, 120, '<rect x="30" y="20" width="80" height="80" fill="' + C.s + '" opacity=".4"/><text x="70" y="64" text-anchor="middle" font-size="12" fill="#102742">Assets</text><rect x="130" y="20" width="80" height="44" fill="' + C.y + '" opacity=".5"/><text x="170" y="46" text-anchor="middle" font-size="12" fill="#102742">Liabilities</text><rect x="130" y="64" width="80" height="36" fill="' + C.g + '" opacity=".35"/><text x="170" y="86" text-anchor="middle" font-size="12" fill="#102742">Equity</text><text x="120" y="114" text-anchor="middle" font-size="11" fill="' + C.t + '">always equal</text>'),
+    credit: svg(240, 120, '<rect x="20" y="40" width="60" height="40" rx="4" fill="none" stroke="' + C.b + '" stroke-width="2"/><text x="50" y="65" text-anchor="middle" font-size="11" fill="#102742">goods</text><line x1="84" x2="150" y1="60" y2="60" stroke="' + C.t + '" stroke-width="2" marker-end="url(#ah2)"/><defs><marker id="ah2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="' + C.t + '"/></marker></defs><text x="117" y="50" text-anchor="middle" font-size="10" fill="' + C.t + '">sold for 100</text><text x="195" y="56" text-anchor="middle" font-size="11" fill="#102742">customer</text><text x="195" y="72" text-anchor="middle" font-size="10" fill="' + C.t + '">pays in 60 days</text>'),
+    sd: svg(240, 120, '<line x1="30" x2="30" y1="10" y2="104" stroke="' + C.t + '"/><line x1="30" x2="225" y1="104" y2="104" stroke="' + C.t + '"/><path d="M40,20 L200,96" stroke="' + C.b + '" stroke-width="2.5"/><path d="M40,96 L200,20" stroke="' + C.y + '" stroke-width="2.5"/><path d="M80,20 L225,88" stroke="' + C.b + '" stroke-width="2.5" stroke-dasharray="5 4"/><text x="206" y="22" font-size="11" fill="#8a6d00">S</text><text x="190" y="110" font-size="11" fill="' + C.b + '">D</text><text x="226" y="84" font-size="11" fill="' + C.b + '">D′</text><text x="18" y="16" font-size="10" fill="' + C.t + '">P</text><text x="218" y="118" font-size="10" fill="' + C.t + '">Q</text>'),
+    infl: svg(240, 120, '<rect x="50" y="34" width="50" height="70" fill="' + C.b + '"/><text x="75" y="28" text-anchor="middle" font-size="12" fill="#102742" font-weight="700">6%</text><text x="75" y="118" text-anchor="middle" font-size="10" fill="' + C.t + '">interest</text><rect x="140" y="57" width="50" height="47" fill="' + C.r + '" opacity=".75"/><text x="165" y="51" text-anchor="middle" font-size="12" fill="#102742" font-weight="700">4%</text><text x="165" y="118" text-anchor="middle" font-size="10" fill="' + C.t + '">inflation</text>'),
+    bond: svg(240, 120, '<line x1="40" x2="200" y1="62" y2="42" stroke="#102742" stroke-width="4"/><path d="M110,104 L120,56 L130,104 Z" fill="' + C.t + '"/><text x="44" y="52" font-size="12" fill="' + C.b + '" font-weight="700">price ?</text><text x="160" y="30" font-size="12" fill="' + C.r + '" font-weight="700">rates ↑</text>'),
+    divers: svg(240, 120, (function () {
+      var a = "", b = "", c = "";
+      for (var i = 0; i <= 40; i++) { var x = 14 + i * 5.4, u = Math.sin(i * 0.7) * 26, v = Math.sin(i * 0.7 + 2.4) * 26; a += (i ? "L" : "M") + x + "," + (60 + u); b += (i ? "L" : "M") + x + "," + (60 + v); c += (i ? "L" : "M") + x + "," + (60 + (u + v) / 2); }
+      return '<path d="' + a + '" fill="none" stroke="' + C.s + '" stroke-width="1.6" opacity=".8"/><path d="' + b + '" fill="none" stroke="' + C.y + '" stroke-width="1.6" opacity=".9"/><path d="' + c + '" fill="none" stroke="#102742" stroke-width="2.6"/><text x="226" y="114" text-anchor="end" font-size="10" fill="' + C.t + '">dark line = 50/50 mix</text>'; })())
+  };
+  var S1 = [
     ["time", "How many hours a week can you study, every week, for five to six months?", ["Under 6", "6 to 11", "12 or more"]],
-    ["time", "How settled are the next six months (exams, moves, a new job, a newborn)?", ["Very busy", "Some disruption", "Fairly stable"]],
-    ["math", "Can you work out 1,000 × 1.05⁵, or rearrange an equation to solve for a rate?", ["Not yet", "With some effort", "Comfortably"]],
-    ["math", "Have you met mean, standard deviation and a basic probability rule before?", ["No", "Long ago", "Yes, recently"]],
-    ["acct", "Could you explain what a balance sheet, income statement and cash flow statement each show?", ["No", "Roughly", "Yes"]],
-    ["acct", "Do you know why profit and cash flow can differ in the same year?", ["No", "Vaguely", "Yes"]],
-    ["econ", "Can you sketch supply and demand and say what happens to price when demand rises?", ["No", "Roughly", "Yes"]],
+    ["time", "How settled are the next six months (exams, a move, a new job, a newborn)?", ["Very busy", "Some disruption", "Fairly stable"]],
     ["eng", "How comfortable are you reading dense English under time pressure?", ["It's a struggle", "OK", "Comfortable"]],
     ["why", "Do you know which job you want the CFA to help you get?", ["Not really", "A rough idea", "Yes, clearly"]],
     ["admin", "Do you meet the entry rule (final year of a degree, a degree, or 4,000 hours of work and/or study) and have a valid passport?", ["No / not sure", "Will soon", "Yes"]]
   ];
-  var html = '<div class="rd"><p class="rd-intro">Answer honestly; nothing is sent anywhere.</p><ol>';
-  Q.forEach(function (q, i) {
-    html += '<li><p>' + q[1] + '</p><div class="rd-opts" role="radiogroup">' + q[2].map(function (o, j) {
-      return '<label><input type="radio" name="rq' + i + '" value="' + j + '"><span>' + o + "</span></label>";
-    }).join("") + "</div></li>";
-  });
-  html += '</ol><div class="rd-out" aria-live="polite"><p>Answer the questions to see your result.</p></div></div>';
-  box.innerHTML = html;
-  var out = box.querySelector(".rd-out");
+  var K = [
+    ["quant", "normal", "In a normal distribution, roughly what share of outcomes lies within one standard deviation of the mean?", ["50%", "68%", "95%", "99.7%"], 1, "About 68% lies within ±1σ, 95% within ±2σ and 99.7% within ±3σ. You will use these numbers for confidence intervals and risk at every level."],
+    ["quant", "grow", "You invest 1,000 at 5% a year, compounded annually. About how much do you have after 5 years?", ["1,250", "1,276", "1,300", "1,050"], 1, "1,000 × 1.05⁵ = 1,276. Simple interest would give 1,250; compounding earns interest on interest."],
+    ["quant", "pv", "What is 1,100 received in one year worth today, if the interest rate is 10%?", ["990", "1,000", "1,010", "1,100"], 1, "Present value = 1,100 ÷ 1.10 = 1,000. Discounting is compounding run backwards, and it underlies every valuation in the CFA Program."],
+    ["quant", "spread", "Both sets of points have the same average. Which has the higher standard deviation?", ["A", "B", "They are equal", "You cannot tell"], 1, "Standard deviation measures how far points typically sit from their mean. B's points are far more spread out, so its standard deviation is higher."],
+    ["acct", "bs", "A company borrows 500 in cash from a bank. What happens on its balance sheet?", ["Assets +500, equity +500", "Assets +500, liabilities +500", "Only cash changes", "Profit rises by 500"], 1, "Cash (an asset) rises by 500 and so does the loan (a liability). Borrowing is not income, and assets = liabilities + equity still holds."],
+    ["acct", "credit", "A firm sells goods for 100 on 60-day credit this month. This month, what happens to revenue and cash?", ["Revenue 100, cash 100", "Revenue 0, cash 0", "Revenue 100, cash 0", "Revenue 0, cash 100"], 2, "Under accrual accounting revenue is recorded when the goods are delivered, not when cash arrives. That is why profit and cash flow differ."],
+    ["econ", "sd", "Demand for a product rises (the demand curve shifts right) while supply is unchanged. What happens to price?", ["It rises", "It falls", "It stays the same", "Supply falls"], 0, "At the old price buyers now want more than sellers offer, so the price is bid up until the market clears at a higher price and quantity."],
+    ["econ", "infl", "A deposit pays 6% a year and inflation is 4%. Roughly what is your real return?", ["10%", "6%", "4%", "2%"], 3, "Real return ≈ nominal return − inflation = 6% − 4% = 2% (more precisely 1.06 ÷ 1.04 − 1 = 1.9%)."],
+    ["markets", "bond", "Market interest rates rise. What happens to the price of a bond you already own that pays a fixed coupon?", ["It rises", "It falls", "It does not change", "It depends on the issuer only"], 1, "New bonds now pay more, so yours is worth less: its fixed payments are discounted at a higher rate. Price and yield move in opposite directions."],
+    ["markets", "divers", "Two assets each have 20% volatility and do not move perfectly together. A 50/50 portfolio of them has volatility of:", ["More than 20%", "Exactly 20%", "Less than 20%", "40%"], 2, "Unless the correlation is exactly +1, some ups offset some downs, so the mix is less volatile than either asset. That is diversification."]
+  ];
+  var AREA = { quant: "Quantitative methods", acct: "Financial statements", econ: "Economics", markets: "Markets and investing" };
+  var FIX = {
+    quant: 'Revisit compounding, discounting and basic statistics; our <a href="blog-ba-ii-plus-calculator-guide.html">BA II Plus guide</a> walks through the time-value maths, and the <a href="blog-cfa-level-1-formula-sheet.html">formula sheet</a> lists what to know.',
+    acct: 'Take the financial statements part of the <a href="prerequisites.html">prerequisites course</a>, starting with <a href="prereq-three-statements.html">the three statements</a> and <a href="prereq-accrual-accounting.html">accrual accounting</a>.',
+    econ: 'Take the economics part of the <a href="prerequisites.html">prerequisites course</a>, starting with <a href="prereq-inflation-price-indexes.html">inflation</a> and <a href="prereq-market-structures.html">market structures</a>.',
+    markets: 'Read <a href="blog-first-principles-method.html">the first-principles method</a>: bond pricing and diversification both follow from discounting and from how returns combine.'
+  };
   var ADV = {
     time: 'Time is the biggest risk. Most people who pass report <b>300+ hours</b>; at under 6 hours a week that takes about a year. Book a later window or free up hours first.',
-    math: 'Brush up on algebra, compounding and basic statistics for two or three weeks before you start. Our <a href="blog-ba-ii-plus-calculator-guide.html">calculator guide</a> covers the time-value maths.',
-    acct: 'Accounting is about an eighth of Level I and the base of Level II. Read our free <a href="prerequisites.html">financial statement concepts</a> first.',
-    econ: 'Economics is a smaller topic, but start with our free <a href="prerequisites.html">economics concepts</a> so it does not slow you down later.',
     eng: 'The exam is in English only. Practise timed reading with question banks early, not just at the end.',
     why: 'Be clear why you are doing it: the motivation has to last 300 hours. See <a href="blog-cfa-jobs-salaries.html">CFA jobs and salaries</a>.',
     admin: 'Check eligibility before anything else: see <a href="blog-cfa-requirements.html">CFA requirements</a>.'
   };
-  box.addEventListener("change", function () {
-    var sc = {}, n = 0, tot = 0;
-    Q.forEach(function (q, i) {
-      var c = box.querySelector('input[name="rq' + i + '"]:checked');
-      if (!c) return;
-      n++; var v = +c.value; tot += v; sc[q[0]] = Math.min(sc[q[0]] === undefined ? 2 : sc[q[0]], v);
-    });
-    if (n < Q.length) { out.innerHTML = "<p>" + (Q.length - n) + " question" + (Q.length - n > 1 ? "s" : "") + " to go.</p>"; return; }
-    var pct = Math.round(tot / (2 * Q.length) * 100), verdict;
+  var h = '<div class="rd"><p class="rd-intro">Part 1 is about your situation; part 2 is a quick knowledge check with answers explained as you go. Nothing is sent anywhere.</p>';
+  h += '<h3 class="rd-h">Part 1 · Your situation</h3><ol class="rd-s">';
+  S1.forEach(function (q, i) {
+    h += '<li><p>' + q[1] + '</p><div class="rd-opts" role="radiogroup">' + q[2].map(function (o, j) {
+      return '<label><input type="radio" name="rs' + i + '" value="' + j + '"><span>' + o + "</span></label>"; }).join("") + "</div></li>";
+  });
+  h += '</ol><h3 class="rd-h">Part 2 · Do you know the basics?</h3><ol class="rd-k">';
+  K.forEach(function (q, i) {
+    h += '<li class="rd-q" data-i="' + i + '"><div class="rd-pic">' + V[q[1]] + '<span class="rd-tag">' + AREA[q[0]] + '</span></div><div><p>' + q[2] + '</p><div class="rd-opts four" role="radiogroup">' +
+      q[3].map(function (o, j) { return '<label><input type="radio" name="rk' + i + '" value="' + j + '"><span>' + o + "</span></label>"; }).join("") +
+      '</div><p class="rd-exp" hidden></p></div></li>';
+  });
+  h += '</ol><div class="rd-out" aria-live="polite"><p>Answer all fifteen questions to see your result.</p></div></div>';
+  box.innerHTML = h;
+  var out = box.querySelector(".rd-out");
+  box.addEventListener("change", function (e) {
+    var t = e.target;
+    if (t.name && t.name.indexOf("rk") === 0) {
+      var i = +t.name.slice(2), q = K[i], li = box.querySelector('.rd-q[data-i="' + i + '"]'), ok = +t.value === q[4];
+      li.classList.remove("ok", "no"); li.classList.add(ok ? "ok" : "no");
+      li.querySelectorAll("label").forEach(function (l, j) { l.classList.toggle("right", j === q[4]); });
+      var ex = li.querySelector(".rd-exp"); ex.hidden = false; ex.innerHTML = "<b>" + (ok ? "Correct." : "Not quite.") + "</b> " + q[5];
+    }
+    var sc = {}, n = 0, tot = 0, kc = 0, kn = 0, area = {};
+    S1.forEach(function (q, i) { var c = box.querySelector('input[name="rs' + i + '"]:checked'); if (!c) return; n++; tot += +c.value; sc[q[0]] = Math.min(sc[q[0]] === undefined ? 2 : sc[q[0]], +c.value); });
+    K.forEach(function (q, i) { var c = box.querySelector('input[name="rk' + i + '"]:checked'); var a = area[q[0]] = area[q[0]] || [0, 0]; a[1]++; if (!c) return; kn++; if (+c.value === q[4]) { kc++; a[0]++; } });
+    var left = S1.length + K.length - n - kn;
+    if (left) { out.innerHTML = "<p>" + left + " question" + (left > 1 ? "s" : "") + " to go.</p>"; return; }
+    var sit = Math.round(tot / (2 * S1.length) * 100), kno = Math.round(kc / K.length * 100), verdict;
     if (sc.admin === 0) verdict = "First check that you can register: the entry rules come before everything else.";
-    else if (pct >= 80) verdict = "You look ready. Pick a window five to six months away, register early and start this week.";
-    else if (pct >= 55) verdict = "Nearly ready. Fix the gaps below in the first month of your plan, then follow a normal five-to-six-month schedule.";
+    else if (sit >= 70 && kno >= 80) verdict = "You look ready. Pick a window five to six months away, register early and start this week.";
+    else if (sit >= 50 && kno >= 50) verdict = "Nearly ready. Close the gaps below in the first month of your plan, then follow a normal five-to-six-month schedule.";
     else verdict = "Not yet. Spend one or two months on the foundations below, then start the full plan; you will save time overall.";
-    var tips = Object.keys(ADV).filter(function (k) { return sc[k] !== undefined && sc[k] < 2; }).map(function (k) { return "<li>" + ADV[k] + "</li>"; }).join("");
-    out.innerHTML = '<p class="rd-score"><b>' + pct + "%</b> ready</p><p>" + verdict + "</p>" + (tips ? "<ul>" + tips + "</ul>" : "") +
-      '<p><a class="btn" href="free-resources.html#planner">Get the free study planner</a></p>';
+    var bars = Object.keys(AREA).map(function (k) { var a = area[k], p = Math.round(a[0] / a[1] * 100);
+      return '<div class="rd-bar"><span>' + AREA[k] + '</span><i><b style="width:' + Math.max(p, 3) + '%;background:' + (p >= 75 ? C.g : p >= 50 ? C.y : C.r) + '"></b></i><em>' + a[0] + "/" + a[1] + "</em></div>"; }).join("");
+    var tips = Object.keys(FIX).filter(function (k) { return area[k][0] < area[k][1]; }).map(function (k) { return "<li>" + FIX[k] + "</li>"; })
+      .concat(Object.keys(ADV).filter(function (k) { return sc[k] !== undefined && sc[k] < 2; }).map(function (k) { return "<li>" + ADV[k] + "</li>"; })).join("");
+    out.innerHTML = '<div class="rd-scores"><p><b>' + sit + '%</b><span>situation</span></p><p><b>' + kc + "/" + K.length + '</b><span>knowledge</span></p></div>' + bars +
+      "<p class=\"rd-verdict\">" + verdict + "</p>" + (tips ? "<ul>" + tips + "</ul>" : "") + '<p><a class="btn" href="prerequisites.html">Start the prerequisites course</a></p>';
   });
 })();

@@ -1157,3 +1157,372 @@ def calc_keys():
             if j < len(keys) - 1: s.arrow(x + w + 2, y + 33, x + w + 16, y + 33, DIM, 0.25 + i * 0.4 + j * 0.1)
             x += w + 20
     return s.svg()
+
+
+# =====================================================================  BA II Plus guide
+def tvm_signs():
+    s = S(640, 270, "Cash you receive points up and is positive; cash you pay points down and is negative")
+    x0, x1, ym = 40, 600, 140
+    s.line([(x0, ym), (x1, ym)], DIM, 1.4, 0)
+    X = lambda t: x0 + 20 + t * (x1 - x0 - 40) / 5
+    for t in range(6):
+        s.line([(X(t), ym - 5), (X(t), ym + 5)], DIM, 1.2, 0.1, cls="f")
+        s.text(str(t), X(t), ym + 24, 12, DIM, "middle", cls="")
+    s.arrow(X(0), ym - 4, X(0), 40, TEAL, 0.3, 2.6); s.text("PV = +1,000", X(0) + 10, 52, 13, TEAL, t=0.5)
+    s.text("you borrow: cash in", X(0) + 10, 70, 11, DIM, italic=True, t=0.6)
+    for t in range(1, 6):
+        s.arrow(X(t), ym + 4, X(t), 205, RED, 0.7 + t * 0.12, 2.2)
+    s.text("PMT = −237.40 each year", X(3), 228, 13, RED, "middle", t=1.4)
+    s.text("you repay: cash out", X(3), 246, 11, DIM, "middle", True, t=1.5)
+    s.text("N = 5   I/Y = 6   FV = 0", x1, 30, 13, YEL, "end", t=1.7)
+    return s.svg()
+
+
+def bgn_vs_end():
+    s = S(640, 250, "End-of-period payments versus beginning-of-period payments on the same timeline")
+    x0, x1 = 60, 610
+    X = lambda t: x0 + t * (x1 - x0) / 4
+    for row, (lab, shift, col, ty) in enumerate([("END", 1, BLUE, 0.0), ("BGN", 0, YEL, 0.8)]):
+        y = 90 + row * 110
+        s.text(lab, 20, y + 5, 14, col, t=ty)
+        s.line([(x0, y), (x1, y)], DIM, 1.2, ty)
+        for t in range(5):
+            s.text(str(t), X(t), y + 22, 11, DIM, "middle", cls="")
+        for k in range(4):
+            s.arrow(X(k + shift), y - 4, X(k + shift), y - 46, col, ty + 0.3 + k * 0.12, 2.2)
+    s.text("same four payments, each one period earlier: worth (1 + r) times more today", x1, 238, 12, SOFT, "end", True, t=1.8)
+    return s.svg()
+
+
+def cf_groups():
+    s = S(640, 260, "Uneven cash flows entered as CF0, then each amount with its frequency")
+    x0, x1, ym = 30, 620, 150
+    flows = [-7000, 3000, 5000, 5000, 5000, 5000, 4000]
+    X = lambda t: x0 + 20 + t * (x1 - x0 - 40) / 6
+    s.line([(x0, ym), (x1, ym)], DIM, 1.2, 0)
+    for t, v in enumerate(flows):
+        h = abs(v) / 7000 * 95
+        col = RED if v < 0 else (TEAL if t in (2, 3, 4, 5) else BLUE)
+        s.rect(X(t) - 15, ym if v < 0 else ym - h, 30, h, col, 0.85, 0.1 + t * 0.1)
+        s.text(f"{v:,}".replace("-", "−"), X(t), (ym + h + 16) if v < 0 else (ym - h - 8), 12, INK, "middle", t=0.3 + t * 0.1)
+    s.text("CFo", X(0), 30, 13, RED, "middle", t=1.0)
+    s.text("C01", X(1), 30, 13, BLUE, "middle", t=1.1)
+    s.line([(X(2) - 15, 22), (X(5) + 15, 22)], TEAL, 1.6, 1.2)
+    s.text("C02 = 5,000, F02 = 4", (X(2) + X(5)) / 2, 40, 13, TEAL, "middle", t=1.3)
+    s.text("C03", X(6), 30, 13, BLUE, "middle", t=1.4)
+    return s.svg()
+
+
+def amort_split():
+    s = S(640, 270, "Each level payment: interest shrinks and principal grows over the life of the loan")
+    x0, y0, x1, y1 = frame(s, "year of a 30-year loan", "share of the year's payments", 50, 230, 620, 40)
+    r, n = 0.055 / 12, 360
+    pmt = 75000 * r / (1 - (1 + r) ** -n)
+    bal = 75000.0
+    bw = (x1 - x0) / 30
+    for yr in range(30):
+        it = 0.0
+        for m in range(12):
+            i = bal * r; it += i; bal -= pmt - i
+        share = it / (pmt * 12)
+        h = y0 - y1
+        s.rect(x0 + yr * bw + 2, y1, bw - 4, h * share, RED, 0.75, yr * 0.04)
+        s.rect(x0 + yr * bw + 2, y1 + h * share, bw - 4, h * (1 - share), TEAL, 0.85, yr * 0.04)
+    s.text("interest", x0 + 8, y1 + 18, 13, INK, t=1.4)
+    s.text("principal", x1 - 8, y0 - 10, 13, "#000", "end", t=1.5)
+    for yr in (1, 10, 20, 30):
+        s.text(str(yr), x0 + (yr - 0.5) * bw, y0 + 16, 11, DIM, "middle", cls="")
+    return s.svg()
+
+
+def regression_fit():
+    s = S(640, 270, "Data points with the least-squares line the STAT worksheet fits")
+    x0, y0, x1, y1 = frame(s, "market return %", "stock return %", 50, 230, 620, 30)
+    pts = [(-4, -6.1), (-2, -1.9), (0, 0.6), (1, 1.2), (2, 3.8), (3, 3.1), (5, 7.4), (6, 7.9), (8, 11.2)]
+    X = lambda v: x0 + (v + 5) / 14 * (x1 - x0); Y = lambda v: y0 - (v + 8) / 21 * (y0 - y1)
+    n = len(pts); sx = sum(p[0] for p in pts); sy = sum(p[1] for p in pts)
+    sxx = sum(p[0] ** 2 for p in pts); sxy = sum(p[0] * p[1] for p in pts)
+    b = (n * sxy - sx * sy) / (n * sxx - sx * sx); a = (sy - b * sx) / n
+    for k, (u, v) in enumerate(pts):
+        s.dot(X(u), Y(v), 5, BLUE, 0.1 + k * 0.08)
+    s.line([(X(-5), Y(a + b * -5)), (X(9), Y(a + b * 9))], YEL, 2.4, 1.0)
+    s.text(f"y = {a:.2f} + {b:.2f}x", X(9), Y(a + b * 9) + 26, 14, YEL, "end", t=1.6)
+    s.text("a = intercept, b = slope (beta), r = how tight the fit is", x0 + 10, y1 + 6, 12, SOFT, t=1.8)
+    return s.svg()
+
+
+def lcd_anatomy():
+    s = S(640, 230, "What each part of the calculator display tells you")
+    s.raw('<rect class="f" style="--t:0s" x="90" y="60" width="460" height="100" rx="8" fill="#c6cfba" stroke="#3a4048" stroke-width="3"/>')
+    s.text("2nd  INV  HYP  COMPUTE  ENTER  SET  ↑↓  DEL  INS  BGN  RAD", 104, 80, 11, "#1b211c", t=0.2)
+    s.text("PMT", 108, 140, 26, "#1b211c", t=0.3); s.text("=", 168, 140, 26, "#1b211c", t=0.35)
+    s.text("*", 230, 118, 26, "#1b211c", t=0.4)
+    s.text("-425.84", 530, 144, 40, "#1b211c", "end", t=0.45)
+    s.arrow(130, 30, 160, 70, YEL, 0.8); s.text("indicators: what the next key will do", 40, 24, 12, YEL, t=0.9)
+    s.arrow(126, 200, 126, 150, TEAL, 1.0); s.text("variable name, = once it holds the value", 40, 216, 12, TEAL, t=1.1)
+    s.arrow(250, 200, 236, 126, RED, 1.2); s.text("* computed   ◁ entered", 220, 216, 12, RED, t=1.3)
+    s.arrow(520, 30, 500, 104, BLUE, 1.4); s.text("up to 10 digits; the minus sits in front", 620, 24, 12, BLUE, "end", t=1.5)
+    return s.svg()
+
+
+# =====================================================================  salary by country
+SALARY_COUNTRIES = [  # (country, local text, USD thousands) PayScale average base, CFA certification, Nov 2026 snapshot
+    ("Switzerland", "CHF 133k", 158), ("United States", "$110k", 110), ("Hong Kong", "HK$796k", 101), ("Singapore", "S$115k", 89),
+    ("Germany", "€76k", 84), ("United Kingdom", "£61k", 81), ("Australia", "A$119k", 80), ("Luxembourg", "€71k", 78),
+    ("Netherlands", "€69k", 76), ("Canada", "C$89k", 62), ("France", "€55k", 61), ("Ireland", "€53k", 58), ("UAE", "AED 175k", 48),
+    ("China", "¥300k", 45), ("South Africa", "R498k", 29), ("Philippines", "₱1.0m", 16), ("India", "₹10 lakh", 11), ("Pakistan", "Rs 1.0m", 4)]
+
+
+def salary_world():
+    rows = SALARY_COUNTRIES
+    s = S(640, 34 + 24 * len(rows), "Average base salary reported by CFA holders, by country, in US dollars")
+    x0, x1 = 150, 500
+    X = lambda v: x0 + v / 160 * (x1 - x0)
+    for i, (c, loc, usd) in enumerate(rows):
+        y = 22 + i * 24
+        s.text(c, x0 - 10, y + 13, 12.5, INK, "end", cls="")
+        s.rect(x0, y, X(usd) - x0, 17, YEL if c in ("Switzerland", "United States") else BLUE, 0.85, i * 0.05, "gx")
+        s.text(f"${usd}k", X(usd) + 6, y + 13, 12, INK, t=0.4 + i * 0.05)
+        s.text(loc, 636, y + 13, 11, DIM, "end", t=0.4 + i * 0.05)
+    return s.svg()
+
+
+# =====================================================================  CFA jobs and salaries
+JOBS_US = [("Credit analyst", 48, 64, 87), ("Financial analyst", 55, 71, 94), ("Risk analyst", 58, 78, 111), ("Investment analyst", 56, 80, 110),
+           ("Private banker", 52, 87, 151), ("Risk manager", 68, 102, 150), ("Portfolio manager", 68, 107, 167), ("Quantitative analyst", 74, 110, 163),
+           ("Investment manager", 67, 119, 209), ("Chief investment officer", 119, 190, 352)]
+
+
+def jobs_ladder():
+    rows = JOBS_US
+    s = S(640, 40 + 30 * len(rows), "Base salary range by role in the United States: middle 80 percent and median")
+    x0, x1 = 170, 610
+    X = lambda v: x0 + v / 360 * (x1 - x0)
+    for k in range(0, 361, 60):
+        s.line([(X(k), 22), (X(k), 30 * len(rows) + 22)], RULE, 1, 0, cls="f")
+        s.text(f"${k}k", X(k), 30 * len(rows) + 38, 11, DIM, "middle", cls="")
+    for i, (r, lo, med, hi) in enumerate(rows):
+        y = 26 + i * 30
+        s.text(r, x0 - 10, y + 14, 12.5, INK, "end", cls="")
+        s.rect(X(lo), y + 3, X(hi) - X(lo), 16, YEL if i == len(rows) - 1 else BLUE, 0.35, i * 0.06, "gx")
+        s.dot(X(med), y + 11, 5.5, YEL if i == len(rows) - 1 else BLUE, 0.4 + i * 0.06)
+        s.text(f"${med}k", X(hi) + 6, y + 15, 11.5, SOFT, t=0.6 + i * 0.06)
+    return s.svg()
+
+
+def planner_phases():
+    s = S(560, 300, "The study planner splits your time into learn, practise and mock phases and tracks weekly hours and streaks")
+    x0, x1 = 30, 530
+    W = x1 - x0
+    for lab, a, b, col, t in [("Learn", 0, 0.6, BLUE, 0), ("Practise", 0.6, 0.85, TEAL, 0.3), ("Mocks", 0.85, 1, YEL, 0.6)]:
+        s.rect(x0 + a * W + 2, 30, (b - a) * W - 4, 30, col, 0.85, t, "gx")
+        s.text(lab, x0 + (a + b) / 2 * W, 50, 13, "#000", "middle", t=t + 0.3)
+    s.text("weekly hours: target (outline) and done (solid)", x0, 98, 12, SOFT, t=0.8)
+    import math
+    for k in range(20):
+        x = x0 + k * W / 20 + 3; w = W / 20 - 6
+        done = 14 * (0.55 + 0.45 * abs(math.sin(k * 1.7))) if k < 15 else 0
+        s.rect(x, 200 - 84, w, 84, "none", 0, 0.9, "f", stroke=DIM)
+        if done:
+            s.rect(x, 200 - done * 6, w, done * 6, TEAL if done >= 12 else BLUE, 0.85, 0.9 + k * 0.04)
+    s.text("streak", x0, 236, 12, SOFT, t=1.6)
+    for k in range(28):
+        hit = not (k in (6, 13, 20))
+        s.dot(x0 + 60 + k * 16, 232, 5, TEAL if hit else RULE, 1.6 + k * 0.03)
+    s.text("never zero: one missed day is life, two is a habit", x1, 270, 12, YEL, "end", True, t=2.4)
+    return s.svg()
+
+
+# =====================================================================  research posts (Nov 2026)
+def time_to_pass():
+    # share of candidates who have passed all three levels within N years of their first Level I attempt (simulation)
+    data = [("pass rates like the average (43/45/47%)", [0, 30, 58, 79], BLUE), ("stronger candidate (60% each)", [0, 54, 84, 95], TEAL), ("well prepared (75% each)", [0, 79, 97, 100], YEL)]
+    s = S(640, 290, "Share of candidates who finish all three exams within one to four years, by how likely they are to pass each attempt")
+    x0, y0, x1, y1 = frame(s, "years after the first Level I exam", "finished all three", 50, 240, 620, 30)
+    years = [1, 2, 3, 4]
+    gw = (x1 - x0) / 4
+    for gi, y in enumerate(years):
+        for k, (lab, vals, col) in enumerate(data):
+            v = vals[gi] if gi else [9, 22, 42][k]
+            h = v / 100 * (y0 - y1)
+            x = x0 + gi * gw + 16 + k * (gw - 32) / 3
+            s.rect(x, y0 - h, (gw - 32) / 3 - 6, h, col, 0.85, gi * 0.25 + k * 0.08)
+            s.text(f"{v}%", x + ((gw - 32) / 3 - 6) / 2, y0 - h - 6, 11, INK, "middle", t=0.4 + gi * 0.25 + k * 0.08)
+        s.text(f"{y} year" + ("s" if y > 1 else ""), x0 + gi * gw + gw / 2, y0 + 18, 12, DIM, "middle", cls="")
+    for k, (lab, _, col) in enumerate(data):
+        s.rect(x0 + 14, y1 + 2 + k * 18, 12, 12, col, 0.85, 1.2)
+        s.text(lab, x0 + 32, y1 + 12 + k * 18, 12, SOFT, t=1.2)
+    return s.svg()
+
+
+ROI_ROWS = [("Switzerland", 0.4), ("United States", 0.5), ("Germany", 0.7), ("United Kingdom", 0.9), ("Singapore", 0.9), ("UAE", 1.5), ("China", 1.6), ("India, new charterholder", 1.2), ("India, analyst median", 5.5)]
+
+
+def roi_months():
+    rows = ROI_ROWS
+    s = S(640, 40 + 28 * len(rows), "Cost of the three exams at early registration, in months of a typical investment analyst's base salary")
+    x0, x1 = 180, 590
+    X = lambda v: x0 + v / 6 * (x1 - x0)
+    for i, (c, m) in enumerate(rows):
+        y = 22 + i * 28
+        s.text(c, x0 - 10, y + 13, 12.5, INK, "end", cls="")
+        s.rect(x0, y, X(m) - x0, 17, RED if m >= 4 else BLUE, 0.85, i * 0.06, "gx")
+        s.text(f"{m:g} months", X(m) + 6, y + 13, 12, SOFT, t=0.4 + i * 0.06)
+    return s.svg()
+
+
+def programs_map():
+    # CFA Institute programs: study hours (x) vs list price in USD (y)
+    progs = [("Investment Foundations", 50, 350, TEAL), ("Sustainable Investing", 100, 890, TEAL), ("Private Markets & Alternatives", 80, 890, TEAL),
+             ("Private Equity", 125, 890, TEAL), ("Climate Investing", 100, 1590, TEAL), ("CIPM (2 levels)", 310, 1350, YEL), ("CFA Program (3 levels)", 900, 3520, BLUE)]
+    s = S(640, 300, "CFA Institute programs by study hours and exam or course fees")
+    x0, y0, x1, y1 = frame(s, "study hours", "fees (USD)", 60, 250, 620, 30)
+    X = lambda h: x0 + h / 1000 * (x1 - x0); Y = lambda p: y0 - p / 4000 * (y0 - y1)
+    for k in (0, 1000, 2000, 3000, 4000):
+        s.text(f"{k:,}", x0 - 8, Y(k) + 4, 11, DIM, "end", cls="")
+    for k in (0, 250, 500, 750, 1000):
+        s.text(str(k), X(k), y0 + 16, 11, DIM, "middle", cls="")
+    offs = {"Sustainable Investing": (-6, -10, "end"), "Private Markets & Alternatives": (8, 16, "start"), "Private Equity": (8, -6, "start"), "Climate Investing": (8, -6, "start"),
+            "Investment Foundations": (8, 14, "start"), "CIPM (2 levels)": (10, 4, "start"), "CFA Program (3 levels)": (-10, 4, "end")}
+    for i, (n, h, p, col) in enumerate(progs):
+        s.dot(X(h), Y(p), 7 if col != TEAL else 5.5, col, 0.2 + i * 0.12)
+        dx, dy, a = offs[n]
+        s.text(n, X(h) + dx, Y(p) + dy, 12, INK, a, t=0.4 + i * 0.12)
+    return s.svg()
+
+
+def background_fit():
+    s = S(640, 270, "How much of the Level I material each background already covers")
+    cols = ["Quant", "Economics", "Accounting", "Corporate", "Equity & bonds", "Ethics"]
+    rows = [("Finance / commerce", [2, 2, 3, 2, 2, 1]), ("Engineering / IT", [3, 1, 0, 1, 1, 1]), ("Science / medicine", [2, 0, 0, 0, 0, 1]),
+            ("Law", [0, 1, 1, 1, 0, 2]), ("Arts / humanities", [0, 1, 0, 0, 0, 1])]
+    x0, y0, cw, rh = 170, 46, 75, 38
+    for j, c in enumerate(cols):
+        s.text(c, x0 + j * cw + cw / 2, 32, 12, SOFT, "middle", cls="")
+    col = {0: "#2B3F5C", 1: BLUE, 2: TEAL, 3: YEL}
+    for i, (r, vals) in enumerate(rows):
+        s.text(r, x0 - 10, y0 + i * rh + 24, 12.5, INK, "end", cls="")
+        for j, v in enumerate(vals):
+            s.rect(x0 + j * cw + 4, y0 + i * rh + 4, cw - 8, rh - 8, col[v], 0.9, 0.1 + i * 0.1 + j * 0.03, "f")
+    s.text("darker = more to learn from scratch", x0, 258, 12, DIM, italic=True, t=1.4)
+    return s.svg()
+
+
+# =====================================================================  pass-rate history (CFA Institute 1963-2026 file)
+import json as _json, pathlib as _pl
+_PR = _json.loads((_pl.Path(__file__).parent / "data" / "passrates.json").read_text())
+
+
+def _pr_year(lvl):
+    """Calendar-year pass rate for one level: total passes / total sitting, all sessions in the year."""
+    acc = {}
+    for r in _PR:
+        y = int(r["session"][:4]); d = r[lvl]
+        if d and d["n"]:
+            a = acc.setdefault(y, [0, 0]); a[0] += d["pass"]; a[1] += d["n"]
+    return {y: 100 * p / n for y, (p, n) in sorted(acc.items())}
+
+
+def pass_history():
+    s = S(640, 320, "CFA pass rates by level, every year from 1963 to 2026")
+    x0, y0, x1, y1 = frame(s, "", "pass rate", 46, 280, 624, 26)
+    X = lambda y: x0 + (y - 1963) / (2026 - 1963) * (x1 - x0)
+    Y = lambda v: y0 - v / 100 * (y0 - y1)
+    for v in (20, 40, 60, 80, 100):
+        s.raw(f'<line x1="{x0}" x2="{x1}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="#222"/>'); s.text(f"{v}%", x0 - 6, Y(v) + 4, 11, DIM, "end", cls="")
+    for yr in (1963, 1975, 1990, 2003, 2021, 2026):
+        s.text(str(yr), X(yr), y0 + 16, 11, DIM, "middle", cls="")
+    s.rect(X(2020) - 2, y1, X(2021.9) - X(2020) + 4, y0 - y1, "#ffffff", 0.06, 0.1, cls="")
+    s.text("COVID + switch", X(2021), y1 + 12, 10, DIM, "middle", cls="")
+    s.text("to computer", X(2021), y1 + 24, 10, DIM, "middle", cls="")
+    for k, (lvl, col, name) in enumerate((("l1", BLUE, "Level I"), ("l2", TEAL, "Level II"), ("l3", YEL, "Level III"))):
+        d = _pr_year(lvl)
+        s.line([(X(y), Y(v)) for y, v in d.items()], col, 2.2, 0.2 + k * 0.5)
+        s.rect(x0 + 70 + k * 84, y1 + 4, 14, 3, col, 1, cls="")
+        s.text(name, x0 + 90 + k * 84, y1 + 10, 12, col, "start", cls="")
+    s.text("Lowest ever: Level I, July 2021, 22%", X(2021) - 6, Y(20) + 2, 11, BLUE, "end", t=1.8)
+    return s.svg()
+
+
+def pass_volume():
+    s = S(640, 260, "Number of CFA exam candidates who sat each year, 1963 to 2026")
+    x0, y0, x1, y1 = frame(s, "", "candidates who sat", 56, 224, 624, 30)
+    tot = {}
+    for r in _PR:
+        y = int(r["session"][:4]); tot[y] = tot.get(y, 0) + r["total"]
+    mx = 250000
+    X = lambda y: x0 + (y - 1963) / (2026 - 1963 + 1) * (x1 - x0)
+    Y = lambda v: y0 - v / mx * (y0 - y1)
+    for v in (50000, 100000, 150000, 200000, 250000):
+        s.raw(f'<line x1="{x0}" x2="{x1}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="#222"/>'); s.text(f"{v // 1000}k", x0 - 6, Y(v) + 4, 11, DIM, "end", cls="")
+    bw = (x1 - x0) / 64 - 1.5
+    for i, (y, v) in enumerate(sorted(tot.items())):
+        s.rect(X(y), Y(v), bw, y0 - Y(v), BLUE if y != 2019 else YEL, 0.85, i * 0.012)
+    for yr in (1963, 1980, 2000, 2019, 2026):
+        s.text(str(yr), X(yr) + bw / 2, y0 + 16, 11, DIM, "middle", cls="")
+    s.text(f"2019 peak: {tot[2019]:,} sat", X(2019) - 4, Y(tot[2019]) - 8, 12, YEL, "end", t=1.0)
+    return s.svg()
+
+
+def pass_cbt():
+    s = S(640, 300, "Pass rate in every exam window since computer-based testing began in 2021")
+    rows = [r for r in _PR if r["session"][:4] >= "2021"]
+    x0, y0, x1, y1 = frame(s, "", "pass rate", 46, 252, 624, 26)
+    n = len(rows)
+    X = lambda i: x0 + 14 + i * (x1 - x0 - 28) / (n - 1)
+    Y = lambda v: y0 - (v - 10) / 60 * (y0 - y1)
+    for v in (20, 30, 40, 50, 60):
+        s.raw(f'<line x1="{x0}" x2="{x1}" y1="{Y(v):.1f}" y2="{Y(v):.1f}" stroke="#222"/>'); s.text(f"{v}%", x0 - 6, Y(v) + 4, 11, DIM, "end", cls="")
+    for i, r in enumerate(rows):
+        y, m = r["session"].split(" ")
+        if m in ("February",) or i == 0:
+            s.text(y, X(i), y0 + 16, 11, DIM, "middle", cls="")
+    for k, (lvl, col, name) in enumerate((("l1", BLUE, "Level I"), ("l2", TEAL, "Level II"), ("l3", YEL, "Level III"))):
+        pts = [(X(i), Y(r[lvl]["pct"])) for i, r in enumerate(rows) if r[lvl]]
+        s.line(pts, col, 2.0, 0.2 + k * 0.4)
+        for x, yv in pts:
+            s.dot(x, yv, 3.2, col, 0.4 + k * 0.4)
+        s.text(name, x0 + 20 + k * 80, 290, 12, col, cls="")
+    return s.svg()
+
+
+def cfa_timeline():
+    s = S(640, 300, "Timeline of the CFA Program from 1945 to 2025")
+    ev = [(1945, "Graham argues for a", "professional rating"), (1947, "Four analyst societies", "form a federation"),
+          (1962, "Institute of Chartered", "Financial Analysts"), (1963, "First exam: 284 sit,", "268 charters"),
+          (1969, "First Standards of", "Professional Conduct"), (1987, "Singapore: first society", "outside N. America"),
+          (1990, "AIMR formed", ""), (2003, "December Level I", "exam added"), (2004, "Renamed", "CFA Institute"),
+          (2019, "Record year:", "270,456 exams sat"), (2021, "Exams move to", "computers"), (2025, "Level III", "pathways")]
+    x0, x1, ym = 30, 610, 150
+    X = lambda y: x0 + (y - 1943) / (2027 - 1943) * (x1 - x0)
+    s.line([(x0, ym), (x1, ym)], DIM, 1.4, 0)
+    for yr in (1950, 1970, 1990, 2010):
+        s.text(str(yr), X(yr), ym + 4 + 14, 10, DIM, "middle", cls="")
+    for i, (y, a, b) in enumerate(ev):
+        up = i % 2 == 0
+        lvl = (i // 2) % 3
+        ty = ym - 30 - lvl * 34 if up else ym + 40 + lvl * 34
+        col = YEL if y in (1963, 2021) else BLUE
+        s.line([(X(y), ym), (X(y), ty + (8 if up else -22))], col, 1, 0.1 + i * 0.12, opacity=0.6)
+        s.dot(X(y), ym, 4, col, 0.1 + i * 0.12)
+        anchor = "middle" if 60 < X(y) < 580 else ("start" if X(y) <= 60 else "end")
+        s.text(f"{y}  {a}", X(y), ty - (10 if b else 0) + (0 if up else 0), 11, INK, anchor, t=0.2 + i * 0.12)
+        if b: s.text(b, X(y), ty + 4, 11, SOFT, anchor, t=0.2 + i * 0.12)
+    return s.svg()
+
+
+def prestige_filter():
+    s = S(640, 250, "Why the charter is scarce: three exams, each passed by fewer than half, plus experience and an ethics pledge")
+    steps = [("Level I", "40% pass", BLUE), ("Level II", "45% pass", TEAL), ("Level III", "50% pass", YEL),
+             ("4,000 hours", "of relevant work", SOFT), ("Ethics pledge", "signed every year", SOFT)]
+    w = 108; g = 12; x = 20
+    for i, (a, b, col) in enumerate(steps):
+        h = 150 - i * 18
+        y = 40 + (150 - h) / 2
+        s.rect(x, y, w, h, col, 0.85 if i < 3 else 0.25, i * 0.25)
+        s.text(a, x + w / 2, y + h / 2 - 2, 14, "#000" if i < 3 else INK, "middle", t=0.2 + i * 0.25)
+        s.text(b, x + w / 2, y + h / 2 + 16, 12, "#000" if i < 3 else SOFT, "middle", t=0.2 + i * 0.25)
+        if i < 4: s.arrow(x + w + 1, 115, x + w + g - 1, 115, DIM, 0.3 + i * 0.25)
+        x += w + g
+    s.text("10-year average pass rates, CFA Institute data 2017–2026", 20, 228, 12, DIM, cls="")
+    return s.svg()

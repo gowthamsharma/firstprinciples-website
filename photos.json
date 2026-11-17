@@ -1,0 +1,270 @@
+{
+ "frankfurt-night": {
+  "title": "File:Skyline Frankfurt am Main.jpg",
+  "artist": "Nicolas Scheuer",
+  "lic": "CC BY-SA 2.5",
+  "licurl": "https://creativecommons.org/licenses/by-sa/2.5",
+  "page": "https://commons.wikimedia.org/wiki/File:Skyline_Frankfurt_am_Main.jpg",
+  "pages": [
+   "cfa-program"
+  ]
+ },
+ "frankfurt-bridge": {
+  "title": "File:Skyline Frankfurt Flößerbrücke.jpg",
+  "artist": "Nicolas17",
+  "lic": "CC BY-SA 3.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Skyline_Frankfurt_Fl%C3%B6%C3%9Ferbr%C3%BCcke.jpg",
+  "pages": [
+   "blog-cfa-level-1-job",
+   "blog-cfa-for-engineers"
+  ]
+ },
+ "coin-stacks": {
+  "title": "File:Stacks of Coins.jpg",
+  "artist": "Kevin Schneider",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Stacks_of_Coins.jpg",
+  "pages": [
+   "blog-cfa-total-cost",
+   "blog-cfa-roi"
+  ],
+  "pos": "center 85%"
+ },
+ "calculator-desk": {
+  "title": "File:Analyzing Financial Data (5099605109).jpg",
+  "artist": "Dave Dugdale from Superior, USA",
+  "lic": "CC BY-SA 2.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Analyzing_Financial_Data_(5099605109).jpg",
+  "pages": [
+   "blog-ba-ii-plus-calculator-guide",
+   "blog-cfa-vs-cpa-cfp-acca"
+  ],
+  "pos": "center 30%"
+ },
+ "calculator-keys": {
+  "title": "File:Panasonic JE-552U keypad closeup.jpg",
+  "artist": "Fortunny",
+  "lic": "CC BY 4.0",
+  "licurl": "https://creativecommons.org/licenses/by/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Panasonic_JE-552U_keypad_closeup.jpg",
+  "pages": [
+   "blog-cfa-calculator-settings",
+   "blog-cfa-level-1-formula-sheet"
+  ]
+ },
+ "hourglass-glow": {
+  "title": "File:Multiple hourglasses.jpg",
+  "artist": "Sauvagette",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Multiple_hourglasses.jpg",
+  "pages": [
+   "blog-how-long-cfa",
+   "blog-cfa-results",
+   "blog-exam-day"
+  ]
+ },
+ "hourglass-dusk": {
+  "title": "File:Sand clock Enschede.jpg",
+  "artist": "Gianluca Miscione",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Sand_clock_Enschede.jpg",
+  "pages": [
+   "blog-cfa-time-to-pass"
+  ]
+ },
+ "hill-path": {
+  "title": "File:Trekking trail of Netravati peak from the summit (Zoomed in).jpg",
+  "artist": "iMahesh",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Trekking_trail_of_Netravati_peak_from_the_summit_(Zoomed_in).jpg",
+  "pages": [
+   "blog-is-cfa-worth-it"
+  ]
+ },
+ "snow-peaks": {
+  "title": "File:Pinnell Mountain Trail from Eagle Summit. - panoramio.jpg",
+  "artist": "bottomdollar",
+  "lic": "CC BY-SA 3.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Pinnell_Mountain_Trail_from_Eagle_Summit._-_panoramio.jpg",
+  "pages": [
+   "blog-hardest-cfa-topics",
+   "cfa-level-3"
+  ]
+ },
+ "moor-boardwalk": {
+  "title": "File:Torc Mountain summit S 20 IMG 20250801 1210.jpg",
+  "artist": "Nunulark",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Torc_Mountain_summit_S_20_IMG_20250801_1210.jpg",
+  "pages": [
+   "blog-cfa-any-background",
+   "blog-level-3-pathways"
+  ]
+ },
+ "spiral-stairs": {
+  "title": "File:Spiral staircase in the Vatican Museums from bottom 02.jpg",
+  "artist": "Wilfredor",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Spiral_staircase_in_the_Vatican_Museums_from_bottom_02.jpg",
+  "pages": [
+   "blog-why-cfa-is-hard",
+   "blog-cfa-level-differences"
+  ]
+ },
+ "golden-stairs": {
+  "title": "File:Wooden spiral stairs (Nebotičnik, Ljubljana).jpg",
+  "artist": "Petar Milošević",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Wooden_spiral_stairs_(Neboti%C4%8Dnik,_Ljubljana).jpg",
+  "pages": [
+   "blog-cfa-study-order",
+   "blog-first-principles-method"
+  ]
+ },
+ "long-room": {
+  "title": "File:Long Room Interior, Trinity College Dublin, Ireland - Diliff.jpg",
+  "artist": "Diliff",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Long_Room_Interior,_Trinity_College_Dublin,_Ireland_-_Diliff.jpg",
+  "pages": [
+   "blog",
+   "cfa-level-2",
+   "blog-cfa-vs-mba",
+   "glossary"
+  ]
+ },
+ "library-aisle": {
+  "title": "File:Bookshelves Suzzallo Allen Library University of Washington Seattle Washington 2026.jpg",
+  "artist": "Guywelch2000",
+  "lic": "CC BY 4.0",
+  "licurl": "https://creativecommons.org/licenses/by/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Bookshelves_Suzzallo_Allen_Library_University_of_Washington_Seattle_Washington_2026.jpg",
+  "pages": [
+   "free-resources",
+   "blog-choosing-prep-materials",
+   "prerequisites"
+  ]
+ },
+ "desk-lamp-books": {
+  "title": "File:Books in stack with lamps (Unsplash).jpg",
+  "artist": "chuttersnap chuttersnap",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Books_in_stack_with_lamps_(Unsplash).jpg",
+  "pages": [
+   "blog-cfa-self-study",
+   "cfa-level-1",
+   "blog-level-3-constructed-response"
+  ]
+ },
+ "study-desk": {
+  "title": "File:Books, pencils, laptop, and iphone on a desk (Unsplash).jpg",
+  "artist": "Aleks Dorohovich aleksdorohovich",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Books,_pencils,_laptop,_and_iphone_on_a_desk_(Unsplash).jpg",
+  "pages": [
+   "blog-study-plan",
+   "how-to-prepare",
+   "blog-level-2-item-sets"
+  ]
+ },
+ "diary": {
+  "title": "File:Axenda.JPG",
+  "artist": "PepedoCouto",
+  "lic": "CC BY-SA 3.0",
+  "licurl": "http://creativecommons.org/licenses/by-sa/3.0/",
+  "page": "https://commons.wikimedia.org/wiki/File:Axenda.JPG",
+  "pages": [
+   "cfa-dates-fees",
+   "blog-cfa-requirements",
+   "blog-mock-exams"
+  ]
+ },
+ "chess-white": {
+  "title": "File:Chess pieces close up.jpg",
+  "artist": "Aaaatu",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Chess_pieces_close_up.jpg",
+  "pages": [
+   "blog-level-1-strategy",
+   "blog-ready-for-cfa-level-1"
+  ]
+ },
+ "justice": {
+  "title": "File:The scales of justice (4984060658).jpg",
+  "artist": "James Cridland from Brisbane, AU",
+  "lic": "CC BY 2.0",
+  "licurl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:The_scales_of_justice_(4984060658).jpg",
+  "pages": [
+   "blog-ethics"
+  ]
+ },
+ "trading-hall": {
+  "title": "File:Frankfurt Stock Exchange (Ank Kumar) 02.jpg",
+  "artist": "Ank Kumar",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Frankfurt_Stock_Exchange_(Ank_Kumar)_02.jpg",
+  "pages": [
+   "blog-cfa-jobs-salaries",
+   "most-searched"
+  ]
+ },
+ "ticker-wall": {
+  "title": "File:Frankfurt Stock Exchange (Ank Kumar) 08.jpg",
+  "artist": "Ank Kumar",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Frankfurt_Stock_Exchange_(Ank_Kumar)_08.jpg",
+  "pages": [
+   "cfa-pass-rates",
+   "blog-cipm-and-cfa-institute-programs"
+  ]
+ },
+ "wall-street": {
+  "title": "File:Wall Street - New York Stock Exchange.jpg",
+  "artist": "Carlos Delgado",
+  "lic": "CC BY-SA 3.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Wall_Street_-_New_York_Stock_Exchange.jpg",
+  "pages": [
+   "blog-cfa-salary",
+   "blog-why-cfa-is-prestigious"
+  ],
+  "pos": "center 5%"
+ },
+ "nyse-facade": {
+  "title": "File:NEW YORK STOCK EXCHANGE 20240521.jpg",
+  "artist": "颐园居",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:NEW_YORK_STOCK_EXCHANGE_20240521.jpg",
+  "pages": [
+   "blog-history-of-cfa"
+  ]
+ },
+ "nyse-columns": {
+  "title": "File:Sign of the New York Stock Exchange, Broad Street.jpg",
+  "artist": "Billie Grace Ward",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:Sign_of_the_New_York_Stock_Exchange,_Broad_Street.jpg",
+  "pages": [
+   "blog-cfa-vs-frm"
+  ]
+ }
+}
