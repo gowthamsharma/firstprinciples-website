@@ -767,6 +767,7 @@ def home(cfa, blog, pre):
   <p class="sub">What the exams test, what the charter leads to, and the skills you need before you start.</p>
   <div class="dgrid">
     <div class="dcards">
+      <a class="dc wide" href="blog-ready-for-cfa-level-1.html" data-track="discover_ready"><h3>Are you ready for CFA Level I?</h3><p>A 5-minute self-check with visuals: normal distributions, present value, bond prices, inflation and more. Instant marking and a score for each area, so you know what to brush up on before you register.</p></a>
       <a class="dc" href="prerequisites.html"><h3>Take the prerequisites course</h3><p>{len(pre)} lessons in financial statements and economics, each with an animated diagram, a worked example and a graded quiz.</p></a>
       <a class="dc" href="blog-ba-ii-plus-calculator-guide.html"><h3>Practise on a BA II Plus in your browser</h3><p>Press every key yourself, or watch 50 worked exam examples play out on the calculator, step by step.</p></a>
       <a class="dc" href="blog-cfa-salary.html"><h3>See what a CFA earns, worldwide</h3><p>Base pay and bonuses in 19 countries, and the jobs charterholders actually do, from real salary data.</p></a>
@@ -774,7 +775,7 @@ def home(cfa, blog, pre):
     </div>
     <aside class="dlinks">
       <p class="dh">Quick links</p>
-      <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-ready-for-cfa-level-1.html">Are you ready for Level I?</a><a href="blog-history-of-cfa.html">History of the CFA</a>
+      <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-study-plan.html">Build a study plan</a><a href="blog-history-of-cfa.html">History of the CFA</a>
       <p class="dh">Featured content</p>
       <a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
     </aside>

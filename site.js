@@ -410,20 +410,31 @@
   };
   function banner() {
     if (!ID || document.querySelector(".consent")) return;
-    var b = document.createElement("div"); b.className = "consent"; b.setAttribute("role", "dialog"); b.setAttribute("aria-label", "Cookie choice");
-    b.innerHTML = '<p>We would like to use Microsoft Clarity to see how pages are used (clicks, scrolling, time on page) so we can improve them. It sets cookies. <a href="privacy.html">Details</a></p>' +
-      '<div class="consent-b"><button type="button" class="btn line" data-c="no">Decline</button><button type="button" class="btn" data-c="yes">Accept</button></div>';
+    var b = document.createElement("div"); b.className = "consent";
+    b.innerHTML = '<div class="consent-box" role="dialog" aria-modal="true" aria-labelledby="consent-h" aria-describedby="consent-p">' +
+      '<h2 id="consent-h">We value your privacy</h2>' +
+      '<p id="consent-p">We use cookies and similar technologies to understand how visitors use this website, so we can improve it. Click \u201cAccept all\u201d to allow analytics cookies, or \u201cReject all\u201d to use only what the site needs to work. You can change your choice at any time under \u201cCookie settings\u201d at the bottom of every page.</p>' +
+      '<p class="consent-l"><a href="privacy.html">Privacy policy</a></p>' +
+      '<div class="consent-b"><button type="button" class="btn line" data-c="no">Reject all</button><button type="button" class="btn" data-c="yes">Accept all</button></div></div>';
     document.body.appendChild(b);
+    document.documentElement.classList.add("consent-open");
+    var yes = b.querySelector('[data-c="yes"]'); try { yes.focus({ preventScroll: true }); } catch (x) { yes.focus(); }
+    b.addEventListener("keydown", function (e) {
+      if (e.key !== "Tab") return;
+      var f = b.querySelectorAll("a,button"), first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
     b.addEventListener("click", function (e) {
       var c = e.target.getAttribute("data-c"); if (!c) return;
       set(c === "yes" ? "granted" : "denied");
       if (c === "yes") load();
       else if (loaded && window.clarity) window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "denied" });
-      b.remove();
+      b.remove(); document.documentElement.classList.remove("consent-open");
     });
   }
   var choice = get();
-  if (choice === "granted") load(); else if (!choice) banner();
+  if (choice === "granted") load(); else if (!choice && !/privacy\.html$/.test(location.pathname)) banner();
   document.addEventListener("click", function (e) {
     var o = e.target.closest("[data-consent-open]"); if (o) { e.preventDefault(); try { localStorage.removeItem(KEY); } catch (x) {} banner(); return; }
     var t = e.target.closest("[data-track]"); if (t) window.fpTrack(t.getAttribute("data-track"));

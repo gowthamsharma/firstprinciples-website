@@ -10,13 +10,12 @@
   ]
  },
  "frankfurt-bridge": {
-  "title": "File:Skyline Frankfurt Flößerbrücke.jpg",
+  "title": "File:Skyline Frankfurt Fl\u00f6\u00dferbr\u00fccke.jpg",
   "artist": "Nicolas17",
   "lic": "CC BY-SA 3.0",
   "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
   "page": "https://commons.wikimedia.org/wiki/File:Skyline_Frankfurt_Fl%C3%B6%C3%9Ferbr%C3%BCcke.jpg",
   "pages": [
-   "blog-cfa-level-1-job",
    "blog-cfa-for-engineers"
   ]
  },
@@ -27,8 +26,7 @@
   "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
   "page": "https://commons.wikimedia.org/wiki/File:Stacks_of_Coins.jpg",
   "pages": [
-   "blog-cfa-total-cost",
-   "blog-cfa-roi"
+   "blog-cfa-total-cost"
   ],
   "pos": "center 85%"
  },
@@ -39,8 +37,7 @@
   "licurl": "https://creativecommons.org/licenses/by-sa/2.0",
   "page": "https://commons.wikimedia.org/wiki/File:Analyzing_Financial_Data_(5099605109).jpg",
   "pages": [
-   "blog-ba-ii-plus-calculator-guide",
-   "blog-cfa-vs-cpa-cfp-acca"
+   "blog-ba-ii-plus-calculator-guide"
   ],
   "pos": "center 30%"
  },
@@ -87,17 +84,6 @@
    "blog-is-cfa-worth-it"
   ]
  },
- "snow-peaks": {
-  "title": "File:Pinnell Mountain Trail from Eagle Summit. - panoramio.jpg",
-  "artist": "bottomdollar",
-  "lic": "CC BY-SA 3.0",
-  "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "page": "https://commons.wikimedia.org/wiki/File:Pinnell_Mountain_Trail_from_Eagle_Summit._-_panoramio.jpg",
-  "pages": [
-   "blog-hardest-cfa-topics",
-   "cfa-level-3"
-  ]
- },
  "moor-boardwalk": {
   "title": "File:Torc Mountain summit S 20 IMG 20250801 1210.jpg",
   "artist": "Nunulark",
@@ -121,8 +107,8 @@
   ]
  },
  "golden-stairs": {
-  "title": "File:Wooden spiral stairs (Nebotičnik, Ljubljana).jpg",
-  "artist": "Petar Milošević",
+  "title": "File:Wooden spiral stairs (Neboti\u010dnik, Ljubljana).jpg",
+  "artist": "Petar Milo\u0161evi\u0107",
   "lic": "CC BY-SA 4.0",
   "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
   "page": "https://commons.wikimedia.org/wiki/File:Wooden_spiral_stairs_(Neboti%C4%8Dnik,_Ljubljana).jpg",
@@ -140,7 +126,6 @@
   "pages": [
    "blog",
    "cfa-level-2",
-   "blog-cfa-vs-mba",
    "glossary"
   ]
  },
@@ -220,7 +205,6 @@
   "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
   "page": "https://commons.wikimedia.org/wiki/File:Frankfurt_Stock_Exchange_(Ank_Kumar)_02.jpg",
   "pages": [
-   "blog-cfa-jobs-salaries",
    "most-searched"
   ]
  },
@@ -242,14 +226,13 @@
   "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
   "page": "https://commons.wikimedia.org/wiki/File:Wall_Street_-_New_York_Stock_Exchange.jpg",
   "pages": [
-   "blog-cfa-salary",
    "blog-why-cfa-is-prestigious"
   ],
   "pos": "center 5%"
  },
  "nyse-facade": {
   "title": "File:NEW YORK STOCK EXCHANGE 20240521.jpg",
-  "artist": "颐园居",
+  "artist": "\u9890\u56ed\u5c45",
   "lic": "CC BY-SA 4.0",
   "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
   "page": "https://commons.wikimedia.org/wiki/File:NEW_YORK_STOCK_EXCHANGE_20240521.jpg",
@@ -265,6 +248,78 @@
   "page": "https://commons.wikimedia.org/wiki/File:Sign_of_the_New_York_Stock_Exchange,_Broad_Street.jpg",
   "pages": [
    "blog-cfa-vs-frm"
+  ]
+ },
+ "summit-dusk": {
+  "title": "File:Awaiting Matariki Sunrise (52177996268).jpg",
+  "artist": "Geoff McKay from Palmerston North, New Zealand",
+  "lic": "CC BY 2.0",
+  "licurl": "https://creativecommons.org/licenses/by/2.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Awaiting_Matariki_Sunrise_(52177996268).jpg",
+  "pages": [
+   "blog-hardest-cfa-topics",
+   "cfa-level-3"
+  ]
+ },
+ "marina-bay": {
+  "title": "File:Marina Bay Singapore-3499.jpg",
+  "artist": "Bijay Chaurasia",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Marina_Bay_Singapore-3499.jpg",
+  "pages": [
+   "blog-cfa-salary"
+  ]
+ },
+ "city-of-london": {
+  "title": "File:City of London skyline from London City Hall - Sept 2015 - Crop Aligned.jpg",
+  "artist": "User:Colin and Kim Hansen",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:City_of_London_skyline_from_London_City_Hall_-_Sept_2015_-_Crop_Aligned.jpg",
+  "pages": [
+   "blog-cfa-jobs-salaries"
+  ]
+ },
+ "gold-bars": {
+  "title": "File:Gold ingot and bar of Banque de France.jpg",
+  "artist": "Ibex73",
+  "lic": "CC BY 4.0",
+  "licurl": "https://creativecommons.org/licenses/by/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+  "pages": [
+   "blog-cfa-roi"
+  ],
+  "pos": "center 20%"
+ },
+ "hk-harbour": {
+  "title": "File:International Commerce Centre on Victoria Harbour.jpg",
+  "artist": "Wilfredor",
+  "lic": "CC0",
+  "licurl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+  "page": "https://commons.wikimedia.org/wiki/File:International_Commerce_Centre_on_Victoria_Harbour.jpg",
+  "pages": [
+   "blog-cfa-level-1-job"
+  ]
+ },
+ "canary-wharf": {
+  "title": "File:Canary Wharf from Limehouse London June 2016 HDR.jpg",
+  "artist": "King of Hearts",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Canary_Wharf_from_Limehouse_London_June_2016_HDR.jpg",
+  "pages": [
+   "blog-cfa-vs-cpa-cfp-acca"
+  ]
+ },
+ "bank-of-england": {
+  "title": "File:Bank of England Building, London, UK - Diliff.jpg",
+  "artist": "Diliff",
+  "lic": "CC BY-SA 3.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Bank_of_England_Building,_London,_UK_-_Diliff.jpg",
+  "pages": [
+   "blog-cfa-vs-mba"
   ]
  }
 }
