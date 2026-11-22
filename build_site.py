@@ -492,7 +492,7 @@ def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles",
     kw += head_extra
     LASTMOD[p["slug"] + ".html"] = upd(p)
     crumbs = [("Home", "index.html"), (back[1], back[0]), (p["title"], p["slug"] + ".html")]
-    return page(p["slug"] + ".html", title_tag or f"{p['title']} | {suffix}", p.get("summary", ""), main, extra_head=kw + jsonld(p, url, crumbs) + extra_ld,
+    return page(p["slug"] + ".html", (p["seo_title"] + " | First Principles") if p.get("seo_title") else (title_tag or f"{p['title']} | {suffix}"), p.get("meta") or p.get("summary", ""), main, extra_head=kw + jsonld(p, url, crumbs) + extra_ld,
                 image=(f"img/{k}.jpg" if k else f"thumb-{p['slug']}.svg"))
 
 

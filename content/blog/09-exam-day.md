@@ -7,6 +7,8 @@ figure: exam_day
 caption: The shape of the day. Session lengths are approximate; check your own confirmation.
 tags: CFA exam day, what to bring to CFA exam, CFA exam rules, CFA test centre, CFA exam passport, CFA exam checklist
 group: Strategy: how to tackle the exams
+seo_title: CFA exam day checklist: what to bring and what to expect
+meta: Your CFA exam day checklist: passport, approved calculator, what you can bring into the test centre, arrival times, breaks and security.
 updated: 2026-11-22
 ---
 The CFA exams are computer-based and taken at test centres. Nothing on the day should be a surprise.

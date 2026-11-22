@@ -8,6 +8,8 @@ caption: The format changes at every level, and so does the skill being tested.
 tags: CFA level 1 vs level 2, CFA level 2 vs level 3, difference between CFA levels, CFA level 1 vs 2 vs 3, CFA level 3 vs level 2, CFA levels explained
 group: How the exams work
 updated: 2026-11-22
+seo_title: CFA Level 1 vs Level 2 vs Level 3: how the three exams differ
+meta: CFA Level I vs II vs III: question format, difficulty, pass rates, study hours and what each level tests, from tools to valuation to portfolios.
 ---
 The three CFA exams share a name and a curriculum style, but they test very different things. Knowing how they differ helps you change your study method at each step, which is where many candidates who passed one level stumble on the next.
 

@@ -8,6 +8,8 @@ figure: salary_world
 caption: Average base salary reported by people who list the CFA qualification, by country, converted to US dollars at ECB rates of 16 November 2026. Base pay only: bonuses and allowances come on top.
 tags: CFA salary, CFA salary by country, CFA charterholder salary, CFA salary USA, CFA salary UK, CFA salary Canada, CFA salary Germany, CFA salary Switzerland, CFA salary Dubai, CFA salary UAE, CFA salary Singapore, CFA salary Hong Kong, CFA salary Australia, CFA salary India, CFA salary Pakistan, CFA salary South Africa, CFA salary Nigeria, CFA salary after level 3, CFA jobs, CFA vs non-CFA salary, highest paying country for CFA
 group: Most searched: the guides candidates look for most
+seo_title: CFA salary by country (2026): what charterholders earn in 19 countries
+meta: CFA salaries in 19 countries, including the US, Switzerland, Ireland, Australia, Dubai, Singapore, Germany and India, in local currency and US dollars.
 ---
 "How much does a CFA earn?" is one of the most searched questions about the program in every country where people take it. The honest answer starts with a warning: **there is no single CFA salary**. Pay in investment work depends on the job, the city, the size of the firm and, above all, years of experience. The charter changes which jobs you can get and how quickly you are trusted with more. The market sets the price of those jobs.
 

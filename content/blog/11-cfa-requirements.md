@@ -7,6 +7,8 @@ figure: eligibility
 caption: Students can start Level I up to 23 months before graduating; Level III needs the degree, or 4,000 hours of work and study.
 tags: CFA requirements, CFA eligibility, CFA without a degree, CFA registration requirements, CFA charter requirements, can I do CFA before graduation, CFA passport requirement, CFA work experience
 group: Before you start: requirements, cost and careers
+seo_title: CFA requirements and eligibility: degree, work experience and who can register
+meta: CFA Level I eligibility: students up to 23 months before graduating, graduates, or 4,000 hours of work and study, plus a passport. When each level opens up.
 ---
 The rules for starting the CFA Program are looser than most people expect, and the rules for finishing it are stricter. It helps to keep the two apart: **registering for the exams** and **earning the charter** are different gates.
 

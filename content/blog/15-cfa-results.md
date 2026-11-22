@@ -8,6 +8,8 @@ caption: The wait after the window closes, and the one thing that can delay your
 tags: CFA results, CFA results date, CFA level 1 results, CFA score report, CFA minimum passing score, CFA MPS, CFA result example, how CFA results are released
 group: How the exams work
 updated: 2026-11-22
+seo_title: When do CFA results come out? November 2026 results date and score report
+meta: November 2026 Level I and II CFA results are expected mid-January 2027. Last year's dates and pass rates, and how to read your score report.
 ---
 After months of study, the wait for a result feels long. Knowing exactly what you will receive, and what it means, makes it easier.
 
