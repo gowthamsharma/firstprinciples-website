@@ -65,6 +65,39 @@ Ideas build on each other. Financial statement analysis and economics run throug
 
 CFA Institute recommends about **300 hours of study per level**, and most people who pass report at least that much. Plan more time for Level II than you did for Level I: it is the level candidates most often describe as the biggest jump.
 
+
+## What changes when you move up a level
+
+### From Level I to Level II
+
+- **From breadth to depth.** Level II has the same topic names, but each goes two or three steps further. Free cash flow, residual income, pensions and bond trees are new, and they rely on Level I tools being automatic.
+- **From one question to one case.** Each question sits inside a vignette, so you read about 22 short cases in one sitting.
+- **Accounting becomes analysis.** At Level I you learn how a transaction is recorded. At Level II you adjust the statements of a real company and decide what its earnings really are.
+- **What helps most:** a refresher of Level I financial statement analysis and fixed income before you start Level II.
+
+### From Level II to Level III
+
+- **From valuing assets to managing portfolios.** Level III rarely asks what a single security is worth. It asks what a client should hold, and why.
+- **From choosing to writing.** Half the exam is constructed response. You must state a decision and justify it in a few lines, under time pressure.
+- **From numbers to judgement.** Calculations remain, but most points come from applying a framework (the investment policy statement, an asset allocation approach, a hedging decision) to the facts of a case.
+- **What helps most:** writing practice from early in your preparation, marked against official guideline answers.
+
+## How the study load compares
+
+| | Level I | Level II | Level III |
+|---|---|---|---|
+| Typical study time | 300 hours | 300–350 hours | 300 hours, a quarter of it writing practice |
+| Number of topic areas | 10 | 10 | 5 core areas + 1 pathway |
+| Share of calculation questions | High | High | Moderate |
+| Formula load | About 200 | About 250, including Level I | About 120–150 |
+| Main skill | Recall and apply | Analyse a case | Recommend and justify |
+
+Our formula sheets for [Level I](blog-cfa-level-1-formula-sheet.html), [Level II](blog-cfa-level-2-formula-sheet.html) and [Level III](blog-cfa-level-3-formula-sheet.html) show how the toolkit grows.
+
+## Gaps between levels
+
+You can register for the next level once you have passed the previous one, and the exam windows allow you to move quickly: for example, Level I in February, Level II in August and Level III the following February or August. Most candidates leave about six months between exams to fit in 300 hours of study around work. Our [timeline guide](blog-how-long-cfa.html) shows the fastest and the typical routes.
+
 ## Questions people ask
 
 ### Is Level II harder than Level I?
@@ -78,6 +111,15 @@ It is different rather than easier: less calculation, more judgement and writing
 ### Can I skip a level?
 
 No. Each level must be passed before you can register for the next.
+
+
+### Which CFA level has the most formulas?
+
+Level II, because it adds equity, fixed income and derivatives valuation models on top of the Level I toolkit. Level III has fewer formulas but asks you to justify how you use them.
+
+### Is Level III easier than Level II?
+
+Not easier, but different. Pass rates are similar. Candidates who write clearly and practise constructed responses often find Level III more manageable; those who struggle to write under time pressure find it the hardest.
 
 ## Sources
 

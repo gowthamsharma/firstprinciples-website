@@ -53,6 +53,28 @@ Candidates most often name **financial statement analysis** and **fixed income**
 
 For a topic-by-topic view, see [the most challenging CFA topics](blog-hardest-cfa-topics.html).
 
+
+## Where candidates actually lose marks
+
+Score reports, which show performance by topic, and candidates' own accounts suggest the same pattern at every level:
+
+- **Running out of time.** The last 10–15 questions of a session are often guessed. Pacing practice in full mocks fixes most of this.
+- **Misreading.** Words such as "least likely", "except" or "before tax" turn a known answer into a wrong one.
+- **Weak heavyweight topics.** A poor result in financial statement analysis or fixed income at Level I, or in equity valuation at Level II, is hard to make up elsewhere.
+- **Ethics left too late.** It looks like common sense and then is not, because the questions turn on precise rules.
+- **At Level III, writing:** knowing the answer but not stating the decision and the reason the grader is looking for.
+
+## What the difficulty means for planning
+
+- **Treat 300 hours as a minimum, not a target.** Candidates without a finance or accounting background often need 350 to 400 hours at Level I.
+- **Build in a buffer.** Plan for six months per level, not four, so that a busy month at work does not end the attempt.
+- **Expect to repeat at least one level.** At average pass rates, most candidates fail at least once. Planning for that possibility makes it less of a shock. Our guide to [what to do after failing Level I](blog-failed-cfa-level-1.html) covers the retake rules.
+- **Use the right tools:** a [study plan](blog-study-plan.html), the [formula sheets](blog-cfa-level-1-formula-sheet.html), [practice questions in the exam format](cfa-level-1-practice-questions.html) and full [mock exams](blog-mock-exams.html).
+
+## Is it getting harder?
+
+Not obviously. Pass rates fell after the move to computer-based testing in 2021, when windows became more frequent, and have since recovered to roughly 40–50% at most levels. The curriculum keeps changing: more quantitative methods and data science, less traditional economics and accounting. The new material is not harder, but older study notes and question banks become out of date, so use materials for your exam year.
+
 ## Questions people ask
 
 ### Is the CFA harder than the CPA?

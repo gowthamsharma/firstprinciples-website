@@ -7,6 +7,7 @@ figure: ethics_order
 caption: The order of duties behind most ethics answers: the market and clients first, yourself last.
 tags: CFA ethics, how to study CFA ethics, CFA Standards of Professional Conduct, CFA ethics tips, ethics adjustment
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 Ethics carries **10–15%** at every level from 2027. It is also the part of the exam where candidates near the pass line are most often separated. The good news: it is the most learnable topic, because it rewards the same reasoning every time.
 
@@ -65,6 +66,44 @@ Asking those questions in the same order every time is faster and more reliable 
 
 Ethics rewards volume. Aim for **several hundred ethics questions** per level, spread across your plan, and review every wrong answer against the exact Standard it tests.
 
+
+## The rules behind the most-tested Standards
+
+Most ethics questions come down to a short list of rules. Each is easy to state and easy to misapply under time pressure.
+
+| Standard | The rule in one line | The usual trap |
+|---|---|---|
+| I(A) Knowledge of the law | Follow the stricter of the law and the Code and Standards; dissociate from violations | Thinking you must report a colleague to the authorities (you must dissociate; reporting is often advisable but not always required) |
+| I(B) Independence and objectivity | Do not accept gifts or benefits that could compromise your judgement | Modest gifts from clients are fine if disclosed to the employer; issuer-paid luxury travel is not |
+| I(C) Misrepresentation | No false statements, no plagiarism, no guaranteed returns on risky investments | Using a factual statistic from a recognised source without citing it is allowed |
+| II(A) Material nonpublic information | Do not act on it or pass it on | The mosaic theory allows conclusions built from public and immaterial nonpublic pieces |
+| III(B) Fair dealing | Treat all clients fairly when you disseminate recommendations and allocate trades | Fair does not mean equal: different service levels are fine if disclosed and available to all |
+| III(C) Suitability | Know the client, document their objectives, and keep the portfolio consistent with them | A profitable but unsuitable investment is still a violation |
+| IV(A) Loyalty to employer | Do not harm your employer; you may prepare to leave, but not take clients' records or solicit before you go | Contact details you remember, and public information, are not employer property |
+| IV(B) Additional compensation | Get written consent from all parties before accepting outside compensation | Telling your manager afterwards is not enough |
+| V(A) Diligence and reasonable basis | Have a reasonable, documented basis for recommendations | Relying on third-party research is allowed if you have checked its quality |
+| VI(A) Disclosure of conflicts | Disclose conflicts fully, prominently and in plain language | Owning shares in a company you recommend must be disclosed |
+| VI(B) Priority of transactions | Clients first, employer second, yourself last | Family accounts that pay normal fees are treated as client accounts, not personal ones |
+
+## Four more short cases
+
+**1. The research report.** An analyst copies two paragraphs on industry trends from a trade journal into her report without citing it. *Violation of I(C), Misrepresentation (plagiarism).* She must cite the source or write her own analysis.
+
+**2. The departing manager.** Before resigning, a portfolio manager downloads his client list to a personal drive to contact them from his new firm. *Violation of IV(A), Loyalty.* The client list belongs to the employer. After leaving, he may contact former clients using public information or his memory, unless he signed a non-solicitation agreement.
+
+**3. The proxy vote.** A manager votes all client proxies with the management of each company, to save time. *Likely violation of III(A), Loyalty, Prudence and Care.* Proxies are client assets, and votes should reflect clients' interests. A cost-benefit approach that skips routine votes can be acceptable; automatic voting with management is not.
+
+**4. The verbal report.** An analyst gives a client a verbal buy recommendation without mentioning the main risks to her forecast. *Violation of V(B), Communication with clients.* Recommendations must include the basic process, the significant limitations and risks, and the distinction between fact and opinion.
+
+## GIPS in brief
+
+The Global Investment Performance Standards also appear in the ethics section. The essentials are:
+
+- They are **voluntary**, apply to **firms** (not individuals) and require firms to comply firm-wide.
+- Firms must group portfolios with similar strategies into **composites** and present the results of all of them, including closed or terminated accounts.
+- A firm may only claim compliance once it meets all the requirements; there is no "partial" compliance.
+- **Verification** by an independent third party is recommended, not required.
+
 ## Questions people ask
 
 ### Why is ethics so important on the CFA exams?
@@ -82,6 +121,15 @@ Assuming local law is enough when a stricter standard applies, missing that a sm
 ### When should I revise ethics?
 
 Twice: early, so it frames the other topics, and again in the final weeks, because the details fade quickly and the questions are very sensitive to wording.
+
+
+### Which ethics Standards are tested most often?
+
+Material nonpublic information, fair dealing, suitability, loyalty to employer, additional compensation, and disclosure of conflicts and priority of transactions appear most often. Each has a clear rule and a typical trap, summarised in the table above.
+
+### Is ethics the same at all three levels?
+
+The Code and Standards are the same, but the cases get longer and more ambiguous. At Level III, cases more often concern a firm's policies and procedures, and the answers must be written out and justified rather than chosen from a list.
 
 ## Sources
 

@@ -16,6 +16,14 @@ The CFA (from CFA Institute) and the FRM (from GARP, the Global Association of R
 
 [[figure]]
 
+## The short answer
+
+- **Which is harder?** The CFA, overall: three exams instead of two, about 900 hours of study against about 480, and a much broader syllabus. Pass rates are similar per exam (in November 2025, 43% for CFA Level I, against 47% for FRM Part I and 50% for FRM Part II), but you have to pass three CFA exams. The FRM is more quantitative exam for exam, especially Part II.
+- **Which is better?** Neither in general; it depends on the job. For investment research, portfolio management and wealth management, the CFA. For risk management, risk modelling, treasury and banking regulation, the FRM.
+- **Which pays more?** Pay follows the role, not the letters. Portfolio managers and risk managers at the same seniority earn similar amounts in most markets; see the pay section below.
+- **Should you do both?** Many risk professionals do. The two overlap most in quantitative methods, fixed income and derivatives, so the second one is easier after the first.
+
+
 ## At a glance
 
 | | CFA | FRM |
@@ -63,6 +71,34 @@ The overlap is real (quantitative methods, fixed income, derivatives), so the se
 
 The CFA charter is broader and better known outside risk teams; the FRM is the clearer signal inside market risk, credit risk and treasury risk functions, and is widely recognised by banks and regulators.
 
+
+## Difficulty compared, topic by topic
+
+| Area | CFA | FRM |
+|---|---|---|
+| Quantitative methods | Level I statistics and regression; Level II time series and machine learning | Part I quantitative analysis goes further into regression, simulation and volatility models |
+| Fixed income and derivatives | Valuation, duration, options and swaps across all three levels | Valuation and risk models in Part I; market and credit risk measurement in Part II |
+| Accounting | Substantial (financial statement analysis at Levels I and II) | Very little |
+| Equity valuation and portfolio management | Central at all three levels | Limited |
+| Risk management | Risk management and derivatives at Level III | The whole of Part II: market, credit, operational, liquidity and treasury risk, plus current issues |
+| Ethics | 10–15% at every level | A short section in Part I (foundations of risk management) |
+| Written answers | Level III constructed response | None: all multiple choice |
+
+If you are strong in maths and weak in accounting, the FRM will feel easier. If you have an accounting or business background, the CFA's early levels will feel more familiar.
+
+## CFA or FRM by career goal
+
+| If you want to work in | Better first choice | Why |
+|---|---|---|
+| Equity or credit research | CFA | Valuation and financial statement analysis are the core of the job |
+| Portfolio or fund management | CFA | The charter is the standard credential in asset management |
+| Wealth management and private banking | CFA | Portfolio construction and client planning at Level III |
+| Market, credit or operational risk | FRM | Part II is built around these roles |
+| Risk modelling and quantitative risk | FRM (then perhaps CFA) | Value at risk, stress tests and credit models |
+| Bank treasury and asset-liability management | FRM | Liquidity and interest rate risk in the banking book |
+| Regulators and supervisors | FRM | Basel framework and risk governance |
+| Not sure yet | CFA Level I | The broader foundation; you can add the FRM later |
+
 ## Questions people ask
 
 ### Should I do CFA or FRM first?
@@ -76,6 +112,15 @@ It is shorter, with two exams instead of three, but its risk content is more qua
 ### Is FRM recognised outside banks?
 
 Yes, at asset managers, insurers, consultancies and regulators, wherever risk is measured and managed.
+
+
+### Which is more difficult, CFA or FRM?
+
+The CFA is harder overall because it has three exams and a broader syllabus. Individual FRM exams can feel harder for candidates who are less comfortable with mathematics, because the FRM is more quantitative.
+
+### Can I do the CFA and FRM at the same time?
+
+It is possible but rarely wise. Each exam needs 240–300 hours. Most people finish one CFA level or one FRM part before starting the next, and use the overlap in quantitative methods and derivatives to save time.
 
 ## Sources
 

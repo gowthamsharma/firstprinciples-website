@@ -7,6 +7,7 @@ figure: calc_keys
 caption: The three BA II Plus settings worth making on day one, and checking again on exam morning.
 tags: CFA calculator, CFA calculator settings, BA II Plus CFA, BA II Plus settings, HP 12C CFA, CFA approved calculator, BA II Plus AOS, CFA calculator allowed
 group: Tools: formulas, calculator and self-study
+updated: 2026-11-22
 ---
 Your calculator is the one tool you take into the exam room, and it can cost you marks quietly. A wrong setting gives a confident wrong answer. Set it up once, practise with it every day, and you will not think about it on exam day.
 
@@ -51,6 +52,48 @@ Press **2ND, CPT** (QUIT) to leave the settings. They stay in memory when the ca
 - Re-check the three settings the morning of the exam.
 - Practise every calculation on the same calculator you will use; speed comes from muscle memory.
 
+
+## The BA II Plus worksheets you will actually use
+
+Most exam calculations use eight of the BA II Plus's built-in worksheets. Knowing where each one is saves seconds on every question.
+
+| Worksheet | Keys | Use it for |
+|---|---|---|
+| TVM | N, I/Y, PV, PMT, FV | annuities, loans, bond prices, savings goals |
+| Cash flow | CF, NPV, IRR | uneven cash flows, project NPV and IRR, money-weighted returns |
+| Interest conversion | 2ND, 2 (ICONV) | effective annual rate from a stated rate, and back |
+| Statistics | 2ND, 7 (DATA) then 2ND, 8 (STAT) | mean, standard deviation, regression on paired data |
+| Amortisation | 2ND, PV (AMORT) | interest and principal paid on a loan over a range of periods |
+| Bond | 2ND, 9 (BOND) | bond price or yield between coupon dates, with accrued interest |
+| Depreciation | 2ND, 4 (DEPR) | straight-line and declining-balance schedules |
+| Date | 2ND, 1 (DATE) | days between two dates, for accrued interest and money market questions |
+
+## Five keystroke routines worth memorising
+
+1. **Effective annual rate** of 6% compounded monthly: 2ND, 2 (ICONV), enter NOM = 6, ↓ ↓ C/Y = 12, ↑ to EFF, CPT. Result: 6.168%.
+2. **Bond price** for a 5-year, 4% semi-annual coupon bond yielding 5%: N = 10, I/Y = 2.5, PMT = 2, FV = 100, CPT PV. Result: −95.62.
+3. **NPV and IRR**: CF, 2ND, CE|C to clear; CF0 = −500, ENTER, ↓; C01 = 150, ENTER, ↓ (F01 = 1), ↓; continue for each cash flow; then NPV, I = 10, ENTER, ↓, CPT; then IRR, CPT.
+4. **Standard deviation** of a sample: 2ND, 7 (DATA), 2ND, CE|C to clear, enter X01, X02 and so on; then 2ND, 8 (STAT), press 2ND, ENTER (SET) until 1-V appears, then ↓ to read n, x̄ and Sx (the sample standard deviation).
+5. **Annuity due:** 2ND, PMT (BGN), 2ND, ENTER (SET), 2ND, CPT (QUIT); check "BGN" is on the display. Switch back to END straight afterwards.
+
+Our [BA II Plus calculator guide](blog-ba-ii-plus-calculator-guide.html) has an on-screen calculator where you can press each key and see the result, plus worked examples for every worksheet.
+
+## The most common calculator mistakes
+
+- **P/Y left at 12.** Every annual calculation is then wrong by a large amount. Set P/Y = 1 once and leave it.
+- **BGN mode left on** after an annuity-due question, which spoils the next five time-value questions.
+- **Not clearing worksheets.** An old FV or an old cash flow silently changes your answer.
+- **Sign errors.** PV and FV must have opposite signs in the TVM worksheet, or the calculator returns an error or a nonsense rate.
+- **Too few decimals.** With DEC = 2, intermediate results are rounded only on the display, but candidates copy the rounded figures into the next step.
+- **Using the population standard deviation (σx) instead of the sample one (Sx)** in statistics questions.
+
+## A ten-minute warm-up for the morning of the exam
+
+1. Check DEC = 9, P/Y = 1, AOS and END mode.
+2. Compute one present value, one NPV and one effective annual rate you know the answers to.
+3. Clear all worksheets.
+4. Put the spare battery or the second calculator in your bag.
+
 ## Questions people ask
 
 ### What calculator is allowed in the CFA exam?
@@ -64,6 +107,15 @@ Most candidates use the BA II Plus because its worksheets for time value, cash f
 ### Can I bring two calculators?
 
 Yes, a spare approved calculator is allowed. Check the current calculator policy before exam day.
+
+
+### How do I reset the BA II Plus to factory settings?
+
+Press 2ND, then +|− (RESET), then ENTER. The display shows "RST". Afterwards set DEC = 9, P/Y = 1 and AOS again.
+
+### Is the BA II Plus Professional worth the extra cost?
+
+Only if you want its extra functions (such as NFV, modified duration and payback in the cash flow worksheet). The standard BA II Plus handles every calculation in the exam.
 
 ## Sources
 

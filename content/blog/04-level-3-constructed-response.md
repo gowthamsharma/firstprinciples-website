@@ -62,6 +62,41 @@ The strong answer **states the decision**, gives **the client-specific reason**,
 | Recommend | A clear choice, then the justification |
 | Discuss | Both sides, then a conclusion |
 
+
+## How the points work, and how to pace them
+
+Each constructed-response set is worth 12 points, and each 132-minute session contains 11 sets. That is roughly **one minute per point**. Use the points shown next to each question as a guide:
+
+- **1–2 points:** one decision or one fact, plus a short reason.
+- **3–4 points:** usually two or three separate elements (for example, "identify two risks and explain how each affects the client").
+- **5–6 points:** a calculation with several steps, or a recommendation with several justifications.
+
+If a 2-point question has taken five minutes, write your best answer and move on. Points are equal across sets, so an unanswered set at the end of a session is the costliest mistake of all.
+
+## How graders mark your answer
+
+Graders work from a guideline listing the points that earn credit. Their approach is practical:
+
+- **They look for the required elements**, not for style, grammar or full sentences.
+- **They do not give credit for things you were not asked for.** Writing four reasons when the question asks for two does not earn extra points, and it uses up time.
+- **A wrong decision usually loses the justification as well.** If you recommend the wrong portfolio, a well-argued reason for it rarely scores. Get the decision right first.
+- **Show calculations.** Write the formula and inputs, then the result. A slip in the arithmetic can still earn partial credit if the method is visible.
+
+## The most common ways to lose points
+
+1. **Answering a different question.** "Discuss" and "justify" are not the same as "describe". Re-read the command word before you write.
+2. **Generic answers.** "The client has a long time horizon" scores only if the case supports it and the question asks about horizon. Use the facts of the case: name, numbers, constraints.
+3. **Hedging between two answers.** "Portfolio A or B could both work" earns nothing. Choose one.
+4. **Calculating without the final step.** If the question asks whether the client can meet a goal, a correct return figure without "yes, because 6.1% exceeds the 5.5% required" may miss a point.
+5. **Leaving templates incomplete.** Where a template asks you to circle or select an option and then justify, do both.
+
+## A weekly writing routine
+
+- **Two writing sessions a week from week four**, each with two or three past constructed-response questions from CFA Institute's practice materials.
+- **Mark your answers against the guideline the same day.** Note which points you missed and why.
+- **Keep an "answer bank"** of phrases that worked: for example, the standard way to justify a lower risk tolerance or a currency hedge.
+- **In the last month, write under exam conditions:** typed answers, 132-minute blocks, no notes.
+
 ## Questions people ask
 
 ### How are Level III written answers marked?
@@ -79,6 +114,15 @@ Give your choice and the reason from the case that supports it. A justification 
 ### How much time should each written set take?
 
 Roughly the minutes shown by the points: about one minute per point. Writing more than needed on early questions is the most common reason candidates run out of time.
+
+
+### Can I use bullet points in Level III answers?
+
+Yes. Bullet points and short phrases are fine, and they are faster. What matters is that each point answers the question and uses the facts of the case.
+
+### Is there partial credit in Level III?
+
+Yes. Each question lists several gradable elements, and you earn points for each correct element, including the method in a calculation even if the final number is wrong.
 
 ## Sources
 

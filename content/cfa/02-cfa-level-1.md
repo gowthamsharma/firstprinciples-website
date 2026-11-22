@@ -43,6 +43,45 @@ CFA Institute publishes each topic's weight as a range. For exams from **Februar
 
 For the method, see [How to tackle CFA Level I](blog-level-1-strategy.html) and [Building a 300-hour study plan](blog-study-plan.html).
 
+
+## What each topic tests at Level I
+
+| Topic | What you need to be able to do |
+|---|---|
+| Ethics | apply the Code and the seven Standards of Professional Conduct to short cases, and know the basics of GIPS |
+| Quantitative methods | time value of money, returns, statistics, probability, hypothesis tests, simple regression and an introduction to big data |
+| Economics | demand and supply, market structures, the business cycle, fiscal and monetary policy, trade and exchange rates |
+| Financial statement analysis | read and link the three statements, inventories, long-lived assets, taxes, debt, leases and ratio analysis |
+| Corporate issuers | governance, capital budgeting, cost of capital, capital structure and working capital |
+| Equity investments | market organisation, indexes, efficiency, industry and company analysis, and basic valuation models |
+| Fixed income | bond features and pricing, yields and spreads, the term structure, duration and convexity, credit and securitisation |
+| Derivatives | forwards, futures, swaps and options: payoffs, no-arbitrage pricing and put–call parity |
+| Alternative investments | hedge funds, private capital, real estate, infrastructure, commodities and digital assets, with their fees and returns |
+| Portfolio management | risk and return, diversification, the CAPM, the investment policy statement and behavioural biases |
+
+For practice in the exam format, try our [100 Level I practice questions](cfa-level-1-practice-questions.html), ten per topic, and keep the [Level I formula sheet](blog-cfa-level-1-formula-sheet.html) beside you while you study.
+
+## How Level I is scored
+
+- **Every question carries the same weight**, and there is no penalty for a wrong answer.
+- **The pass mark is not published.** CFA Institute sets the minimum passing score after each exam window, after reviewing the difficulty of the questions.
+- Results arrive by email, usually **five to nine weeks** after your window closes. See [CFA exam results](blog-cfa-results.html).
+
+## A 300-hour study plan
+
+CFA Institute suggests around 300 hours per level. Spread over 16 weeks, that is roughly **19 hours a week**:
+
+| Weeks | Focus |
+|---|---|
+| 1–3 | Quantitative methods and economics: the tools the other topics use |
+| 4–6 | Financial statement analysis, the heaviest calculation topic |
+| 7–9 | Corporate issuers, equity and fixed income |
+| 10–11 | Derivatives, alternatives and portfolio management |
+| Throughout | Ethics in short sessions twice a week |
+| 12–16 | Question bank by topic, then at least three full mock exams |
+
+If you start from a non-finance background, add two to four weeks at the start for accounting and basic statistics. Our [prerequisites course](prerequisites.html) covers them.
+
 ## Questions people ask
 
 ### How many questions are on CFA Level 1?
@@ -60,6 +99,15 @@ No. Wrong answers do not cost points, so never leave a question blank.
 ### How often can I take Level 1?
 
 Level I is offered in four windows a year. There are limits on how many times you can sit each level, so check the current attempt rules before registering.
+
+
+### How many hours does Level 1 take?
+
+CFA Institute suggests about 300 hours. Candidates with a finance or accounting degree often need less; those starting from scratch often need 350 or more.
+
+### What score do I need to pass Level 1?
+
+The minimum passing score is not published and changes from window to window. Consistently scoring above 70% in full mock exams is a sensible target before sitting the real exam.
 
 ## Sources
 
