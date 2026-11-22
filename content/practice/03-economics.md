@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Economics, with worked answers
 slug: cfa-level-1-practice-questions-economics
 order: 3
-summary: Ten original economics questions in the Level I format, three options each, with an explanation for every answer. Demand and supply, market structures, the business cycle, money and exchange rates. Economics carries 6–9% of the exam from 2027.
+summary: Ten original economics questions written like the real Level I exam: short cases with data, three options each, and worked explanations. Demand and supply, market structures, the business cycle, money and exchange rates. Economics carries 6–9% of the exam from 2027.
 figure: elasticity_quadrants
 caption: Economics: one of the ideas these questions test, drawn.
 tags: CFA Level 1 economics practice questions, CFA Level 1 economics questions, CFA Level 1 economics mock, CFA level 1 economics questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many economics questions are on Level I?
 

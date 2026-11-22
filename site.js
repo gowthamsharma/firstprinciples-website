@@ -516,7 +516,7 @@
 (function () {
   var box = document.querySelector(".pq");
   if (!box) return;
-  var KEY = "fp-practice-" + box.getAttribute("data-key"), items = box.querySelectorAll("ol > li"), score = box.querySelector(".pq-score");
+  var KEY = "fp-practice2-" + box.getAttribute("data-key"), items = box.querySelectorAll("ol > li"), score = box.querySelector(".pq-score");
   var saved = {};
   try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
   function show(li, v) {

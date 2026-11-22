@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Alternative investments, with worked answers
 slug: cfa-level-1-practice-questions-alternatives
 order: 9
-summary: Ten original alternative investments questions in the Level I format, three options each, with an explanation for every answer. Hedge funds, private equity, real estate, infrastructure, commodities and their fees. Alternative investments carries 6–9% of the exam from 2027.
+summary: Ten original alternative investments questions written like the real Level I exam: short cases with data, three options each, and worked explanations. Hedge funds, private equity, real estate, infrastructure, commodities and their fees. Alternative investments carries 6–9% of the exam from 2027.
 figure: hf_fees
 caption: Alternative investments: one of the ideas these questions test, drawn.
 tags: CFA Level 1 alternative investments practice questions, CFA Level 1 alternative investments questions, CFA Level 1 alternative investments mock, CFA level 1 alternative investments questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many alternative investments questions are on Level I?
 

@@ -279,7 +279,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=12">
+<link rel="stylesheet" href="style.css?v=13">
 {extra_head}
 {('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
@@ -304,7 +304,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
-<script src="site.js?v=12" defer></script>{beacon}
+<script src="site.js?v=13" defer></script>{beacon}
 </body>
 </html>
 """
@@ -416,14 +416,41 @@ def practice_items(key):
     return out
 
 
+def rich(text):
+    """Practice-question text: blank line = new paragraph, lines starting with | = table rows."""
+    out = []
+    for block in text.split("\n\n"):
+        rows = []
+        def flush_rows():
+            if not rows:
+                return
+            cells = [[c.strip() for c in r.strip().strip("|").split("|")] for r in rows]
+            head = len(cells) > 1 and not re.match(r"^[\d+\u2212\-$\u20ac\u00a3\u00a5\u20b9(]", cells[0][1] if len(cells[0]) > 1 else "0")
+            t = '<div class="pq-t"><table>'
+            for i, r in enumerate(cells):
+                tag = "th" if head and i == 0 else "td"
+                t += "<tr>" + "".join(f"<{tag}>{html.escape(c)}</{tag}>" for c in r) + "</tr>"
+            out.append(t + "</table></div>")
+            rows.clear()
+        for line in block.split("\n"):
+            if line.lstrip().startswith("|"):
+                rows.append(line)
+            else:
+                flush_rows()
+                if line.strip():
+                    out.append("<p>" + html.escape(line.strip()) + "</p>")
+        flush_rows()
+    return "".join(out)
+
+
 def practice_html(key):
     items = practice_items(key)
     lis = ""
     for i, (q, opts, c, x) in enumerate(items):
         btns = "".join(f'<button type="button" data-v="{j}"><b>{"ABC"[j]}</b>{html.escape(o)}</button>' for j, o in enumerate(opts))
-        lis += (f'<li data-c="{c}"><p class="pq-q">{html.escape(q)}</p><div class="lq-o">{btns}</div>'
-                f'<div class="pq-e" hidden><p><b>Answer: {"ABC"[c]}.</b> {html.escape(x)}</p></div></li>')
-    return (f'<section class="pq" id="questions" data-key="{key}"><div class="pq-head"><p class="pq-k">{len(items)} questions · Level I format · about 15 minutes</p>'
+        lis += (f'<li data-c="{c}"><div class="pq-q">{rich(q)}</div><div class="lq-o">{btns}</div>'
+                f'<div class="pq-e" hidden><p class="pq-a"><b>Answer: {"ABC"[c]}.</b></p>{rich(x)}</div></li>')
+    return (f'<section class="pq" id="questions" data-key="{key}"><div class="pq-head"><p class="pq-k">{len(items)} questions · Level I format · about 15 to 20 minutes</p>'
             f'<p class="pq-score" aria-live="polite">Choose an answer to see the explanation.</p></div><ol>{lis}</ol>'
             f'<p class="pq-foot"><button type="button" class="btn line pq-reset">Clear my answers</button></p></section>')
 
@@ -434,9 +461,9 @@ def practice_ld(key, p):
     parts = []
     for q, opts, c, x in practice_items(key):
         ans = [{"@type": "Answer", "position": j, "encodingFormat": "text/html", "text": o} for j, o in enumerate(opts)]
-        acc = dict(ans[c]); acc["answerExplanation"] = {"@type": "Comment", "text": x, "encodingFormat": "text/html"}
+        acc = dict(ans[c]); acc["answerExplanation"] = {"@type": "Comment", "text": rich(x), "encodingFormat": "text/html"}
         parts.append({"@type": "Question", "eduQuestionType": "Multiple choice", "learningResourceType": "Practice problem", "name": q[:90],
-                      "text": q, "encodingFormat": "text/html", "suggestedAnswer": [a for j, a in enumerate(ans) if j != c], "acceptedAnswer": acc})
+                      "text": rich(q), "encodingFormat": "text/html", "suggestedAnswer": [a for j, a in enumerate(ans) if j != c], "acceptedAnswer": acc})
     d = {"@context": "https://schema.org", "@type": "Quiz", "name": p["title"], "about": {"@type": "Thing", "name": name},
          "educationalLevel": "CFA Program Level I", "assesses": scope, "hasPart": parts,
          "educationalAlignment": [{"@type": "AlignmentObject", "alignmentType": "educationalSubject", "targetName": name}]}
@@ -980,17 +1007,6 @@ def home(cfa, blog, pre):
   {pre_row}
   {blog_row}
   {cfa_row}
-</div></section>
-
-<section class="section dark"><div class="wrap">
-  <span class="eyebrow">The course</span>
-  <h2>What every lesson gives you</h2>
-  <div class="parts">
-    <div><h3>The idea, drawn</h3><p>Animated diagrams and realistic market data, one idea on screen at a time.</p></div>
-    <div><h3>The intuition behind it</h3><p>Why a result has to be true, told with an everyday analogy before any algebra.</p></div>
-    <div><h3>Pause and predict</h3><p>Short questions inside the lesson, so you commit to an answer before you see it.</p></div>
-    <div><h3>Exam questions, solved</h3><p>Vignette questions answered the way the exam asks them, including why each wrong option is wrong.</p></div>
-  </div>
 </div></section>
 
 <section class="section" id="about"><div class="wrap">

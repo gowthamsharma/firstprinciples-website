@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Equity investments, with worked answers
 slug: cfa-level-1-practice-questions-equity
 order: 6
-summary: Ten original equity investments questions in the Level I format, three options each, with an explanation for every answer. Market mechanics, indexes, efficiency, industry analysis and valuation models. Equity investments carries 11–14% of the exam from 2027.
+summary: Ten original equity investments questions written like the real Level I exam: short cases with data, three options each, and worked explanations. Market mechanics, indexes, efficiency, industry analysis and valuation models. Equity investments carries 11–14% of the exam from 2027.
 figure: ddm_stack
 caption: Equity investments: one of the ideas these questions test, drawn.
 tags: CFA Level 1 equity investments practice questions, CFA Level 1 equity investments questions, CFA Level 1 equity investments mock, CFA level 1 equity investments questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many equity investments questions are on Level I?
 

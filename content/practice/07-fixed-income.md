@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Fixed income, with worked answers
 slug: cfa-level-1-practice-questions-fixed-income
 order: 7
-summary: Ten original fixed income questions in the Level I format, three options each, with an explanation for every answer. Bond pricing, yields, the term structure, duration, convexity and credit. Fixed income carries 11–14% of the exam from 2027.
+summary: Ten original fixed income questions written like the real Level I exam: short cases with data, three options each, and worked explanations. Bond pricing, yields, the term structure, duration, convexity and credit. Fixed income carries 11–14% of the exam from 2027.
 figure: price_yield
 caption: Fixed income: one of the ideas these questions test, drawn.
 tags: CFA Level 1 fixed income practice questions, CFA Level 1 fixed income questions, CFA Level 1 fixed income mock, CFA level 1 fixed income questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many fixed income questions are on Level I?
 

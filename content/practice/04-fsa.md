@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Financial statement analysis, with worked answers
 slug: cfa-level-1-practice-questions-fsa
 order: 4
-summary: Ten original financial statement analysis questions in the Level I format, three options each, with an explanation for every answer. The three statements, inventories, long-lived assets, taxes, debt and ratio analysis. Financial statement analysis carries 11–14% of the exam from 2027.
+summary: Ten original financial statement analysis questions written like the real Level I exam: short cases with data, three options each, and worked explanations. The three statements, inventories, long-lived assets, taxes, debt and ratio analysis. Financial statement analysis carries 11–14% of the exam from 2027.
 figure: three_statements
 caption: Financial statement analysis: one of the ideas these questions test, drawn.
 tags: CFA Level 1 financial statement analysis practice questions, CFA Level 1 financial statement analysis questions, CFA Level 1 financial statement analysis mock, CFA level 1 financial statement analysis questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many financial statement analysis questions are on Level I?
 

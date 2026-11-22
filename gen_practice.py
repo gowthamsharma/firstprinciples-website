@@ -56,7 +56,7 @@ def page(key, i):
     title = f"CFA Level I practice questions: {name.lower() if key != 'ethics' else 'ethics'}, with worked answers"
     title = title.replace(": quantitative methods", ": quantitative methods").replace(": fsa", ": financial statement analysis")
     title = f"CFA Level I practice questions: {name}, with worked answers"
-    summary = (f"Ten original {inf['short']} questions in the Level I format, three options each, with an explanation for every answer. "
+    summary = (f"Ten original {inf['short']} questions written like the real Level I exam: short cases with data, three options each, and worked explanations. "
                f"{scope} {name} carries {weight} of the exam from 2027.")
     tags = [f"CFA Level 1 {inf['short']} practice questions", f"CFA Level 1 {inf['short']} questions", f"CFA Level 1 {inf['short']} mock",
             f"CFA level 1 {inf['short']} questions and answers", "CFA Level 1 practice questions free", "CFA Level 1 sample questions"]
@@ -90,7 +90,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many {inf['short']} questions are on Level I?
 

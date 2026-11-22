@@ -2,7 +2,7 @@
 title: CFA Level I practice questions: Ethical and professional standards, with worked answers
 slug: cfa-level-1-practice-questions-ethics
 order: 1
-summary: Ten original ethics questions in the Level I format, three options each, with an explanation for every answer. The Code of Ethics and the Standards of Professional Conduct, applied to cases. Ethical and professional standards carries 10–15% of the exam from 2027.
+summary: Ten original ethics questions written like the real Level I exam: short cases with data, three options each, and worked explanations. The Code of Ethics and the Standards of Professional Conduct, applied to cases. Ethical and professional standards carries 10–15% of the exam from 2027.
 figure: ethics_order
 caption: Ethical and professional standards: one of the ideas these questions test, drawn.
 tags: CFA Level 1 ethics practice questions, CFA Level 1 ethics questions, CFA Level 1 ethics mock, CFA level 1 ethics questions and answers, CFA Level 1 practice questions free, CFA Level 1 sample questions
@@ -37,7 +37,7 @@ These questions are written by First Principles to match the style and level of 
 
 ### Are these real CFA exam questions?
 
-No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short stem and three answer options, testing one idea each.
+No. CFA Institute does not publish past exam questions. These are original questions written to match the Level I format: a short case, often with a table of data, followed by three answer options. Each explanation shows the working and why the two wrong options are wrong.
 
 ### How many ethics questions are on Level I?
 
