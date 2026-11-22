@@ -181,7 +181,7 @@ MENU = [
                                  ("Canada", "cfa-in-canada.html", ""), ("UAE", "cfa-in-uae.html", ""), ("Germany", "cfa-in-germany.html", ""),
                                  ("All 12 countries", "cfa-by-country.html", "")]),
         ("Big questions", [("Is the CFA worth it?", "blog-is-cfa-worth-it.html", ""), ("Why the CFA is hard", "blog-why-cfa-is-hard.html", ""),
-                           ("Results: when and how", "blog-cfa-results.html", ""), ("CFA vs FRM", "blog-cfa-vs-frm.html", ""),
+                           ("Results: when and how", "blog-cfa-results.html", ""), ("Results dates by level", "blog-cfa-results-dates.html", ""), ("CFA vs FRM", "blog-cfa-vs-frm.html", ""),
                            ("CFA vs MBA", "blog-cfa-vs-mba.html", ""), ("CFA vs CPA, CFP, ACCA, CA", "blog-cfa-vs-cpa-cfp-acca.html", "")])]),
     ("Levels", "cfa-program.html", [
         ("Level I", [("Level I: format and topics", "cfa-level-1.html", ""), ("Level I strategy", "blog-level-1-strategy.html", ""),
@@ -193,7 +193,7 @@ MENU = [
                        ("Choosing your pathway", "blog-level-3-pathways.html", ""), ("The last month before the exam", "blog-level-3-last-month.html", ""),
                        ("Level III formula sheet", "blog-cfa-level-3-formula-sheet.html", "")]),
         ("All three levels", [("How the levels differ", "blog-cfa-level-differences.html", ""), ("Pass rates by level", "cfa-pass-rates.html", ""),
-                              ("Dates and fees", "cfa-dates-fees.html", "")])]),
+                              ("Dates and fees", "cfa-dates-fees.html", ""), ("Results dates", "blog-cfa-results-dates.html", "")])]),
     ("How to prepare", "how-to-prepare.html", [
         ("Start here", [("Are you ready? Self-check", "blog-ready-for-cfa-level-1.html", ""), ("Build your study plan", "blog-study-plan.html", ""),
                         ("Best order to study topics", "blog-cfa-study-order.html", ""), ("Free study planner (Excel)", "free-resources.html#planner", ""),
@@ -817,7 +817,7 @@ def how_to_prepare(cfa, blog):
         ("Level III: portfolios and written answers", "Half the exam is written. Practise answering in short, exact sentences under time, and choose a pathway that matches your career.",
          g("cfa-level-3", "blog-level-3-constructed-response", "blog-level-3-pathways", "blog-cfa-level-3-formula-sheet"), "Level III"),
         ("The final weeks", "Ethics deserves time at every level; mocks show where you stand; exam day is a skill you can rehearse.",
-         g("blog-hardest-cfa-topics", "blog-ethics", "blog-mock-exams", "blog-exam-day", "blog-cfa-results"), "Every level"),
+         g("blog-hardest-cfa-topics", "blog-ethics", "blog-mock-exams", "blog-exam-day", "blog-cfa-results", "blog-cfa-results-dates"), "Every level"),
     ]
     out = hub("how-to-prepare.html", "How to prepare for CFA Level I, II and III: plans and strategy by level | First Principles",
               "How to prepare for each CFA level: study plans, strategy for Level I multiple choice, Level II item sets and Level III written answers, mocks, ethics and a free Excel study planner.",
