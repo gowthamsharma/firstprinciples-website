@@ -3,7 +3,10 @@ title: The CFA Program in one page
 slug: cfa-program
 order: 1
 summary: What the CFA Program is, how the three levels fit together, what it costs, how long it takes and what you need for the charter, using CFA Institute's published facts.
-tags: what is the CFA charter, CFA program explained, CFA levels, CFA requirements, CFA work experience, is CFA worth it
+tags: what is the CFA charter, CFA program explained, CFA levels, CFA requirements, CFA work experience, is CFA worth it, what is CFA course, CFA course details, about CFA course, what is the CFA exam, CFA course duration, CFA course fees
+seo_title: What is the CFA course? Levels, duration, fees and eligibility
+meta: What the CFA course is: three exams, what each level tests, how long it takes, what it costs in 2027 and who can register for the charter.
+updated: 2026-11-22
 ---
 The CFA® Program is a three-exam, self-study qualification run by CFA Institute. Each level builds on the one before: Level I teaches the tools, Level II applies them to valuation, and Level III uses everything to manage a portfolio for a real client. Passing all three is necessary for the charter, but it is not sufficient on its own (see the last section).
 
@@ -72,6 +75,14 @@ It is widely respected in investment management, research and wealth management,
 ### Can I take the levels in any order?
 
 No. Each level must be passed before the next one can be taken.
+
+### What is the CFA course?
+
+The CFA Program is a self-study course of three exams run by CFA Institute, covering investment tools (Level I), valuation (Level II) and portfolio management (Level III). Passing all three, plus 4,000 hours of relevant work experience and membership, earns the CFA charter. Registration includes the official curriculum; there are no classes you must attend.
+
+### How much are the CFA course fees?
+
+Each exam costs USD 1,140 with early registration or USD 1,490 at the standard rate (Level III: USD 1,240 or USD 1,590), so USD 3,520 to 4,570 for all three. See [CFA exam dates and fees for 2027](cfa-dates-fees.html).
 
 ## Sources
 

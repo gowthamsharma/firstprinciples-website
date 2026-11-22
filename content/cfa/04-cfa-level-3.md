@@ -3,8 +3,10 @@ title: CFA Level III: constructed response, pathways and weights
 slug: cfa-level-3
 order: 4
 summary: Level III mixes item sets with written answers, adds a specialised pathway worth a third of the exam, and asks you to synthesise everything for a client.
-tags: CFA Level 3 exam format, CFA Level 3 topics, CFA Level 3 topic weights, CFA Level 3 syllabus, CFA Level 3 pathways, CFA Level 3 essay
+tags: CFA Level 3 exam format, CFA Level 3 topics, CFA Level 3 topic weights, CFA Level 3 syllabus, CFA Level 3 pathways, CFA Level 3 essay, CFA level 3 2027, CFA level 3 exam dates 2027, CFA level 3 registration deadline, what is CFA level 3
 updated: 2026-11-22
+seo_title: CFA Level 3 2027: exam dates, pathways, format and weights
+meta: CFA Level III in 2027: exam dates (Feb and Aug), fees, the item-set and constructed-response format, the three pathways and topic weights.
 ---
 Level III is about **synthesis**: given a client, a market view and constraints, what portfolio would you build, how would you manage its risk, and how would you judge whether it worked? It is the only level with written answers.
 
@@ -110,6 +112,10 @@ Plan for 300 hours or more, with a quarter of that time spent writing practice a
 ### Can I answer Level 3 essay questions in bullet points?
 
 Yes. Graders mark the content, not the style. Short phrases or bullet points that answer exactly what was asked score as well as full sentences and take less time.
+
+### When is CFA Level 3 in 2027, and what is the registration deadline?
+
+Level III runs on 18–21 February and 11–14 August 2027. February registration closed on 5 November 2026. For August 2027, the early fee applies until 20 January 2027 and registration closes on 29 April 2027. See [CFA exam dates 2027](cfa-dates-fees.html).
 
 ## Sources
 

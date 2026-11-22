@@ -3,8 +3,10 @@ title: CFA Level I: format, topics and weights for 2026 and 2027
 slug: cfa-level-1
 order: 2
 summary: Level I tests breadth across ten topics in 180 multiple-choice questions. Here is the format, the topic weights, and what changes for exams from February 2027.
-tags: CFA Level 1 exam format, CFA Level 1 topics, CFA Level 1 topic weights 2027, CFA Level 1 syllabus, CFA Level 1 changes 2027
+tags: CFA Level 1 exam format, CFA Level 1 topics, CFA Level 1 topic weights 2027, CFA Level 1 syllabus, CFA Level 1 changes 2027, CFA level 1 2027, CFA level 1 exam dates 2027, CFA level 1 fees, CFA level 1 pdf, what is CFA level 1
 updated: 2026-11-22
+seo_title: CFA Level 1 2027: exam dates, fees, format, topics and weights
+meta: CFA Level I in 2027: exam dates (Feb, May, Aug, Nov), fees, the 180-question format, topic weights from 2027 and how to study for it.
 ---
 Level I is about **breadth**. It introduces the whole toolkit of investment analysis: ethics, statistics, economics, accounting, corporate finance, and the main asset classes. No single topic is very deep, but nothing can be skipped.
 
@@ -108,6 +110,14 @@ CFA Institute suggests about 300 hours. Candidates with a finance or accounting 
 ### What score do I need to pass Level 1?
 
 The minimum passing score is not published and changes from window to window. Consistently scoring above 70% in full mock exams is a sensible target before sitting the real exam.
+
+### When is CFA Level 1 in 2027?
+
+Level I runs four times: 22–28 February, 11–17 May, 15–22 August and 13–19 November 2027. Deadlines and fees for each window are on [CFA exam dates 2027](cfa-dates-fees.html).
+
+### Is the CFA Level 1 curriculum available as a PDF?
+
+The official curriculum comes with your registration, in CFA Institute's online learning platform, along with practice questions and mock exams. Avoid unofficial PDFs shared online: they are often for an older curriculum and breach copyright.
 
 ## Sources
 

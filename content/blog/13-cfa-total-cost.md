@@ -5,8 +5,11 @@ order: 13
 summary: Exam fees alone come to USD 3,520 to 4,570 for all three levels. Add study materials and any retakes, and most candidates spend somewhere between USD 4,000 and 8,000.
 figure: cost_bars
 caption: Exam fees per level from February 2026. Registering early saves USD 350 on every level.
-tags: CFA cost, CFA fees, CFA total cost, CFA level 1 fees, CFA registration fee, CFA exam cost, CFA scholarship, how much is the CFA
+tags: CFA cost, CFA fees, CFA total cost, CFA level 1 fees, CFA registration fee, CFA exam cost, CFA scholarship, how much is the CFA, CFA course fees, CFA level 1 price, CFA level 1 cost, CFA exam price, CFA fees 2027
 group: Before you start: requirements, cost and careers
+seo_title: CFA course fees 2027: exam fees by level and the total cost
+meta: CFA course fees for 2027: USD 1,140–1,590 per exam, USD 3,520–4,570 for all three, plus prep materials, retakes and scholarships, in total.
+updated: 2026-11-22
 ---
 The cost of the CFA Program has three parts: **exam fees**, which are fixed; **study materials**, which are your choice; and **retakes**, which you hope to avoid. Here is how they add up.
 

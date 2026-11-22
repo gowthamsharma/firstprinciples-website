@@ -130,6 +130,18 @@ It depends on your role and experience more than on the exam. Passing Level III 
 
 Rarely. The charter pays off when you work in, or want to move into, investment roles where it is valued: research, portfolio management, wealth management and risk. See [is the CFA worth it](blog-is-cfa-worth-it.html) for the full case.
 
+### What is the CFA salary in India?
+
+The average base salary reported by people listing the CFA in India is about ₹10 lakh, but that mixes candidates with charterholders. CFA Institute's 2026 India study found about ₹32 lakh a year for recent charterholders (about six years' experience) and about ₹67 lakh for all charterholders (about ten years' experience). See the India section above for why the figures differ.
+
+### What is the CFA salary in the UK and the US?
+
+About £61,000 in the United Kingdom and $110,000 in the United States, as average base salaries reported to PayScale. Bonuses add a significant share on top in investment roles.
+
+### What is the CFA salary in South Africa?
+
+About R498,000 a year on average, based on 180 people reporting to PayScale. Johannesburg and Cape Town asset managers are the main employers.
+
 ## Sources
 
 - PayScale: Chartered Financial Analyst (CFA) salary pages for [Switzerland](https://www.payscale.com/research/CH/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [United States](https://www.payscale.com/research/US/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Hong Kong](https://www.payscale.com/research/HK/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Singapore](https://www.payscale.com/research/SG/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Germany](https://www.payscale.com/research/DE/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [United Kingdom](https://www.payscale.com/research/UK/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Australia](https://www.payscale.com/research/AU/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Luxembourg](https://www.payscale.com/research/LU/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Netherlands](https://www.payscale.com/research/NL/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Canada](https://www.payscale.com/research/CA/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [France](https://www.payscale.com/research/FR/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Ireland](https://www.payscale.com/research/IE/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [UAE](https://www.payscale.com/research/AE/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [China](https://www.payscale.com/research/CN/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [South Africa](https://www.payscale.com/research/ZA/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Philippines](https://www.payscale.com/research/PH/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [India](https://www.payscale.com/research/IN/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Pakistan](https://www.payscale.com/research/PK/Certification=Chartered_Financial_Analyst_(CFA)/Salary), [Nigeria](https://www.payscale.com/research/NG/Certification=Chartered_Financial_Analyst_(CFA)/Salary) (retrieved 16 November 2026)

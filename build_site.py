@@ -193,7 +193,7 @@ MENU = [
                        ("Choosing your pathway", "blog-level-3-pathways.html", ""), ("The last month before the exam", "blog-level-3-last-month.html", ""),
                        ("Level III formula sheet", "blog-cfa-level-3-formula-sheet.html", "")]),
         ("All three levels", [("How the levels differ", "blog-cfa-level-differences.html", ""), ("Pass rates by level", "cfa-pass-rates.html", ""),
-                              ("Dates and fees", "cfa-dates-fees.html", ""), ("Results dates", "blog-cfa-results-dates.html", "")])]),
+                              ("Exam dates 2027 and fees", "cfa-dates-fees.html", ""), ("Results dates", "blog-cfa-results-dates.html", "")])]),
     ("How to prepare", "how-to-prepare.html", [
         ("Start here", [("Are you ready? Self-check", "blog-ready-for-cfa-level-1.html", ""), ("Build your study plan", "blog-study-plan.html", ""),
                         ("Best order to study topics", "blog-cfa-study-order.html", ""), ("Free study planner (Excel)", "free-resources.html#planner", ""),

@@ -82,6 +82,10 @@ For each miss: the topic, the reason (knowledge gap, misread, calculation slip o
 
 Only after a gap, and only to check that the lessons stuck. A retake score overstates readiness, because you remember the questions.
 
+### Is there a CFA mock exam PDF?
+
+CFA Institute's official mock exams are taken online in its learning platform, which comes with registration; they are not distributed as PDFs. Mock exam PDFs found online are usually unofficial or out of date, and sharing them breaches copyright. Use the official mocks plus one reputable question bank.
+
 ## Sources
 
 - [CFA Institute: Level III exam and study tips (mock exams and rubrics)](https://www.cfainstitute.org/discover/level-iii-exam-and-study-tips)

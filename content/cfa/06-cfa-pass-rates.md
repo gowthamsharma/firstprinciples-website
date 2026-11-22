@@ -5,7 +5,10 @@ order: 6
 figure: pass_history
 caption: Pass rate for each level in every calendar year, 1963 to 2026 (all sessions in a year combined). Source: CFA Institute's historical exam results file, updated October 2026.
 summary: Every CFA exam result since the first one in 1963, from CFA Institute's own records: the latest sessions, how pass rates fell from over 80% to around 45%, the 2021 low, first-time versus deferred candidates, and what the numbers mean for your chances.
-tags: CFA pass rates, CFA Level 1 pass rate, CFA Level 2 pass rate, CFA Level 3 pass rate, CFA pass rate 2026, CFA pass rate history, CFA pass rate by year, CFA minimum passing score, CFA first time pass rate, lowest CFA pass rate
+tags: CFA pass rates, CFA Level 1 pass rate, CFA Level 2 pass rate, CFA Level 3 pass rate, CFA pass rate 2026, CFA pass rate history, CFA pass rate by year, CFA minimum passing score, CFA first time pass rate, lowest CFA pass rate, CFA exam pass rates, CFA pass rates 2026
+seo_title: CFA exam pass rates 2026 by level, and every session since 1963
+meta: CFA exam pass rates for Level I, II and III in every 2026 window, first-time pass rates, five- and ten-year averages and the full history since 1963.
+updated: 2026-11-22
 ---
 CFA Institute publishes the result of every exam it has ever held: how many candidates sat each level, how many passed and how many did not. This page uses that file (updated in October 2026, covering 99 sittings from June 1963 to August 2026) to show not just the latest numbers but how they got there.
 

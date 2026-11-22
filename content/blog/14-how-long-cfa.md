@@ -5,10 +5,11 @@ order: 14
 summary: The fastest possible route through all three exams is about a year, and 18 months is a more realistic fast track; most candidates take two to four years. Then you need 4,000 hours of work experience for the charter.
 figure: cfa_paths
 caption: Two example paths. The exam windows and the rules on retakes set the pace more than study speed does.
-tags: how long does CFA take, CFA duration, how many months for CFA level 1, can I do CFA in one year, CFA timeline, CFA time to complete, how long to study for CFA level 1
+tags: how long does CFA take, CFA duration, how many months for CFA level 1, can I do CFA in one year, CFA timeline, CFA time to complete, how long to study for CFA level 1, CFA course duration
 group: Before you start: requirements, cost and careers
-seo_title: How long does the CFA take? From Level I to the charter
-meta: Most candidates take two to four years to pass all three CFA exams; the fastest route is about a year. Then 4,000 hours of work experience.
+seo_title: CFA course duration: how long does the CFA take?
+meta: CFA course duration: most candidates take two to four years to pass all three exams, about a year at the fastest, then 4,000 hours of work experience.
+updated: 2026-11-22
 ---
 "How long does the CFA take?" has two answers: how long the **exams** take, and how long until you can call yourself a **charterholder**. The second is always longer.
 

@@ -3,8 +3,10 @@ title: CFA Level II: item sets, topics and weights
 slug: cfa-level-2
 order: 3
 summary: Level II is valuation, tested through 22 case studies with four questions each. The format, the weights, and why it feels harder than Level I.
-tags: CFA Level 2 exam format, CFA Level 2 topics, CFA Level 2 topic weights, CFA Level 2 syllabus, CFA Level 2 item sets
+tags: CFA Level 2 exam format, CFA Level 2 topics, CFA Level 2 topic weights, CFA Level 2 syllabus, CFA Level 2 item sets, CFA level 2 2027, CFA level 2 exam dates 2027, what is CFA level 2, CFA level 2 fees
 updated: 2026-11-22
+seo_title: CFA Level 2 2027: exam dates, item sets, topics and weights
+meta: CFA Level II in 2027: exam dates (May, Aug, Nov), fees, the 22 item-set format, topic weights, a 300-hour study plan and how Level II is scored.
 ---
 Level II takes the Level I tools and asks you to **apply** them, mostly to valuation: what is this share, bond, derivative or company worth, which model fits, and which assumption drives the answer?
 
@@ -116,6 +118,10 @@ Plan for at least 300 hours. Candidates without a finance or accounting backgrou
 ### Is there a formula sheet for Level 2?
 
 No sheet is given in the exam. Our [Level II formula sheet](blog-cfa-level-2-formula-sheet.html) collects the formulas by topic so you can learn them.
+
+### When is CFA Level 2 in 2027?
+
+Three times: 18–22 May, 23–27 August and 20–24 November 2027. There is no February Level II window. See [CFA exam dates 2027](cfa-dates-fees.html) for deadlines.
 
 ## Sources
 
