@@ -902,3 +902,21 @@ tbody tr:hover { background: #EAF2FA; }
 .top nav .mega .mhome:hover { color: var(--sky); }
 .top nav .mega li a:hover, .top nav .mega li a[aria-current="page"] { color: var(--sky); }
 .top nav .mega .mt, .top nav .mega .mt:hover { color: #fff; }
+
+/* ---------- practice questions ---------- */
+.pq { max-width: var(--read); margin: 2.4rem 0 2rem; padding: 1.6rem 1.8rem 1.2rem; background: #F3F6F9; border-top: 3px solid var(--blue); }
+.pq-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .4rem 1.2rem; margin-bottom: 1.2rem; }
+.pq-k { font-size: .78rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin: 0; }
+.pq-score { margin: 0; font-size: .92rem; color: var(--muted); }
+.pq-score b { color: var(--head); }
+.pq ol { list-style: decimal; padding-left: 1.3rem; margin: 0; }
+.pq ol > li { margin-bottom: 1.6rem; padding-left: .3rem; }
+.pq-q { font-weight: 600; color: var(--head); margin: 0 0 .6rem; }
+.pq-e { margin-top: .7rem; padding: .8rem 1rem; background: #fff; border-left: 3px solid var(--sky); font-size: .93rem; line-height: 1.6; }
+.pq-e p { margin: 0; }
+.pq li.ok .pq-e { border-left-color: #0FA968; }
+.pq li.no .pq-e { border-left-color: #D64545; }
+.pq-foot { margin: .4rem 0 .4rem; }
+.waitlist { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.2rem; margin: 1.2rem 0 1.6rem; }
+.waitlist span { font-size: .88rem; color: var(--muted); }
+@media print { .pq-e { display: block !important; } .pq-foot { display: none; } }

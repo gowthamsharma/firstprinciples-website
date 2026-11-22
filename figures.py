@@ -1526,3 +1526,133 @@ def prestige_filter():
         x += w + g
     s.text("10-year average pass rates, CFA Institute data 2017–2026", 20, 228, 12, DIM, cls="")
     return s.svg()
+
+
+# =====================================================================  country pages, practice questions
+def country_fees(d):
+    """Exam fees in local currency, early vs standard, for one country (data from gen_countries.py)."""
+    s = S(640, 270, f"CFA exam fees in {d['cur']}, early versus standard registration")
+    x0, y0, x1, y1 = 60, 220, 620, 60
+    s.axes(x0, y0, x1, y1, "", "")
+    Y = lambda v: y0 - v / 1900 * (y0 - y1)
+    for i, lv in enumerate(["I", "II", "III"]):
+        e, st = d["fees"][lv]
+        le, ls = d["labels"][lv]
+        cx = x0 + 85 + i * 175
+        s.rect(cx - 40, Y(e), 38, y0 - Y(e), TEAL, 0.85, i * 0.25)
+        s.rect(cx + 2, Y(st), 38, y0 - Y(st), BLUE, 0.85, 0.12 + i * 0.25)
+        s.text(le, cx - 21, Y(e) - 8, 11, TEAL, "middle", t=0.6 + i * 0.25)
+        s.text(ls, cx + 21, Y(st) - 8, 11, BLUE, "middle", t=0.7 + i * 0.25)
+        s.text(f"Level {lv}", cx, y0 + 18, 13, INK, "middle", cls="")
+    s.rect(x0 + 10, 18, 12, 12, TEAL, 0.85, 1.2, "f"); s.text("early", x0 + 28, 29, 12, SOFT, t=1.2)
+    s.rect(x0 + 80, 18, 12, 12, BLUE, 0.85, 1.2, "f"); s.text("standard", x0 + 98, 29, 12, SOFT, t=1.2)
+    s.text(f"fees in {d['cur']} ({d['name']})", x1, 29, 13, YEL, "end", True, t=1.5)
+    return s.svg()
+
+
+def npv_profile():
+    s = S(640, 270, "NPV falls as the discount rate rises; it crosses zero at the IRR")
+    x0, y0, x1, y1 = frame(s, "discount rate", "NPV", 60, 150, 610, 30)
+    X = lambda r: x0 + r / 0.20 * (x1 - x0)
+    npv = lambda r: sum(400 / (1 + r) ** t for t in (1, 2, 3)) - 1000 if r > -1 else 0
+    Y = lambda v: 150 - v / 220 * 110
+    s.line([(x0, 150), (x1, 150)], RULE, 1, 0, cls="f")
+    s.curve(npv, 0, 0.2, X, Y, color=BLUE, width=2.6, t=0.2)
+    irr = 0.0970
+    s.dot(X(irr), Y(0), 6, YEL, 1.2); s.text("IRR ≈ 9.7%", X(irr) + 8, 140, 13, YEL, t=1.3)
+    s.dot(X(0.10), Y(npv(0.10)), 5, RED, 1.5); s.text("at 10%: NPV = −5.26", X(0.10) + 10, Y(npv(0.10)) + 22, 12, RED, t=1.6)
+    for r in (0, 0.05, 0.10, 0.15, 0.20):
+        s.text(f"{r:.0%}", X(r), 255, 11, DIM, "middle", cls="")
+    s.text("+200 at 0%", X(0) + 8, Y(200) - 4, 12, SOFT, t=0.4)
+    return s.svg()
+
+
+def ddm_stack():
+    s = S(640, 270, "Each future dividend is smaller once discounted; the stack adds up to the share price")
+    x0, y0 = 50, 220
+    for t in range(1, 13):
+        d = 2.10 * 1.05 ** (t - 1)
+        pv = d / 1.09 ** t
+        h_d, h_pv = d * 34, pv * 34
+        x = x0 + (t - 1) * 46
+        s.rect(x, y0 - h_d, 30, h_d, RULE, 0.9, t * 0.06, stroke=DIM)
+        s.rect(x, y0 - h_pv, 30, h_pv, BLUE, 0.85, 0.4 + t * 0.06)
+        s.text(str(t), x + 15, y0 + 16, 11, DIM, "middle", cls="")
+    s.text("year", x0 + 12 * 46, y0 + 16, 11, DIM, cls="")
+    s.text("grey: dividend paid (grows 5%)   blue: its value today at 9%", 50, 28, 12, SOFT, t=1.2)
+    s.text("sum of all blue bars, forever: 2.10 / (0.09 − 0.05) = 52.50", 620, 52, 13, YEL, "end", t=1.6)
+    return s.svg()
+
+
+def price_yield():
+    s = S(640, 270, "Bond price against yield: a convex curve, steeper at low yields")
+    x0, y0, x1, y1 = frame(s, "yield to maturity", "price", 60, 230, 610, 30)
+    price = lambda y: sum(5 / (1 + y) ** t for t in range(1, 11)) + 100 / (1 + y) ** 10
+    X = lambda y: x0 + (y - 0.01) / 0.10 * (x1 - x0)
+    Y = lambda p: y0 - (p - 50) / 90 * (y0 - y1)
+    s.curve(price, 0.01, 0.11, X, Y, color=BLUE, width=2.6, t=0.2)
+    p6 = price(0.06); dur = -(price(0.0601) - price(0.0599)) / 0.0002 / p6
+    tang = lambda y: p6 * (1 - dur * (y - 0.06))
+    s.curve(tang, 0.025, 0.095, X, Y, color=DIM, width=1.4, t=1.0, dash="5 5")
+    s.dot(X(0.06), Y(p6), 6, YEL, 1.2)
+    s.text("duration: the straight-line estimate", X(0.095), Y(tang(0.095)) + 18, 12, DIM, "end", True, t=1.3)
+    s.text("convexity: the true price stays above the line", X(0.10), Y(price(0.10)) - 14, 12, BLUE, "end", True, t=1.6)
+    for y in (0.02, 0.04, 0.06, 0.08, 0.10):
+        s.text(f"{y:.0%}", X(y), 254, 11, DIM, "middle", cls="")
+    return s.svg()
+
+
+def payoff_diagram():
+    s = S(640, 270, "Profit at expiry: long call and long put, strike 40, premium 3")
+    x0, y0, x1, y1 = 60, 140, 610, 30
+    X = lambda S_: x0 + (S_ - 20) / 40 * (x1 - x0)
+    Y = lambda v: y0 - v * 5.5
+    s.line([(x0, y0), (x1, y0)], RULE, 1, 0, cls="f")
+    s.line([(X(20), Y(-3)), (X(40), Y(-3)), (X(60), Y(17))], BLUE, 2.6, 0.2)
+    s.line([(X(20), Y(17)), (X(40), Y(-3)), (X(60), Y(-3))], TEAL, 2.6, 0.8)
+    s.dot(X(43), Y(0), 5, BLUE, 1.4); s.text("call breaks even at 43", X(43) + 8, Y(0) + 18, 12, BLUE, t=1.4)
+    s.dot(X(37), Y(0), 5, TEAL, 1.6); s.text("put breaks even at 37", X(37) - 8, Y(0) + 18, 12, TEAL, "end", t=1.6)
+    s.dot(X(46), Y(3), 6, YEL, 1.9); s.text("S = 46: call profit 3", X(46) + 8, Y(3) - 8, 12, YEL, t=1.9)
+    for v in (20, 30, 40, 50, 60):
+        s.text(str(v), X(v), 250, 11, DIM, "middle", cls="")
+    s.text("price of the stock at expiry", x1, 266, 11, DIM, "end", True, cls="")
+    s.text("max loss = premium (3)", X(22), Y(-3) + 18, 12, SOFT, t=1.2)
+    return s.svg()
+
+
+def hf_fees():
+    s = S(640, 250, "Where a 15% gross return goes under 2 and 20 fees")
+    x0, y0 = 70, 200
+    W = lambda v: v / 15 * 480
+    parts = [("management fee 2.0", 2.0, RED), ("incentive fee 2.6", 2.6, YEL), ("investor keeps 10.4", 10.4, TEAL)]
+    x = x0
+    for i, (lab, v, col) in enumerate(parts):
+        s.rect(x, 110, W(v), 46, col, 0.85, i * 0.35, "gx")
+        s.text(lab, x + W(v) / 2, 98 if i < 2 else 180, 12, col, "middle", t=0.5 + i * 0.35)
+        x += W(v)
+    s.text("gross return 15", x0, 70, 13, SOFT, t=0.2)
+    s.text("incentive = 20% × (15 − 2) = 2.6", 560, 230, 12, SOFT, "end", True, t=1.6)
+    return s.svg()
+
+
+def frontier():
+    s = S(640, 270, "Mixing two risky assets: with correlation below 1, the curve bows to the left")
+    x0, y0, x1, y1 = frame(s, "risk (standard deviation)", "expected return", 60, 230, 610, 30)
+    X = lambda sd: x0 + sd / 0.24 * (x1 - x0)
+    Y = lambda r: y0 - (r - 0.03) / 0.09 * (y0 - y1)
+    rA, rB, sA, sB = 0.10, 0.05, 0.20, 0.10
+    pts_s, pts_l = [], []
+    for k in range(41):
+        w = k / 40
+        r = w * rA + (1 - w) * rB
+        for rho, lst in ((0.2, pts_s), (1.0, pts_l)):
+            sd = (w * w * sA * sA + (1 - w) ** 2 * sB * sB + 2 * w * (1 - w) * rho * sA * sB) ** 0.5
+            lst.append((X(sd), Y(r)))
+    s.line(pts_l, DIM, 1.4, 0.2, dash="5 5")
+    s.line(pts_s, BLUE, 2.6, 0.6)
+    w = 0.6; r = w * rA + (1 - w) * rB
+    sd = (w * w * sA * sA + (1 - w) ** 2 * sB * sB + 2 * w * (1 - w) * 0.2 * sA * sB) ** 0.5
+    s.dot(X(sd), Y(r), 6, YEL, 1.4); s.text("60/40: σ = 13.4%", X(sd) - 10, Y(r) - 10, 12, YEL, "end", t=1.5)
+    s.text("correlation 1: no diversification", X(0.16), Y(0.075) + 22, 11, DIM, "start", True, t=1.0)
+    s.text("A", X(sA) + 8, Y(rA) + 4, 13, INK, t=1.0); s.text("B", X(sB) - 16, Y(rB) + 4, 13, INK, t=1.0)
+    return s.svg()

@@ -511,3 +511,49 @@
     var st = e.target.closest(".loopable"); if (st) window.fpTrack("diagram_toggle");
   });
 })();
+
+/* ---- practice questions: answer, see why, score kept in this browser ---- */
+(function () {
+  var box = document.querySelector(".pq");
+  if (!box) return;
+  var KEY = "fp-practice-" + box.getAttribute("data-key"), items = box.querySelectorAll("ol > li"), score = box.querySelector(".pq-score");
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  function show(li, v) {
+    var c = +li.getAttribute("data-c");
+    li.setAttribute("data-a", v);
+    li.className = v === c ? "ok" : "no";
+    li.querySelectorAll(".lq-o button").forEach(function (b, j) {
+      b.disabled = true;
+      if (j === c) b.classList.add("right");
+      else if (j === v) b.classList.add("wrong");
+    });
+    li.querySelector(".pq-e").hidden = false;
+  }
+  function tally() {
+    var a = box.querySelectorAll("li[data-a]").length, r = box.querySelectorAll("li.ok").length;
+    score.innerHTML = a ? "<b>" + r + " of " + a + "</b> correct" + (a < items.length ? " · " + (items.length - a) + " to go" : " · all answered") : "Choose an answer to see the explanation.";
+  }
+  items.forEach(function (li, i) {
+    if (saved[i] !== undefined) show(li, saved[i]);
+    li.querySelectorAll(".lq-o button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        if (li.hasAttribute("data-a")) return;
+        var v = +b.getAttribute("data-v");
+        show(li, v); saved[i] = v;
+        try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {}
+        tally();
+        if (window.fpTrack && Object.keys(saved).length === items.length) window.fpTrack("practice_completed");
+      });
+    });
+  });
+  box.querySelector(".pq-reset").addEventListener("click", function () {
+    saved = {}; try { localStorage.removeItem(KEY); } catch (e) {}
+    items.forEach(function (li) {
+      li.removeAttribute("data-a"); li.className = ""; li.querySelector(".pq-e").hidden = true;
+      li.querySelectorAll(".lq-o button").forEach(function (b) { b.disabled = false; b.className = ""; });
+    });
+    tally();
+  });
+  tally();
+})();

@@ -27,7 +27,21 @@ NAME, EMAIL = "Gowtham Kumar", "gkinba@gmail.com"
 CLARITY_ID = "zf2slpx8uv"  # Microsoft Clarity project ID; loads only after the visitor accepts the banner
 CF_BEACON = "a9877ea4bed648d990739f9b34199681"  # Cloudflare Web Analytics token (cookieless); empty = no tracking
 CHECKED = "16 November 2026"
-UPDATED = datetime.date.today().strftime("%d %b %Y").upper()
+DEFAULT_UPDATED = "2026-11-17"   # pages without an `updated:` field were last changed on this date
+LASTMOD = {}                     # page -> ISO date, for the sitemap
+AUTHOR = {"@type": "Person", "name": NAME, "url": "https://firstprinciples.courses/index.html#about",
+          "jobTitle": "Fixed income index management professional, Frankfurt; CFA Level III candidate",
+          "alumniOf": "Frankfurt School of Finance & Management"}
+PUBLISHER = {"@type": "Organization", "name": "First Principles", "url": "https://firstprinciples.courses/",
+             "logo": {"@type": "ImageObject", "url": "https://firstprinciples.courses/logo-512.png", "width": 512, "height": 512}}
+
+
+def upd(p):
+    return p.get("updated") or DEFAULT_UPDATED
+
+
+def show_date(iso):
+    return datetime.date.fromisoformat(iso).strftime("%d %b %Y").upper()
 
 DISCLAIMER = ("CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by "
               "First Principles. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.")
@@ -136,6 +150,8 @@ def render_md(p):
     body = re.sub(r"<p>\[\[figure\]\]</p>", lambda _: figure_html(p["figure"], p.get("caption", "")) if p.get("figure") else "", body)
     body = re.sub(r"<p>\[\[fig:(\w+)(?:\|(.*?))?\]\]</p>", lambda m: figure_html(m.group(1), m.group(2)), body)
     body = re.sub(r"<p>\[\[widget:(\w+)\]\]</p>", lambda m: f'<div class="widget" data-widget="{m.group(1)}"></div>', body)
+    body = re.sub(r"<p>\[\[practice:([\w-]+)\]\]</p>", lambda m: practice_html(m.group(1)), body)
+    body = body.replace("<p>[[waitlist]]</p>", f'<p class="waitlist"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=First%20Principles%20course%20waitlist" data-track="waitlist_click">Email me when it opens</a><span>One email when the course opens. No newsletter, no sharing your address.</span></p>')
     return body
 
 
@@ -161,25 +177,31 @@ MENU = [
         ("CFA Program guide", [("The CFA Program explained", "cfa-program.html", ""), ("2027 exam dates and fees", "cfa-dates-fees.html", ""),
                                ("Pass rates", "cfa-pass-rates.html", ""), ("Requirements and eligibility", "blog-cfa-requirements.html", ""),
                                ("Total cost", "blog-cfa-total-cost.html", ""), ("Most challenging topics", "blog-hardest-cfa-topics.html", "")]),
+        ("CFA in your country", [("United States", "cfa-in-us.html", ""), ("United Kingdom", "cfa-in-uk.html", ""), ("India", "cfa-in-india.html", ""),
+                                 ("Canada", "cfa-in-canada.html", ""), ("UAE", "cfa-in-uae.html", ""), ("Germany", "cfa-in-germany.html", ""),
+                                 ("All 12 countries", "cfa-by-country.html", "")]),
         ("Big questions", [("Is the CFA worth it?", "blog-is-cfa-worth-it.html", ""), ("Why the CFA is hard", "blog-why-cfa-is-hard.html", ""),
                            ("Results: when and how", "blog-cfa-results.html", ""), ("CFA vs FRM", "blog-cfa-vs-frm.html", ""),
                            ("CFA vs MBA", "blog-cfa-vs-mba.html", ""), ("CFA vs CPA, CFP, ACCA, CA", "blog-cfa-vs-cpa-cfp-acca.html", "")])]),
     ("Levels", "cfa-program.html", [
         ("Level I", [("Level I: format and topics", "cfa-level-1.html", ""), ("Level I strategy", "blog-level-1-strategy.html", ""),
-                     ("Level I formula sheet", "blog-cfa-level-1-formula-sheet.html", "")]),
+                     ("Level I practice questions", "cfa-level-1-practice-questions.html", ""), ("Level I formula sheet", "blog-cfa-level-1-formula-sheet.html", ""),
+                     ("Level I course", "cfa-level-1-course.html", "")]),
         ("Level II", [("Level II: format and topics", "cfa-level-2.html", ""), ("Item sets (vignettes)", "blog-level-2-item-sets.html", "")]),
         ("Level III", [("Level III: format and topics", "cfa-level-3.html", ""), ("Written (constructed response) answers", "blog-level-3-constructed-response.html", ""),
-                       ("Choosing your pathway", "blog-level-3-pathways.html", "")]),
+                       ("Choosing your pathway", "blog-level-3-pathways.html", ""), ("The last month before the exam", "blog-level-3-last-month.html", "")]),
         ("All three levels", [("How the levels differ", "blog-cfa-level-differences.html", ""), ("Pass rates by level", "cfa-pass-rates.html", ""),
                               ("Dates and fees", "cfa-dates-fees.html", "")])]),
     ("How to prepare", "how-to-prepare.html", [
         ("Start here", [("Are you ready? Self-check", "blog-ready-for-cfa-level-1.html", ""), ("Build your study plan", "blog-study-plan.html", ""),
                         ("Best order to study topics", "blog-cfa-study-order.html", ""), ("Free study planner (Excel)", "free-resources.html#planner", ""),
                         ("Self-study without coaching", "blog-cfa-self-study.html", ""), ("Choosing prep materials", "blog-choosing-prep-materials.html", "")]),
-        ("Level I", [("How to pass Level I", "blog-level-1-strategy.html", ""), ("Formula sheet", "blog-cfa-level-1-formula-sheet.html", ""),
-                     ("Calculator guide", "blog-ba-ii-plus-calculator-guide.html", "")]),
+        ("Level I", [("How to pass Level I", "blog-level-1-strategy.html", ""), ("100 practice questions", "cfa-level-1-practice-questions.html", ""),
+                     ("Formula sheet", "blog-cfa-level-1-formula-sheet.html", ""), ("Calculator guide", "blog-ba-ii-plus-calculator-guide.html", ""),
+                     ("Failed Level I? What next", "blog-failed-cfa-level-1.html", "")]),
         ("Level II", [("How to pass Level II", "blog-level-2-item-sets.html", ""), ("Prerequisites for valuation", "prerequisites.html", "")]),
-        ("Level III", [("How to pass Level III", "blog-level-3-constructed-response.html", ""), ("Pick your pathway", "blog-level-3-pathways.html", "")]),
+        ("Level III", [("How to pass Level III", "blog-level-3-constructed-response.html", ""), ("Pick your pathway", "blog-level-3-pathways.html", ""),
+                       ("The last four weeks", "blog-level-3-last-month.html", "")]),
         ("Every level", [("Most challenging topics", "blog-hardest-cfa-topics.html", ""), ("Ethics", "blog-ethics.html", ""), ("Mock exams", "blog-mock-exams.html", ""), ("Exam day", "blog-exam-day.html", ""),
                          ("The first-principles method", "blog-first-principles-method.html", "")])]),
     ("Prerequisites", "prerequisites.html", None),       # filled from the concepts at build time
@@ -187,8 +209,10 @@ MENU = [
         ("Tools", [("Study planner (Excel)", "free-resources.html#planner", "Plan, track hours, keep your streak"),
                    ("BA II Plus calculator online", "blog-ba-ii-plus-calculator-guide.html", "Press every key in your browser"),
                    ("Level I formula sheet", "blog-cfa-level-1-formula-sheet.html", "About fifty formulas by topic"),
-                   ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice")]),
+                   ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice"),
+                   ("Level I practice questions", "cfa-level-1-practice-questions.html", "100 questions with worked answers")]),
         ("Learn", [("Prerequisites course", "prerequisites.html", "50 graded lessons, with your progress saved"),
+                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("CFA in your country", "cfa-by-country.html", ""),
                    ("Study blog", "blog.html", "")])]),
     ("Blog", "blog.html", []),
 ]
@@ -199,7 +223,7 @@ MENU_HTML = ""
 PROMOS = {
     "Most searched": [("A BA II Plus in your browser", "Press every key, or watch worked exam examples play out with the formula behind each one.", "blog-ba-ii-plus-calculator-guide.html"),
                       ("What a CFA earns, worldwide", "Base pay and bonuses in 19 countries, and the ten jobs charterholders do.", "blog-cfa-salary.html")],
-    "Levels": [("Which topics are hardest?", "Weight times trouble: the topics that cost the most marks at each level.", "blog-hardest-cfa-topics.html"),
+    "Levels": [("100 Level I practice questions", "Ten per topic, in the exam's format, each with a worked answer.", "cfa-level-1-practice-questions.html"),
                ("Ready for Level I?", "Ten honest questions and a plan for the gaps, in two minutes.", "blog-ready-for-cfa-level-1.html")],
     "How to prepare": [("Free study planner", "An Excel planner that builds your weekly plan and keeps your streak.", "free-resources.html#planner"),
                        ("How long it really takes", "We ran 100,000 candidates through the real exam calendar.", "blog-cfa-time-to-pass.html")],
@@ -255,7 +279,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="stylesheet" href="style.css?v=12">
 {extra_head}
 {('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
@@ -269,8 +293,8 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 {main}
 <footer class="foot">
 <div class="wrap fcols">
-  <div><p class="fh">Learn</p><a href="prerequisites.html">Prerequisite concepts</a><a href="cfa-level-1.html">CFA Level I</a><a href="cfa-level-2.html">CFA Level II</a><a href="cfa-level-3.html">CFA Level III</a><a href="blog-history-of-cfa.html">History of the CFA</a></div>
-  <div><p class="fh">Most searched</p><a href="blog-ba-ii-plus-calculator-guide.html">BA II Plus calculator guide</a><a href="blog-cfa-salary.html">CFA salary by country</a><a href="blog-cfa-jobs-salaries.html">CFA jobs and salaries</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="cfa-dates-fees.html">2027 exam dates and fees</a></div>
+  <div><p class="fh">Learn</p><a href="prerequisites.html">Prerequisite concepts</a><a href="cfa-level-1.html">CFA Level I</a><a href="cfa-level-2.html">CFA Level II</a><a href="cfa-level-3.html">CFA Level III</a><a href="cfa-level-1-practice-questions.html">Level I practice questions</a><a href="cfa-course.html">The CFA course</a></div>
+  <div><p class="fh">Most searched</p><a href="blog-ba-ii-plus-calculator-guide.html">BA II Plus calculator guide</a><a href="blog-cfa-salary.html">CFA salary by country</a><a href="blog-cfa-jobs-salaries.html">CFA jobs and salaries</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-by-country.html">CFA by country</a></div>
   <div><p class="fh">Prepare</p><a href="how-to-prepare.html">How to prepare</a><a href="free-resources.html#planner">Free study planner (Excel)</a><a href="blog-cfa-study-order.html">Best order to study topics</a><a href="blog-mock-exams.html">Mock exams</a><a href="blog-exam-day.html">Exam day</a></div>
   <div><p class="fh">First Principles</p><a href="index.html#about">About</a><a href="mailto:{OBF}">Contact by email</a><a href="blog.html">Study blog</a><a href="free-resources.html">Free resources</a><a href="photo-credits.html">Photo credits</a></div>
 </div>
@@ -280,7 +304,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
-<script src="site.js?v=10" defer></script>{beacon}
+<script src="site.js?v=12" defer></script>{beacon}
 </body>
 </html>
 """
@@ -299,17 +323,22 @@ def tags(p):
     return [t.strip() for t in p.get("tags", "").split(",") if t.strip()]
 
 
-def jsonld(p, url):
+def jsonld(p, url, crumbs=None):
     out = ""
     faq = faq_pairs(p)
     if faq:
         out += '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": re.sub(r"[*_]", "", a)}} for q, a in faq]}) + "</script>"
-    data = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p.get("summary", ""),
-            "image": f"{SITE}/thumb-{p['slug']}.svg",
-            "author": {"@type": "Person", "name": NAME}, "datePublished": "2026-11-16", "dateModified": TODAY,
-            "mainEntityOfPage": url, "publisher": {"@type": "Organization", "name": "First Principles"}, "keywords": ", ".join(tags(p))}
-    return out + f'<script type="application/ld+json">{json.dumps(data)}</script>'
+    k = photo_key(p["slug"], p)
+    data = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"][:110], "description": p.get("summary", ""),
+            "image": f"{SITE}/img/{k}.jpg" if k else f"{SITE}/hero-poster.jpg",
+            "author": AUTHOR, "datePublished": p.get("published", "2026-11-16" if upd(p) <= DEFAULT_UPDATED else upd(p)), "dateModified": upd(p),
+            "mainEntityOfPage": url, "publisher": PUBLISHER, "keywords": ", ".join(tags(p))}
+    out += f'<script type="application/ld+json">{json.dumps(data)}</script>'
+    if crumbs:
+        items = [{"@type": "ListItem", "position": i + 1, "name": n, "item": f"{SITE}/{h}"} for i, (n, h) in enumerate(crumbs)]
+        out += '<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}) + "</script>"
+    return out
 
 
 def slugify(t):
@@ -375,13 +404,63 @@ def quiz_html(p, total):
             f'<ol>{lis}</ol><div class="lq-r" aria-live="polite"></div></section>')
 
 
+import practice_bank
+
+
+def practice_items(key):
+    out = []
+    for i, (q, opts, x) in enumerate(practice_bank.TOPICS[key]):
+        order = list(range(3))
+        _random.Random(f"practice-{key}-{i}").shuffle(order)
+        out.append((q, [opts[k] for k in order], order.index(0), x))
+    return out
+
+
+def practice_html(key):
+    items = practice_items(key)
+    lis = ""
+    for i, (q, opts, c, x) in enumerate(items):
+        btns = "".join(f'<button type="button" data-v="{j}"><b>{"ABC"[j]}</b>{html.escape(o)}</button>' for j, o in enumerate(opts))
+        lis += (f'<li data-c="{c}"><p class="pq-q">{html.escape(q)}</p><div class="lq-o">{btns}</div>'
+                f'<div class="pq-e" hidden><p><b>Answer: {"ABC"[c]}.</b> {html.escape(x)}</p></div></li>')
+    return (f'<section class="pq" id="questions" data-key="{key}"><div class="pq-head"><p class="pq-k">{len(items)} questions · Level I format · about 15 minutes</p>'
+            f'<p class="pq-score" aria-live="polite">Choose an answer to see the explanation.</p></div><ol>{lis}</ol>'
+            f'<p class="pq-foot"><button type="button" class="btn line pq-reset">Clear my answers</button></p></section>')
+
+
+def practice_ld(key, p):
+    """schema.org Quiz markup (Google's practice-problems format)."""
+    name, weight, scope = practice_bank.META[key]
+    parts = []
+    for q, opts, c, x in practice_items(key):
+        ans = [{"@type": "Answer", "position": j, "encodingFormat": "text/html", "text": o} for j, o in enumerate(opts)]
+        acc = dict(ans[c]); acc["answerExplanation"] = {"@type": "Comment", "text": x, "encodingFormat": "text/html"}
+        parts.append({"@type": "Question", "eduQuestionType": "Multiple choice", "learningResourceType": "Practice problem", "name": q[:90],
+                      "text": q, "encodingFormat": "text/html", "suggestedAnswer": [a for j, a in enumerate(ans) if j != c], "acceptedAnswer": acc})
+    d = {"@context": "https://schema.org", "@type": "Quiz", "name": p["title"], "about": {"@type": "Thing", "name": name},
+         "educationalLevel": "CFA Program Level I", "assesses": scope, "hasPart": parts,
+         "educationalAlignment": [{"@type": "AlignmentObject", "alignmentType": "educationalSubject", "targetName": name}]}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
+
+def course_ld(p):
+    lvl = p.get("course", "all")
+    d = {"@context": "https://schema.org", "@type": "Course", "name": p["title"].split(":")[0], "description": p.get("summary", ""),
+         "url": f"{SITE}/{p['slug']}.html", "inLanguage": "en", "provider": PUBLISHER, "author": AUTHOR,
+         "educationalLevel": {"1": "CFA Program Level I", "2": "CFA Program Level II", "3": "CFA Program Level III"}.get(lvl, "CFA Program Levels I to III"),
+         "teaches": ", ".join(tags(p)[:6]), "isAccessibleForFree": False,
+         "hasCourseInstance": [{"@type": "CourseInstance", "courseMode": "Online", "courseWorkload": "PT300H",
+                                 "startDate": "2027", "instructor": AUTHOR}]}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>"
+
+
 def promo(kind):
     t, x, h, b = PROMO[kind]
     return (f'<aside class="promo"><div><h3>{t}</h3><p>{x}</p></div>'
             f'<a class="go" href="{h}" data-track="promo_click"><span>{b}</span><i aria-hidden="true"></i></a></aside>')
 
 
-def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles", kind="default", extra="", head_extra=""):
+def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles", kind="default", extra="", head_extra="", extra_ld="", title_tag=None):
     url = f"{SITE}/{p['slug']}.html"
     tg = tags(p)
     chips = (f'<aside class="tags"><span>Tags:</span>' + "".join(f'<span>{html.escape(t)}</span>' for t in tg) + "</aside>") if tg else ""
@@ -399,7 +478,7 @@ def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles",
     main = f"""<main>
 <section class="ahead{' photo' if k else ''}"{photo_style(k)}>{art}<div class="wrap"><a class="back" href="{back[0]}">{back[1]}</a></div></section>
 <div class="wrap"><header class="acard">
-  <div class="ameta"><span class="rt">{minutes(p)} min read</span><span class="cat">{eyebrow}</span><span class="dt">Updated {UPDATED}</span></div>
+  <div class="ameta"><span class="rt">{minutes(p)} min read</span><span class="cat">{eyebrow}</span><span class="dt">Updated {show_date(upd(p))}</span></div>
   <h1>{p['title']}</h1>
   <div class="aby"><span>By <a href="index.html#about">{NAME}</a></span><span>{cat}</span></div>
   <p class="lead">{p.get('summary', '')}</p>
@@ -411,7 +490,9 @@ def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles",
     if p.get("layout") == "calc":
         kw += '<script src="ba2.js" defer></script>'
     kw += head_extra
-    return page(p["slug"] + ".html", f"{p['title']} | {suffix}", p.get("summary", ""), main, extra_head=kw + jsonld(p, url),
+    LASTMOD[p["slug"] + ".html"] = upd(p)
+    crumbs = [("Home", "index.html"), (back[1], back[0]), (p["title"], p["slug"] + ".html")]
+    return page(p["slug"] + ".html", title_tag or f"{p['title']} | {suffix}", p.get("summary", ""), main, extra_head=kw + jsonld(p, url, crumbs) + extra_ld,
                 image=(f"img/{k}.jpg" if k else f"thumb-{p['slug']}.svg"))
 
 
@@ -426,6 +507,10 @@ def nxt(lst, i, n=3):
 def build():
     built = ["index.html"]
     cfa, blog, pre = load("cfa"), load("blog"), load("prereq")
+    countries, practice, courses = load("country"), load("practice"), load("course")
+    cfigs = json.loads((ROOT / "data" / "country_figs.json").read_text(encoding="utf-8"))
+    for _k, _d in cfigs.items():
+        setattr(figures, _k, (lambda d=_d: figures.country_fees(d)))
     for i, p in enumerate(pre):
         p["n"] = i + 1
     pcols = []
@@ -438,7 +523,7 @@ def build():
     for k, m in enumerate(MENU):
         if m[0] == "Prerequisites":
             MENU[k] = (m[0], m[1], pcols)
-    for p in cfa + blog + pre:
+    for p in cfa + blog + pre + countries + practice + courses:
         make_thumb(p)
 
     for i, p in enumerate(cfa):
@@ -456,6 +541,41 @@ def build():
         built.append(article(p, ("prerequisites.html", "Prerequisites course"), f'Lesson {p["n"]} of {len(pre)}', p["topic"], pager, kind="calc", suffix="CFA prerequisite explained",
                              extra=quiz_html(p, len(pre)), head_extra='<script src="course.js" defer></script>',
                              keep=keep_reading(nxt(pre, i), lambda q: f'Concept {q["n"]:02d}', lambda q: q["topic"])))
+
+    # ---- CFA by country
+    for i, p in enumerate(countries):
+        built.append(article(p, ("cfa-by-country.html", "CFA by country"), f"Facts checked {show_date(upd(p)).title()}", "CFA by country", suffix="First Principles",
+                             title_tag=f"{p['title']} | First Principles",
+                             keep=keep_reading(nxt(countries, i), lambda q: "CFA by country", lambda q: "Country guide")))
+    built.append(hub("cfa-by-country.html", "CFA by country: exam centres, fees in local currency, salaries and recognition | First Principles",
+                     "Country guides to the CFA Program: test centre cities, exam fees in local currency, salaries, employers, regulator recognition and local CFA societies in 12 countries.",
+                     "CFA by country", f"{len(countries)} country guides", "The CFA in your country",
+                     "The exams and fees are the same everywhere; almost everything else is local. Where to sit the exam, what it costs in your currency, what charterholders earn, which employers hire them and how regulators treat the charter.",
+                     [("Country guides", "", countries, "Country guide")], "cfa-by-country.html"))
+
+    # ---- Level I practice questions
+    for i, p in enumerate(practice):
+        built.append(article(p, ("cfa-level-1-practice-questions.html", "Level I practice questions"), "Practice questions", "Level I practice", suffix="First Principles",
+                             title_tag=f"{p['title']} | First Principles", extra_ld=practice_ld(p["pkey"], p),
+                             keep=keep_reading(nxt(practice, i), lambda q: "Practice", lambda q: "Level I practice")))
+    rows = "".join(f'<tr><td><a href="{p["slug"]}.html">{practice_bank.META[p["pkey"]][0]}</a></td><td>{practice_bank.META[p["pkey"]][1]}</td><td>{practice_bank.META[p["pkey"]][2]}</td><td>10</td></tr>' for p in practice)
+    table = (f'<section class="group"><h2>All ten topics</h2><div class="tablewrap" style="margin-top:1.2rem"><table><thead><tr><th>Topic</th><th>2027 weight</th><th>What the questions cover</th><th>Questions</th></tr></thead>'
+             f'<tbody>{rows}</tbody></table></div><p class="sub" style="margin-top:1rem">Every question is original, written for First Principles in the Level I format (a short stem and three options), with a worked explanation. None is taken from CFA Institute material.</p></section>')
+    out = hub("cfa-level-1-practice-questions.html", "CFA Level I practice questions: 100 free questions with worked answers | First Principles",
+              "100 free CFA Level I practice questions across all ten topics, in the exam's three-option format, each with a worked explanation. Ethics, quant, FSA, fixed income, equity and more.",
+              "Level I practice questions", "100 questions · 10 topics · free", "CFA Level I practice questions",
+              "Ten original questions for every Level I topic, in the exam's format, each with a worked explanation of the right answer and why the others are wrong. Answer first, then check.",
+              [("Pick a topic", "", practice, "10 questions")], "cfa-level-1-practice-questions.html")
+    hp = (ROOT / out).read_text(encoding="utf-8")
+    hp = hp.replace('<div class="wrap" style="padding-bottom:4rem">', '<div class="wrap" style="padding-bottom:4rem">' + table, 1)
+    (ROOT / out).write_text(hp, encoding="utf-8")
+    built.append(out)
+
+    # ---- course pages
+    for i, p in enumerate(courses):
+        built.append(article(p, ("cfa-course.html", "The CFA course") if p["slug"] != "cfa-course" else ("index.html", "Home"), "The course", "CFA course", suffix="First Principles",
+                             title_tag=f"{p['title']} | First Principles", extra_ld=course_ld(p),
+                             keep=keep_reading([q for q in courses if q is not p][:3], lambda q: "Course", lambda q: "CFA course")))
 
     # ---- prerequisites course page
     bmap = {q["slug"]: q for q in blog}
@@ -575,7 +695,8 @@ def build():
     page("404.html", "Page not found | First Principles", "This page does not exist.",
          '<main><section class="pagehead"><div class="wrap solo"><div><span class="eyebrow">404</span><h1>That page is not here</h1><p class="lead">Try the <a style="color:#3DBEF0" href="index.html">home page</a>, the <a style="color:#3DBEF0" href="prerequisites.html">prerequisite concepts</a> or the <a style="color:#3DBEF0" href="blog.html">study blog</a>.</p></div></div></section></main>')
 
-    urls = "".join(f"  <url><loc>{SITE}/{'' if b == 'index.html' else b}</loc><lastmod>{TODAY}</lastmod></url>\n" for b in sorted(set(built)))
+    newest = max(LASTMOD.values()) if LASTMOD else DEFAULT_UPDATED
+    urls = "".join(f"  <url><loc>{SITE}/{'' if b == 'index.html' else b}</loc><lastmod>{LASTMOD.get(b, newest)}</lastmod></url>\n" for b in sorted(set(built)))
     (ROOT / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n', encoding="utf-8")
     print(f"built {len(set(built))} pages + 404 + sitemap + {len(cfa + blog + pre)} thumbnails")
 
@@ -779,7 +900,7 @@ def home(cfa, blog, pre):
 <section class="hero" aria-label="Introduction">
   <video autoplay muted loop playsinline preload="metadata" poster="hero-poster.jpg" aria-hidden="true"><source src="hero.mp4" type="video/mp4"></video>
   <div class="wrap">
-    <span class="eyebrow">A CFA course, opening in 2027</span>
+    <a class="eyebrow" href="cfa-course.html" style="text-decoration:none">A CFA course, opening in 2027</a>
     <h1>Where formulas become intuition.</h1>
     <p class="lead">Every CFA topic taught through diagrams, real market examples and the reasoning behind each formula, so the exam tests what you understand rather than what you managed to memorise.</p>
     <div class="actions"><a class="btn" href="prerequisites.html">Start the prerequisites course</a><a class="btn line" href="cfa-program.html">Read the CFA guide</a></div>
@@ -795,13 +916,13 @@ def home(cfa, blog, pre):
       <a class="dc" href="prerequisites.html"><h3>Take the prerequisites course</h3><p>{len(pre)} lessons in financial statements and economics, each with an animated diagram, a worked example and a graded quiz.</p></a>
       <a class="dc" href="blog-ba-ii-plus-calculator-guide.html"><h3>Practise on a BA II Plus in your browser</h3><p>Press every key yourself, or watch worked exam examples play out key by key, each with its formula.</p></a>
       <a class="dc" href="blog-cfa-salary.html"><h3>See what a CFA earns, worldwide</h3><p>Base pay and bonuses in 19 countries, and the jobs charterholders actually do, from real salary data.</p></a>
-      <a class="dc" href="blog-why-cfa-is-prestigious.html"><h3>Why the charter carries weight</h3><p>Sixty years of history, fewer than half passing at every level, and an ethics pledge charterholders renew every year.</p></a>
+      <a class="dc" href="cfa-level-1-practice-questions.html"><h3>Try 100 Level I practice questions</h3><p>Ten original questions for every topic, in the exam's three-option format, each with a worked answer.</p></a>
     </div>
     <aside class="dlinks">
       <p class="dh">Quick links</p>
-      <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-study-plan.html">Build a study plan</a><a href="blog-history-of-cfa.html">History of the CFA</a>
+      <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-by-country.html">The CFA in your country</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-study-plan.html">Build a study plan</a><a href="blog-history-of-cfa.html">History of the CFA</a>
       <p class="dh">Featured content</p>
-      <a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
+      <a href="cfa-course.html">The First Principles CFA course</a><a href="blog-failed-cfa-level-1.html">Failed Level I? What to do next</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
     </aside>
   </div>
 </div></section>
@@ -877,7 +998,7 @@ def home(cfa, blog, pre):
   <h2>Who builds First Principles</h2>
   <div class="me"><div class="mono" aria-hidden="true">G</div>
     <div><p class="name">{NAME}</p><p><a href="mailto:{email}">{email}</a></p></div></div>
-  <p class="sub" style="margin-top:1.4rem">I build First Principles: the lessons, the animations and this site. Questions, corrections and ideas for topics are welcome by email.</p>
+  <p class="sub" style="margin-top:1.4rem">I build First Principles: the lessons, the animations and this site. I work in fixed income index management in Frankfurt, hold an MSc in Quantitative Finance from the Frankfurt School of Finance &amp; Management, and am a CFA Level III candidate, so I know the exams from the candidate's side as well as the material from the practitioner's. Questions, corrections and ideas for topics are welcome by email.</p>
 </div></section>
 
 <section class="section dark open"><div class="wrap">
@@ -886,9 +1007,13 @@ def home(cfa, blog, pre):
   <p>Short video lessons, intuition first, with exam-style questions solved step by step.</p>
 </div></section>
 </main>"""
-    page("index.html", "First Principles · CFA Program lessons from the basics",
-         "CFA Program lessons built from first principles: free guides to Levels I, II and III, exam dates, fees and pass rates, study strategy, and 50 prerequisite concepts explained. Video course opening in 2027.",
-         main, active="index.html", image="hero-poster.jpg")
+    org = {"@context": "https://schema.org", "@graph": [
+        {**PUBLISHER, "@id": f"{SITE}/#org", "founder": AUTHOR,
+         "description": "CFA Program lessons built from first principles: free guides, practice questions, a prerequisites course and a video course opening in 2027."},
+        {"@type": "WebSite", "@id": f"{SITE}/#site", "url": f"{SITE}/", "name": "First Principles", "publisher": {"@id": f"{SITE}/#org"}, "inLanguage": "en"}]}
+    page("index.html", "First Principles: CFA Level I, II and III course, practice questions and free study guides",
+         "A CFA course built from first principles: 100 free Level I practice questions, a 50-lesson prerequisites course, guides to every level, exam dates and fees, and country guides. Video lessons open in 2027.",
+         main, active="index.html", image="hero-poster.jpg", extra_head='<script type="application/ld+json">' + json.dumps(org) + "</script>")
 
 
 if __name__ == "__main__":
