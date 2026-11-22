@@ -7,6 +7,7 @@ figure: worth_it
 caption: The value of the charter depends on how close your target role is to investment decisions.
 tags: is CFA worth it, is CFA still relevant, is CFA useless, does CFA help, why CFA is important, alternatives to CFA, CFA equivalent, CFA value
 group: Before you start: requirements, cost and careers
+updated: 2026-11-22
 ---
 Search "CFA" and Google suggests both "why CFA is important" and "is CFA useless". Both camps have a point. Whether the charter is worth it depends on **what you want to do with it**.
 
@@ -54,7 +55,7 @@ Tools change, with more data, automation and AI in research, but the core questi
 
 - **Cost:** USD 3,520–4,570 in exam fees for all three levels; about USD 4,000–8,000 with materials and a retake.
 - **Payback:** in the US or Western Europe, the fees are less than a month of an analyst's base pay. In India they are about five months of a junior analyst's pay, but about one month of a recent charterholder's.
-- **Pay after passing:** people working in finance reported about 15% higher earnings on average after passing an exam (Kaplan Schweser, 2024).
+- **Pay after passing:** in CFA Institute's 2026 India study, recent charterholders earned about ₹32 lakh a year against ₹22.1 lakh for all respondents, most of them candidates, and 69% of respondents received raises of more than 20% in 2025.
 
 Full details: [is the CFA worth the money](blog-cfa-roi.html).
 

@@ -8,6 +8,7 @@ figure: worth_it
 caption: What a Level I pass signals to an employer: commitment, a common vocabulary and the basics of every investment topic.
 tags: does CFA level 1 help get a job, CFA level 1 jobs, jobs after CFA level 1, CFA level 1 salary, CFA level 1 on resume, CFA level 1 benefits, CFA level 1 worth it, CFA level 1 for freshers, CFA level 1 passed how to write on CV
 group: Most searched: the guides candidates look for most
+updated: 2026-11-22
 ---
 Passing Level I does not make you a charterholder, and no employer treats it as one. But it changes more at work than many people expect, because it proves three things at once: you can learn a large body of material, you can do it alongside work or study, and you now speak the language of investment teams.
 
@@ -15,12 +16,12 @@ Passing Level I does not make you a charterholder, and no employer treats it as 
 
 ## What the data says
 
-In Kaplan Schweser's 2024 survey of 728 candidates and charterholders in North America and Europe:
+CFA Institute's 2025 study of more than 100 finance employers in India, run by Kantar, gives the clearest employer view:
 
-- people working in finance before and after passing **Level I** reported average earnings about **14% higher** a year later;
-- one in three got a **pay rise** after their most recent exam pass, and one in five a **promotion**;
-- 68% felt able to handle **more challenging projects**, and 61% felt they did their **job better**;
-- two-thirds had **employer support** for their studies, and many felt more valued and more likely to stay.
+- the CFA Program is **highly valued for entry- and mid-level investment roles**, while senior positions put relevant experience first;
+- employers say the designation gives early-career candidates **an immediate credibility boost** and often **fast-tracks them into investment roles**;
+- the top reasons hiring managers give are **technical depth**, **global recognition** and **integrity**, and 47% describe CFA candidates as "plug-and-play" for roles such as credit analyst, equity researcher and risk associate;
+- 54% of employers look for candidates who combine an MBA with the CFA charter.
 
 Raises and promotions also depend on performance and timing, so read these as typical outcomes, not promises.
 
@@ -73,7 +74,7 @@ Yes, typically in junior analyst, research associate, risk, fund analysis or wea
 
 ### Does CFA Level I increase salary?
 
-On average, people working in finance reported about 14% higher earnings after passing Level I in a 2024 Kaplan Schweser survey, though pay depends mainly on the role and employer.
+Passing Level I rarely brings a raise on its own; pay depends mainly on the role and employer. What it does, according to employers in CFA Institute's India study, is make early-career candidates more credible and speed their move into investment roles, where pay is higher.
 
 ### How do I write CFA Level I on my resume?
 
@@ -85,5 +86,5 @@ It is worth it as a step: it builds knowledge and signals commitment. Its full v
 
 ## Sources
 
-- [Kaplan Schweser: CFA Program survey, November 2024 (PDF)](https://assets.ctfassets.net/gogvzi849aaj/1RV5hXx6AxaryVBHe9n2cF/a00740673e349ee115dc5f1f39d3d312/schweser-cfa-program-survey-flipping-book.pdf)
+- [CFA Institute: Mapping India's finance workforce (2025, with Kantar)](https://www.cfainstitute.org/sites/default/files/india-talent-report.pdf)
 - [CFA Institute: Standard VII(B), reference to the CFA designation and the CFA Program](https://www.cfainstitute.org/en/ethics-standards/ethics/code-of-ethics-standards-of-conduct-guidance/standards-of-practice-VII-B)

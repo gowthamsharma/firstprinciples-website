@@ -4,6 +4,7 @@ slug: cfa-dates-fees
 order: 5
 summary: Every 2027 exam window, the early and standard registration deadlines, the fees by level, and the deferral rule that changes in February 2027.
 tags: CFA exam dates 2027, CFA exam fees, CFA registration deadline, CFA early registration fee, CFA exam cost
+updated: 2026-11-22
 ---
 ## 2027 exam windows
 
@@ -50,7 +51,7 @@ For exams from **February 2027**, the paid deferral option ends. If you miss you
 
 ## Before you book
 
-The window dates and deadlines above come from prep-provider calendars that reproduce CFA Institute's schedule. The fees and the deferral rule come from CFA Institute's own announcements. Always confirm on CFA Institute's dates and fees page before paying.
+The window dates, deadlines, fees and the deferral rule follow CFA Institute's published schedule and announcements. Always confirm on CFA Institute's dates and fees page before paying.
 
 ## Questions people ask
 
@@ -75,4 +76,4 @@ Rescheduling within the same window is usually possible for a fee, subject to se
 - [CFA Institute: pricing changes for the CFA Program](https://cfainstitute.org/about/press-room/2024/pricing-changes-for-cfa-program)
 - [CFA Institute: deferral policies update](https://www.cfainstitute.org/about/press-room/2026/deferral-policies-update)
 - [CFA Institute: Level I results, August 2025 (deferral pass rates)](https://www.cfainstitute.org/about/press-room/2025/level-i-results-august-2025)
-- [Soleadea: 2027 CFA exam dates and schedule](https://soleadea.org/cfa-2027-dates-schedule)
+- [CFA Institute: dates and fees](https://www.cfainstitute.org/programs/cfa-program/dates-fees)

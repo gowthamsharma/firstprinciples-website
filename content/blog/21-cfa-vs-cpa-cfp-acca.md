@@ -7,6 +7,7 @@ figure: compare_quals
 caption: Exams to pass and approximate years of experience needed. Rules vary by country and state; check the awarding body.
 tags: CFA vs CPA, CFA vs CFP, CFA vs ACCA, CFA vs CA, should I do CFA or ACCA, CFA after CA, CFA vs CPA salary, CFA vs CPA difficulty, finance certifications compared
 group: The CFA compared
+updated: 2026-11-22
 ---
 Finance has several respected qualifications, and they are often compared as if they were rivals. Mostly they are not: each one prepares you for a different kind of work.
 
@@ -62,5 +63,5 @@ For advising individuals in the US, the CFP is the standard. For managing portfo
 - [CFA Institute: CFA Program](https://www.cfainstitute.org/programs/cfa-program)
 - [CFP Board: Certification process](https://www.cfp.net/certification-process)
 - [ACCA: The ACCA Qualification at a glance](https://www.accaglobal.com/us/en/qualifications/glance.html)
-- [UWorld: CPA licensure pathways, 120 vs 150 credit hours](https://accounting.uworld.com/blog/cpa-review/cpa-licensure-pathways/)
+- [NASBA: National Association of State Boards of Accountancy](https://nasba.org/)
 - [ICAI: The Institute of Chartered Accountants of India](https://www.icai.org/)

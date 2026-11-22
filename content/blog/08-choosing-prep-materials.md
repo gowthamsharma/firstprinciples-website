@@ -5,8 +5,9 @@ order: 8
 summary: What the official curriculum gives you, what prep providers add, and how to choose: start from your weakness, not from a brand.
 figure: gap_match
 caption: Buy for the gap you have, not for the brand.
-tags: best CFA prep provider, CFA study materials, Kaplan Schweser vs, CFA question bank, is the CFA curriculum enough
+tags: best CFA prep provider, CFA study materials, CFA question bank, is the CFA curriculum enough
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 Every candidate has access to the **official curriculum** through CFA Institute. Prep providers sell condensed notes, video lectures, question banks and mock exams on top of it. The question is not which provider is "best", but which gap you need to fill.
 
@@ -31,7 +32,7 @@ The curriculum is thorough and long. Some candidates pass with it alone; most fi
 | Exam rehearsal | full-length mocks in the real format, especially Level II vignettes and Level III written answers |
 | Accountability | study planners, live classes or study groups |
 
-Well-known providers include Kaplan Schweser, Mark Meldrum, IFT, UWorld, Salt Solutions, Bloomberg Exam Prep and Soleadea, among others. Each has strengths; most offer free trials or sample lessons.
+There are many providers, large and small. Most offer free trials or sample lessons, so test a provider's explanations and questions on a topic you find hard before you pay.
 
 ## How to choose
 

@@ -7,6 +7,7 @@ figure: pass_rates
 caption: Recent pass rates by level. Fewer than half of candidates pass in a typical session.
 tags: why is CFA hard, why CFA is tough, is CFA difficult, CFA difficulty, hardest CFA topics, CFA vs CPA difficulty, how hard is CFA level 1, CFA pass rate
 group: Before you start: requirements, cost and careers
+updated: 2026-11-22
 ---
 Ask candidates why the CFA exams are hard and you rarely hear "the ideas are too difficult". You hear "there is so much of it", "I ran out of time" and "I was working sixty hours a week". The difficulty is real, but it comes from a few specific places, and each one can be planned for.
 
@@ -47,7 +48,7 @@ Candidates most often name **financial statement analysis** and **fixed income**
 ## The numbers behind "hard"
 
 - **Pass rates** have been below 50% at every level in most recent sessions (about 43% at Level I, 45% at Level II and 47% at Level III). See [pass rates](cfa-pass-rates.html).
-- **Study time:** in a 2024 Kaplan Schweser survey, 73% of recent Level II passers studied 300 hours or more.
+- **Study time:** CFA Institute recommends about 300 hours of study per level, and Level II candidates often need more.
 - **Attempts:** at average pass rates, a candidate needs about six to seven exam attempts to clear all three levels, and fewer than one in ten pass every level first time ([our simulation](blog-cfa-time-to-pass.html)).
 
 For a topic-by-topic view, see [the most challenging CFA topics](blog-hardest-cfa-topics.html).

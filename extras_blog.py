@@ -42,7 +42,7 @@ X = {
  ("What should an error log contain?", "For each miss: the topic, the reason (knowledge gap, misread, calculation slip or timing) and the fix. Patterns in the reasons tell you what to work on."),
  ("Should I retake the same mock?", "Only after a gap, and only to check that the lessons stuck. A retake score overstates readiness, because you remember the questions."),
 ]),
-"08": ("best CFA prep provider, CFA study materials, Kaplan Schweser vs, CFA question bank, is the CFA curriculum enough", [
+"08": ("best CFA prep provider, CFA study materials, CFA question bank, is the CFA curriculum enough", [
  ("Is the official curriculum enough to pass?", "Some candidates pass with it alone. Most add a question bank or condensed notes because the curriculum is long and time is short. Decide based on your weakest area, not on habit."),
  ("Which prep provider is best?", "There is no single best. Choose by what you lack: teaching if the material is unclear, questions if you need practice, mocks if you need exam rehearsal. Try free samples before paying."),
  ("Should I buy materials from several providers?", "Usually not. Two sets of notes double the reading. One main source plus one extra question bank or mock pack is plenty for most candidates."),

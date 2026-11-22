@@ -8,6 +8,7 @@ figure: roi_months
 caption: The three exam fees at early registration (USD 3,520), measured in months of base salary. Analyst medians from PayScale; the India charterholder figure is CFA Institute's 2026 India study average for recent charterholders.
 tags: is CFA worth the money, CFA return on investment, CFA ROI, CFA cost vs salary, CFA salary increase, does CFA increase salary, CFA worth it India, CFA payback, CFA pay rise after level 1, CFA employer sponsorship
 group: Most searched: the guides candidates look for most
+updated: 2026-11-22
 ---
 "Is the CFA worth it?" has a money part and a career part. This page does the money part with numbers: what you pay, what you can expect back, and how long it takes to earn the cost back in different countries. For the career part, see [is the CFA worth it](blog-is-cfa-worth-it.html).
 
@@ -29,13 +30,13 @@ The biggest cost is not money. It is **900 to 1,000 hours** of study across thre
 
 ## What you can expect back
 
-Three independent sources point the same way.
+The evidence points the same way.
 
-**1. Pay rises after passing.** In Kaplan Schweser's 2024 survey of 728 candidates and charterholders in North America and Europe, one in three got a pay rise after their most recent exam pass, and people working in finance before and after the exam reported **average earnings growth of about 15%**: about 14% after Level I, 9% after Level II, 17% after Level III and 17% on becoming a charterholder. One in five received a promotion.
+**1. Pay rises as you progress.** In CFA Institute's 2026 India study, average pay across all respondents (mostly candidates) was **₹22.1 lakh**, up from ₹19.3 lakh in 2022, and **69% received raises of more than 20%** in 2025. Employers in its 2025 India talent report said the CFA designation gives early-career candidates an immediate credibility boost and often fast-tracks them into investment roles.
 
 **2. The pay gap with experience.** CFA Institute's 2026 study for India (2,770 respondents) found that recent charterholders, with about six years' experience, averaged **₹32 lakh** a year. All charterholders, averaging about ten years, averaged **₹67 lakh**. More than 70% of charterholders with eight or more years' experience earned **over ₹40 lakh**.
 
-**3. Employer support.** Two-thirds of candidates in the same Schweser survey had their employer pay for exams or study materials. If yours will, your own cost falls close to zero.
+**3. Employer support.** Many investment firms pay for exam fees or study materials, often after you pass. If yours will, your own cost falls close to zero, so ask before you register.
 
 Raises are not caused by the exam alone. People who pass are often also the people who were about to be promoted. Read these numbers as **what typically happens**, not a guarantee.
 
@@ -74,7 +75,7 @@ A simple rule: **payback in months ≈ total cost ÷ monthly raise**. With USD 5
 
 ### Does the CFA increase salary?
 
-On average, yes, but through the jobs it opens. In a 2024 Kaplan Schweser survey, candidates working in finance reported about 15% higher earnings after passing an exam, and one in three received a raise.
+On average, yes, but through the jobs it opens. In CFA Institute's 2026 India study, recent charterholders earned about ₹32 lakh a year, against ₹22.1 lakh across all respondents, most of whom were still candidates.
 
 ### How long does it take to earn back the cost of the CFA?
 
@@ -86,11 +87,11 @@ Increasingly so. CFA Institute's 2026 India study puts average pay for all respo
 
 ### Will my employer pay for the CFA?
 
-Many investment firms do: two-thirds of respondents in the Schweser survey had some employer support, mostly exam fees and prep materials. Ask before you register.
+Many investment firms do, usually for exam fees and study materials, and some only after you pass. Ask before you register.
 
 ## Sources
 
 - [CFA Institute: Impact study on compensation and career, India 2026](https://www.cfainstitute.org/programs/cfa-program/impact-assessment-india)
-- [Kaplan Schweser: CFA Program survey, November 2024 (PDF)](https://assets.ctfassets.net/gogvzi849aaj/1RV5hXx6AxaryVBHe9n2cF/a00740673e349ee115dc5f1f39d3d312/schweser-cfa-program-survey-flipping-book.pdf)
+- [CFA Institute: Mapping India's finance workforce (2025, with Kantar)](https://www.cfainstitute.org/sites/default/files/india-talent-report.pdf)
 - [CFA Institute: CFA Program exam fees](https://www.cfainstitute.org/programs/cfa-program/dates-fees)
 - PayScale investment analyst salary pages, for example [US](https://www.payscale.com/research/US/Job=Investment_Analyst/Salary) and [India](https://www.payscale.com/research/IN/Job=Investment_Analyst/Salary) (retrieved 16 November 2026)

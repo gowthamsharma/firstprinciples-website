@@ -7,6 +7,7 @@ figure: pacing
 caption: Pacing a 90-question session: 30 questions every 45 minutes. A slow start (red) forces a rush at the end.
 tags: how to pass CFA Level 1, CFA Level 1 tips, CFA Level 1 strategy, CFA Level 1 time management, CFA Level 1 calculator
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 Level I is a test of **breadth under time pressure**: 180 standalone questions, about 90 seconds each, across ten topics. Most candidates who fail know enough. What lets them down is uneven coverage or slow, careless answering.
 
@@ -94,4 +95,3 @@ Only the approved models are allowed: the BA II Plus family or the HP 12C family
 
 - [CFA Institute: Level I exam](https://www.cfainstitute.org/programs/cfa/exam/level-i)
 - [CFA Institute: calculator policy](https://www.cfainstitute.org/about/governance/policies/cfa-calculator-policy)
-- [Learnsignal: exam day rules and calculator policy 2026](https://www.learnsignal.com/blog/cfa-exam-day-rules-and-calculator-policy-2026/)

@@ -7,6 +7,7 @@ caption: The four-step routine for every vignette.
 summary: Level II questions come four to a case study. Read the questions first, read the vignette for the inputs, and never let one hard set eat the time of three easy ones.
 tags: CFA Level 2 item sets, CFA Level 2 vignettes, how to pass CFA Level 2, CFA Level 2 tips, CFA Level 2 case studies
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 At Level II every question belongs to a case study (a **vignette**) with four questions. You have about **12 minutes per set**. The skill is not reading faster; it is reading **with a purpose**.
 
@@ -66,4 +67,3 @@ Practise whole item sets under time, not single questions. Aim for about 12 minu
 ## Sources
 
 - [CFA Institute: Level II exam](https://www.cfainstitute.org/programs/cfa/exam/level-ii)
-- [UWorld: strategies for Level II item sets](https://finance.uworld.com/blog/cfa/best-strategies-to-solve-cfa-level-2-item-set-questions/)

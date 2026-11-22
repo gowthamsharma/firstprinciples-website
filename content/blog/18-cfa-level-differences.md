@@ -7,6 +7,7 @@ figure: level_formats
 caption: The format changes at every level, and so does the skill being tested.
 tags: CFA level 1 vs level 2, CFA level 2 vs level 3, difference between CFA levels, CFA level 1 vs 2 vs 3, CFA level 3 vs level 2, CFA levels explained
 group: How the exams work
+updated: 2026-11-22
 ---
 The three CFA exams share a name and a curriculum style, but they test very different things. Knowing how they differ helps you change your study method at each step, which is where many candidates who passed one level stumble on the next.
 
@@ -60,7 +61,7 @@ Ideas build on each other. Financial statement analysis and economics run throug
 
 ## How long each takes
 
-Most people who pass report **300 hours or more per level**; in a 2024 Kaplan Schweser survey, the share of recent passers studying 300+ hours was 50% at Level I, 73% at Level II and 62% at Level III. Plan more time for Level II than you did for Level I.
+CFA Institute recommends about **300 hours of study per level**, and most people who pass report at least that much. Plan more time for Level II than you did for Level I: it is the level candidates most often describe as the biggest jump.
 
 ## Questions people ask
 

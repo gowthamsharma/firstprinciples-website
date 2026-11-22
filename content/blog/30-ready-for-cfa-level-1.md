@@ -8,6 +8,7 @@ figure: study_plan
 caption: Readiness is mostly about time and foundations: candidates who can protect 12+ hours a week and know the basics follow a normal six-month plan.
 tags: am I ready for CFA level 1, CFA level 1 readiness, should I take CFA level 1, CFA level 1 prerequisites, CFA level 1 eligibility, CFA level 1 for beginners, CFA level 1 difficulty for beginners, when should I start CFA
 group: Most searched: the guides candidates look for most
+updated: 2026-11-22
 ---
 Registering for Level I is easy; being ready is not. Most people who fail Level I were not short of intelligence but of **time, foundations or a plan**. This check takes about five minutes. Part 1 asks about your situation; part 2 tests ten basics that Level I assumes you know, from the normal distribution to how a balance sheet balances, and explains each answer as you go.
 
@@ -72,4 +73,3 @@ When you score comfortably above about 70% in full, timed mock exams in the last
 ## Sources
 
 - [CFA Institute: CFA Program eligibility and Level I exam](https://www.cfainstitute.org/programs/cfa-program/candidate-resources/level-i-exam)
-- [Kaplan Schweser: CFA Program survey, November 2024 (PDF)](https://assets.ctfassets.net/gogvzi849aaj/1RV5hXx6AxaryVBHe9n2cF/a00740673e349ee115dc5f1f39d3d312/schweser-cfa-program-survey-flipping-book.pdf)

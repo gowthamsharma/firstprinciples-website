@@ -7,6 +7,7 @@ figure: pathways
 caption: About two thirds of Level III is shared by everyone; the pathway is the other third. Every branch leads to the same charter.
 tags: CFA Level 3 pathways, portfolio management pathway, private markets pathway, private wealth pathway, which CFA pathway to choose
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 Since 2025, Level III candidates choose a **specialised pathway** worth **30–35%** of the exam. The other 65–70% is a core shared by everyone: asset allocation, portfolio construction, performance measurement, derivatives and risk management, and ethics.
 
@@ -73,4 +74,3 @@ About a third. The remaining two-thirds is a core shared by everyone, so the pat
 ## Sources
 
 - [CFA Institute: Level III exam](https://www.cfainstitute.org/programs/cfa/exam/level-iii)
-- [Soleadea: how to choose a Level III pathway](https://soleadea.org/cfa-level-3/pathways)

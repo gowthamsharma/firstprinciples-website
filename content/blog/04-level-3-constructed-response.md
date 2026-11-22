@@ -7,6 +7,7 @@ caption: The command word decides the shape and length of a full-credit answer.
 summary: Graders reward short, specific answers that do exactly what the command word asks. How to read the question, how much to write, and how to get partial credit.
 tags: CFA Level 3 constructed response, CFA Level 3 essay, how to answer CFA Level 3 written questions, CFA Level 3 command words, CFA Level 3 tips
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 Half of Level III is **constructed response**: you type answers into a box. CFA Institute's graders are consistent about what earns points: **correct, specific content that does what the question asks**. Style, grammar and length earn nothing.
 
@@ -82,4 +83,3 @@ Roughly the minutes shown by the points: about one minute per point. Writing mor
 ## Sources
 
 - [CFA Institute: Level III exam and study tips](https://www.cfainstitute.org/discover/level-iii-exam-and-study-tips)
-- [UWorld: tackling Level III essay questions](https://finance.uworld.com/blog/cfa/best-approach-to-tackle-cfa-level-3-essay-questions/)

@@ -8,6 +8,7 @@ figure: time_to_pass
 caption: Share of candidates who have passed Level III within one to four years of their first Level I exam, for three levels of preparation. Simulation by First Principles using the 2026–27 exam windows and the six-month retake rule.
 tags: how long to pass CFA, CFA time to complete, how many attempts to pass CFA, CFA timeline, how many years to become a CFA charterholder, average time to complete CFA, CFA in 2 years, CFA level 1 study hours, how many hours to study for CFA
 group: Most searched: the guides candidates look for most
+updated: 2026-11-22
 ---
 Most answers to "how long does the CFA take?" give the fastest possible route. That is not what most people experience, because fewer than half of candidates pass each level. We built a simple model of the real calendar to see what actually happens.
 
@@ -69,7 +70,7 @@ At average pass rates, about 6 to 7 attempts in total for three levels, so most 
 
 ### How many hours do I need to study for CFA Level I?
 
-Most people who pass report about 300 hours. In a 2024 Kaplan Schweser survey, half of recent Level I passers studied 300 hours or more; for Level II it was 73% and for Level III 62%.
+CFA Institute recommends about 300 hours of study per level, and most people who pass report about that much.
 
 ### Can I pass the CFA in one year?
 
@@ -78,5 +79,5 @@ Only with first-time passes at all three levels and well-timed windows (for exam
 ## Sources
 
 - [CFA Institute: CFA Program exam dates and policies](https://www.cfainstitute.org/programs/cfa-program/dates-fees)
-- [Kaplan Schweser: CFA Program survey, November 2024 (PDF)](https://assets.ctfassets.net/gogvzi849aaj/1RV5hXx6AxaryVBHe9n2cF/a00740673e349ee115dc5f1f39d3d312/schweser-cfa-program-survey-flipping-book.pdf)
+- [CFA Institute: CFA Program (recommended study time of 300 hours per level)](https://www.cfainstitute.org/programs/cfa-program)
 - Pass rates: see our [CFA pass rates](cfa-pass-rates.html) page.

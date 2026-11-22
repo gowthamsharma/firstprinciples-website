@@ -75,4 +75,4 @@ Results usually arrive five to nine weeks after the window closes, so expect the
 ## Sources
 
 - [CFA Institute: Level III exam](https://www.cfainstitute.org/programs/cfa-program/exam/level-iii)
-- [Soleadea: 2027 CFA exam dates and schedule](https://soleadea.org/cfa-2027-dates-schedule)
+- [CFA Institute: dates and fees](https://www.cfainstitute.org/programs/cfa-program/dates-fees)

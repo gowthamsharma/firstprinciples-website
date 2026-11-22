@@ -672,7 +672,7 @@ def build():
   <p class="crumbs"><a href="index.html">Home</a> › Study blog</p>
   <span class="eyebrow">Study blog</span>
   <h1>Everything CFA candidates ask, answered</h1>
-  <p class="lead">Requirements, costs, salaries, how long it takes, how it compares with the FRM, MBA, CPA and ACCA, formulas and calculator settings, plus study plans, Level II vignettes, Level III written answers, ethics, mock exams and exam day. The advice draws on CFA Institute's own guidance and on what the main prep providers recommend, rewritten as one consistent method.</p>
+  <p class="lead">Requirements, costs, salaries, how long it takes, how it compares with the FRM, MBA, CPA and ACCA, formulas and calculator settings, plus study plans, Level II vignettes, Level III written answers, ethics, mock exams and exam day. The advice draws on CFA Institute's own guidance and on what works for candidates, written as one consistent method.</p>
 </div></div></section>
 <div class="wrap" style="padding-bottom:4rem">
 {blog_groups}

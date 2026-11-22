@@ -4,6 +4,7 @@ slug: cfa-level-1
 order: 2
 summary: Level I tests breadth across ten topics in 180 multiple-choice questions. Here is the format, the topic weights, and what changes for exams from February 2027.
 tags: CFA Level 1 exam format, CFA Level 1 topics, CFA Level 1 topic weights 2027, CFA Level 1 syllabus, CFA Level 1 changes 2027
+updated: 2026-11-22
 ---
 Level I is about **breadth**. It introduces the whole toolkit of investment analysis: ethics, statistics, economics, accounting, corporate finance, and the main asset classes. No single topic is very deep, but nothing can be skipped.
 
@@ -64,4 +65,3 @@ Level I is offered in four windows a year. There are limits on how many times yo
 
 - [CFA Institute: Level I exam (format, 2026 and 2027 topic outlines)](https://www.cfainstitute.org/programs/cfa/exam/level-i)
 - [CFA Institute: Level I results, August 2026](https://www.cfainstitute.org/about/press-room/2026/cfa-institute-reports-results-cfa-program-level-i-testing-august-2026)
-- [Learnsignal: CFA Level I in 2027, weight changes](https://www.learnsignal.com/blog/cfa-level-1-2027-weight-changes/)

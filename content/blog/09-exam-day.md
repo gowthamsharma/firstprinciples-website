@@ -7,6 +7,7 @@ figure: exam_day
 caption: The shape of the day. Session lengths are approximate; check your own confirmation.
 tags: CFA exam day, what to bring to CFA exam, CFA exam rules, CFA test centre, CFA exam passport, CFA exam checklist
 group: Strategy: how to tackle the exams
+updated: 2026-11-22
 ---
 The CFA exams are computer-based and taken at test centres. Nothing on the day should be a surprise.
 
@@ -82,4 +83,3 @@ Light review only, check the route and arrival time, pack ID and calculator, and
 ## Sources
 
 - [CFA Institute: calculator policy](https://www.cfainstitute.org/about/governance/policies/cfa-calculator-policy)
-- [Learnsignal: CFA exam day rules and calculator policy 2026](https://www.learnsignal.com/blog/cfa-exam-day-rules-and-calculator-policy-2026/)

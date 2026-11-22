@@ -7,6 +7,7 @@ figure: cfa_vs_frm
 caption: Exams, approximate study hours, early-registration fees and experience required for each.
 tags: CFA vs FRM, should I do CFA or FRM, FRM vs CFA salary, FRM vs CFA difficulty, CFA or FRM for risk management, FRM exam, GARP FRM
 group: The CFA compared
+updated: 2026-11-22
 ---
 The CFA (from CFA Institute) and the FRM (from GARP, the Global Association of Risk Professionals) are often compared because both are rigorous, global and finance-focused. They are built for different jobs.
 
@@ -77,5 +78,4 @@ Yes, at asset managers, insurers, consultancies and regulators, wherever risk is
 ## Sources
 
 - [GARP: Financial Risk Manager (FRM)](https://www.garp.org/frm)
-- [LearnSignal: FRM certification requirements, exams and cost (2026)](https://www.learnsignal.com/blog/what-is-frm/)
 - [CFA Institute: Exam dates and fees](https://www.cfainstitute.org/programs/cfa-program/dates-fees)
