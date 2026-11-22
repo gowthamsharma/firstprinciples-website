@@ -882,3 +882,23 @@ tbody tr:hover { background: #EAF2FA; }
 }
 @media print { .share { display: none; } }
 @media (max-width: 1100px) { body.has-share footer { padding-bottom: 5.5rem; } }
+
+/* ---------- mega menu, CME style: opens on click, stays until Esc / click elsewhere; regular-weight links ---------- */
+@media (min-width: 961px) {
+  .top nav .mi:hover > .mega, .top nav .mi:focus-within > .mega { visibility: hidden; opacity: 0; transform: translateY(-6px); transition-delay: 0s, 0s, .18s; }
+  .top nav .mi.on > .mega { visibility: visible; opacity: 1; transform: none; transition-delay: 0s, 0s, 0s; }
+  .top nav .ml { position: relative; border-bottom-color: transparent !important; cursor: pointer; }
+  .top nav .mi:hover > .ml, .top nav .mi:focus-within > .ml { color: #fff; }
+  .top nav .ml:hover, .top nav .mi.on > .ml { color: var(--sky) !important; }
+  .top nav .mi.has:hover > .ml::after { transform: rotate(45deg) translateY(-2px); }
+  .top nav .mi.has.on > .ml::after { transform: rotate(225deg) translateY(-2px); }
+  .top nav .mi.on > .ml::before { content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); border: 8px solid transparent; border-bottom-color: #102742; border-top: 0; }
+}
+.mega li a { font-weight: 400; }
+.mega .mt span { font-weight: 400; }
+/* links inside the dark panel never turn navy (that made "… home" vanish on hover) */
+.top nav .mega a:hover, .top nav .mega a[aria-current="page"] { border-bottom-color: transparent; }
+.top nav .mega .mhome, .top nav .mega .mhome:hover { color: #fff; }
+.top nav .mega .mhome:hover { color: var(--sky); }
+.top nav .mega li a:hover, .top nav .mega li a[aria-current="page"] { color: var(--sky); }
+.top nav .mega .mt, .top nav .mega .mt:hover { color: #fff; }

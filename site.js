@@ -8,7 +8,7 @@
   /* CME-style: see-through over the page top, hides while you read down, comes back when you scroll up */
   if (top) {
     var lastY = window.scrollY, ticking = false;
-    var menuOpen = function () { var n = document.getElementById("mainnav"); return (n && n.classList.contains("open")) || top.matches(":hover") || top.contains(document.activeElement); };
+    var menuOpen = function () { var n = document.getElementById("mainnav"); return (n && (n.classList.contains("open") || n.querySelector(".mi.on"))) || top.matches(":hover"); };
     var onScroll = function () {
       var y = Math.max(window.scrollY, 0), h = top.offsetHeight;
       top.classList.toggle("scrolled", y > 8);
@@ -329,8 +329,26 @@
       m.classList.toggle("open", open); b.setAttribute("aria-expanded", open ? "true" : "false");
     });
   });
+  /* desktop: click a section to open its panel (CME style); it stays open until Escape, a click elsewhere, or a second click */
+  var wide = window.matchMedia("(min-width: 961px)");
+  var items = nav.querySelectorAll(".mi.has");
+  var closeAll = function (except) { items.forEach(function (mi) { if (mi !== except) { mi.classList.remove("on"); var l = mi.querySelector(".ml"); if (l) l.setAttribute("aria-expanded", "false"); } }); };
+  items.forEach(function (mi) {
+    var l = mi.querySelector(".ml"); if (!l) return;
+    l.setAttribute("aria-haspopup", "true"); l.setAttribute("aria-expanded", "false");
+    l.addEventListener("click", function (e) {
+      if (!wide.matches) return;
+      e.preventDefault();
+      var open = !mi.classList.contains("on");
+      closeAll(mi); mi.classList.toggle("on", open); l.setAttribute("aria-expanded", open ? "true" : "false");
+      var t = document.querySelector(".top"); if (t) t.classList.remove("hide");
+    });
+  });
+  document.addEventListener("click", function (e) { if (!e.target.closest || !e.target.closest(".top nav .mi.has")) closeAll(); });
+  wide.addEventListener && wide.addEventListener("change", function () { closeAll(); });
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Escape") return;
+    var was = nav.querySelector(".mi.on > .ml"); closeAll(); if (was) was.focus();
     if (document.activeElement && nav.contains(document.activeElement)) document.activeElement.blur();
     nav.classList.remove("open"); burger.setAttribute("aria-expanded", "false");
   });
