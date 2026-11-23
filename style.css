@@ -496,10 +496,14 @@ footer nav a:hover { color: var(--sky); }
 .mega .mh { color: var(--lime); border-bottom: 0; font-size: .7rem; letter-spacing: .14em; margin-bottom: 1.1rem; padding-bottom: 0; }
 .mega li a { color: #fff; font-size: .98rem; font-weight: 500; padding: .45rem 0; }
 .mega li a:hover { color: var(--sky); }
-.mega .mtiles { display: grid; grid-template-rows: 1fr 1fr; margin-right: calc(-1 * max(1.5rem, (100vw - 74rem) / 2)); }
+.mega .mtiles { display: grid; grid-auto-rows: 1fr; margin-right: calc(-1 * max(1.5rem, (100vw - 74rem) / 2)); }
 .mega .mt { position: relative; display: flex; flex-direction: column; gap: .8rem; padding: 2rem 2.2rem 3.6rem; color: #fff; text-decoration: none; border: 0; height: auto; text-transform: none; letter-spacing: 0; overflow: hidden; }
 .mega .mt0 { background: #0B1D33; }
 .mega .mt1 { background: #145DA0; }
+.mega .mt2 { background: #1C2C42; }
+.mega .mt.mt2 b { color: #FFFF00; }
+.mega .mt2 i, .mega .mt2 i::after { background: #FFFF00; border-color: #FFFF00; }
+.mega .mt2 i::after { background: none; }
 .mega .mt b { font-size: 1.45rem; font-weight: 400; line-height: 1.15; letter-spacing: .01em; }
 .mega .mt span { font-size: .88rem; line-height: 1.5; color: rgba(255,255,255,.85); max-width: 17rem; }
 .mega .mt i { position: absolute; left: 2.2rem; bottom: 1.5rem; width: 22px; height: 2px; background: var(--sky); transition: transform .25s var(--ease); }

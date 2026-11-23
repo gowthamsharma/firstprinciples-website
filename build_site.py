@@ -292,7 +292,7 @@ MENU = [
                    ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice"),
                    ("Level I practice questions", "cfa-level-1-practice-questions.html", "100 questions with worked answers")]),
         ("Learn", [("Prerequisites course", "prerequisites.html", "50 graded lessons, with your progress saved"),
-                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 retake session", "cfa-tutor.html", "Levels I and II · 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
+                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 retake session", "cfa-tutor.html", "For Level I and II retakers · 30 minutes"), ("CFA in your country", "cfa-by-country.html", ""),
                    ("Study blog", "blog.html", "")])]),
     ("Blog", "blog.html", []),
     ("1-to-1 sessions", "cfa-tutor.html", []),
@@ -303,7 +303,8 @@ MENU_HTML = ""
 # feature tiles on the right of each menu panel: (title, text, link)
 PROMOS = {
     "Most searched": [("A BA II Plus in your browser", "Press every key, or watch worked exam examples play out with the formula behind each one.", "blog-ba-ii-plus-calculator-guide.html"),
-                      ("What a CFA earns, worldwide", "Base pay and bonuses in 19 countries, and the ten jobs charterholders do.", "blog-cfa-salary.html")],
+                      ("What a CFA earns, worldwide", "Base pay and bonuses in 19 countries, and the ten jobs charterholders do.", "blog-cfa-salary.html"),
+                      ("1-to-1 retake session", "Didn't pass Level I or II? 30 minutes on your score report and a plan for the retake.", "cfa-tutor.html")],
     "Levels": [("100 Level I practice questions", "Ten per topic, in the exam's format, each with a worked answer.", "cfa-level-1-practice-questions.html"),
                ("Ready for Level I?", "Ten honest questions and a plan for the gaps, in two minutes.", "blog-ready-for-cfa-level-1.html")],
     "How to prepare": [("Free study planner", "An Excel planner that builds your weekly plan and keeps your streak.", "free-resources.html#planner"),
@@ -480,7 +481,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=14">
+<link rel="stylesheet" href="style.css?v=15">
 {extra_head}
 {('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
@@ -505,7 +506,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
-<script src="site.js?v=14" defer></script>{beacon}
+<script src="site.js?v=15" defer></script>{beacon}
 </body>
 </html>
 """
@@ -1155,12 +1156,6 @@ def home(cfa, blog, pre):
   </div>
 </section>
 
-<section class="rband" aria-label="1-to-1 retake session"><div class="wrap">
-  <div><p class="rk">New · 1-to-1 retake session</p><h2>Didn't pass Level I or Level II?</h2>
-  <p>Book 30 minutes with Gowtham. We read your score report together, find where the marks went and build a week-by-week plan for your retake. €25, at a weekend time that suits you.</p></div>
-  <a class="btn" href="cfa-tutor.html" data-track="home_retake">Choose a time</a>
-</div></section>
-
 <section class="discover"><div class="wrap">
   <h2>Discover the CFA, from first principles</h2>
   <p class="sub">What the exams test, what the charter leads to, and the skills you need before you start.</p>
@@ -1242,6 +1237,12 @@ def home(cfa, blog, pre):
   <div class="me"><div class="mono" aria-hidden="true">G</div>
     <div><p class="name">{NAME}</p><p><a href="mailto:{email}">{email}</a></p></div></div>
   <p class="sub" style="margin-top:1.4rem">I build First Principles: the lessons, the animations and this site. I work in fixed income index management in Frankfurt, hold an MSc in Quantitative Finance from the Frankfurt School of Finance &amp; Management, and am a CFA Level III candidate, so I know the exams from the candidate's side as well as the material from the practitioner's. Questions, corrections and ideas for topics are welcome by email.</p>
+</div></section>
+
+<section class="rband" aria-label="1-to-1 retake session"><div class="wrap">
+  <div><p class="rk">1-to-1 retake session</p><h2>Didn't pass Level I or Level II?</h2>
+  <p>Book 30 minutes with Gowtham. We read your score report together, find where the marks went and build a week-by-week plan for your retake. At a weekend time that suits you.</p></div>
+  <a class="btn" href="cfa-tutor.html" data-track="home_retake">Choose a time</a>
 </div></section>
 
 <section class="section dark open"><div class="wrap">
