@@ -69,8 +69,8 @@ Before reading, skim the four questions. Suppose they ask for (1) last year's FC
 The answers follow quickly once the inputs are marked:
 
 1. FCFE = 120 + 40 − 70 − 10 + 15 = **€95 million**.
-2. Value = FCFE₁ ÷ (r − g) = 95 × 1.04 ÷ 0.06 = €1,646.7 million, or **€32.93 per share**.
-3. With a 30% target debt ratio: FCFE = NI − (1 − 0.30)(FCInv − Dep) − (1 − 0.30)WCInv = 120 − 0.7 × 30 − 0.7 × 10 = **€92 million**.
+2. Value \(= \dfrac{FCFE_1}{r - g} = \dfrac{95 \times 1.04}{0.06}\) = €1,646.7 million, or **€32.93 per share**.
+3. With a 30% target debt ratio: \(FCFE = NI - (1 - DR)(FCInv - Dep) - (1 - DR)\,WCInv = 120 - 0.7 \times 30 - 0.7 \times 10\) = **€92 million**.
 4. The **tax rate** is a distractor. It would matter for FCFF (interest × (1 − t)) but not here.
 
 Two lessons from the example. First, a single misread input (using FCFF instead of FCFE, or forgetting to grow FCFE by one year) would have spoiled three of the four answers. Second, the vignette deliberately includes data you do not need; spotting it saves time and avoids traps.

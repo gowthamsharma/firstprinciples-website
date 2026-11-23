@@ -1,0 +1,6 @@
+{
+  "name": "firstprinciples-website",
+  "private": true,
+  "description": "Build-time math rendering for build_site.py (KaTeX).",
+  "dependencies": { "katex": "0.16.11" }
+}

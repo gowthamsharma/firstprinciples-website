@@ -17,7 +17,7 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 [[figure]]
 
-**Notation used throughout:** r = interest or discount rate per period, n = number of periods, t = tax rate, σ = standard deviation, ρ = correlation, β = beta, R_f = risk-free rate, D = dividend, E = earnings, P = price, V = value.
+**Notation used throughout:** \(r\) = interest or discount rate per period, \(n\) = number of periods, \(t\) = tax rate, \(\sigma\) = standard deviation, \(\rho\) = correlation, \(\beta\) = beta, \(R_f\) = risk-free rate, \(D\) = dividend, \(E\) = earnings, \(P\) = price, \(V\) = value.
 
 ## Quantitative methods
 
@@ -25,118 +25,118 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 | Formula | What it says |
 |---|---|
-| Holding-period return = (P₁ − P₀ + D₁) ÷ P₀ | price change plus income, over the start price |
-| Arithmetic mean = ΣRᵢ ÷ n | best estimate of a single period's return |
-| Geometric mean = [(1 + R₁)(1 + R₂)…(1 + Rₙ)]^(1/n) − 1 | the compound rate actually earned |
-| Harmonic mean = n ÷ Σ(1 ÷ Xᵢ) | average cost per share with equal amounts invested (cost averaging) |
-| Arithmetic mean ≥ geometric mean ≥ harmonic mean | the gap widens with volatility |
-| Money-weighted return: IRR that solves Σ CFₜ ÷ (1 + IRR)ᵗ = 0 | the investor's own return; depends on timing of cash flows |
-| Time-weighted return = [(1 + R₁)(1 + R₂)…(1 + Rₙ)]^(1/years) − 1 | the manager's return; ignores cash-flow timing |
-| Annualised return = (1 + R_period)^(periods per year) − 1 | compound up to a year |
-| Continuously compounded return = ln(P₁ ÷ P₀) = ln(1 + HPR) | additive across periods |
-| Real return = (1 + nominal) ÷ (1 + inflation) − 1 | strip out inflation exactly (≈ nominal − inflation) |
-| Leveraged return = R_p + (V_B ÷ V_E) × (R_p − r_D) | leverage magnifies the spread over the borrowing cost |
-| After-tax nominal return = pre-tax return × (1 − t) | taxes reduce return |
+| \(\text{HPR} = \dfrac{P_1 - P_0 + D_1}{P_0}\) | price change plus income, over the start price |
+| \(\bar{R} = \dfrac{1}{n}\sum_{i=1}^{n} R_i\) | arithmetic mean: best estimate of a single period's return |
+| \(\bar{R}_G = \left[\prod_{i=1}^{n}(1 + R_i)\right]^{1/n} - 1\) | geometric mean: the compound rate actually earned |
+| \(\bar{X}_H = \dfrac{n}{\sum_{i=1}^{n} 1/X_i}\) | harmonic mean: average cost per share with equal amounts invested |
+| \(\bar{X} \ge \bar{X}_G \ge \bar{X}_H\) | the gap widens with volatility |
+| \(\sum_{t=0}^{T} \dfrac{CF_t}{(1 + \text{IRR})^t} = 0\) | money-weighted return: the investor's own return, sensitive to cash-flow timing |
+| \(R_{TW} = \left[(1 + R_1)(1 + R_2)\cdots(1 + R_n)\right]^{1/\text{years}} - 1\) | time-weighted return: the manager's return |
+| \(R_{\text{annual}} = (1 + R_{\text{period}})^{c} - 1\) | compound up to a year (\(c\) periods per year) |
+| \(r_{cc} = \ln\!\left(\dfrac{P_1}{P_0}\right) = \ln(1 + \text{HPR})\) | continuously compounded return; adds across periods |
+| \(1 + r_{\text{real}} = \dfrac{1 + r_{\text{nominal}}}{1 + \pi}\) | strip out inflation exactly (\(\approx r_{\text{nominal}} - \pi\)) |
+| \(R_L = R_p + \dfrac{V_B}{V_E}(R_p - r_D)\) | leverage magnifies the spread over the borrowing cost |
+| \(R_{\text{after tax}} = R(1 - t)\) | taxes reduce return |
 
 ### Time value of money
 
 | Formula | What it says |
 |---|---|
-| FV = PV × (1 + r)ⁿ | money grows by compounding |
-| PV = FV ÷ (1 + r)ⁿ | discounting is compounding in reverse |
-| Effective annual rate = (1 + r_s ÷ m)ᵐ − 1 | stated rate r_s compounded m times a year |
-| Continuous compounding: EAR = e^(r_s) − 1; FV = PV × e^(r_s × N) | the limit of compounding ever more often |
-| PV of ordinary annuity = A × [1 − (1 + r)^(−n)] ÷ r | level payments at the end of each period |
-| FV of ordinary annuity = A × [(1 + r)ⁿ − 1] ÷ r | the same payments, grown to the end |
-| Annuity due = ordinary annuity × (1 + r) | payments at the start earn one more period |
-| PV of perpetuity = A ÷ r | a level payment forever |
-| PV of growing perpetuity = A₁ ÷ (r − g) | first payment over rate minus growth (r > g) |
-| Implied growth rate = (FVₙ ÷ PV)^(1/n) − 1 | compound growth between two values |
-| Forward rate from spot rates: (1 + S₂)² = (1 + S₁)(1 + f₁,₁) | no arbitrage across horizons |
-| Cash flow additivity: PV of a series = sum of PVs | value pieces separately and add |
+| \(FV = PV(1 + r)^n\) | money grows by compounding |
+| \(PV = \dfrac{FV}{(1 + r)^n}\) | discounting is compounding in reverse |
+| \(EAR = \left(1 + \dfrac{r_s}{m}\right)^m - 1\) | stated rate \(r_s\) compounded \(m\) times a year |
+| \(EAR = e^{r_s} - 1;\quad FV = PV\,e^{r_s N}\) | continuous compounding |
+| \(PV_{\text{annuity}} = A\,\dfrac{1 - (1 + r)^{-n}}{r}\) | level payments at the end of each period |
+| \(FV_{\text{annuity}} = A\,\dfrac{(1 + r)^n - 1}{r}\) | the same payments, grown to the end |
+| \(PV_{\text{due}} = PV_{\text{ordinary}} \times (1 + r)\) | payments at the start earn one more period |
+| \(PV_{\text{perpetuity}} = \dfrac{A}{r}\) | a level payment forever |
+| \(PV = \dfrac{A_1}{r - g}\) | growing perpetuity (\(r > g\)) |
+| \(g = \left(\dfrac{FV_n}{PV}\right)^{1/n} - 1\) | implied compound growth rate |
+| \((1 + S_2)^2 = (1 + S_1)(1 + f_{1,1})\) | forward rate from spot rates (no arbitrage) |
+| \(PV = \sum_{t} \dfrac{CF_t}{(1 + r)^t}\) | cash flow additivity: value pieces separately and add |
 
 ### Statistics and probability
 
 | Formula | What it says |
 |---|---|
-| Sample variance s² = Σ(Xᵢ − X̄)² ÷ (n − 1) | average squared distance from the mean |
-| Population variance σ² = Σ(Xᵢ − μ)² ÷ N | divide by N, not n − 1 |
-| Mean absolute deviation = Σ∣Xᵢ − X̄∣ ÷ n | average distance, unsquared |
-| Target semideviation = √[Σ over Xᵢ ≤ B of (Xᵢ − B)² ÷ (n − 1)] | downside risk below a target B |
-| Coefficient of variation = s ÷ X̄ | risk per unit of return |
-| Sample skewness ≈ (1 ÷ n) Σ(Xᵢ − X̄)³ ÷ s³ | negative: mean < median, long left tail |
-| Excess kurtosis = kurtosis − 3 | positive: fat tails (leptokurtic) |
-| Sample covariance = Σ(Xᵢ − X̄)(Yᵢ − Ȳ) ÷ (n − 1) | do two variables move together? |
-| Correlation ρ = Cov(X, Y) ÷ (σ_X σ_Y) | covariance scaled to −1 … +1 |
-| P(A or B) = P(A) + P(B) − P(AB) | addition rule |
-| P(AB) = P(A ∣ B) × P(B) | multiplication rule |
-| P(A) = Σ P(A ∣ Sᵢ) × P(Sᵢ) | total probability over scenarios |
-| Bayes: P(E ∣ I) = P(I ∣ E) × P(E) ÷ P(I) | update a prior with new information |
-| E(X) = Σ P(xᵢ) × xᵢ | probability-weighted average |
-| Var(X) = Σ P(xᵢ) × [xᵢ − E(X)]² | probability-weighted squared deviation |
-| Cov(X, Y) = Σ P(sᵢ) × [Xᵢ − E(X)][Yᵢ − E(Y)] | covariance from scenarios |
-| Portfolio E(R_p) = Σ wᵢ E(Rᵢ) | expected returns add with weights |
-| Portfolio variance (2 assets) = w₁²σ₁² + w₂²σ₂² + 2w₁w₂ρσ₁σ₂ | risk does not add unless ρ = 1 |
-| Counting: n! ; combinations nCr = n! ÷ [(n − r)! r!] ; permutations nPr = n! ÷ (n − r)! | order does not or does matter |
-| Binomial: P(X = x) = nCx × pˣ × (1 − p)^(n − x); mean np; variance np(1 − p) | x successes in n trials |
-| z = (X − μ) ÷ σ | how many standard deviations from the mean |
-| Roy's safety-first ratio = [E(R_p) − R_L] ÷ σ_p | choose the highest; R_L is the threshold |
-| Lognormal: if ln X is normal, X is lognormal | used for prices, which cannot fall below zero |
+| \(s^2 = \dfrac{\sum (X_i - \bar{X})^2}{n - 1}\) | sample variance |
+| \(\sigma^2 = \dfrac{\sum (X_i - \mu)^2}{N}\) | population variance |
+| \(\text{MAD} = \dfrac{\sum \lvert X_i - \bar{X}\rvert}{n}\) | mean absolute deviation |
+| \(s_{\text{target}} = \sqrt{\dfrac{\sum_{X_i \le B} (X_i - B)^2}{n - 1}}\) | target semideviation: downside risk below \(B\) |
+| \(CV = \dfrac{s}{\bar{X}}\) | risk per unit of return |
+| \(\text{Skewness} \approx \dfrac{1}{n}\,\dfrac{\sum (X_i - \bar{X})^3}{s^3}\) | negative: mean < median, long left tail |
+| \(\text{Excess kurtosis} = \text{kurtosis} - 3\) | positive: fat tails (leptokurtic) |
+| \(s_{XY} = \dfrac{\sum (X_i - \bar{X})(Y_i - \bar{Y})}{n - 1}\) | sample covariance |
+| \(\rho_{XY} = \dfrac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}\) | covariance scaled to −1 … +1 |
+| \(P(A \text{ or } B) = P(A) + P(B) - P(AB)\) | addition rule |
+| \(P(AB) = P(A \mid B)\,P(B)\) | multiplication rule |
+| \(P(A) = \sum_i P(A \mid S_i)\,P(S_i)\) | total probability over scenarios |
+| \(P(E \mid I) = \dfrac{P(I \mid E)\,P(E)}{P(I)}\) | Bayes' formula: update a prior with new information |
+| \(E(X) = \sum_i P(x_i)\,x_i\) | probability-weighted average |
+| \(\text{Var}(X) = \sum_i P(x_i)\,[x_i - E(X)]^2\) | probability-weighted squared deviation |
+| \(\text{Cov}(X, Y) = \sum_i P(s_i)\,[X_i - E(X)][Y_i - E(Y)]\) | covariance from scenarios |
+| \(E(R_p) = \sum_i w_i\,E(R_i)\) | expected returns add with weights |
+| \(\sigma_p^2 = w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\rho_{12}\sigma_1\sigma_2\) | risk does not add unless \(\rho = 1\) |
+| \({}_nC_r = \dfrac{n!}{(n - r)!\,r!};\quad {}_nP_r = \dfrac{n!}{(n - r)!}\) | combinations (order does not matter) and permutations (it does) |
+| \(P(X = x) = \binom{n}{x} p^x (1 - p)^{n - x};\quad \mu = np,\ \sigma^2 = np(1 - p)\) | binomial: \(x\) successes in \(n\) trials |
+| \(z = \dfrac{X - \mu}{\sigma}\) | standard deviations from the mean |
+| \(SFRatio = \dfrac{E(R_p) - R_L}{\sigma_p}\) | Roy's safety-first: choose the highest |
+| \(\ln X \sim N(\mu, \sigma^2) \Rightarrow X \text{ is lognormal}\) | used for prices, which cannot fall below zero |
 
 ### Sampling, estimation and hypothesis tests
 
 | Formula | What it says |
 |---|---|
-| Standard error of the mean = s ÷ √n | how precisely the sample mean estimates μ |
-| Confidence interval = X̄ ± z (or t) × s ÷ √n | 90%: 1.645; 95%: 1.96; 99%: 2.58 |
-| t-test of a mean: t = (X̄ − μ₀) ÷ (s ÷ √n), df = n − 1 | is the mean different from μ₀? |
-| Difference in means (equal variances): t = (X̄₁ − X̄₂) ÷ √(s_p²÷n₁ + s_p²÷n₂) | two independent samples |
-| Paired comparisons: t = (d̄ − μ_d0) ÷ s_d̄ | dependent samples, such as before and after |
-| Variance test: χ² = (n − 1)s² ÷ σ₀², df = n − 1 | one variance against a value |
-| Equality of two variances: F = s₁² ÷ s₂² (larger on top) | df n₁ − 1 and n₂ − 1 |
-| Correlation test: t = r√(n − 2) ÷ √(1 − r²), df = n − 2 | is the correlation zero? |
-| Type I error = rejecting a true null (probability α) | Type II = failing to reject a false null; power = 1 − P(Type II) |
+| \(s_{\bar{X}} = \dfrac{s}{\sqrt{n}}\) | standard error of the mean |
+| \(\bar{X} \pm z_{\alpha/2}\,\dfrac{s}{\sqrt{n}}\) | confidence interval; \(z\) = 1.645 (90%), 1.96 (95%), 2.58 (99%) |
+| \(t = \dfrac{\bar{X} - \mu_0}{s/\sqrt{n}},\quad df = n - 1\) | test of a mean |
+| \(t = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{s_p^2/n_1 + s_p^2/n_2}}\) | difference in means (equal variances) |
+| \(t = \dfrac{\bar{d} - \mu_{d0}}{s_{\bar{d}}}\) | paired comparisons (dependent samples) |
+| \(\chi^2 = \dfrac{(n - 1)s^2}{\sigma_0^2},\quad df = n - 1\) | test of one variance |
+| \(F = \dfrac{s_1^2}{s_2^2}\) | equality of two variances (larger on top); df \(n_1 - 1,\ n_2 - 1\) |
+| \(t = \dfrac{r\sqrt{n - 2}}{\sqrt{1 - r^2}},\quad df = n - 2\) | is the correlation zero? |
+| \(\text{Power} = 1 - P(\text{Type II error})\) | Type I: rejecting a true null (probability \(\alpha\)); Type II: failing to reject a false null |
 
 ### Simple linear regression
 
 | Formula | What it says |
 |---|---|
-| Slope b̂₁ = Cov(X, Y) ÷ Var(X) | change in Y per unit of X |
-| Intercept b̂₀ = Ȳ − b̂₁X̄ | the line passes through the means |
-| SST = SSR + SSE | total = explained + unexplained variation |
-| R² = SSR ÷ SST = r² (one X variable) | share of variation explained |
-| MSR = SSR ÷ k; MSE = SSE ÷ (n − k − 1) | mean squares (k = 1 here) |
-| F = MSR ÷ MSE | is the model useful at all? |
-| Standard error of estimate = √MSE | typical size of a residual |
-| t for slope = (b̂₁ − B₁) ÷ s_b̂₁, df = n − 2 | is the slope different from B₁? |
-| Prediction: Ŷ = b̂₀ + b̂₁X; interval Ŷ ± t_c × s_f | forecast and its range |
-| Log-lin: ln Y = b₀ + b₁X; lin-log: Y = b₀ + b₁ ln X; log-log: ln Y = b₀ + b₁ ln X | functional forms for curved relationships |
+| \(\hat{b}_1 = \dfrac{\text{Cov}(X, Y)}{\text{Var}(X)}\) | slope: change in \(Y\) per unit of \(X\) |
+| \(\hat{b}_0 = \bar{Y} - \hat{b}_1\bar{X}\) | the line passes through the means |
+| \(SST = SSR + SSE\) | total = explained + unexplained variation |
+| \(R^2 = \dfrac{SSR}{SST} = r^2\) | share of variation explained (one \(X\)) |
+| \(MSR = \dfrac{SSR}{k};\quad MSE = \dfrac{SSE}{n - k - 1}\) | mean squares (\(k = 1\) here) |
+| \(F = \dfrac{MSR}{MSE}\) | is the model useful at all? |
+| \(s_e = \sqrt{MSE}\) | standard error of estimate: typical size of a residual |
+| \(t = \dfrac{\hat{b}_1 - B_1}{s_{\hat{b}_1}},\quad df = n - 2\) | is the slope different from \(B_1\)? |
+| \(\hat{Y} = \hat{b}_0 + \hat{b}_1 X;\quad \hat{Y} \pm t_c\,s_f\) | forecast and its prediction interval |
+| \(\ln Y = b_0 + b_1X;\quad Y = b_0 + b_1\ln X;\quad \ln Y = b_0 + b_1\ln X\) | log-lin, lin-log and log-log forms |
 
 ## Economics
 
 | Formula | What it says |
 |---|---|
-| Own-price elasticity = %ΔQ ÷ %ΔP = (∂Q/∂P) × (P ÷ Q) | ∣E∣ > 1 elastic; < 1 inelastic |
-| Income elasticity = (∂Q/∂I) × (I ÷ Q) | > 0 normal good; < 0 inferior good |
-| Cross-price elasticity = (∂Q_x/∂P_y) × (P_y ÷ Q_x) | > 0 substitutes; < 0 complements |
-| Total revenue = P × Q; marginal revenue = ΔTR ÷ ΔQ | MR = P(1 − 1 ÷ ∣E∣) |
-| Profit maximised where MR = MC | any market structure |
-| Breakeven: P = ATC; shutdown (short run): P < AVC | cover all costs long term, variable costs short term |
-| N-firm concentration ratio = sum of the N largest market shares | ignores how the rest is split |
-| HHI = Σ (market shareᵢ)² | sensitive to the largest firms |
-| GDP = C + I + G + (X − M) | expenditure approach |
-| GDP deflator = nominal GDP ÷ real GDP × 100 | the price level of output |
-| Fiscal multiplier = 1 ÷ [1 − MPC(1 − t)] | each unit of spending ripples through income |
-| Money multiplier = 1 ÷ reserve requirement | deposits created per unit of reserves |
-| Quantity theory: M × V = P × Y | money growth + velocity growth ≈ inflation + real growth |
-| Fisher effect: nominal rate ≈ real rate + expected inflation | |
-| Neutral policy rate = trend real growth + inflation target | policy rate above: contractionary |
-| Cross rate: (A/B) = (A/C) × (C/B) | go through a common currency |
-| %Δ in base currency = (new quote ÷ old quote) − 1 | for a quote in price/base |
-| Forward = Spot × [1 + i_price × (days ÷ 360)] ÷ [1 + i_base × (days ÷ 360)] | covered interest rate parity |
-| Forward points = (F − S) × 10,000 | quoted in pips |
-| Real exchange rate (d/f) = S(d/f) × (P_f ÷ P_d) | nominal rate adjusted for price levels |
-| Marshall–Lerner: ω_X ε_X + ω_M(ε_M − 1) > 0 | when depreciation improves the trade balance |
+| \(E_P = \dfrac{\%\Delta Q}{\%\Delta P} = \dfrac{\partial Q}{\partial P}\cdot\dfrac{P}{Q}\) | own-price elasticity: \(\lvert E\rvert > 1\) elastic, \(< 1\) inelastic |
+| \(E_I = \dfrac{\partial Q}{\partial I}\cdot\dfrac{I}{Q}\) | income elasticity: \(> 0\) normal good, \(< 0\) inferior good |
+| \(E_{XY} = \dfrac{\partial Q_X}{\partial P_Y}\cdot\dfrac{P_Y}{Q_X}\) | cross-price: \(> 0\) substitutes, \(< 0\) complements |
+| \(TR = P \times Q;\quad MR = P\left(1 - \dfrac{1}{\lvert E\rvert}\right)\) | total and marginal revenue |
+| \(MR = MC\) | profit-maximising output in any market structure |
+| \(P = ATC\) (breakeven); \(P < AVC\) (shut down in the short run) | cover all costs long term, variable costs short term |
+| \(CR_N = \sum_{i=1}^{N} s_i\) | \(N\)-firm concentration ratio: ignores how the rest is split |
+| \(HHI = \sum_i s_i^2\) | Herfindahl–Hirschman index: sensitive to the largest firms |
+| \(GDP = C + I + G + (X - M)\) | expenditure approach |
+| \(\text{GDP deflator} = \dfrac{\text{nominal GDP}}{\text{real GDP}} \times 100\) | the price level of output |
+| \(\text{Fiscal multiplier} = \dfrac{1}{1 - MPC(1 - t)}\) | each unit of spending ripples through income |
+| \(\text{Money multiplier} = \dfrac{1}{\text{reserve requirement}}\) | deposits created per unit of reserves |
+| \(MV = PY\) | quantity theory: money + velocity growth ≈ inflation + real growth |
+| \(i \approx r + \pi^e\) | Fisher effect |
+| \(r_{\text{neutral}} = \text{trend real growth} + \pi^{\text{target}}\) | policy rate above it: contractionary |
+| \(\dfrac{A}{B} = \dfrac{A}{C} \times \dfrac{C}{B}\) | cross rate through a common currency |
+| \(\%\Delta \text{ base currency} = \dfrac{S_1}{S_0} - 1\) | for a quote in price/base |
+| \(F = S\,\dfrac{1 + i_p \frac{\text{days}}{360}}{1 + i_b \frac{\text{days}}{360}}\) | covered interest rate parity |
+| \(\text{Forward points} = (F - S) \times 10{,}000\) | quoted in pips |
+| \(q_{d/f} = S_{d/f} \times \dfrac{P_f}{P_d}\) | real exchange rate |
+| \(\omega_X\varepsilon_X + \omega_M(\varepsilon_M - 1) > 0\) | Marshall–Lerner: when depreciation improves the trade balance |
 
 ## Financial statement analysis
 
@@ -144,142 +144,129 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 | Formula | What it says |
 |---|---|
-| Basic EPS = (net income − preferred dividends) ÷ weighted average shares | |
-| Diluted EPS = (NI − pref div + convertible pref div + after-tax convertible debt interest) ÷ (WASO + new shares from conversion and options) | include only dilutive securities |
-| Treasury stock method: new shares = n × (P_avg − X) ÷ P_avg | options exercised; proceeds buy back shares at the average price |
-| Comprehensive income = net income + other comprehensive income | |
-| Gross margin = (revenue − COGS) ÷ revenue | |
+| \(\text{Basic EPS} = \dfrac{\text{NI} - \text{preferred dividends}}{\text{weighted average shares}}\) | |
+| \(\text{Diluted EPS} = \dfrac{\text{NI} - \text{pref div} + \text{conv. pref div} + \text{conv. debt interest}(1 - t)}{\text{WASO} + \text{new shares}}\) | include only dilutive securities |
+| \(\text{New shares} = n \times \dfrac{\bar{P} - X}{\bar{P}}\) | treasury stock method for options |
+| \(\text{Comprehensive income} = \text{NI} + \text{OCI}\) | |
+| \(\text{Gross margin} = \dfrac{\text{revenue} - \text{COGS}}{\text{revenue}}\) | |
 
 ### Inventories and long-lived assets
 
 | Formula | What it says |
 |---|---|
-| COGS = beginning inventory + purchases − ending inventory | |
-| FIFO inventory = LIFO inventory + LIFO reserve | converting LIFO to FIFO |
-| FIFO COGS = LIFO COGS − ΔLIFO reserve | |
-| Net realisable value = selling price − costs to complete and sell | IFRS and US GAAP (non-LIFO): lower of cost and NRV |
-| Straight-line depreciation = (cost − residual) ÷ useful life | |
-| Double-declining balance = (2 ÷ life) × opening book value | ignores residual until the floor |
-| Units of production = (cost − residual) × units used ÷ total units expected | |
-| Average age = accumulated depreciation ÷ annual depreciation | |
-| Remaining useful life = net PP&E ÷ annual depreciation | total life = gross PP&E ÷ depreciation |
-| Impairment (IFRS): carrying amount > recoverable amount (higher of fair value less costs to sell and value in use) | |
-| Impairment (US GAAP): test if carrying amount > undiscounted cash flows; loss = carrying amount − fair value | |
+| \(\text{COGS} = \text{beginning inventory} + \text{purchases} - \text{ending inventory}\) | |
+| \(\text{Inventory}_{\text{FIFO}} = \text{Inventory}_{\text{LIFO}} + \text{LIFO reserve}\) | converting LIFO to FIFO |
+| \(\text{COGS}_{\text{FIFO}} = \text{COGS}_{\text{LIFO}} - \Delta\,\text{LIFO reserve}\) | |
+| \(\text{NRV} = \text{selling price} - \text{costs to complete and sell}\) | lower of cost and NRV |
+| \(\text{Straight-line} = \dfrac{\text{cost} - \text{residual}}{\text{useful life}}\) | |
+| \(\text{DDB} = \dfrac{2}{\text{life}} \times \text{opening book value}\) | ignores residual until the floor |
+| \(\text{Units of production} = (\text{cost} - \text{residual}) \times \dfrac{\text{units used}}{\text{total units}}\) | |
+| \(\text{Average age} = \dfrac{\text{accumulated depreciation}}{\text{annual depreciation}}\) | |
+| \(\text{Remaining life} = \dfrac{\text{net PP\&E}}{\text{annual depreciation}};\quad \text{total life} = \dfrac{\text{gross PP\&E}}{\text{depreciation}}\) | |
+| IFRS impairment: carrying amount \(>\) recoverable amount \(= \max(\text{FV} - \text{costs to sell},\ \text{value in use})\) | |
+| US GAAP: test if carrying amount \(>\) undiscounted cash flows; loss \(=\) carrying amount \(-\) fair value | |
 | Capitalised interest: added to asset cost, shown in investing cash flows | raises interest coverage in the year |
 
 ### Income taxes, debt and leases
 
 | Formula | What it says |
 |---|---|
-| Income tax expense = taxes payable + ΔDTL − ΔDTA | |
-| DTL = (carrying amount − tax base of asset) × tax rate, when carrying amount > tax base | pay more tax later |
-| DTA = (tax base − carrying amount) × tax rate | pay less tax later |
-| Effective tax rate = income tax expense ÷ pre-tax income | |
-| Bond interest expense = carrying amount × market rate at issue | effective interest method |
-| Discount amortisation = interest expense − coupon paid | |
-| Lease liability = PV of lease payments at the lease rate | |
-| Interest on lease liability = opening liability × rate | |
-| Closing lease liability = opening + interest − payment | |
-| Lessee (IFRS 16): depreciation of right-of-use asset + interest; US GAAP operating lease: single straight-line lease cost | |
+| \(\text{Tax expense} = \text{taxes payable} + \Delta\text{DTL} - \Delta\text{DTA}\) | |
+| \(\text{DTL} = (\text{carrying amount} - \text{tax base}) \times t\) | asset with carrying amount above tax base: pay more tax later |
+| \(\text{DTA} = (\text{tax base} - \text{carrying amount}) \times t\) | pay less tax later |
+| \(\text{Effective tax rate} = \dfrac{\text{tax expense}}{\text{pre-tax income}}\) | |
+| \(\text{Interest expense} = \text{carrying amount} \times r_{\text{market at issue}}\) | effective interest method |
+| \(\text{Discount amortisation} = \text{interest expense} - \text{coupon paid}\) | |
+| \(L_0 = \sum_t \dfrac{\text{lease payment}_t}{(1 + r)^t}\) | lease liability |
+| \(\text{Interest}_t = L_{t-1} \times r;\quad L_t = L_{t-1} + \text{interest}_t - \text{payment}_t\) | lease liability over time |
+| Lessee (IFRS 16): ROU depreciation + interest; US GAAP operating lease: single straight-line cost | |
 
 ### Cash flow statement
 
 | Formula | What it says |
 |---|---|
-| CFO (indirect) = NI + non-cash charges − gains + losses − Δoperating assets + Δoperating liabilities | |
-| Cash collected from customers = revenue − Δaccounts receivable | direct method |
-| Cash paid to suppliers = COGS + Δinventory − Δaccounts payable | |
-| FCFF = CFO + interest × (1 − t) − FCInv | free cash flow to all capital providers |
-| FCFF = NI + NCC + interest × (1 − t) − FCInv − WCInv | |
-| FCFE = CFO − FCInv + net borrowing | free cash flow to shareholders |
-| Cash flow to revenue = CFO ÷ revenue | |
-| Cash return on assets = CFO ÷ average total assets | |
-| Cash flow to net income = CFO ÷ net income | earnings quality |
-| Debt coverage = CFO ÷ total debt; interest coverage (cash) = (CFO + interest + taxes paid) ÷ interest paid | |
+| \(\text{CFO} = \text{NI} + \text{non-cash charges} - \text{gains} + \text{losses} - \Delta\text{operating assets} + \Delta\text{operating liabilities}\) | indirect method |
+| \(\text{Cash from customers} = \text{revenue} - \Delta\text{receivables}\) | direct method |
+| \(\text{Cash to suppliers} = \text{COGS} + \Delta\text{inventory} - \Delta\text{payables}\) | |
+| \(\text{FCFF} = \text{CFO} + \text{Int}(1 - t) - \text{FCInv}\) | to all capital providers |
+| \(\text{FCFF} = \text{NI} + \text{NCC} + \text{Int}(1 - t) - \text{FCInv} - \text{WCInv}\) | |
+| \(\text{FCFE} = \text{CFO} - \text{FCInv} + \text{net borrowing}\) | to shareholders |
+| \(\dfrac{\text{CFO}}{\text{revenue}};\quad \dfrac{\text{CFO}}{\text{average total assets}};\quad \dfrac{\text{CFO}}{\text{NI}}\) | cash flow ratios (the last measures earnings quality) |
+| \(\dfrac{\text{CFO}}{\text{total debt}};\quad \dfrac{\text{CFO} + \text{interest} + \text{taxes paid}}{\text{interest paid}}\) | debt and cash interest coverage |
 
 ### Ratios
 
 | Formula | What it says |
 |---|---|
-| Receivables turnover = revenue ÷ average receivables; DSO = 365 ÷ turnover | days to collect |
-| Inventory turnover = COGS ÷ average inventory; DOH = 365 ÷ turnover | days on the shelf |
-| Payables turnover = purchases ÷ average payables; DPO = 365 ÷ turnover | days to pay suppliers |
-| Cash conversion cycle = DOH + DSO − DPO | days cash is tied up |
-| Working capital turnover = revenue ÷ average working capital | |
-| Fixed asset turnover = revenue ÷ average net fixed assets | |
-| Total asset turnover = revenue ÷ average total assets | |
-| Current ratio = current assets ÷ current liabilities | |
-| Quick ratio = (cash + short-term investments + receivables) ÷ current liabilities | leaves out inventory |
-| Cash ratio = (cash + short-term investments) ÷ current liabilities | |
-| Defensive interval = (cash + short-term investments + receivables) ÷ daily cash expenditures | days the company could survive |
-| Debt-to-assets = total debt ÷ total assets | |
-| Debt-to-capital = total debt ÷ (total debt + equity) | |
-| Debt-to-equity = total debt ÷ total equity | |
-| Financial leverage = average total assets ÷ average equity | |
-| Interest coverage = EBIT ÷ interest expense | |
-| Fixed charge coverage = (EBIT + lease payments) ÷ (interest + lease payments) | |
-| Operating margin = operating income ÷ revenue; net margin = NI ÷ revenue | |
-| ROA = NI ÷ average total assets; operating ROA = operating income ÷ average total assets | |
-| Return on total capital = EBIT ÷ (average debt + equity) | |
-| ROE = NI ÷ average equity | |
-| DuPont (3-step): ROE = (NI ÷ revenue) × (revenue ÷ assets) × (assets ÷ equity) | margin × turnover × leverage |
-| DuPont (5-step): ROE = (NI ÷ EBT) × (EBT ÷ EBIT) × (EBIT ÷ revenue) × (revenue ÷ assets) × (assets ÷ equity) | tax burden × interest burden × EBIT margin × turnover × leverage |
-| Dividend payout = dividends ÷ NI; retention b = 1 − payout | |
-| Sustainable growth g = b × ROE | growth funded by retained earnings |
-| P/E = price ÷ EPS; P/CF = price ÷ cash flow per share; P/S = price ÷ sales per share; P/B = price ÷ book value per share | valuation ratios |
-| Credit: EBITDA ÷ interest; debt ÷ EBITDA; FFO ÷ debt; FCF after dividends ÷ debt | used by rating agencies |
+| \(\text{Receivables turnover} = \dfrac{\text{revenue}}{\text{avg receivables}};\quad DSO = \dfrac{365}{\text{turnover}}\) | days to collect |
+| \(\text{Inventory turnover} = \dfrac{\text{COGS}}{\text{avg inventory}};\quad DOH = \dfrac{365}{\text{turnover}}\) | days on the shelf |
+| \(\text{Payables turnover} = \dfrac{\text{purchases}}{\text{avg payables}};\quad DPO = \dfrac{365}{\text{turnover}}\) | days to pay suppliers |
+| \(\text{CCC} = DOH + DSO - DPO\) | days cash is tied up |
+| \(\dfrac{\text{revenue}}{\text{avg working capital}};\quad \dfrac{\text{revenue}}{\text{avg net fixed assets}};\quad \dfrac{\text{revenue}}{\text{avg total assets}}\) | working capital, fixed asset and total asset turnover |
+| \(\text{Current ratio} = \dfrac{\text{current assets}}{\text{current liabilities}}\) | |
+| \(\text{Quick ratio} = \dfrac{\text{cash} + \text{ST investments} + \text{receivables}}{\text{current liabilities}}\) | leaves out inventory |
+| \(\text{Cash ratio} = \dfrac{\text{cash} + \text{ST investments}}{\text{current liabilities}}\) | |
+| \(\text{Defensive interval} = \dfrac{\text{cash} + \text{ST investments} + \text{receivables}}{\text{daily cash expenditures}}\) | days the company could survive |
+| \(\dfrac{\text{debt}}{\text{assets}};\quad \dfrac{\text{debt}}{\text{debt} + \text{equity}};\quad \dfrac{\text{debt}}{\text{equity}}\) | solvency |
+| \(\text{Financial leverage} = \dfrac{\text{avg total assets}}{\text{avg equity}}\) | |
+| \(\text{Interest coverage} = \dfrac{\text{EBIT}}{\text{interest}};\quad \text{fixed charge coverage} = \dfrac{\text{EBIT} + \text{lease payments}}{\text{interest} + \text{lease payments}}\) | |
+| \(\dfrac{\text{operating income}}{\text{revenue}};\quad \dfrac{\text{NI}}{\text{revenue}}\) | operating and net margin |
+| \(ROA = \dfrac{\text{NI}}{\text{avg total assets}};\quad ROE = \dfrac{\text{NI}}{\text{avg equity}};\quad \text{return on capital} = \dfrac{\text{EBIT}}{\text{avg debt} + \text{equity}}\) | |
+| \(ROE = \dfrac{\text{NI}}{\text{revenue}} \times \dfrac{\text{revenue}}{\text{assets}} \times \dfrac{\text{assets}}{\text{equity}}\) | DuPont: margin × turnover × leverage |
+| \(ROE = \dfrac{\text{NI}}{\text{EBT}} \times \dfrac{\text{EBT}}{\text{EBIT}} \times \dfrac{\text{EBIT}}{\text{revenue}} \times \dfrac{\text{revenue}}{\text{assets}} \times \dfrac{\text{assets}}{\text{equity}}\) | five-step DuPont: tax burden × interest burden × EBIT margin × turnover × leverage |
+| \(\text{Payout} = \dfrac{\text{dividends}}{\text{NI}};\quad b = 1 - \text{payout}\) | retention rate |
+| \(g = b \times ROE\) | sustainable growth |
+| \(\dfrac{P}{E},\ \dfrac{P}{CF},\ \dfrac{P}{S},\ \dfrac{P}{B}\) (per share) | valuation ratios |
+| \(\dfrac{\text{EBITDA}}{\text{interest}};\quad \dfrac{\text{debt}}{\text{EBITDA}};\quad \dfrac{\text{FFO}}{\text{debt}}\) | credit ratios |
 
 ## Corporate issuers
 
 | Formula | What it says |
 |---|---|
-| NPV = Σ CFₜ ÷ (1 + r)ᵗ − CF₀ | value added by a project; accept if > 0 |
-| IRR: rate at which NPV = 0 | accept if IRR > cost of capital |
-| Profitability index = PV of future cash flows ÷ initial investment = 1 + NPV ÷ CF₀ | accept if > 1 |
-| Payback period = years until cumulative cash flow turns positive | ignores time value and later cash flows |
-| ROIC = after-tax operating profit ÷ average invested capital | compare with the cost of capital |
-| WACC = w_d r_d(1 − t) + w_p r_p + w_e r_e | use target or market-value weights |
-| Cost of preferred = D_p ÷ P_p | |
-| After-tax cost of debt = YTM × (1 − t) | interest is tax-deductible |
-| CAPM cost of equity = R_f + β[E(R_m) − R_f] | |
-| Dividend discount cost of equity = D₁ ÷ P₀ + g | |
-| Bond yield plus risk premium: r_e = r_d + risk premium | |
-| Country risk: r_e = R_f + β[E(R_m) − R_f + CRP] | |
-| Unlevered (asset) beta: β_A = β_E ÷ [1 + (1 − t) D ÷ E] | strip out the comparable's leverage |
-| Relevered beta: β_E = β_A × [1 + (1 − t) D ÷ E] | apply the project's leverage |
-| MM I without taxes: V_L = V_U | capital structure is irrelevant |
-| MM II without taxes: r_e = r₀ + (r₀ − r_d)(D ÷ E) | equity gets riskier with debt |
-| MM I with taxes: V_L = V_U + tD | value of the tax shield |
-| MM II with taxes: r_e = r₀ + (r₀ − r_d)(1 − t)(D ÷ E) | |
-| DOL = %ΔEBIT ÷ %Δsales = Q(P − V) ÷ [Q(P − V) − F] | operating leverage |
-| DFL = %ΔNI ÷ %ΔEBIT = [Q(P − V) − F] ÷ [Q(P − V) − F − C] | C = fixed financing cost |
-| DTL = DOL × DFL = Q(P − V) ÷ [Q(P − V) − F − C] | total leverage |
-| Breakeven quantity = (F + C) ÷ (P − V); operating breakeven = F ÷ (P − V) | |
-| Cost of trade credit = (1 + discount ÷ (1 − discount))^(365 ÷ days beyond discount period) − 1 | cost of skipping an early-payment discount |
+| \(NPV = \sum_{t=1}^{n}\dfrac{CF_t}{(1 + r)^t} - CF_0\) | value added: accept if \(> 0\) |
+| \(\sum_{t=0}^{n}\dfrac{CF_t}{(1 + \text{IRR})^t} = 0\) | accept if IRR \(>\) cost of capital |
+| \(PI = \dfrac{PV(\text{future cash flows})}{CF_0} = 1 + \dfrac{NPV}{CF_0}\) | profitability index: accept if \(> 1\) |
+| Payback = years until cumulative cash flow turns positive | ignores time value and later cash flows |
+| \(\text{ROIC} = \dfrac{\text{after-tax operating profit}}{\text{avg invested capital}}\) | compare with the cost of capital |
+| \(WACC = w_d r_d(1 - t) + w_p r_p + w_e r_e\) | target or market-value weights |
+| \(r_p = \dfrac{D_p}{P_p}\) | cost of preferred |
+| \(r_d(1 - t)\) | after-tax cost of debt |
+| \(r_e = R_f + \beta[E(R_m) - R_f]\) | CAPM cost of equity |
+| \(r_e = \dfrac{D_1}{P_0} + g\) | dividend discount cost of equity |
+| \(r_e = r_d + \text{risk premium}\) | bond yield plus risk premium |
+| \(r_e = R_f + \beta[E(R_m) - R_f + CRP]\) | with a country risk premium |
+| \(\beta_A = \dfrac{\beta_E}{1 + (1 - t)\frac{D}{E}}\) | unlever a comparable's beta |
+| \(\beta_E = \beta_A\left[1 + (1 - t)\dfrac{D}{E}\right]\) | relever for the project |
+| \(V_L = V_U\) | MM I without taxes |
+| \(r_e = r_0 + (r_0 - r_d)\dfrac{D}{E}\) | MM II without taxes |
+| \(V_L = V_U + tD\) | MM I with taxes |
+| \(r_e = r_0 + (r_0 - r_d)(1 - t)\dfrac{D}{E}\) | MM II with taxes |
+| \(DOL = \dfrac{Q(P - V)}{Q(P - V) - F}\) | operating leverage |
+| \(DFL = \dfrac{Q(P - V) - F}{Q(P - V) - F - C}\) | financial leverage (\(C\) = fixed financing cost) |
+| \(DTL = DOL \times DFL = \dfrac{Q(P - V)}{Q(P - V) - F - C}\) | total leverage |
+| \(Q_{BE} = \dfrac{F + C}{P - V};\quad Q_{OBE} = \dfrac{F}{P - V}\) | breakeven and operating breakeven |
+| \(\text{Cost of trade credit} = \left(1 + \dfrac{\text{disc}}{1 - \text{disc}}\right)^{365/\text{days past discount}} - 1\) | cost of skipping an early-payment discount |
 
 ## Equity investments
 
 | Formula | What it says |
 |---|---|
-| Leverage ratio = 1 ÷ initial margin | |
-| Margin call price = P₀ × (1 − initial margin) ÷ (1 − maintenance margin) | for a long position |
-| Return on a margin purchase = (ending equity − beginning equity) ÷ beginning equity | includes dividends, interest and commissions |
-| Price-weighted index = Σ prices ÷ divisor | high-priced stocks dominate; adjust divisor for splits |
-| Market-cap-weighted: weightᵢ = (Pᵢ × Qᵢ) ÷ Σ(P × Q) | large companies dominate |
-| Float-adjusted: use shares available to the public | |
-| Equal-weighted: weight = 1 ÷ N | needs frequent rebalancing |
-| Price return index vs total return index: total return = (P₁ − P₀ + income) ÷ P₀ | |
-| Preferred share value = D_p ÷ r_p | perpetuity |
-| Gordon growth model: V₀ = D₁ ÷ (r − g) = D₀(1 + g) ÷ (r − g) | r must exceed g |
-| Multistage DDM: V₀ = Σ Dₜ ÷ (1 + r)ᵗ + Vₙ ÷ (1 + r)ⁿ, with Vₙ = Dₙ₊₁ ÷ (r − g) | high growth, then stable |
-| FCFE model: V₀ = Σ FCFEₜ ÷ (1 + r)ᵗ | for companies that pay little in dividends |
-| Implied required return: r = D₁ ÷ P₀ + g | |
-| Justified forward P/E = (D₁ ÷ E₁) ÷ (r − g) | payout over (r − g) |
-| Justified trailing P/E = payout × (1 + g) ÷ (r − g) | |
-| Justified P/B = (ROE − g) ÷ (r − g) | |
-| Enterprise value = market value of equity + debt + preferred + minority interest − cash and investments | |
-| Equity value from EV = EV − debt − preferred − minority interest + cash | |
-| Sustainable growth g = b × ROE | |
+| \(\text{Leverage ratio} = \dfrac{1}{\text{initial margin}}\) | |
+| \(P = P_0\,\dfrac{1 - \text{initial margin}}{1 - \text{maintenance margin}}\) | margin call price for a long position |
+| \(R = \dfrac{\text{ending equity} - \text{beginning equity}}{\text{beginning equity}}\) | margin return, including dividends, interest and commissions |
+| \(\text{Price-weighted index} = \dfrac{\sum P_i}{\text{divisor}}\) | high-priced stocks dominate |
+| \(w_i = \dfrac{P_iQ_i}{\sum_j P_jQ_j}\) | market-cap weighting (float-adjusted uses free-float shares) |
+| \(w_i = \dfrac{1}{N}\) | equal weighting: needs frequent rebalancing |
+| \(V_p = \dfrac{D_p}{r_p}\) | preferred share (perpetuity) |
+| \(V_0 = \dfrac{D_1}{r - g} = \dfrac{D_0(1 + g)}{r - g}\) | Gordon growth model (\(r > g\)) |
+| \(V_0 = \sum_{t=1}^{n}\dfrac{D_t}{(1 + r)^t} + \dfrac{V_n}{(1 + r)^n},\quad V_n = \dfrac{D_{n+1}}{r - g}\) | multistage dividend discount model |
+| \(V_0 = \sum_t \dfrac{FCFE_t}{(1 + r)^t}\) | FCFE model |
+| \(r = \dfrac{D_1}{P_0} + g\) | implied required return |
+| \(\dfrac{P_0}{E_1} = \dfrac{D_1/E_1}{r - g}\) | justified forward P/E |
+| \(\dfrac{P_0}{E_0} = \dfrac{(D_0/E_0)(1 + g)}{r - g}\) | justified trailing P/E |
+| \(\dfrac{P_0}{B_0} = \dfrac{ROE - g}{r - g}\) | justified P/B |
+| \(EV = \text{equity} + \text{debt} + \text{preferred} + \text{minority interest} - \text{cash}\) | enterprise value |
+| \(g = b \times ROE\) | sustainable growth |
 
 ## Fixed income
 
@@ -287,104 +274,99 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 | Formula | What it says |
 |---|---|
-| Price = Σ PMT ÷ (1 + r)ᵗ + FV ÷ (1 + r)ᴺ | a bond is a bundle of discounted payments |
-| Price with spot rates = Σ PMTₜ ÷ (1 + Zₜ)ᵗ + FV ÷ (1 + Z_N)ᴺ | each cash flow at its own rate |
-| Full price = PV at last coupon date × (1 + r)^(t ÷ T) | price between coupon dates |
-| Accrued interest = (t ÷ T) × coupon | |
-| Flat (clean) price = full price − accrued interest | the quoted price |
-| Current yield = annual coupon ÷ flat price | income return only |
-| Simple yield = (coupon + straight-line amortised gain or loss) ÷ flat price | |
-| Yield to worst = lowest of yield to maturity and yields to each call date | |
-| Periodicity conversion: (1 + APR_m ÷ m)ᵐ = (1 + APR_n ÷ n)ⁿ | compare yields with different frequencies |
-| Money market, discount basis: PV = FV × [1 − (days ÷ year) × DR] | |
-| Money market, add-on basis: PV = FV ÷ [1 + (days ÷ year) × AOR] | |
+| \(P = \sum_{t=1}^{N}\dfrac{PMT}{(1 + r)^t} + \dfrac{FV}{(1 + r)^N}\) | a bond is a bundle of discounted payments |
+| \(P = \sum_{t=1}^{N}\dfrac{PMT_t}{(1 + Z_t)^t} + \dfrac{FV}{(1 + Z_N)^N}\) | each cash flow at its own spot rate |
+| \(PV^{\text{full}} = PV \times (1 + r)^{t/T}\) | price between coupon dates |
+| \(AI = \dfrac{t}{T} \times PMT\) | accrued interest |
+| \(PV^{\text{flat}} = PV^{\text{full}} - AI\) | the quoted (clean) price |
+| \(\text{Current yield} = \dfrac{\text{annual coupon}}{\text{flat price}}\) | income return only |
+| \(\text{Simple yield} = \dfrac{\text{coupon} + \text{straight-line gain or loss}}{\text{flat price}}\) | |
+| Yield to worst = lowest of the yield to maturity and the yields to each call date | |
+| \(\left(1 + \dfrac{APR_m}{m}\right)^m = \left(1 + \dfrac{APR_n}{n}\right)^n\) | compare yields with different compounding |
+| \(PV = FV\left(1 - \dfrac{\text{days}}{\text{year}} \times DR\right)\) | money market, discount basis |
+| \(PV = \dfrac{FV}{1 + \frac{\text{days}}{\text{year}} \times AOR}\) | money market, add-on basis |
 | Bond-equivalent yield = add-on rate on a 365-day basis | |
-| Floating-rate note: coupon = reference rate + quoted margin; discount margin sets price | |
-| Implied forward: (1 + Z_A)^A × (1 + IFR_A,B−A)^(B−A) = (1 + Z_B)^B | no arbitrage between maturities |
-| G-spread = bond yield − government yield of same maturity; I-spread = bond yield − swap rate | |
-| Z-spread: constant spread over every spot rate that reprices the bond | |
-| Mortgage payment = loan × r ÷ [1 − (1 + r)^(−n)] | level-payment amortising loan |
-| SMM = 1 − (1 − CPR)^(1/12) | monthly prepayment rate from the annual rate |
+| \(\text{FRN coupon} = MRR + \text{quoted margin}\) | discount margin sets the price |
+| \((1 + Z_A)^A(1 + IFR_{A,B-A})^{B-A} = (1 + Z_B)^B\) | implied forward rate |
+| \(\text{G-spread} = y - y_{\text{gov}};\quad \text{I-spread} = y - \text{swap rate}\) | |
+| \(P = \sum_t \dfrac{PMT_t}{(1 + z_t + Z)^t}\) | Z-spread \(Z\): one spread over every spot rate |
+| \(A = \dfrac{rL}{1 - (1 + r)^{-n}}\) | level mortgage payment |
+| \(SMM = 1 - (1 - CPR)^{1/12}\) | monthly prepayment rate |
 
 ### Duration, convexity and credit
 
 | Formula | What it says |
 |---|---|
-| Macaulay duration = Σ t × PV(CFₜ) ÷ price | weighted-average time to receive cash flows |
-| Modified duration = Macaulay duration ÷ (1 + r) | % price change for a 1% change in yield |
-| Approximate modified duration = (PV₋ − PV₊) ÷ (2 × Δyield × PV₀) | from two repricings |
-| Approximate convexity = (PV₋ + PV₊ − 2PV₀) ÷ [(Δyield)² × PV₀] | curvature |
-| Effective duration = (PV₋ − PV₊) ÷ (2 × Δcurve × PV₀) | for bonds with embedded options |
-| %ΔPrice ≈ −ModDur × Δy + ½ × Convexity × (Δy)² | duration plus a curvature correction |
-| Money duration = ModDur × full price of position | change in money terms per 1.00 change in yield |
-| PVBP = (PV₋ − PV₊) ÷ 2, for a 1 bp shift | price value of a basis point |
-| Portfolio duration ≈ Σ wᵢ × Durᵢ (market-value weights) | |
-| Duration gap = Macaulay duration − investment horizon | positive: exposed to rising rates |
-| Expected loss = probability of default × loss given default | |
-| Loss given default = exposure × (1 − recovery rate) | |
-| Yield spread ≈ expected loss + liquidity and risk premiums | |
-| Return impact of a spread change ≈ −ModDur × Δspread + ½ × Convexity × (Δspread)² | |
-| Credit enhancement of a tranche = principal of tranches below it ÷ pool | losses hit the most junior tranche first |
+| \(\text{MacDur} = \sum_t t \times \dfrac{PV(CF_t)}{P}\) | weighted-average time to receive cash flows |
+| \(\text{ModDur} = \dfrac{\text{MacDur}}{1 + r}\) | % price change for a 1% change in yield |
+| \(\text{ApproxModDur} = \dfrac{PV_- - PV_+}{2\,\Delta y\,PV_0}\) | from two repricings |
+| \(\text{ApproxCon} = \dfrac{PV_- + PV_+ - 2PV_0}{(\Delta y)^2\,PV_0}\) | curvature |
+| \(\text{EffDur} = \dfrac{PV_- - PV_+}{2\,\Delta\text{Curve}\,PV_0}\) | for bonds with embedded options |
+| \(\%\Delta P \approx -\text{ModDur}\,\Delta y + \tfrac{1}{2}\,\text{Convexity}\,(\Delta y)^2\) | duration plus a curvature correction |
+| \(\text{MoneyDur} = \text{ModDur} \times PV^{\text{full}}\) | change in money terms |
+| \(PVBP = \dfrac{PV_- - PV_+}{2}\) for a 1 bp shift | price value of a basis point |
+| \(D_p \approx \sum_i w_i D_i\) | portfolio duration |
+| \(\text{Duration gap} = \text{MacDur} - \text{investment horizon}\) | positive: exposed to rising rates |
+| \(EL = PD \times LGD;\quad LGD = \text{exposure}\times(1 - RR)\) | expected loss |
+| \(\text{Spread} \approx EL + \text{liquidity and risk premiums}\) | |
+| \(\%\Delta P \approx -\text{ModDur}\,\Delta s + \tfrac{1}{2}\,\text{Convexity}\,(\Delta s)^2\) | effect of a credit spread change |
+| \(\text{Credit enhancement} = \dfrac{\text{tranches below}}{\text{pool}}\) | losses hit the most junior tranche first |
 
 ## Derivatives
 
 | Formula | What it says |
 |---|---|
-| Forward price: F₀ = S₀ × (1 + r)ᵀ | no income or costs |
-| With income and costs: F₀ = (S₀ − PV(income) + PV(costs)) × (1 + r)ᵀ | carry adjustments |
-| Continuous: F₀ = S₀ × e^((r + c − i)T) | c = costs, i = income/convenience yield |
-| Value of a long forward at t: Vₜ = Sₜ − F₀ ÷ (1 + r)^(T − t) | |
-| Futures: daily settlement; margin call if balance < maintenance, top up to initial margin | |
-| FRA settlement = notional × (MRR − FRA rate) × (days ÷ 360) ÷ [1 + MRR × (days ÷ 360)] | paid at the start of the period |
-| Swap fixed rate = (1 − PV factor_N) ÷ Σ PV factors | fixed leg equals floating leg |
-| Call payoff = max(0, S_T − X); put payoff = max(0, X − S_T) | |
-| Profit = payoff − premium (long) | writers' profit is the reverse |
-| Moneyness: call in the money if S > X; put if S < X | |
-| Option value = intrinsic value + time value | |
-| Lower bound of a European call = max(0, S₀ − X ÷ (1 + r)ᵀ) | |
-| Put–call parity: S₀ + p₀ = c₀ + X ÷ (1 + r)ᵀ | protective put = fiduciary call |
-| Put–call–forward parity: F₀ ÷ (1 + r)ᵀ + p₀ = c₀ + X ÷ (1 + r)ᵀ | |
-| Binomial: π = (1 + r − d) ÷ (u − d) | risk-neutral probability of an up move |
-| Option value = [π × V_up + (1 − π) × V_down] ÷ (1 + r) | discount the risk-neutral expectation |
-| Hedge ratio h = (c₊ − c₋) ÷ (S₊ − S₋) | shares per option to replicate it |
-| Covered call: max profit = X − S₀ + c₀; breakeven = S₀ − c₀ | |
-| Protective put: max loss = S₀ − X + p₀; breakeven = S₀ + p₀ | |
+| \(F_0 = S_0(1 + r)^T\) | forward price, no income or costs |
+| \(F_0 = [S_0 - PV(I) + PV(C)](1 + r)^T\) | with income and costs of carry |
+| \(F_0 = S_0\,e^{(r + c - i)T}\) | continuous compounding |
+| \(V_t = S_t - \dfrac{F_0}{(1 + r)^{T - t}}\) | value of a long forward |
+| Futures: daily settlement; margin call if the balance falls below maintenance, top up to initial margin | |
+| \(\text{FRA settlement} = \dfrac{N(MRR - FRA)\frac{\text{days}}{360}}{1 + MRR\frac{\text{days}}{360}}\) | paid at the start of the period |
+| \(s_N = \dfrac{1 - PV_N}{\sum_{i=1}^{N} PV_i}\) | swap fixed rate |
+| \(c_T = \max(0, S_T - X);\quad p_T = \max(0, X - S_T)\) | option payoffs |
+| \(\text{Profit} = \text{payoff} - \text{premium}\) | for the buyer; the writer's is the reverse |
+| \(\text{Option value} = \text{intrinsic value} + \text{time value}\) | call in the money if \(S > X\), put if \(S < X\) |
+| \(c_0 \ge \max\!\left(0, S_0 - \dfrac{X}{(1 + r)^T}\right)\) | lower bound of a European call |
+| \(S_0 + p_0 = c_0 + \dfrac{X}{(1 + r)^T}\) | put–call parity |
+| \(\dfrac{F_0}{(1 + r)^T} + p_0 = c_0 + \dfrac{X}{(1 + r)^T}\) | put–call–forward parity |
+| \(\pi = \dfrac{1 + r - d}{u - d}\) | risk-neutral probability of an up move |
+| \(V_0 = \dfrac{\pi V_u + (1 - \pi)V_d}{1 + r}\) | binomial option value |
+| \(h = \dfrac{c_+ - c_-}{S_+ - S_-}\) | hedge ratio |
+| Covered call: \(\max = X - S_0 + c_0\); breakeven \(= S_0 - c_0\) | |
+| Protective put: \(\max\text{ loss} = S_0 - X + p_0\); breakeven \(= S_0 + p_0\) | |
 
 ## Alternative investments
 
 | Formula | What it says |
 |---|---|
-| Management fee = rate × assets under management (start, end or average) | |
-| Incentive fee = rate × (gain − hurdle), above any high-water mark | check: after or independent of the management fee? |
-| Net return = (ending value − fees − beginning value) ÷ beginning value | |
-| Fund-of-funds net return: apply both fee layers | |
-| Carried interest (whole-of-fund) = carry rate × (total proceeds − committed capital) | deal-by-deal pays earlier |
-| DPI = distributions ÷ paid-in capital; RVPI = NAV ÷ paid-in; TVPI = DPI + RVPI | private equity multiples |
-| MOIC = (realised + unrealised value) ÷ invested capital | |
-| Property value = NOI ÷ cap rate; cap rate = NOI ÷ value | direct capitalisation |
-| NOI = rental income − vacancy − operating expenses (before interest, depreciation and tax) | |
-| Commodity futures total return = spot return + roll return + collateral return | |
-| Roll return > 0 in backwardation, < 0 in contango | |
+| \(\text{Management fee} = \text{rate} \times AUM\) | on start, end or average assets |
+| \(\text{Incentive fee} = \text{rate} \times (\text{gain} - \text{hurdle})\), above any high-water mark | check whether it is after the management fee |
+| \(R_{\text{net}} = \dfrac{V_1 - \text{fees} - V_0}{V_0}\) | investor's net return |
+| \(\text{Carried interest} = \text{carry rate} \times (\text{total proceeds} - \text{committed capital})\) | whole-of-fund waterfall |
+| \(DPI = \dfrac{\text{distributions}}{\text{paid-in}};\quad RVPI = \dfrac{NAV}{\text{paid-in}};\quad TVPI = DPI + RVPI\) | private equity multiples |
+| \(MOIC = \dfrac{\text{realised} + \text{unrealised value}}{\text{invested capital}}\) | |
+| \(V = \dfrac{NOI}{\text{cap rate}}\) | direct capitalisation |
+| \(NOI = \text{rental income} - \text{vacancy} - \text{operating expenses}\) | before interest, depreciation and tax |
+| \(R = \text{spot return} + \text{roll return} + \text{collateral return}\) | commodity futures total return |
 
 ## Portfolio management
 
 | Formula | What it says |
 |---|---|
-| Utility: U = E(R) − ½Aσ² | A = risk aversion; returns in decimals |
-| Capital allocation line: E(R_p) = R_f + [(E(R_i) − R_f) ÷ σᵢ] × σ_p | |
-| Complete portfolio: E(R) = w R_risky + (1 − w)R_f; σ = w σ_risky | |
-| Optimal risky weight y* = [E(R) − R_f] ÷ (Aσ²) | |
-| Portfolio variance (2 assets) = w₁²σ₁² + w₂²σ₂² + 2w₁w₂ρσ₁σ₂ | |
-| Total variance = β²σ_m² + σ_e² | systematic plus unsystematic |
-| β = Cov(Rᵢ, R_m) ÷ σ_m² = ρ σᵢ ÷ σ_m | sensitivity to the market |
-| Market model: Rᵢ = αᵢ + βᵢR_m + eᵢ | |
-| CAPM / security market line: E(R) = R_f + β[E(R_m) − R_f] | return for systematic risk only |
-| Capital market line: E(R_p) = R_f + [(E(R_m) − R_f) ÷ σ_m] × σ_p | efficient portfolios only |
-| Sharpe ratio = (R_p − R_f) ÷ σ_p | excess return per unit of total risk |
-| Treynor ratio = (R_p − R_f) ÷ β_p | excess return per unit of market risk |
-| M² = R_f + (R_p − R_f) × (σ_m ÷ σ_p); M² alpha = M² − R_m | risk-adjusted, in percentage points |
-| Jensen's alpha = R_p − [R_f + β_p(R_m − R_f)] | return above what the CAPM predicts |
-| Parametric VaR ≈ (z × σ − μ) × portfolio value | z = 1.65 for 5%, 2.33 for 1% |
+| \(U = E(R) - \tfrac{1}{2}A\sigma^2\) | utility; \(A\) = risk aversion, returns in decimals |
+| \(E(R_p) = R_f + \dfrac{E(R_i) - R_f}{\sigma_i}\,\sigma_p\) | capital allocation line |
+| \(E(R) = wR_{\text{risky}} + (1 - w)R_f;\quad \sigma = w\,\sigma_{\text{risky}}\) | complete portfolio |
+| \(y^* = \dfrac{E(R) - R_f}{A\sigma^2}\) | optimal weight in the risky portfolio |
+| \(\sigma_i^2 = \beta_i^2\sigma_m^2 + \sigma_e^2\) | systematic plus unsystematic risk |
+| \(\beta_i = \dfrac{\text{Cov}(R_i, R_m)}{\sigma_m^2} = \rho_{i,m}\dfrac{\sigma_i}{\sigma_m}\) | sensitivity to the market |
+| \(R_i = \alpha_i + \beta_i R_m + e_i\) | market model |
+| \(E(R_i) = R_f + \beta_i[E(R_m) - R_f]\) | CAPM / security market line |
+| \(E(R_p) = R_f + \dfrac{E(R_m) - R_f}{\sigma_m}\,\sigma_p\) | capital market line (efficient portfolios) |
+| \(\text{Sharpe} = \dfrac{R_p - R_f}{\sigma_p}\) | excess return per unit of total risk |
+| \(\text{Treynor} = \dfrac{R_p - R_f}{\beta_p}\) | excess return per unit of market risk |
+| \(M^2 = R_f + (R_p - R_f)\dfrac{\sigma_m}{\sigma_p};\quad M^2\text{ alpha} = M^2 - R_m\) | risk-adjusted return in percentage points |
+| \(\alpha_J = R_p - [R_f + \beta_p(R_m - R_f)]\) | Jensen's alpha |
+| \(\text{VaR} \approx (z\sigma - \mu) \times \text{portfolio value}\) | \(z\) = 1.65 (5%), 2.33 (1%) |
 
 ## How to remember them
 

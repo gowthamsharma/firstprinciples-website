@@ -102,10 +102,33 @@ def make_thumb(p):
     return name
 
 
+def _formula_tex(f):
+    """Turn the calculator guide's formula shorthand ({num}/{den}, <sub>, <sup>, words) into LaTeX."""
+    t = f.strip()
+    t = re.sub(r"\{([^{}]+)\}/\{([^{}]+)\}", r"\\dfrac{\1}{\2}", t)
+    t = re.sub(r"<sub>(.*?)</sub>", r"_{\1}", t)
+    t = re.sub(r"<sup>(.*?)</sup>", r"^{\1}", t)
+    t = re.sub(r"√ (\\dfrac\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})", r"\\sqrt{\1}", t)
+    t = re.sub(r"√ (\(.*\))\s*$", r"\\sqrt{\1}", t)
+    t = re.sub(r"√ (Σ.*)$", r"\\sqrt{\1}", t)
+    t = re.sub(r"(\d),(\d{3})", r"\1{,}\2", t)
+    for a, b in (("×", r"\times "), ("÷", r"\div "), ("−", "-"), ("Σ", r"\sum "), ("σ", r"\sigma "), ("x̄", r"\bar{x}"),
+                 ("Δ", r"\Delta "), ("…", r"\dots "), ("%", r"\%"), ("ln ", r"\ln "), ("ln(", r"\ln(")):
+        t = t.replace(a, b)
+
+
+    def words(m):
+        before = m.string[:m.start()].rstrip()
+        after = m.string[m.end():].lstrip()
+        pre = "\\ " if before and (before[-1].isdigit() or before[-1] in ")}") else ""
+        post = "\\ " if after[:1].isdigit() else ""
+        return pre + r"\text{" + m.group(0) + "}" + post
+    t = re.sub(r"(?<![\\a-zA-Z{])(?!ln\b|dfrac|sqrt|times|div|sum|sigma|bar|Delta|dots|text)[A-Za-z]{2,}(?: [a-z]{2,}| [0-9]+\b(?= [a-z]))*", words, t)
+    return t.replace(r" a \text{month}", r"\text{ a month}")
+
+
 def _formula_html(f):
-    # {numerator}/{denominator} becomes a stacked fraction
-    f = re.sub(r"\{([^{}]+)\}/\{([^{}]+)\}", r'<span class="fr"><span>\1</span><span>\2</span></span>', f)
-    return f
+    return "\\(" + _formula_tex(f) + "\\)"
 
 
 def try_box(title, keys, *rest):
@@ -140,7 +163,14 @@ def render_md(p):
         boxes.append(try_box(*[x.strip() for x in parts]))
         return f"\n\nTRYBOX{len(boxes) - 1}X\n\n"
     src = re.sub(r"\[\[try:(.+?)\]\]", hold, p["body_md"])
+    maths = []
+
+    def keep(m):
+        maths.append(m.group(0))
+        return f"MATHX{len(maths) - 1}X"
+    src = _MATH_RE.sub(keep, src)
     body = md.convert(src)
+    body = re.sub(r"MATHX(\d+)X", lambda m: html.escape(maths[int(m.group(1))], quote=False), body)
     body = re.sub(r"<p>TRYBOX(\d+)X</p>", lambda m: boxes[int(m.group(1))], body)
     body = body.replace("<table>", '<div class="tablewrap"><table>').replace("</table>", "</table></div>")
 
@@ -257,6 +287,125 @@ def menu_html(active):
     return out
 
 
+
+# ---- math: LaTeX between \( \) (inline) or \[ \] (display), rendered to HTML at build time with KaTeX
+#      (npm install; node render_math.js). Without node/KaTeX the page falls back to KaTeX in the browser.
+KATEX_VER = "0.16.11"
+_MATH_CACHE = {}
+_MATH_RE = re.compile(r"\\\[(.+?)\\\]|\\\((.+?)\\\)", re.S)
+_MATH_OK = None
+
+
+def _render_math(items):
+    global _MATH_OK
+    import subprocess
+    todo = [k for k in dict.fromkeys(items) if k not in _MATH_CACHE]
+    if todo and _MATH_OK is not False:
+        try:
+            r = subprocess.run(["node", str(ROOT / "render_math.js")], input=json.dumps([[t, d] for t, d in todo]),
+                               capture_output=True, text=True, cwd=ROOT, timeout=120, check=True)
+            if r.stderr.strip():
+                print(r.stderr.strip())
+            for k, h in zip(todo, json.loads(r.stdout)):
+                _MATH_CACHE[k] = h
+            _MATH_OK = True
+        except Exception as e:  # no node or no katex: render in the browser instead
+            if _MATH_OK is None:
+                print("math: build-time rendering unavailable (", e.__class__.__name__, ") - using KaTeX in the browser")
+            _MATH_OK = False
+    return all(k in _MATH_CACHE for k in items)
+
+
+
+# ---- automatic typesetting of worked arithmetic in page text, e.g. "(200 − 20) × 0.75 = 135"
+_NUM = r"(?:\d{1,3}(?:,\d{3})+|\d+)(?:\.\d+)?%?"
+_TOK = _NUM + r"|[×÷/^=≈+−]|[()\[\]]|√|²|³|½"
+_ARITH_RE = re.compile(r"(?<![\w.,/$£€¥₹^])(?:" + _TOK + r")(?:\s?(?:" + _TOK + r"))*")
+
+
+def _balance(s):
+    """Trim unmatched brackets at the ends of a detected run."""
+    for o, c in (("(", ")"), ("[", "]")):
+        while s.count(o) > s.count(c) and s.startswith(o):
+            s = s[1:].lstrip()
+        while s.count(c) > s.count(o) and s.endswith(c):
+            s = s[:-1].rstrip()
+    return s
+
+
+def _arith_tex(t):
+    t = t.strip()
+    t = re.sub(r"(\d),(\d{3})", r"\1{,}\2", t)
+    t = re.sub(r"\^\(([^()]+)\)", r"^{\1}", t)
+    t = re.sub(r"\^(?!\{)([−-]?[\d.,]+)", r"^{\1}", t)
+    t = t.replace("²", "^{2}").replace("³", "^{3}").replace("½", r"\tfrac{1}{2}")
+    t = re.sub(r"√\s?(\([^()]*\)|\[[^\[\]]*\]|[\d.]+)", lambda m: r"\sqrt{" + m.group(1).strip("()[]") + "}", t)
+    for a, b in (("×", r"\times "), ("÷", r"\div "), ("−", "-"), ("≈", r"\approx "), ("%", r"\%")):
+        t = t.replace(a, b)
+    return t
+
+
+def auto_math(fragment):
+    """Wrap worked arithmetic in text nodes (outside tags, links, code, svg, scripts and buttons) in \\( \\)."""
+    skip = re.compile(r"(<(script|style|svg|a|code|pre|textarea|title|button)\b.*?</\2>|<[^>]+>)", re.S)
+    out, pos = [], 0
+    for m in skip.finditer(fragment):
+        out.append(_auto_text(fragment[pos:m.start()]))
+        out.append(m.group(0))
+        pos = m.end()
+    out.append(_auto_text(fragment[pos:]))
+    return "".join(out)
+
+
+def _auto_text(text):
+    if not text.strip() or ("\\(" in text) or ("\\[" in text):
+        return text
+
+    def sub(m):
+        raw = m.group(0)
+        core = _balance(raw.strip())
+        core = core.rstrip(" =+−×÷/^").lstrip(" =×÷/^")
+        core = _balance(core)
+        if core.count("(") != core.count(")") or core.count("[") != core.count("]"):
+            return raw
+        nums = re.findall(_NUM, core)
+        if len(nums) < 2 and not re.search(r"[√²³]", core):
+            return raw
+        if not re.search(r"[×÷^=≈²³√]|[\d)\]]\s?[+−/]\s?[(\[√]?\d", core):
+            return raw
+        i = raw.index(core)
+        return raw[:i] + "\\(" + _arith_tex(core) + "\\)" + raw[i + len(core):]
+    return _ARITH_RE.sub(sub, text)
+
+def mathify(out):
+    """Render every \\(..\\) and \\[..\\] outside <script>/<style>; add the KaTeX stylesheet if the page has math."""
+    if "<main" in out:
+        a = out.index("<main")
+        b = out.index("</main>", a) if "</main>" in out[a:] else len(out)
+        out = out[:a] + auto_math(out[a:b]) + out[b:]
+    parts = re.split(r"(<script\b.*?</script>|<style\b.*?</style>)", out, flags=re.S)
+    found = []
+    for i in range(0, len(parts), 2):
+        for m in _MATH_RE.finditer(parts[i]):
+            tex = html.unescape(m.group(1) if m.group(1) is not None else m.group(2))
+            found.append((tex.strip(), m.group(1) is not None))
+    if not found:
+        return out
+    css = f'<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@{KATEX_VER}/dist/katex.min.css" crossorigin="anonymous">'
+    if _render_math(found):
+        def sub(m):
+            tex = html.unescape(m.group(1) if m.group(1) is not None else m.group(2)).strip()
+            return _MATH_CACHE[(tex, m.group(1) is not None)]
+        for i in range(0, len(parts), 2):
+            parts[i] = _MATH_RE.sub(sub, parts[i])
+        out = "".join(parts)
+        return out.replace("</head>", css + "\n</head>", 1)
+    js = (f'<script defer src="https://cdn.jsdelivr.net/npm/katex@{KATEX_VER}/dist/katex.min.js" crossorigin="anonymous"></script>'
+          f'<script defer src="https://cdn.jsdelivr.net/npm/katex@{KATEX_VER}/dist/contrib/auto-render.min.js" crossorigin="anonymous" '
+          'onload="renderMathInElement(document.body,{delimiters:[{left:\'\\\\[\',right:\'\\\\]\',display:true},{left:\'\\\\(\',right:\'\\\\)\',display:false}]})"></script>')
+    return out.replace("</head>", css + js + "\n</head>", 1)
+
+
 def page(path, title, desc, main, active="", extra_head="", image="intro-poster.jpg"):
     beacon = (f"\n<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{{\"token\": \"{CF_BEACON}\"}}'></script>") if CF_BEACON else ""
     nav = menu_html(active)
@@ -310,6 +459,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 </body>
 </html>
 """
+    out = mathify(out)
     (ROOT / path).write_text(out, encoding="utf-8")
     return path
 

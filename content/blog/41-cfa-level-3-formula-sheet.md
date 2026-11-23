@@ -21,157 +21,154 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 | Formula | What it says |
 |---|---|
-| Grinold–Kroner: E(R) ≈ D ÷ P − %ΔS + i + g + %ΔP/E | income + nominal earnings growth + repricing |
-| Same idea, three parts: E(R) ≈ (D ÷ P − %ΔS) + (i + g) + %ΔP/E | %ΔS = change in shares outstanding |
-| Singer–Terhaar, fully integrated: RPᵢ = ρᵢ,GM × σᵢ × (RP_GM ÷ σ_GM) | |
-| Singer–Terhaar, fully segmented: RPᵢ = σᵢ × (RP_M ÷ σ_M) | |
-| Singer–Terhaar blend: RPᵢ = φ × integrated + (1 − φ) × segmented + liquidity premium | φ = degree of integration |
-| Taylor rule: i* = r_neutral + π + 0.5(π − π_target) + 0.5(Ŷ − Ŷ_trend) | policy rate guide |
-| Trend real GDP growth = labour force growth + labour productivity growth | |
-| Fixed income expected return ≈ yield to maturity (if held to maturity, no default) | the most reliable building block |
-| Equity risk premium build-up: E(R) = R_f + ERP; bond: R_f + term + credit + liquidity premiums | |
-| Covered interest parity: F ÷ S = (1 + i_p) ÷ (1 + i_b) | |
-| Expected currency return ≈ change implied by interest differential, adjusted for views | |
+| \(E(R_e) \approx \dfrac{D}{P} - \%\Delta S + i + g + \%\Delta\dfrac{P}{E}\) | Grinold–Kroner: income + nominal earnings growth + repricing |
+| \(E(R_e) \approx \left(\dfrac{D}{P} - \%\Delta S\right) + (i + g) + \%\Delta\dfrac{P}{E}\) | the same in three parts; \(\%\Delta S\) = change in shares outstanding |
+| \(RP_i = \rho_{i,GM}\,\sigma_i\,\dfrac{RP_{GM}}{\sigma_{GM}}\) | Singer–Terhaar, fully integrated |
+| \(RP_i = \sigma_i\,\dfrac{RP_M}{\sigma_M}\) | Singer–Terhaar, fully segmented |
+| \(RP_i = \varphi\,RP_i^{\text{int}} + (1 - \varphi)RP_i^{\text{seg}} + LP_i\) | blend by degree of integration \(\varphi\), plus a liquidity premium |
+| \(i^* = r_{\text{neutral}} + \pi^e + 0.5(\pi^e - \pi^{\text{target}}) + 0.5(\hat{Y}^e - \hat{Y}^{\text{trend}})\) | Taylor rule |
+| \(g_{\text{trend}} = g_{\text{labour force}} + g_{\text{labour productivity}}\) | trend real GDP growth |
+| \(E(R_{\text{bond}}) \approx YTM\) | if held to maturity with no default |
+| \(E(R) = R_f + ERP;\quad E(R_{\text{bond}}) = R_f + \text{term} + \text{credit} + \text{liquidity premiums}\) | building blocks |
+| \(\dfrac{F}{S} = \dfrac{1 + i_p}{1 + i_b}\) | covered interest parity |
 
 ## Asset allocation
 
 | Formula | What it says |
 |---|---|
-| Utility (mean–variance): U_m = E(R_m) − 0.005 × λ × σ_m² | returns and σ in percent; λ = risk aversion |
-| Surplus = market value of assets − present value of liabilities | |
-| Surplus return = [Δ assets − Δ liabilities] ÷ assets at start | |
-| Funded ratio = assets ÷ liabilities | |
-| Human capital = Σ [p(sₜ) × wₜ₋₁(1 + gₜ)] ÷ (1 + r_f + y)ᵗ | PV of future earnings, adjusted for survival and job risk |
-| Economic balance sheet: financial capital + human capital = liabilities + net wealth | |
-| Required return (spending) ≈ (1 + spending rate)(1 + inflation)(1 + costs) − 1 | multiplicative |
-| Rebalancing corridor: target ± range; wider when costs are high or volatility low | |
-| Risk budgeting: marginal contribution to risk = wᵢ × βᵢ,P × σ_P | |
-| Percentage contribution to total risk = wᵢ × βᵢ,P | sums to 100% |
-| Risk parity: wᵢ × Cov(Rᵢ, R_P) = (1 ÷ n) × σ_P² | equal risk contributions |
+| \(U_m = E(R_m) - 0.005\,\lambda\,\sigma_m^2\) | mean–variance utility with returns in percent |
+| \(\text{Surplus} = A - PV(L)\) | |
+| \(R_{\text{surplus}} = \dfrac{\Delta A - \Delta L}{A_0}\) | surplus return |
+| \(\text{Funded ratio} = \dfrac{A}{PV(L)}\) | |
+| \(HC_0 = \sum_{t=1}^{N}\dfrac{p(s_t)\,w_{t-1}(1 + g_t)}{(1 + r_f + y)^t}\) | human capital: survival-weighted PV of earnings |
+| \(\text{Financial capital} + \text{human capital} = \text{liabilities} + \text{net wealth}\) | economic balance sheet |
+| \(R_{\text{required}} \approx (1 + \text{spending})(1 + \pi)(1 + \text{costs}) - 1\) | multiplicative |
+| Rebalancing corridor = target \(\pm\) range; wider when costs are high or volatility is low | |
+| \(MCTR_i = \beta_{i,P}\,\sigma_P;\quad ACTR_i = w_i\,\beta_{i,P}\,\sigma_P\) | marginal and absolute contribution to risk |
+| \(\%CTR_i = w_i\,\beta_{i,P}\) | sums to 100% |
+| \(w_i\,\text{Cov}(R_i, R_P) = \dfrac{1}{n}\sigma_P^2\) | risk parity: equal risk contributions |
 
 ## Derivatives and risk management
 
 | Formula | What it says |
 |---|---|
-| Equity futures to change beta: N_f = [(β_T − β_S) ÷ β_f] × (S ÷ F) | S = portfolio value, F = futures price × multiplier |
-| Bond futures to change duration: N_f = (BPV_T − BPV_P) ÷ BPV_f | |
-| BPV of a bond future ≈ BPV of cheapest-to-deliver ÷ conversion factor | |
-| BPV = money duration × 0.0001 = ModDur × market value × 0.0001 | |
-| Cash equitisation: N_f = (cash × (1 + r)ᵀ) ÷ (F × multiplier) | synthetic equity for idle cash |
-| Interest rate swap BPV ≈ (receive-fixed duration − floating-leg duration) × notional × 0.0001 | |
-| Notional of swap to hit target = (BPV_T − BPV_P) ÷ BPV_swap per unit | |
-| Covered call: max gain = X − S₀ + c₀; breakeven = S₀ − c₀ | |
-| Protective put: max loss = S₀ − X + p₀; breakeven = S₀ + p₀ | |
-| Collar: buy put X_L, sell call X_H; range of outcomes X_L to X_H, net premium | |
-| Bull call spread: max gain = X_H − X_L − net premium | |
-| Straddle breakevens = X ± (c₀ + p₀) | betting on volatility, not direction |
-| Variance swap payoff = variance notional × (realised variance − strike variance) | variance notional = vega notional ÷ (2 × strike volatility) |
-| Delta hedge: number of options = −(portfolio delta ÷ option delta) | |
-| Minimum-variance hedge ratio h* = ρ × σ_spot ÷ σ_futures | |
-| Parametric VaR = [E(R) − z × σ] × portfolio value | z = 1.65 (5%), 2.33 (1%) |
-| Conditional VaR (expected shortfall) = average loss beyond VaR | |
+| \(N_f = \dfrac{\beta_T - \beta_S}{\beta_f} \times \dfrac{S}{F}\) | equity futures to change beta; \(F\) = futures price \(\times\) multiplier |
+| \(N_f = \dfrac{BPV_T - BPV_P}{BPV_f}\) | bond futures to change duration |
+| \(BPV_f \approx \dfrac{BPV_{CTD}}{CF_{CTD}}\) | BPV of a bond future |
+| \(BPV = \text{ModDur} \times MV \times 0.0001\) | basis point value |
+| \(N_f = \dfrac{V(1 + r)^T}{F \times \text{multiplier}}\) | cash equitisation |
+| \(Dur_{\text{receive-fixed swap}} \approx Dur_{\text{fixed}} - Dur_{\text{floating}}\) | swap duration |
+| \(N_{\text{swap}} = \dfrac{BPV_T - BPV_P}{BPV_{\text{swap per unit}}}\) | swap notional to hit a target |
+| Covered call: \(\max\text{ gain} = X - S_0 + c_0\); breakeven \(= S_0 - c_0\) | |
+| Protective put: \(\max\text{ loss} = S_0 - X + p_0\); breakeven \(= S_0 + p_0\) | |
+| Collar: buy put \(X_L\), sell call \(X_H\); outcomes between \(X_L\) and \(X_H\) less the net premium | |
+| Bull call spread: \(\max\text{ gain} = X_H - X_L - \text{net premium}\) | |
+| \(\text{Straddle breakevens} = X \pm (c_0 + p_0)\) | a bet on volatility, not direction |
+| \(\text{Payoff} = N_{\text{var}}(\sigma^2_{\text{realised}} - K^2),\quad N_{\text{var}} = \dfrac{N_{\text{vega}}}{2K}\) | variance swap |
+| \(N_{\text{options}} = -\dfrac{\text{portfolio delta}}{\text{option delta}}\) | delta hedge |
+| \(h^* = \rho\,\dfrac{\sigma_S}{\sigma_F}\) | minimum-variance hedge ratio |
+| \(\text{VaR} = [z\sigma - E(R)] \times \text{value}\) | \(z\) = 1.65 (5%), 2.33 (1%) |
+| CVaR (expected shortfall) = average loss beyond VaR | |
 
 ## Currency management
 
 | Formula | What it says |
 |---|---|
-| Domestic-currency return: R_DC = (1 + R_FC)(1 + R_FX) − 1 | |
-| Multi-currency: R_DC = Σ wᵢ[(1 + R_FC,i)(1 + R_FX,i)] − 1 | |
-| σ²(R_DC) ≈ σ²(R_FC) + σ²(R_FX) + 2ρσ(R_FC)σ(R_FX) | currency adds risk unless negatively correlated |
-| If FX risk is fully hedged: σ(R_DC) ≈ σ(R_FC) | |
-| Forward premium/discount ≈ interest rate differential | roll yield on a hedge |
-| Roll yield (selling base currency forward) = (F − S) ÷ S | positive if base trades at a forward premium |
-| Hedge ratio = hedged notional ÷ market value of foreign assets | rebalance as values change |
-| Minimum-variance hedge ratio: regress R_DC on R_FX; slope = hedge ratio | |
-| Carry trade return = interest differential − depreciation of high-yield currency | |
+| \(R_{DC} = (1 + R_{FC})(1 + R_{FX}) - 1\) | domestic-currency return |
+| \(R_{DC} = \sum_i w_i\,(1 + R_{FC,i})(1 + R_{FX,i}) - 1\) | multi-currency portfolio |
+| \(\sigma^2(R_{DC}) \approx \sigma^2(R_{FC}) + \sigma^2(R_{FX}) + 2\rho\,\sigma(R_{FC})\,\sigma(R_{FX})\) | currency adds risk unless negatively correlated |
+| \(\sigma(R_{DC}) \approx \sigma(R_{FC})\) | if currency risk is fully hedged |
+| \(\dfrac{F - S}{S} \approx i_p - i_b\) | forward premium or discount: the roll yield on a hedge |
+| \(\text{Hedge ratio} = \dfrac{\text{hedged notional}}{\text{market value of foreign assets}}\) | rebalance as values change |
+| Regress \(R_{DC}\) on \(R_{FX}\): slope = minimum-variance hedge ratio | |
+| \(R_{\text{carry}} \approx i_{\text{high}} - i_{\text{low}} - \%\Delta S_{\text{high}}\) | carry trade |
 
 ## Fixed income portfolio management
 
 | Formula | What it says |
 |---|---|
-| E(R) ≈ yield income + rolldown return + E(price change from yield views) − E(credit losses) ± E(currency gains or losses) | the decomposition used throughout Level III |
-| Yield income = annual coupon ÷ current price (+ reinvestment) | |
-| Rolldown return = (bond price after rolling down a stable curve − price today) ÷ price today | |
-| E(price change from yields) ≈ −ModDur × Δy + ½ × convexity × (Δy)² | |
-| Immunising one liability: Macaulay duration = horizon; PV assets ≥ PV liability; minimise convexity (dispersion) | |
-| Multiple liabilities: match money duration (BPV); asset convexity > liability convexity; PV assets ≥ PV liabilities | |
-| Contingent immunisation cushion = PV of assets − PV of liabilities at the immunisation rate | active management while the surplus lasts |
-| Convexity = (Macaulay duration² + Macaulay duration + dispersion) ÷ (1 + r)² | lower dispersion, lower structural risk | |
-| Expected excess spread return ≈ spread₀ − (EffSpreadDur × Δspread) − (POD × LGD) | |
-| Leveraged portfolio return: R_P = r_I + (V_B ÷ V_E)(r_I − r_B) | |
-| Key rate duration: price sensitivity to one point on the curve; Σ key rate durations ≈ effective duration | |
-| Butterfly: wings vs body; barbell gains when the curve flattens and from convexity | |
-| Bond portfolio duration = Σ (market value weight × duration) | |
-| Spread duration (portfolio) = Σ (weight × spread duration) | credit risk sensitivity |
+| \(E(R) \approx \text{yield income} + \text{rolldown} + E(\Delta P_{\text{yields}}) - E(\text{credit losses}) \pm E(\text{currency})\) | the decomposition used throughout Level III |
+| \(\text{Yield income} = \dfrac{\text{annual coupon}}{P_0}\) | plus reinvestment income |
+| \(\text{Rolldown return} = \dfrac{P_{\text{rolled}} - P_0}{P_0}\) | stable curve |
+| \(E(\Delta P) \approx -\text{ModDur}\,\Delta y + \tfrac{1}{2}\,\text{Convexity}\,(\Delta y)^2\) | price change from yield views |
+| Single liability: MacDur = horizon; \(PV_A \ge PV_L\); minimise convexity (dispersion) | immunisation |
+| Multiple liabilities: \(BPV_A = BPV_L\); convexity\(_A >\) convexity\(_L\); \(PV_A \ge PV_L\) | |
+| \(\text{Cushion} = PV_A - PV_L\) at the immunisation rate | contingent immunisation |
+| \(\text{Convexity} = \dfrac{\text{MacDur}^2 + \text{MacDur} + \text{dispersion}}{(1 + r)^2}\) | lower dispersion, lower structural risk |
+| \(E(XS) \approx s_0 - (\text{EffSpreadDur} \times \Delta s) - (POD \times LGD)\) | expected excess spread return |
+| \(R_P = r_I + \dfrac{V_B}{V_E}(r_I - r_B)\) | leveraged portfolio return |
+| \(\sum \text{key rate durations} \approx \text{effective duration}\) | key rate duration: sensitivity to one point on the curve |
+| Barbell gains when the curve flattens and from convexity; bullet when it steepens | |
+| \(D_P = \sum_i w_i D_i\) | portfolio duration (market-value weights) |
+| \(SD_P = \sum_i w_i\,SD_i\) | portfolio spread duration |
 
 ## Equity portfolio management
 
 | Formula | What it says |
 |---|---|
-| Active return = R_P − R_B | |
-| Active risk (tracking error) = σ(R_P − R_B) | |
-| Information ratio = active return ÷ active risk | |
-| Active share = ½ × Σ ∣w_P,i − w_B,i∣ | how different the holdings are from the benchmark |
-| Active risk² = active factor risk + active specific risk | factor bets and stock-specific bets both add risk |
-| Net exposure (long-short) = long exposure − short exposure; gross = long + short | |
-| Portfolio beta of a 130/30 strategy ≈ 1.3β_long − 0.3β_short | |
+| \(R_A = R_P - R_B\) | active return |
+| \(\sigma_A = \sigma(R_P - R_B)\) | active risk (tracking error) |
+| \(IR = \dfrac{R_A}{\sigma_A}\) | information ratio |
+| \(\text{Active share} = \tfrac{1}{2}\sum_i \lvert w_{P,i} - w_{B,i}\rvert\) | how different the holdings are |
+| \(\sigma_A^2 = \text{active factor risk} + \text{active specific risk}\) | factor bets and stock-specific bets both add risk |
+| \(\text{Net} = \text{long} - \text{short};\quad \text{gross} = \text{long} + \text{short}\) | long-short exposure |
+| \(\beta_{130/30} \approx 1.3\,\beta_{\text{long}} - 0.3\,\beta_{\text{short}}\) | |
 
 ## Trading, performance evaluation and manager selection
 
 | Formula | What it says |
 |---|---|
-| Implementation shortfall = paper portfolio return − actual portfolio return | |
-| Implementation shortfall = delay cost + execution cost + opportunity cost + fixed fees | |
-| Delay cost = shares traded × (arrival price − decision price) | for a buy |
-| Execution cost = shares traded × (average execution price − arrival price) | |
-| Opportunity cost = unfilled shares × (closing price − decision price) | |
-| VWAP cost = shares × (average execution price − VWAP) | |
-| Brinson–Fachler allocation = (w_P,i − w_B,i)(R_B,i − R_B) | did overweights go to sectors that beat the benchmark? |
-| Brinson selection = w_B,i(R_P,i − R_B,i) | stock picking within each sector |
-| Interaction = (w_P,i − w_B,i)(R_P,i − R_B,i) | |
-| Total active return = allocation + selection + interaction | |
-| Fixed income attribution: yield income + rolldown + duration + curve + spread + selection | |
-| Sharpe ratio = (R_P − R_f) ÷ σ_P | |
-| Treynor ratio = (R_P − R_f) ÷ β_P | |
-| Sortino ratio = (R_P − MAR) ÷ downside deviation | penalises only returns below the minimum acceptable return |
-| Appraisal ratio = Jensen's alpha ÷ σ of residual returns | |
-| Upside capture = R_P ÷ R_B in up markets; downside capture = R_P ÷ R_B in down markets | |
-| Capture ratio = upside capture ÷ downside capture | above 1: asymmetric return profile |
+| \(IS = R_{\text{paper}} - R_{\text{actual}}\) | implementation shortfall |
+| \(IS = \text{delay} + \text{execution} + \text{opportunity cost} + \text{fees}\) | its components |
+| \(\text{Delay cost} = Q_{\text{traded}}(P_{\text{arrival}} - P_{\text{decision}})\) | for a buy |
+| \(\text{Execution cost} = Q_{\text{traded}}(\bar{P}_{\text{exec}} - P_{\text{arrival}})\) | |
+| \(\text{Opportunity cost} = Q_{\text{unfilled}}(P_{\text{close}} - P_{\text{decision}})\) | |
+| \(\text{VWAP cost} = Q(\bar{P}_{\text{exec}} - VWAP)\) | |
+| \(A_i = (w_{P,i} - w_{B,i})(R_{B,i} - R_B)\) | Brinson–Fachler allocation |
+| \(S_i = w_{B,i}(R_{P,i} - R_{B,i})\) | selection |
+| \(I_i = (w_{P,i} - w_{B,i})(R_{P,i} - R_{B,i})\) | interaction |
+| \(R_A = \sum_i (A_i + S_i + I_i)\) | total active return |
+| Fixed income: yield income + rolldown + duration + curve + spread + selection | fixed income attribution |
+| \(\dfrac{R_P - R_f}{\sigma_P}\) | Sharpe ratio |
+| \(\dfrac{R_P - R_f}{\beta_P}\) | Treynor ratio |
+| \(\dfrac{R_P - MAR}{\sigma_{\text{downside}}}\) | Sortino ratio: penalises only returns below the minimum acceptable return |
+| \(AR = \dfrac{\alpha_J}{\sigma_\varepsilon}\) | appraisal ratio |
+| \(UC = \dfrac{R_P}{R_B}\Big\rvert_{R_B > 0};\quad DC = \dfrac{R_P}{R_B}\Big\rvert_{R_B < 0};\quad CR = \dfrac{UC}{DC}\) | upside, downside and capture ratio |
 | Maximum drawdown = largest peak-to-trough fall | |
 
 ## Private wealth pathway
 
 | Formula | What it says |
 |---|---|
-| Accrual taxation: FV = [1 + r(1 − t_i)]ⁿ | taxed every year |
-| Deferred capital gains: FV = (1 + r)ⁿ(1 − t_cg) + t_cg × B | B = cost basis as a fraction of value (1 if no gain at start) |
-| Tax-deferred account: FV = (1 + r)ⁿ(1 − t_n) | taxed on withdrawal |
-| Tax-exempt account: FV = (1 + r)ⁿ | |
-| Wealth tax: FV = [(1 + r)(1 − t_w)]ⁿ | |
-| Blended tax rate: t* = p_i t_i + p_d t_d + p_cg t_cg | by type of return |
-| Effective capital gains rate: T* = t_cg(1 − p_i − p_d − p_cg) ÷ (1 − p_i t_i − p_d t_d − p_cg t_cg) | |
-| Accrual equivalent return = (FV ÷ PV)^(1/n) − 1 | the annual taxed-every-year return that gives the same result |
-| Accrual equivalent tax rate = 1 − accrual equivalent return ÷ pre-tax return | |
-| Tax-loss harvesting value = tax rate × loss realised (current year) | |
-| After-tax wealth from a deferred account vs taxable: compare (1 + r)ⁿ(1 − t) with [1 + r(1 − t)]ⁿ | |
-| Core capital = PV of spending needs (+ reserve); excess capital = assets − core capital | |
-| Probability-weighted spending: PV = Σ p(survival) × spending ÷ (1 + r)ᵗ | |
+| \(FV = [1 + r(1 - t_i)]^n\) | accrual taxation: taxed every year |
+| \(FV = (1 + r)^n(1 - t_{cg}) + t_{cg}B\) | deferred capital gains; \(B\) = cost basis as a share of value |
+| \(FV = (1 + r)^n(1 - t_n)\) | tax-deferred account: taxed on withdrawal |
+| \(FV = (1 + r)^n\) | tax-exempt account |
+| \(FV = [(1 + r)(1 - t_w)]^n\) | wealth tax |
+| \(t^* = p_it_i + p_dt_d + p_{cg}t_{cg}\) | blended tax rate by type of return |
+| \(T^* = t_{cg}\,\dfrac{1 - p_i - p_d - p_{cg}}{1 - p_it_i - p_dt_d - p_{cg}t_{cg}}\) | effective capital gains rate |
+| \(R_{AE} = \left(\dfrac{FV}{PV}\right)^{1/n} - 1\) | accrual equivalent return |
+| \(T_{AE} = 1 - \dfrac{R_{AE}}{r}\) | accrual equivalent tax rate |
+| \(\text{Tax saving} = t \times \text{loss realised}\) | tax-loss harvesting (current year) |
+| \((1 + r)^n(1 - t)\) vs \([1 + r(1 - t)]^n\) | after-tax wealth: deferred vs taxable account |
+| \(\text{Excess capital} = \text{assets} - \text{core capital}\) | core capital = PV of spending needs plus a reserve |
+| \(PV = \sum_t \dfrac{p(\text{survival}_t)\times\text{spending}_t}{(1 + r)^t}\) | probability-weighted spending |
 
 ## Private markets pathway
 
 | Formula | What it says |
 |---|---|
-| DPI = cumulative distributions ÷ paid-in capital | cash returned |
-| RVPI = NAV ÷ paid-in capital | value still in the fund |
-| TVPI = DPI + RVPI | total value multiple |
+| \(DPI = \dfrac{\text{cumulative distributions}}{\text{paid-in capital}}\) | cash returned |
+| \(RVPI = \dfrac{NAV}{\text{paid-in capital}}\) | value still in the fund |
+| \(TVPI = DPI + RVPI\) | total value multiple |
 | Net IRR: IRR of the fund's net cash flows to limited partners | sensitive to timing and subscription lines |
-| Kaplan–Schoar PME = PV of (distributions + NAV) ÷ PV of contributions, discounted at index returns | above 1: beat the public market |
-| Venture method: post-money = exit value ÷ (1 + r)ⁿ; ownership = investment ÷ post-money | |
-| LBO equity value at exit = exit EV − net debt; equity IRR = (exit equity ÷ entry equity)^(1/n) − 1 | |
+| \(KS\text{-}PME = \dfrac{PV(\text{distributions} + NAV)}{PV(\text{contributions})}\), discounted at index returns | above 1: beat the public market |
+| \(POST = \dfrac{\text{exit value}}{(1 + r)^n};\quad \text{ownership} = \dfrac{I}{POST}\) | venture capital method |
+| \(\text{IRR}_{\text{equity}} = \left(\dfrac{\text{exit equity}}{\text{entry equity}}\right)^{1/n} - 1\), with exit equity \(=\) exit EV \(-\) net debt | leveraged buyout |
 | Value creation = EBITDA growth + multiple expansion + debt paydown | |
-| Carried interest (European waterfall) = carry × (total proceeds − contributed capital − preferred return) after catch-up rules | |
-| Private debt expected return ≈ yield − expected loss (PD × LGD) − fees | |
-| Real estate value = NOI ÷ cap rate; levered return ≈ unlevered return + (debt ÷ equity)(unlevered return − cost of debt) | |
+| \(\text{Carry} = \text{carry rate} \times (\text{proceeds} - \text{contributed capital} - \text{preferred return})\), after catch-up | European waterfall |
+| \(E(R_{\text{private debt}}) \approx \text{yield} - PD \times LGD - \text{fees}\) | |
+| \(V = \dfrac{NOI}{\text{cap rate}};\quad R_L \approx R_U + \dfrac{D}{E}(R_U - r_D)\) | real estate value and levered return |
 
 ## How to use this sheet in the exam
 
