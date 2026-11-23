@@ -20,7 +20,7 @@ function sheet_() {
 }
 function taken_() {
   return sheet_().getDataRange().getValues().slice(1)
-    .filter(function (r) { return FREE.indexOf(String(r[3])) < 0; })
+    .filter(function (r) { return !/cancel|declin/i.test(String(r[3])); })
     .map(function (r) { return String(r[1]); });
 }
 function out_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
