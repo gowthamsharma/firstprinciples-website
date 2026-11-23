@@ -969,3 +969,31 @@ tr.fs-gone, body.fs-quiz tr.fs-skip { display: none; }
 .btn.ghost { background: #fff; color: var(--blue); }
 .btn.ghost:hover { background: var(--mist); }
 table.txt td, table.txt th { text-align: left !important; }
+/* ---- 1-to-1 booking ---- */
+.bk { margin: 2rem 0; padding: 1.4rem 1.3rem 1.6rem; background: var(--mist); border-top: 3px solid var(--blue); scroll-margin-top: 90px; }
+.bk h3 { display: flex; align-items: center; gap: .6rem; margin: 0 0 .6rem; font-size: 1.2rem; color: var(--head); }
+.bk h3 span { display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--blue); color: #fff; font-size: .9rem; }
+.bk-tz, .bk-note, .bk-small { font-size: .9rem; color: var(--muted); margin: 0 0 .8rem; }
+.bk-months { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: 1rem; }
+.bk-months button, .bk-day button { font: inherit; font-size: .88rem; padding: .45rem .8rem; border: 1px solid #c4d0dc; background: #fff; color: var(--head); border-radius: 3px; cursor: pointer; }
+.bk-months button[aria-selected="true"], .bk-day button[aria-pressed="true"] { background: var(--blue); border-color: var(--blue); color: #fff; }
+.bk-day button:disabled { color: #9aa7b4; background: #eef2f6; cursor: not-allowed; text-decoration: line-through; }
+.bk-days { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: .8rem 1.2rem; }
+.bk-day p { margin: 0 0 .35rem; font-weight: 600; font-size: .92rem; color: var(--head); }
+.bk-day div { display: flex; gap: .35rem; flex-wrap: wrap; }
+.bk-form { margin-top: 1.8rem; padding-top: 1.4rem; border-top: 1px solid #d9e2ec; }
+.bk-chosen { margin: 0 0 1rem; font-size: .95rem; color: var(--head); }
+.bk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: .9rem 1.2rem; }
+.bk-form label { display: block; font-size: .9rem; font-weight: 600; color: var(--head); margin-bottom: .9rem; }
+.bk-form label small { font-weight: 400; color: var(--muted); }
+.bk-form input:not([type=radio]):not([type=checkbox]), .bk-form select, .bk-form textarea { display: block; width: 100%; box-sizing: border-box; margin-top: .3rem; padding: .55rem .65rem; font: inherit; font-weight: 400; font-size: .95rem; border: 1px solid #c4d0dc; border-radius: 3px; background: #fff; color: var(--head); }
+.bk-form input:focus, .bk-form select:focus, .bk-form textarea:focus, .bk button:focus-visible { outline: 2px solid var(--sky); outline-offset: 1px; }
+.bk-form fieldset { border: 0; padding: 0; margin: 0 0 .9rem; }
+.bk-form legend { font-size: .9rem; font-weight: 600; color: var(--head); padding: 0; margin-bottom: .4rem; }
+.bk-form .bk-r { display: inline-flex; align-items: center; gap: .35rem; font-weight: 400; margin: 0 1.2rem 0 0; }
+.bk-form .bk-c { display: flex; gap: .5rem; align-items: flex-start; font-weight: 400; }
+.bk-form .bk-c input { margin-top: .25rem; }
+.bk-hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.bk-err { color: #b23434; font-size: .9rem; min-height: 1.2em; margin: 0 0 .6rem; }
+.bk-done { padding: 1rem 0 0; outline: none; }
+.bk-done h3 { color: #0a7d4d; }

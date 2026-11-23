@@ -24,8 +24,8 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://firstprinciples.courses"
 TODAY = datetime.date.today().isoformat()
 NAME, EMAIL = "Gowtham Kumar", "gkinba@gmail.com"
-# 1-to-1 retake sessions: Cal.com booking links (card via Stripe, PayPal). Empty = email request button.
-BOOKING = {"card": "", "paypal": ""}
+# 1-to-1 retake sessions: Google Apps Script web app (tools/booking_apps_script.gs) that stores requests and emails them.
+BOOKING_ENDPOINT = "https://script.google.com/macros/s/AKfycbwquUJALMblqX-KFEehOaV0l7_CEOiJGb3Bnw-H8bFsCSdn79giW_QrqIAAtVNy0GeB4A/exec"
 CLARITY_ID = "zf2slpx8uv"  # Microsoft Clarity project ID; loads only after the visitor accepts the banner
 CF_BEACON = "a9877ea4bed648d990739f9b34199681"  # Cloudflare Web Analytics token (cookieless); empty = no tracking
 CHECKED = "16 November 2026"
@@ -47,6 +47,35 @@ def show_date(iso):
 
 DISCLAIMER = ("CFA Institute does not endorse, promote, or warrant the accuracy or quality of the products or services offered by "
               "First Principles. CFA® and Chartered Financial Analyst® are registered trademarks owned by CFA Institute.")
+
+
+BOOKING_FORM = """<section class="bk" id="book" data-endpoint="{endpoint}">
+<div class="bk-step"><h3><span>1</span>Pick a time</h3>
+<p class="bk-tz">Times are shown in your time zone: <b class="bk-zone"></b>. Sessions run on Saturdays and Sundays.</p>
+<div class="bk-months" role="tablist" aria-label="Month"></div>
+<div class="bk-days"><p class="bk-note">Loading the open times…</p></div>
+<noscript><p class="bk-note">The booking calendar needs JavaScript switched on.</p></noscript></div>
+<form class="bk-form" novalidate>
+<h3><span>2</span>Tell me about your exam</h3>
+<p class="bk-chosen" aria-live="polite">No time chosen yet. Pick one above.</p>
+<div class="bk-grid">
+<label>Your name<input name="name" autocomplete="name" required maxlength="120"></label>
+<label>Email<input name="email" type="email" autocomplete="email" required maxlength="200"></label>
+<fieldset><legend>Level you are retaking</legend><label class="bk-r"><input type="radio" name="level" value="I" required> Level I</label><label class="bk-r"><input type="radio" name="level" value="II"> Level II</label></fieldset>
+<label>Country<input name="country" autocomplete="country-name" maxlength="80"></label>
+<label>Exam window you sat<select name="window" required><option value="">Choose…</option><option>November 2026</option><option>August 2026</option><option>May 2026</option><option>February 2026</option><option>Earlier</option></select></label>
+<label>Your result band<select name="result" required><option value="">Choose…</option><option>Band 10 (closest to passing)</option><option>Band 9</option><option>Band 8</option><option>Band 7</option><option>Band 6</option><option>Band 5</option><option>Band 4</option><option>Band 3</option><option>Band 2</option><option>Band 1</option><option>Not sure</option></select></label>
+</div>
+<label>How did you prepare? <small>Hours studied, materials used, how many mock exams</small><textarea name="prep" rows="4" required maxlength="2000"></textarea></label>
+<label>What would you like from the session? <small>Optional</small><textarea name="goals" rows="3" maxlength="2000"></textarea></label>
+<label class="bk-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+<label class="bk-c"><input type="checkbox" name="ok" required><span>I agree that these details are stored and used to arrange my session (see the <a href="privacy.html#sessions">privacy notice</a>).</span></label>
+<p class="bk-err" role="alert"></p>
+<button class="btn" type="submit">Send my request</button>
+<p class="bk-small">You pay nothing now. Gowtham replies by email within 48 hours to confirm the time and send the €25 payment link (card or PayPal) and the video-call link.</p>
+</form>
+<div class="bk-done" hidden tabindex="-1"><h3>Request sent</h3><p>Thank you. Your time is held for you. Gowtham will reply to <b class="bk-mail"></b> within 48 hours to confirm it and send the payment and video-call links. If nothing arrives, check your spam folder.</p></div>
+</section>"""
 
 
 def obfuscate(s):
@@ -190,14 +219,8 @@ def render_md(p):
     body = re.sub(r"<p>\[\[practice:([\w-]+)\]\]</p>", lambda m: practice_html(m.group(1)), body)
     body = body.replace("<blockquote>\n<p><strong>The one idea.</strong>", '<blockquote class="idea">\n<p><strong>The one idea.</strong>')
     body = body.replace("<p>[[studymode]]</p>", f'<div class="fs-tools" data-fs="{p["slug"]}"></div>')
-    if BOOKING["card"] or BOOKING["paypal"]:
-        btns = "".join(f'<a class="btn{" ghost" if k == "paypal" else ""}" href="{BOOKING[k]}" data-track="tutor_book_{k}" rel="noopener">{lab}</a>'
-                       for k, lab in (("card", "Book and pay by card"), ("paypal", "Book and pay with PayPal")) if BOOKING[k])
-        book = f'<div class="book">{btns}<span>30 minutes · €25 · weekend times shown in your time zone</span></div>'
-    else:
-        book = (f'<div class="book"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=1-to-1%20retake%20session%20request&amp;body=Level%3A%20%0AExam%20window%20I%20sat%3A%20%0AMy%20time%20zone%3A%20" data-track="tutor_request">Request a session by email</a>'
-                '<span>30 minutes · €25 · you get the open weekend times and a card or PayPal payment link by reply</span></div>')
-    body = body.replace("<p>[[book]]</p>", book)
+    body = body.replace("<p>[[book]]</p>", '<p class="book"><a class="btn" href="#book" data-track="tutor_cta">Choose a time</a><span>30 minutes · €25 · Levels I and II · weekend slots up to six months ahead</span></p>')
+    body = body.replace("<p>[[booking]]</p>", BOOKING_FORM.replace("{endpoint}", BOOKING_ENDPOINT))
     body = body.replace("<p>[[waitlist]]</p>", f'<p class="waitlist"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=First%20Principles%20course%20waitlist" data-track="waitlist_click">Email me when it opens</a><span>One email when the course opens. No newsletter, no sharing your address.</span></p>')
     return body
 
@@ -262,7 +285,7 @@ MENU = [
                    ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice"),
                    ("Level I practice questions", "cfa-level-1-practice-questions.html", "100 questions with worked answers")]),
         ("Learn", [("Prerequisites course", "prerequisites.html", "50 graded lessons, with your progress saved"),
-                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 for retakers", "cfa-tutor.html", "Failed an exam? 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
+                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 for retakers", "cfa-tutor.html", "Levels I and II · 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
                    ("Study blog", "blog.html", "")])]),
     ("Blog", "blog.html", []),
 ]
@@ -922,6 +945,8 @@ def privacy():
 <p>If you click <b>Decline</b>, Clarity is never loaded. You can change your choice at any time with <a href="#" data-consent-open>cookie settings</a>.</p>
 <h2>Your course progress</h2>
 <p>Quiz scores and course progress are stored only in your own browser (local storage). They are never sent to us, and you can erase them from the course page.</p>
+<h2 id="sessions">1-to-1 session requests</h2>
+<p>If you request a <a href="cfa-tutor.html">1-to-1 session</a>, the details you enter (name, email, country, time zone, level, exam window, result band, how you prepared and what you want from the session) and the time you pick are sent to a Google Sheet and by email to Gowtham Kumar through Google (Google Apps Script and Gmail). They are used only to arrange and run your session, are never shared or used for marketing, and are deleted within 12 months of the session. Payment is handled by the card provider or PayPal you choose; we never see your card details. To see or delete your details, email us.</p>
 <h2>Contact</h2>
 <p>Questions about privacy: <a href="mailto:{obfuscate(EMAIL)}">email us</a>.</p>
 </div></article></div>

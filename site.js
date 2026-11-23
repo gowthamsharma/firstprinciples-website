@@ -643,3 +643,99 @@
   });
   apply(); tally();
 })();
+
+/* ---- 1-to-1 retake sessions: pick a weekend slot (next 6 months), send a request ---- */
+(function () {
+  var bk = document.querySelector(".bk");
+  if (!bk) return;
+  var EP = bk.getAttribute("data-endpoint"), TIMES = { 6: ["10:00", "10:30"], 0: ["15:00", "15:30"] };
+  var zone = (Intl.DateTimeFormat().resolvedOptions().timeZone || "your local time");
+  bk.querySelector(".bk-zone").textContent = zone.replace(/_/g, " ");
+  function berlinOffset(ms) {
+    var p = {}; new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+      .formatToParts(new Date(ms)).forEach(function (x) { p[x.type] = x.value; });
+    return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute) - ms;
+  }
+  function berlinToUTC(y, m, d, hm) {
+    var g = Date.UTC(y, m, d, +hm.slice(0, 2), +hm.slice(3)), t = g - berlinOffset(g);
+    var o2 = berlinOffset(t); return o2 === berlinOffset(g) ? t : g - o2;
+  }
+  function berlinDay(ms) { // y, m, d and weekday of a date in Berlin
+    var p = {}; new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" })
+      .formatToParts(new Date(ms)).forEach(function (x) { p[x.type] = x.value; });
+    return { y: +p.year, m: +p.month - 1, d: +p.day, w: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].indexOf(p.weekday) };
+  }
+  var now = Date.now(), slots = [], seen = {};
+  for (var i = 0; i < 184; i++) {
+    var b = berlinDay(now + i * 864e5), key = b.y + "-" + b.m + "-" + b.d;
+    if (seen[key] || !TIMES[b.w]) continue; seen[key] = 1;
+    TIMES[b.w].forEach(function (hm) {
+      var t = berlinToUTC(b.y, b.m, b.d, hm);
+      if (t > now + 48 * 3600e3) slots.push(t);
+    });
+  }
+  var fDay = new Intl.DateTimeFormat(undefined, { weekday: "long", day: "numeric", month: "long" });
+  var fTime = new Intl.DateTimeFormat(undefined, { hour: "2-digit", minute: "2-digit" });
+  var fMonth = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
+  var fBerlin = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/Berlin", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+  var months = [], byMonth = {};
+  slots.forEach(function (t) {
+    var d = new Date(t), k = d.getFullYear() + "-" + d.getMonth();
+    if (!byMonth[k]) { byMonth[k] = []; months.push({ k: k, label: fMonth.format(d) }); }
+    byMonth[k].push(t);
+  });
+  var taken = {}, chosen = null, cur = months.length ? months[0].k : null;
+  var mEl = bk.querySelector(".bk-months"), dEl = bk.querySelector(".bk-days"), form = bk.querySelector(".bk-form");
+  function iso(t) { return new Date(t).toISOString(); }
+  function drawMonths() {
+    mEl.innerHTML = months.map(function (m) { return '<button type="button" role="tab" data-k="' + m.k + '" aria-selected="' + (m.k === cur) + '">' + m.label + "</button>"; }).join("");
+  }
+  function drawDays() {
+    var groups = {}, order = [];
+    (byMonth[cur] || []).forEach(function (t) { var k = new Date(t).toDateString(); if (!groups[k]) { groups[k] = []; order.push(k); } groups[k].push(t); });
+    dEl.innerHTML = order.map(function (k) {
+      return '<div class="bk-day"><p>' + fDay.format(new Date(groups[k][0])) + "</p><div>" + groups[k].map(function (t) {
+        var tk = taken[iso(t)];
+        return '<button type="button" data-t="' + t + '"' + (tk ? " disabled" : "") + ' aria-pressed="' + (chosen === t) + '">' + (tk ? "Taken" : fTime.format(new Date(t))) + "</button>";
+      }).join("") + "</div></div>";
+    }).join("") || '<p class="bk-note">No open times this month.</p>';
+  }
+  function choose(t) {
+    chosen = t;
+    bk.querySelector(".bk-chosen").innerHTML = "Your time: <b>" + fDay.format(new Date(t)) + ", " + fTime.format(new Date(t)) + "</b> (" + zone.replace(/_/g, " ") + ") · " + fBerlin.format(new Date(t)) + " in Germany";
+    form.classList.add("ready"); drawDays();
+  }
+  mEl.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; cur = b.getAttribute("data-k"); drawMonths(); drawDays(); });
+  dEl.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || b.disabled) return;
+    choose(+b.getAttribute("data-t"));
+    if (window.fpTrack) window.fpTrack("tutor_slot_chosen");
+  });
+  drawMonths(); drawDays();
+  if (EP) fetch(EP).then(function (r) { return r.json(); }).then(function (j) { (j.taken || []).forEach(function (x) { taken[x] = 1; }); drawDays(); }).catch(function () {});
+  var err = bk.querySelector(".bk-err");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); err.textContent = "";
+    var f = form.elements, need = [["name", "your name"], ["email", "your email"], ["level", "the level you are retaking"], ["window", "the exam window"], ["result", "your result band"], ["prep", "how you prepared"]];
+    if (!chosen) { err.textContent = "Please pick a time first."; return; }
+    for (var i = 0; i < need.length; i++) if (!String(f[need[i][0]].value || "").trim()) { err.textContent = "Please add " + need[i][1] + "."; return; }
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value)) { err.textContent = "Please check your email address."; return; }
+    if (!f.ok.checked) { err.textContent = "Please tick the box to agree to how your details are used."; return; }
+    if (!EP) { err.textContent = "Booking is not open yet. Please try again later."; return; }
+    var btn = form.querySelector("button[type=submit]"); btn.disabled = true; btn.textContent = "Sending…";
+    var d = { slot: iso(chosen), local: fDay.format(new Date(chosen)) + ", " + fTime.format(new Date(chosen)) + " (" + zone + ")", tz: zone,
+      name: f.name.value.trim(), email: f.email.value.trim(), level: f.level.value, country: f.country.value.trim(), window: f.window.value,
+      result: f.result.value, prep: f.prep.value.trim(), goals: f.goals.value.trim(), website: f.website.value };
+    fetch(EP, { method: "POST", body: JSON.stringify(d) }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j.ok) {
+        form.hidden = true; bk.querySelector(".bk-step").hidden = true;
+        var done = bk.querySelector(".bk-done"); done.hidden = false; bk.querySelector(".bk-mail").textContent = d.email; done.focus();
+        if (window.fpTrack) window.fpTrack("tutor_request_sent");
+        return;
+      }
+      if (j.error === "taken") { taken[d.slot] = 1; chosen = null; drawDays(); err.textContent = "Someone has just requested that time. Please pick another one."; }
+      else err.textContent = "That didn't go through (" + (j.error || "error") + "). Please check the form and try again.";
+      btn.disabled = false; btn.textContent = "Send my request";
+    }).catch(function () { err.textContent = "That didn't go through. Please check your connection and try again."; btn.disabled = false; btn.textContent = "Send my request"; });
+  });
+})();
