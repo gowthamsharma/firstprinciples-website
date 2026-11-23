@@ -64,6 +64,8 @@ After three mocks the pattern is usually obvious, and fixing the biggest group i
 
 There is no official pass mark, and mock difficulty varies by provider. Many candidates treat **scores consistently above about 70%** in good-quality mocks as a comfortable sign. A rising trend matters more than any single score.
 
+[[retake]]
+
 ## Questions people ask
 
 ### How many mock exams should I take?

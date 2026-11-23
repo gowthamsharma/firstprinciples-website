@@ -219,6 +219,8 @@ Until 2002 there was one exam a year (in June). From 2003 to 2019 Level I was al
 | 1964 | 1,732 | 79% <small>(1,241)</small> | 94% <small>(302)</small> | 95% <small>(189)</small> |
 | 1963 | 284 | – | – | 94% <small>(284)</small> |
 
+[[retake]]
+
 ## Questions people ask
 
 ### What is the CFA Level 1 pass rate?

@@ -73,6 +73,8 @@ About 12–13 hours a week. Our free [Excel study planner](free-resources.html#p
 
 See [the best order to study](blog-cfa-study-order.html) for why the plan runs in this sequence.
 
+[[retake]]
+
 ## Questions people ask
 
 ### Is CFA Level 1 hard?

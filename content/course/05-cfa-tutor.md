@@ -1,5 +1,5 @@
 ---
-title: CFA tutor for Level I and II retakers: 1-to-1 sessions after a failed exam
+title: 1-to-1 retake session: a CFA Level I and II tutor after a failed exam
 slug: cfa-tutor
 order: 5
 summary: A 30-minute 1-to-1 video session for candidates who did not pass CFA Level I or Level II: we read your score report together, find where the marks went, and build a retake plan up to your next exam window. €25 per session.
@@ -8,10 +8,10 @@ caption: A retake is a loop, not a restart: diagnose, re-learn the gaps, practis
 tags: CFA tutor, CFA exam tutor, CFA level 1 tutor, CFA level 2 tutor, CFA retake, failed CFA level 1, CFA one to one tutoring, CFA mentor, CFA retake plan
 updated: 2026-11-23
 service: 1
-seo_title: CFA Level 1 and Level 2 tutor: 1-to-1 sessions after a failed exam
+seo_title: 1-to-1 retake session: CFA Level 1 and Level 2 tutor after a failed exam
 meta: Failed CFA Level 1 or Level 2? Pick a weekend time for a 30-minute 1-to-1 session (€25): we read your score report and build your retake plan.
 ---
-Not passing a CFA exam is common: in most recent Level I windows more than half of candidates failed. What matters is what you change before the next attempt. This **30-minute 1-to-1 session** is for candidates who sat **Level I or Level II** and did not pass. You bring your score report; you leave with a clear picture of where the marks went and a plan you can follow up to your next exam window.
+Not passing a CFA exam is common: in most recent Level I windows more than half of candidates failed. What matters is what you change before the next attempt. The **1-to-1 retake session** is a 30-minute video call for candidates who sat **Level I or Level II** and did not pass. You bring your score report; you leave with a clear picture of where the marks went and a plan you can follow up to your next exam window.
 
 [[book]]
 

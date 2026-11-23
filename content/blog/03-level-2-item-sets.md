@@ -83,6 +83,8 @@ Two lessons from the example. First, a single misread input (using FCFF instead 
 - **Units and scales.** Thousands versus millions, percentages versus decimals, annual versus semi-annual rates.
 - **Questions that ask which statement is *least* likely correct.** Under time pressure, many candidates answer the opposite question. Underline "least".
 
+[[retake]]
+
 ## Questions people ask
 
 ### What is a Level II item set?

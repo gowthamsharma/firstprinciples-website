@@ -58,6 +58,8 @@ Passing Level III is not the end. The charter also needs **4,000 hours of releva
 - **Take full mock exams** in the last six weeks; they are the best predictor of a pass.
 - **Avoid long breaks** between levels. Knowledge from Level I fades, and Level II builds directly on it.
 
+[[retake]]
+
 ## Questions people ask
 
 ### How many years does it take to pass the CFA?

@@ -84,6 +84,8 @@ CFA Institute suggests around 300 hours per level. Spread over 16 weeks, that is
 
 If you start from a non-finance background, add two to four weeks at the start for accounting and basic statistics. Our [prerequisites course](prerequisites.html) covers them.
 
+[[retake]]
+
 ## Questions people ask
 
 ### How many questions are on CFA Level 1?

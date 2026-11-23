@@ -78,6 +78,12 @@ BOOKING_FORM = """<section class="bk" id="book" data-endpoint="{endpoint}">
 </section>"""
 
 
+RETAKE_BOX = ('<aside class="retake"><p class="rt-k">1-to-1 retake session</p>'
+              '<p><b>Didn’t pass Level I or Level II?</b> Book 30 minutes with Gowtham: we read your score report together, '
+              'find where the marks went and build your plan for the retake. €25, at a weekend time that suits you.</p>'
+              '<a class="btn" href="cfa-tutor.html#book" data-track="retake_box">Choose a time</a></aside>')
+
+
 def obfuscate(s):
     return "".join(f"&#{ord(ch)};" for ch in s)
 
@@ -220,6 +226,7 @@ def render_md(p):
     body = body.replace("<blockquote>\n<p><strong>The one idea.</strong>", '<blockquote class="idea">\n<p><strong>The one idea.</strong>')
     body = body.replace("<p>[[studymode]]</p>", f'<div class="fs-tools" data-fs="{p["slug"]}"></div>')
     body = body.replace("<p>[[book]]</p>", '<p class="book"><a class="btn" href="#book" data-track="tutor_cta">Choose a time</a><span>30 minutes · €25 · Levels I and II · weekend slots up to six months ahead</span></p>')
+    body = body.replace("<p>[[retake]]</p>", RETAKE_BOX)
     body = body.replace("<p>[[booking]]</p>", BOOKING_FORM.replace("{endpoint}", BOOKING_ENDPOINT))
     body = body.replace("<p>[[waitlist]]</p>", f'<p class="waitlist"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=First%20Principles%20course%20waitlist" data-track="waitlist_click">Email me when it opens</a><span>One email when the course opens. No newsletter, no sharing your address.</span></p>')
     return body
@@ -271,7 +278,7 @@ MENU = [
         ("Level I", [("How to pass Level I", "blog-level-1-strategy.html", ""), ("100 practice questions", "cfa-level-1-practice-questions.html", ""),
                      ("Formula sheet", "blog-cfa-level-1-formula-sheet.html", ""), ("Calculator guide", "blog-ba-ii-plus-calculator-guide.html", ""),
                      ("Failed Level I? What next", "blog-failed-cfa-level-1.html", ""),
-                     ("1-to-1 session for retakers", "cfa-tutor.html", "30 minutes on your score report and retake plan")]),
+                     ("1-to-1 retake session", "cfa-tutor.html", "30 minutes on your score report and retake plan")]),
         ("Level II", [("How to pass Level II", "blog-level-2-item-sets.html", ""), ("Formula sheet", "blog-cfa-level-2-formula-sheet.html", ""), ("Prerequisites for valuation", "prerequisites.html", "")]),
         ("Level III", [("How to pass Level III", "blog-level-3-constructed-response.html", ""), ("Pick your pathway", "blog-level-3-pathways.html", ""),
                        ("The last four weeks", "blog-level-3-last-month.html", ""), ("Formula sheet", "blog-cfa-level-3-formula-sheet.html", "")]),
@@ -285,9 +292,10 @@ MENU = [
                    ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice"),
                    ("Level I practice questions", "cfa-level-1-practice-questions.html", "100 questions with worked answers")]),
         ("Learn", [("Prerequisites course", "prerequisites.html", "50 graded lessons, with your progress saved"),
-                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 for retakers", "cfa-tutor.html", "Levels I and II · 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
+                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 retake session", "cfa-tutor.html", "Levels I and II · 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
                    ("Study blog", "blog.html", "")])]),
     ("Blog", "blog.html", []),
+    ("1-to-1 sessions", "cfa-tutor.html", []),
 ]
 MENU_HTML = ""
 
@@ -299,7 +307,7 @@ PROMOS = {
     "Levels": [("100 Level I practice questions", "Ten per topic, in the exam's format, each with a worked answer.", "cfa-level-1-practice-questions.html"),
                ("Ready for Level I?", "Ten honest questions and a plan for the gaps, in two minutes.", "blog-ready-for-cfa-level-1.html")],
     "How to prepare": [("Free study planner", "An Excel planner that builds your weekly plan and keeps your streak.", "free-resources.html#planner"),
-                       ("How long it really takes", "We ran 100,000 candidates through the real exam calendar.", "blog-cfa-time-to-pass.html")],
+                       ("1-to-1 retake session", "Failed Level I or II? 30 minutes on your score report and a plan for the retake.", "cfa-tutor.html")],
     "Prerequisites": [("50 concepts, all free", "Accounting and economics from the ground up, each with an animated diagram.", "prerequisites.html"),
                       ("Start with the three statements", "How the balance sheet, income statement and cash flow fit together.", "prereq-three-statements.html")],
     "Free resources": [("Free study planner", "Plan your hours, track every session, protect your streak.", "free-resources.html#planner"),
@@ -315,7 +323,8 @@ def menu_html(active):
         links = [h for _, items in (cols or []) for _, h, _ in items]
         cur = ' aria-current="page"' if (active == hub or active in links) else ""
         if not cols:
-            out += f'<div class="mi"><a class="ml" href="{hub}"{cur}>{label}</a></div>'
+            hl = " hl" if hub == "cfa-tutor.html" else ""
+            out += f'<div class="mi{hl}"><a class="ml" href="{hub}"{cur}>{label}</a></div>'
             continue
         body = "".join(f'<div class="mc"><p class="mh">{head}</p><ul>' + "".join(f'<li><a href="{h}">{t}</a></li>' for t, h, _ in items) + "</ul></div>"
                        for head, items in cols)
@@ -487,7 +496,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <div class="wrap fcols">
   <div><p class="fh">Learn</p><a href="prerequisites.html">Prerequisite concepts</a><a href="cfa-level-1.html">CFA Level I</a><a href="cfa-level-2.html">CFA Level II</a><a href="cfa-level-3.html">CFA Level III</a><a href="cfa-level-1-practice-questions.html">Level I practice questions</a><a href="cfa-course.html">The CFA course</a></div>
   <div><p class="fh">Most searched</p><a href="blog-ba-ii-plus-calculator-guide.html">BA II Plus calculator guide</a><a href="blog-cfa-salary.html">CFA salary by country</a><a href="blog-cfa-jobs-salaries.html">CFA jobs and salaries</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-by-country.html">CFA by country</a></div>
-  <div><p class="fh">Prepare</p><a href="how-to-prepare.html">How to prepare</a><a href="free-resources.html#planner">Free study planner (Excel)</a><a href="blog-cfa-study-order.html">Best order to study topics</a><a href="blog-mock-exams.html">Mock exams</a><a href="blog-exam-day.html">Exam day</a></div>
+  <div><p class="fh">Prepare</p><a href="how-to-prepare.html">How to prepare</a><a href="free-resources.html#planner">Free study planner (Excel)</a><a href="blog-cfa-study-order.html">Best order to study topics</a><a href="blog-mock-exams.html">Mock exams</a><a href="blog-exam-day.html">Exam day</a><a href="cfa-tutor.html">1-to-1 retake session</a></div>
   <div><p class="fh">First Principles</p><a href="index.html#about">About</a><a href="mailto:{OBF}">Contact by email</a><a href="blog.html">Study blog</a><a href="free-resources.html">Free resources</a><a href="photo-credits.html">Photo credits</a></div>
 </div>
 <div class="fbar"><div class="wrap">
@@ -570,6 +579,7 @@ def card(p, chip, foot, feat=False):
 PROMO = {
     "default": ("Free CFA study planner", "An Excel planner that builds your weekly plan, tracks every topic and keeps your streak.", "free-resources.html#planner", "Get the planner"),
     "prereq": ("50 prerequisite concepts, free", "Financial statements and economics, rebuilt from the basics, each with its own animated diagram.", "prerequisites.html", "Start reading"),
+    "retake": ("Failed Level I or II? Talk it through 1-to-1", "A 30-minute video session on your score report: where the marks went, what to change, and a week-by-week plan to your retake. €25, weekend times.", "cfa-tutor.html", "Choose a time"),
     "calc": ("A BA II Plus in your browser", "Press every key, or watch worked exam examples play out, each with its formula and a picture.", "blog-ba-ii-plus-calculator-guide.html", "Open the calculator"),
 }
 
@@ -688,8 +698,16 @@ def promo(kind):
             f'<a class="go" href="{h}" data-track="promo_click"><span>{b}</span><i aria-hidden="true"></i></a></aside>')
 
 
+RETAKE_SLUGS = {"cfa-level-1", "cfa-level-2", "cfa-pass-rates", "blog-study-plan", "blog-level-1-strategy", "blog-level-2-item-sets",
+                "blog-mock-exams", "blog-cfa-results", "blog-why-cfa-is-hard", "blog-cfa-level-1-formula-sheet", "blog-cfa-level-2-formula-sheet",
+                "blog-cfa-time-to-pass", "blog-hardest-cfa-topics", "blog-failed-cfa-level-1", "blog-cfa-results-dates", "blog-cfa-self-study",
+                "blog-cfa-study-order", "cfa-level-1-practice-questions"}
+
+
 def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles", kind="default", extra="", head_extra="", extra_ld="", title_tag=None):
     url = f"{SITE}/{p['slug']}.html"
+    if p["slug"] in RETAKE_SLUGS or p["slug"].startswith("cfa-level-1-practice-questions-"):
+        kind = "retake"
     tg = tags(p)
     chips = (f'<aside class="tags"><span>Tags:</span>' + "".join(f'<span>{html.escape(t)}</span>' for t in tg) + "</aside>") if tg else ""
     k = photo_key(p["slug"], p)
@@ -1137,6 +1155,12 @@ def home(cfa, blog, pre):
   </div>
 </section>
 
+<section class="rband" aria-label="1-to-1 retake session"><div class="wrap">
+  <div><p class="rk">New · 1-to-1 retake session</p><h2>Didn't pass Level I or Level II?</h2>
+  <p>Book 30 minutes with Gowtham. We read your score report together, find where the marks went and build a week-by-week plan for your retake. €25, at a weekend time that suits you.</p></div>
+  <a class="btn" href="cfa-tutor.html" data-track="home_retake">Choose a time</a>
+</div></section>
+
 <section class="discover"><div class="wrap">
   <h2>Discover the CFA, from first principles</h2>
   <p class="sub">What the exams test, what the charter leads to, and the skills you need before you start.</p>
@@ -1152,7 +1176,7 @@ def home(cfa, blog, pre):
       <p class="dh">Quick links</p>
       <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-by-country.html">The CFA in your country</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-study-plan.html">Build a study plan</a><a href="blog-history-of-cfa.html">History of the CFA</a>
       <p class="dh">Featured content</p>
-      <a href="cfa-course.html">The First Principles CFA course</a><a href="blog-failed-cfa-level-1.html">Failed Level I? What to do next</a><a href="cfa-tutor.html">1-to-1 session for retakers</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
+      <a href="cfa-course.html">The First Principles CFA course</a><a href="blog-failed-cfa-level-1.html">Failed Level I? What to do next</a><a href="cfa-tutor.html">1-to-1 retake session</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
     </aside>
   </div>
 </div></section>

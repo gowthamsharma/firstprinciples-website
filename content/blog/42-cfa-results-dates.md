@@ -69,6 +69,8 @@ If you sat early in a window, your wait is longer than this, because results are
 
 Registration deadlines for each window are on our [dates and fees page](cfa-dates-fees.html).
 
+[[retake]]
+
 ## Questions people ask
 
 ### When will the November 2026 CFA results be released?

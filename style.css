@@ -997,3 +997,15 @@ table.txt td, table.txt th { text-align: left !important; }
 .bk-err { color: #b23434; font-size: .9rem; min-height: 1.2em; margin: 0 0 .6rem; }
 .bk-done { padding: 1rem 0 0; outline: none; }
 .bk-done h3 { color: #0a7d4d; }
+/* ---- 1-to-1 retake session: menu link, home band, inline box ---- */
+.mi.hl .ml { color: #FFFF00; }
+.mi.hl .ml::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #FFFF00; margin-right: .45rem; vertical-align: middle; }
+.rband { background: var(--mist); border-bottom: 1px solid #d9e2ec; }
+.rband .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; padding-top: 1.6rem; padding-bottom: 1.6rem; }
+.rband .wrap > div { flex: 1 1 520px; }
+.rband .rk, .retake .rt-k { margin: 0 0 .3rem; font-size: .78rem; font-weight: 600; letter-spacing: .08em; color: var(--blue); }
+.rband h2 { margin: 0 0 .4rem; font-size: 1.45rem; color: var(--head); }
+.rband p { margin: 0; color: var(--ink, #3b4a5c); max-width: 62ch; }
+article.post .body aside.retake { margin: 2rem 0; padding: 1.1rem 1.3rem 1.3rem; background: var(--mist); border-left: 4px solid #FFD400; }
+article.post .body aside.retake p { margin: 0 0 .8rem; font-size: 1rem; }
+article.post .body aside.retake .btn { margin-top: .2rem; }

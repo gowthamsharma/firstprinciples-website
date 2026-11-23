@@ -64,6 +64,8 @@ Topics are not the only problem. Across all levels, candidates lose marks to:
 
 Fix these with timed question practice every week, a spaced-repetition review of old topics, and mock exams in the final six weeks.
 
+[[retake]]
+
 ## Questions people ask
 
 ### What is the hardest topic in CFA Level I?

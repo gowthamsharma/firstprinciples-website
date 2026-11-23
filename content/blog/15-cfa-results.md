@@ -62,6 +62,8 @@ Celebrate, then register early for the next level to save on fees. If it was Lev
 
 At average pass rates, most candidates fail at least one level on the way to the charter, so a fail is common, not final.
 
+[[retake]]
+
 ## Questions people ask
 
 ### When are CFA Level 1 results released?

@@ -75,6 +75,8 @@ Score reports, which show performance by topic, and candidates' own accounts sug
 
 Not obviously. Pass rates fell after the move to computer-based testing in 2021, when windows became more frequent, and have since recovered to roughly 40–50% at most levels. The curriculum keeps changing: more quantitative methods and data science, less traditional economics and accounting. The new material is not harder, but older study notes and question banks become out of date, so use materials for your exam year.
 
+[[retake]]
+
 ## Questions people ask
 
 ### Is the CFA harder than the CPA?

@@ -61,7 +61,9 @@ Before you plan anything, try ten questions in your weakest topic and see how it
 
 ## Want a second pair of eyes?
 
-If you'd like someone to read your score report with you and build the retake plan together, book a [30-minute 1-to-1 session for retakers](cfa-tutor.html) (€25). It covers where the marks went, what to change in your method, and a week-by-week plan up to your next window.
+If you'd like someone to read your score report with you and build the retake plan together, that is exactly what the 1-to-1 retake session is for.
+
+[[retake]]
 
 ## What failing does not mean
 

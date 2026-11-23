@@ -92,6 +92,8 @@ Most successful candidates study **300 hours or more** for Level II, about **20 
 
 The fix in all three cases is the same: fewer readings at a time, more item sets, and a written note of every mistake you make.
 
+[[retake]]
+
 ## Questions people ask
 
 ### How many questions are on CFA Level 2?
