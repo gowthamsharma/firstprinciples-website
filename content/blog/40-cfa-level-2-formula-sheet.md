@@ -7,7 +7,7 @@ figure: ddm_stack
 caption: Most of Level II valuation is the Level I idea taken further: forecast the cash, then discount it at the right rate.
 tags: CFA level 2 formulas, CFA level 2 formula sheet, CFA level II formula sheet, CFA level 2 formulas list, CFA level 2 equity valuation formulas, CFA level 2 fixed income formulas, CFA level 2 derivatives formulas, CFA level 2 quant formulas
 group: Tools: formulas, calculator and self-study
-updated: 2026-11-22
+updated: 2026-11-23
 seo_title: CFA Level II formula sheet: every formula by topic (2026–2027)
 meta: The complete CFA Level II formula sheet: regression, currencies, pensions, FCFF and residual income, bond trees, CDS, Black–Scholes–Merton, real estate and multifactor models.
 ---
@@ -17,9 +17,27 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 [[figure]]
 
+## How to learn from this sheet
+
+Reading a list of formulas doesn't make them stick. Recalling them does. So this sheet is built to be worked, not just read:
+
+1. **Start with the one idea.** Each topic opens with a short card: the single idea behind the topic, how the other formulas follow from it, a sanity check to catch a wrong answer, and the trap examiners set most often. If you understand the card, you can rebuild a formula you've forgotten.
+2. **Test yourself.** Switch on *Quiz me* below. The formulas are hidden behind their meanings (or the other way round); try to write each one down, then reveal it and mark *Knew it* or *Not yet*.
+3. **Come back to the gaps.** Your marks are saved in this browser. Tick *Only show the ones I'm still learning* and work just those, a few minutes a day, until every topic is complete.
+
+[[studymode]]
+
 ## Quantitative methods
 
 ### Multiple regression
+
+> **The one idea.** Multiple regression is simple regression with more than one lever. Each slope is the effect of one variable while the others are held still; every test asks whether what the model explains beats what it misses.
+>
+> **Build the rest from it.** Split the variation as before, \(SST = SSR + SSE\), but now charge for every variable: \(F = \tfrac{SSR/k}{SSE/(n - k - 1)}\) and \(\bar{R}^2 = 1 - \tfrac{n - 1}{n - k - 1}(1 - R^2)\). One coefficient at a time: \(t = \tfrac{\hat{b}_j}{s_{\hat{b}_j}}\).
+>
+> **Sanity check.** Add a useless variable and \(R^2\) still rises (or stays the same), but \(\bar{R}^2\) can fall. That is the point of adjusting.
+>
+> **Exam trap.** Degrees of freedom are \(n - k - 1\): one is used for the intercept, \(k\) for the slopes. Using \(n - 2\) here is the most common slip.
 
 | Formula | What it says |
 |---|---|
@@ -41,6 +59,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ### Time series
 
+> **The one idea.** A time series forecasts the future from its own past. It only works if the series has a stable mean to return to (it is covariance-stationary).
+>
+> **Build the rest from it.** AR(1): \(x_t = b_0 + b_1x_{t-1} + \varepsilon_t\). Set \(x_t = x_{t-1} = \bar{x}\) and solve: the mean-reverting level is \(\tfrac{b_0}{1 - b_1}\). If \(b_1 = 1\), that level doesn't exist: a unit root, so first-difference the series.
+>
+> **Sanity check.** With \(b_0 = 2\) and \(b_1 = 0.5\), the series reverts to \(2/0.5 = 4\). Start at 4 and the forecast stays at 4.
+>
+> **Exam trap.** Test for a unit root with Dickey–Fuller, not with the ordinary t-test on \(b_1\).
+
 | Formula | What it says |
 |---|---|
 | \(y_t = b_0 + b_1t + \varepsilon_t\) | linear trend: constant amount of growth |
@@ -57,6 +83,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ### Machine learning and big data
 
+> **The one idea.** Every classification score comes from one 2×2 table: what the model predicted against what was true. Each ratio picks a different row or column of that table.
+>
+> **Build the rest from it.** Precision divides by the predicted-positive column: \(\tfrac{TP}{TP + FP}\). Recall divides by the actually-positive row: \(\tfrac{TP}{TP + FN}\). \(F_1\) is their harmonic mean: \(\tfrac{2PR}{P + R}\).
+>
+> **Sanity check.** A model that labels everything positive has recall of 1 and poor precision; the \(F_1\) score exposes it.
+>
+> **Exam trap.** Accuracy misleads when classes are unbalanced: predicting \"no default\" for every borrower can score 98% and be useless.
+
 | Formula | What it says |
 |---|---|
 | \(\text{Precision} = \dfrac{TP}{TP + FP}\) | of predicted positives, how many are right |
@@ -68,6 +102,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(TF = \dfrac{\text{count of a token}}{\text{total tokens}}\) | term frequency for text features |
 
 ## Economics
+
+> **The one idea.** Currency quotes are prices of one money in another, so they chain and invert like fractions. Parity conditions say money earns the same everywhere once currencies are converted.
+>
+> **Build the rest from it.** Chain: \(\tfrac{A}{C} = \tfrac{A}{B} \times \tfrac{B}{C}\). Invert: \(\text{bid}(B/A) = 1/\text{offer}(A/B)\). Covered parity: \(F = S\,\tfrac{1 + i_p\frac{\text{days}}{360}}{1 + i_b\frac{\text{days}}{360}}\). Uncovered parity replaces \(F\) with the expected spot rate.
+>
+> **Sanity check.** Equal interest rates at home and abroad mean the forward equals spot.
+>
+> **Exam trap.** When you invert a quote, the bid and offer swap sides. The dealer always wins the spread, so check that your bid is below your offer.
 
 | Formula | What it says |
 |---|---|
@@ -88,6 +130,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(g^* = \dfrac{\theta}{1 - \alpha}\) | neoclassical steady state; \(\theta\) = total factor productivity growth |
 
 ## Financial statement analysis
+
+> **The one idea.** Intercorporate investments come down to how much control you have: little (fair value), significant influence (equity method, one line), or control (consolidate everything, line by line).
+>
+> **Build the rest from it.** Equity method: \(\text{Investment}_t = \text{cost} + \text{share of NI} - \text{dividends}\). Consolidation adds 100% of the subsidiary and carves out the non-controlling interest. Goodwill is the price paid above the fair value of what can be identified.
+>
+> **Sanity check.** Equity method and consolidation give the same net income and equity attributable to the parent; only the size of the lines differs.
+>
+> **Exam trap.** Dividends from an equity-method investee reduce the investment; they are not income.
 
 | Formula | What it says |
 |---|---|
@@ -114,6 +164,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Corporate issuers
 
+> **The one idea.** Capital structure, payouts and buybacks change how value is split and taxed, not (in a perfect market) how much value there is. The formulas measure the frictions: taxes and the cost of funds.
+>
+> **Build the rest from it.** Modigliani–Miller with taxes: \(V_L = V_U + tD\) and \(r_e = r_0 + (r_0 - r_d)(1 - t)\tfrac{D}{E}\). Buyback test: EPS rises when the earnings yield \(E/P\) exceeds the after-tax cost of the funds used.
+>
+> **Sanity check.** With \(D = 0\), \(V_L = V_U\) and \(r_e = r_0\).
+>
+> **Exam trap.** A buyback above book value per share lowers BVPS even if EPS goes up. Judge them separately.
+
 | Formula | What it says |
 |---|---|
 | \(EPS_{\text{after}} = \dfrac{\text{earnings} - \text{after-tax cost of funds}}{\text{shares after buyback}}\) | rises if earnings yield \(>\) after-tax cost of debt |
@@ -131,6 +189,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ### Return concepts and dividend models
 
+> **The one idea.** Required return is what investors demand for the risk; expected return is what you think the price implies. Dividend models link the two through growth.
+>
+> **Build the rest from it.** Gordon: \(V_0 = \tfrac{D_1}{r - g}\) rearranges to \(r = \tfrac{D_1}{P_0} + g\). Multi-stage models discount the high-growth dividends one by one and then add a Gordon terminal value. H-model: \(V_0 = \tfrac{D_0(1 + g_L) + D_0H(g_S - g_L)}{r - g_L}\).
+>
+> **Sanity check.** If \(H = 0\) (no extra growth period), the H-model collapses to Gordon.
+>
+> **Exam trap.** Discount the terminal value from the year it is calculated, not from the year after.
+
 | Formula | What it says |
 |---|---|
 | \(r = R_f + \beta_{mkt}MKT + \beta_{size}SMB + \beta_{value}HML\) | Fama–French |
@@ -146,6 +212,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ### Free cash flow models
 
+> **The one idea.** Free cash flow is cash the business throws off after it reinvests. FCFF belongs to everyone who funded the firm; FCFE is what is left for shareholders after debt holders are paid.
+>
+> **Build the rest from it.** Start anywhere and add back what isn't cash: \(FCFF = EBIT(1 - t) + Dep - FCInv - WCInv\). Then \(FCFE = FCFF - Int(1 - t) + \text{net borrowing}\). Discount FCFF at WACC (firm value) and FCFE at \(r_e\) (equity value).
+>
+> **Sanity check.** A firm with no debt has \(FCFF = FCFE\), and WACC equals the cost of equity.
+>
+> **Exam trap.** Match the cash flow to the rate: FCFF with WACC, FCFE with the cost of equity. Mixing them is a guaranteed wrong answer.
+
 | Formula | What it says |
 |---|---|
 | \(FCFF = NI + NCC + Int(1 - t) - FCInv - WCInv\) | to all capital providers |
@@ -159,6 +233,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(V_{\text{equity}} = \dfrac{FCFE_1}{r - g}\) | |
 
 ### Residual income, multiples and private companies
+
+> **The one idea.** Residual income is profit above the rent on the owners' capital. Value is what's on the books today plus the present value of all future profit above that rent.
+>
+> **Build the rest from it.** \(RI_t = E_t - rB_{t-1} = (ROE - r)B_{t-1}\). Value: \(V_0 = B_0 + \sum \tfrac{RI_t}{(1 + r)^t}\). With constant growth: \(V_0 = B_0 + \tfrac{(ROE - r)B_0}{r - g}\), which gives the justified \(P/B = 1 + \tfrac{ROE - r}{r - g}\).
+>
+> **Sanity check.** If \(ROE = r\), residual income is zero and the firm is worth exactly book value: \(P/B = 1\).
+>
+> **Exam trap.** Use beginning-of-period book value in \(rB_{t-1}\).
 
 | Formula | What it says |
 |---|---|
@@ -177,6 +259,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(V = \dfrac{FCFF_1}{WACC - g}\) | capitalised cash flow method |
 
 ## Fixed income
+
+> **The one idea.** One curve prices everything. Spot rates, forward rates and par rates are three views of the same discount factors, and arbitrage keeps them consistent.
+>
+> **Build the rest from it.** Forward rate model: \((1 + z_B)^B = (1 + z_A)^A(1 + f_{A,B-A})^{B-A}\). Binomial trees value bonds with options by backward induction: at each node, \(V = \tfrac{0.5(V_u + C) + 0.5(V_d + C)}{1 + r}\). Option value \(= V_{\text{straight}} - V_{\text{callable}}\).
+>
+> **Sanity check.** In a flat curve, spot = forward = par = the same rate.
+>
+> **Exam trap.** A call option benefits the issuer, so it lowers the bond's value; a put benefits the holder and raises it.
 
 | Formula | What it says |
 |---|---|
@@ -208,6 +298,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Derivatives
 
+> **The one idea.** Carry arbitrage: the forward price is the spot price grown at the financing rate, less whatever the asset pays you while you hold it.
+>
+> **Build the rest from it.** \(F_0 = [S_0 - PV(\text{income})](1 + r)^T\), or \(S_0e^{(r - \delta)T}\) with a yield. Value mid-life \(= PV(\text{new forward price} - \text{old forward price})\). Swaps are a portfolio of forwards; options use the binomial model or Black–Scholes–Merton.
+>
+> **Sanity check.** An asset that pays nothing and costs nothing to hold gives \(F_0 = S_0(1 + r)^T\), the Level I result.
+>
+> **Exam trap.** Value a long forward as (current underlying value − PV of the agreed price), not as the difference in forward prices left undiscounted.
+
 | Formula | What it says |
 |---|---|
 | \(F_0 = [S_0 - PV(D)](1 + r)^T\) | equity forward with discrete dividends |
@@ -231,6 +329,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Alternative investments
 
+> **The one idea.** Real estate is a stream of rent, valued like a bond. The cap rate is the property's current yield; growth is what turns it into a total return.
+>
+> **Build the rest from it.** \(V = \tfrac{NOI_1}{\text{cap rate}}\) and \(\text{cap rate} \approx r - g\): Gordon growth with NOI instead of dividends. A REIT's NAV sums the properties at market cap rates, less debt.
+>
+> **Sanity check.** A 5% cap rate on NOI of 1 million means a value of 20 million. Raise the cap rate to 6% and value falls to 16.7 million.
+>
+> **Exam trap.** FFO adds depreciation back to net income; AFFO then subtracts recurring capital spending. AFFO is the better measure of cash available to pay out.
+
 | Formula | What it says |
 |---|---|
 | \(V = \dfrac{NOI_1}{\text{cap rate}}\) | direct capitalisation |
@@ -247,6 +353,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(R = \text{spot} + \text{roll} + \text{collateral return}\) | commodity futures return |
 
 ## Portfolio management
+
+> **The one idea.** Returns come from exposure to a few common factors plus what is specific to each asset. Active management is the bet on differences from the benchmark, measured per unit of active risk.
+>
+> **Build the rest from it.** APT: \(E(R) = R_f + \sum \beta_k\lambda_k\). Active return splits into factor tilts and security selection. Fundamental law: \(IR \approx IC\sqrt{BR}\): skill times the square root of the number of independent bets.
+>
+> **Sanity check.** A manager with no skill (\(IC = 0\)) has an expected IR of zero however many bets they make.
+>
+> **Exam trap.** Breadth counts independent decisions, not trades. Ten correlated bets are closer to one.
 
 | Formula | What it says |
 |---|---|

@@ -7,7 +7,7 @@ figure: frontier
 caption: Level III is about building and defending a portfolio; the formulas size the positions and measure the results.
 tags: CFA level 3 formulas, CFA level 3 formula sheet, CFA level III formula sheet, CFA level 3 formulas list, CFA level 3 fixed income formulas, CFA level 3 derivatives formulas, CFA level 3 private wealth formulas, CFA level 3 performance attribution
 group: Tools: formulas, calculator and self-study
-updated: 2026-11-22
+updated: 2026-11-23
 seo_title: CFA Level III formula sheet: core and pathway formulas (2026–2027)
 meta: The complete CFA Level III formula sheet: capital market expectations, asset allocation, futures overlays, currency hedging, fixed income returns, after-tax wealth, attribution and private markets.
 ---
@@ -17,7 +17,25 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 [[figure]]
 
+## How to learn from this sheet
+
+Reading a list of formulas doesn't make them stick. Recalling them does. So this sheet is built to be worked, not just read:
+
+1. **Start with the one idea.** Each topic opens with a short card: the single idea behind the topic, how the other formulas follow from it, a sanity check to catch a wrong answer, and the trap examiners set most often. If you understand the card, you can rebuild a formula you've forgotten.
+2. **Test yourself.** Switch on *Quiz me* below. The formulas are hidden behind their meanings (or the other way round); try to write each one down, then reveal it and mark *Knew it* or *Not yet*.
+3. **Come back to the gaps.** Your marks are saved in this browser. Tick *Only show the ones I'm still learning* and work just those, a few minutes a day, until every topic is complete.
+
+[[studymode]]
+
 ## Capital market expectations
+
+> **The one idea.** Long-run expected returns are built from parts you can forecast: income, growth and changes in valuation. Each model adds the same pieces in a different way.
+>
+> **Build the rest from it.** Grinold–Kroner: \(E(R_e) \approx \tfrac{D}{P} - \%\Delta S + i + g + \%\Delta\tfrac{P}{E}\). Singer–Terhaar blends a fully integrated premium \(\rho\sigma_i\tfrac{RP_{GM}}{\sigma_{GM}}\) with a fully segmented one (set \(\rho = 1\)).
+>
+> **Sanity check.** If valuations are stable (\(\%\Delta P/E = 0\)) and no shares are issued, the expected return is the dividend yield plus nominal earnings growth.
+>
+> **Exam trap.** In Singer–Terhaar, add the illiquidity premium after blending, not before.
 
 | Formula | What it says |
 |---|---|
@@ -34,6 +52,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Asset allocation
 
+> **The one idea.** Allocation balances expected return against risk the investor dislikes. For pension and insurance funds, the risk that matters is relative to the liabilities.
+>
+> **Build the rest from it.** Utility: \(U = E(R) - 0.005\lambda\sigma^2\) with returns in percent. For a liability-driven investor, track the surplus: \(\text{Surplus} = A - PV(L)\), with return \(\tfrac{\Delta A - \Delta L}{A_0}\).
+>
+> **Sanity check.** A risk-neutral investor (\(\lambda = 0\)) simply picks the highest expected return.
+>
+> **Exam trap.** Use 0.005 only when returns are in percent; with decimals the factor is 0.5.
+
 | Formula | What it says |
 |---|---|
 | \(U_m = E(R_m) - 0.005\,\lambda\,\sigma_m^2\) | mean–variance utility with returns in percent |
@@ -49,6 +75,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(w_i\,\text{Cov}(R_i, R_P) = \dfrac{1}{n}\sigma_P^2\) | risk parity: equal risk contributions |
 
 ## Derivatives and risk management
+
+> **The one idea.** Futures let you change a portfolio's exposure without trading the assets. The number of contracts is the risk you want to add or remove, divided by the risk one contract carries.
+>
+> **Build the rest from it.** Equity: \(N_f = \tfrac{\beta_T - \beta_S}{\beta_f} \times \tfrac{S}{F}\). Bonds: \(N_f = \tfrac{BPV_T - BPV_P}{BPV_f}\), with \(BPV_f \approx \tfrac{BPV_{CTD}}{CF_{CTD}}\). Same shape each time: (target − current) ÷ per-contract exposure.
+>
+> **Sanity check.** If the target beta equals the current beta, \(N_f = 0\): no trade.
+>
+> **Exam trap.** A negative \(N_f\) means sell futures. Check the sign before you round.
 
 | Formula | What it says |
 |---|---|
@@ -72,6 +106,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Currency management
 
+> **The one idea.** A foreign asset earns two returns that multiply: the asset's local return and the currency's move. Hedging removes the second, at the cost of the interest-rate differential.
+>
+> **Build the rest from it.** \(R_{DC} = (1 + R_{FC})(1 + R_{FX}) - 1\). The variance adds the two risks and their covariance: \(\sigma^2(R_{DC}) \approx \sigma^2(R_{FC}) + \sigma^2(R_{FX}) + 2\rho\,\sigma_{FC}\sigma_{FX}\).
+>
+> **Sanity check.** If the currency doesn't move (\(R_{FX} = 0\)), the domestic return equals the foreign return.
+>
+> **Exam trap.** Hedging a currency that trades at a forward premium earns roll yield; one at a forward discount costs it.
+
 | Formula | What it says |
 |---|---|
 | \(R_{DC} = (1 + R_{FC})(1 + R_{FX}) - 1\) | domestic-currency return |
@@ -84,6 +126,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(R_{\text{carry}} \approx i_{\text{high}} - i_{\text{low}} - \%\Delta S_{\text{high}}\) | carry trade |
 
 ## Fixed income portfolio management
+
+> **The one idea.** A bond portfolio's return over a horizon has five sources: the yield you earn, rolling down the curve, yield changes, credit losses and currency. Add them and you have the forecast.
+>
+> **Build the rest from it.** \(E(R) \approx \text{yield income} + \text{rolldown} + E(\Delta P) - E(\text{credit losses}) \pm E(\text{currency})\), where \(E(\Delta P) \approx -\text{ModDur} \times \Delta y + \tfrac{1}{2}\text{Convexity}(\Delta y)^2\).
+>
+> **Sanity check.** With a flat, unchanging curve and no defaults, the return is simply the yield.
+>
+> **Exam trap.** Rolldown assumes the curve stays where it is. Forecast yield changes separately, or you count them twice.
 
 | Formula | What it says |
 |---|---|
@@ -104,6 +154,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Equity portfolio management
 
+> **The one idea.** Active management is measured against the benchmark. Return above it is only worth something relative to the extra risk taken to get it.
+>
+> **Build the rest from it.** Active return \(R_A = R_P - R_B\), active risk \(\sigma_A = \sigma(R_P - R_B)\), and \(IR = \tfrac{R_A}{\sigma_A}\). Active share counts how different the holdings are: \(\tfrac{1}{2}\sum |w_{P,i} - w_{B,i}|\).
+>
+> **Sanity check.** An index fund has active share near 0 and tracking error near 0.
+>
+> **Exam trap.** High active share with low tracking error means many small, diversified bets. High tracking error with low active share means concentrated factor bets.
+
 | Formula | What it says |
 |---|---|
 | \(R_A = R_P - R_B\) | active return |
@@ -115,6 +173,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(\beta_{130/30} \approx 1.3\,\beta_{\text{long}} - 0.3\,\beta_{\text{short}}\) | |
 
 ## Trading, performance evaluation and manager selection
+
+> **The one idea.** Every trade costs something relative to a paper portfolio that traded instantly at the decision price. Implementation shortfall measures that gap and splits it into parts.
+>
+> **Build the rest from it.** \(IS = \text{delay} + \text{execution} + \text{opportunity cost} + \text{fees}\). Delay \(= Q_{\text{traded}}(P_{\text{arrival}} - P_{\text{decision}})\) for a buy. Performance attribution splits return into allocation and selection the same way.
+>
+> **Sanity check.** An order filled in full at the decision price with no fees has an implementation shortfall of zero.
+>
+> **Exam trap.** Opportunity cost applies only to the shares you didn't trade.
 
 | Formula | What it says |
 |---|---|
@@ -138,6 +204,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 
 ## Private wealth pathway
 
+> **The one idea.** Taxes change returns depending on when they are paid: every year, at sale, or on withdrawal. The longer tax is deferred, the more the untaxed money compounds.
+>
+> **Build the rest from it.** Taxed every year: \(FV = [1 + r(1 - t_i)]^n\). Taxed once at the end: \(FV = (1 + r)^n(1 - t_{cg}) + t_{cg}B\). Tax-deferred account: \((1 + r)^n(1 - t_n)\). Tax-exempt: \((1 + r)^n\).
+>
+> **Sanity check.** Over one year, with a cost basis equal to today's value (\(B = 1\)), accrual and deferred taxation give the same result: \(1 + r(1 - t)\).
+>
+> **Exam trap.** In the deferred capital-gains formula, \(B\) is the cost basis as a fraction of current value, not a currency amount.
+
 | Formula | What it says |
 |---|---|
 | \(FV = [1 + r(1 - t_i)]^n\) | accrual taxation: taxed every year |
@@ -155,6 +229,14 @@ Formula sheets for the other levels: [Level I](blog-cfa-level-1-formula-sheet.ht
 | \(PV = \sum_t \dfrac{p(\text{survival}_t)\times\text{spending}_t}{(1 + r)^t}\) | probability-weighted spending |
 
 ## Private markets pathway
+
+> **The one idea.** Private fund performance is judged by multiples of money: what came back, what is still in the fund, and the two together. IRR adds the timing.
+>
+> **Build the rest from it.** \(DPI = \tfrac{\text{distributions}}{\text{paid-in}}\), \(RVPI = \tfrac{NAV}{\text{paid-in}}\), so \(TVPI = DPI + RVPI\). IRR solves \(\sum \tfrac{CF_t}{(1 + IRR)^t} = 0\).
+>
+> **Sanity check.** Early in a fund's life DPI is near zero and TVPI is mostly RVPI, which is an estimate.
+>
+> **Exam trap.** A high TVPI with a low DPI is still mostly unrealised value. Ask how much cash has actually come back.
 
 | Formula | What it says |
 |---|---|

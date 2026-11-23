@@ -557,3 +557,89 @@
   });
   tally();
 })();
+
+/* ---- formula sheets: one-idea cards + quiz mode (recall, mark, review the gaps) ---- */
+(function () {
+  var tools = document.querySelector(".fs-tools");
+  if (!tools) return;
+  var KEY = "fp-fs-" + tools.getAttribute("data-fs"), marks = {};
+  try { marks = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(marks)); } catch (e) {} }
+  function hash(s) { var h = 5381; for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
+  var tables = [].filter.call(document.querySelectorAll("article.post .body table"), function (t) {
+    var th = t.querySelector("thead th"); return th && /^formula/i.test(th.textContent.trim());
+  });
+  var rows = [];
+  tables.forEach(function (t) {
+    var wrap = t.closest(".tablewrap") || t, count = document.createElement("p");
+    count.className = "fs-count"; wrap.parentNode.insertBefore(count, wrap); t._count = count; t._rows = [];
+    t.querySelectorAll("tbody tr").forEach(function (tr) {
+      var c = tr.children; if (c.length < 2) return;
+      var f = c[0], m = c[1], r = { tr: tr, f: f, m: m, t: t, id: hash((f.textContent + "|" + m.textContent).replace(/\s+/g, " ").slice(0, 160)), hasM: m.textContent.trim().length > 0 };
+      var act = document.createElement("span"); act.className = "fs-act";
+      act.innerHTML = '<button type="button" data-k="1">Knew it</button><button type="button" data-k="0">Not yet</button>';
+      m.appendChild(act); r.act = act;
+      act.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        marks[r.id] = +b.getAttribute("data-k"); save(); paint(r); tally();
+        if (only.checked && marks[r.id] === 1) tr.classList.add("fs-gone");
+      });
+      [f, m].forEach(function (cell) {
+        cell.addEventListener("click", function (e) {
+          if (!cell.classList.contains("fs-hide") || e.target.closest(".fs-act")) return;
+          cell.classList.remove("fs-hide"); tr.classList.add("fs-open");
+        });
+      });
+      rows.push(r); t._rows.push(r);
+    });
+  });
+  tools.innerHTML =
+    '<div class="fs-modes" role="group" aria-label="Study mode">' +
+    '<button type="button" data-m="read" aria-pressed="true">Read</button>' +
+    '<button type="button" data-m="f" aria-pressed="false">Quiz me: hide the formulas</button>' +
+    '<button type="button" data-m="m" aria-pressed="false">Quiz me: hide the meanings</button></div>' +
+    '<label class="fs-only"><input type="checkbox"> Only show the ones I\'m still learning</label>' +
+    '<div class="fs-prog"><div class="fs-bar"><span></span></div><p></p><button type="button" class="fs-reset">Reset my marks</button></div>' +
+    '<p class="fs-hint" hidden>Try to recall the hidden part, then tap it to check yourself and mark how you did.</p>';
+  var only = tools.querySelector(".fs-only input"), mode = "read";
+  function paint(r) {
+    r.tr.classList.toggle("fs-known", marks[r.id] === 1);
+    r.tr.classList.toggle("fs-again", marks[r.id] === 0);
+  }
+  function apply() {
+    document.body.classList.toggle("fs-quiz", mode !== "read");
+    tools.querySelector(".fs-hint").hidden = mode === "read";
+    rows.forEach(function (r) {
+      r.f.classList.remove("fs-hide"); r.m.classList.remove("fs-hide"); r.tr.classList.remove("fs-open");
+      var skip = mode === "f" && !r.hasM;
+      r.tr.classList.toggle("fs-skip", mode !== "read" && skip);
+      if (mode === "f" && !skip) r.f.classList.add("fs-hide");
+      if (mode === "m" && r.hasM) r.m.classList.add("fs-hide");
+      r.tr.classList.toggle("fs-gone", only.checked && marks[r.id] === 1);
+      paint(r);
+    });
+  }
+  function tally() {
+    var k = 0;
+    rows.forEach(function (r) { if (marks[r.id] === 1) k++; });
+    tools.querySelector(".fs-bar span").style.width = (rows.length ? 100 * k / rows.length : 0) + "%";
+    tools.querySelector(".fs-prog p").innerHTML = "<b>" + k + " of " + rows.length + "</b> formulas marked “Knew it”";
+    tables.forEach(function (t) {
+      var n = 0; t._rows.forEach(function (r) { if (marks[r.id] === 1) n++; });
+      t._count.textContent = n === t._rows.length && n ? "This topic: all " + n + " known" : "This topic: " + n + " of " + t._rows.length + " known";
+      t._count.classList.toggle("done", n === t._rows.length && n > 0);
+    });
+  }
+  tools.querySelector(".fs-modes").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    mode = b.getAttribute("data-m");
+    tools.querySelectorAll(".fs-modes button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+    apply();
+    if (mode !== "read" && window.fpTrack) window.fpTrack("formula_quiz_start");
+  });
+  only.addEventListener("change", apply);
+  tools.querySelector(".fs-reset").addEventListener("click", function () {
+    marks = {}; try { localStorage.removeItem(KEY); } catch (e) {} apply(); tally();
+  });
+  apply(); tally();
+})();

@@ -7,7 +7,7 @@ figure: review_loop
 caption: A retake is a loop, not a restart: diagnose, re-learn the gaps, practise mixed questions, test with mocks.
 tags: failed CFA level 1, failed CFA level 1 what next, CFA level 1 retake, CFA level 1 retake strategy, CFA level 1 failed band, CFA retake rules, when can I retake CFA level 1, CFA level 1 second attempt, CFA level 1 failed twice
 group: Strategy: how to tackle the exams
-updated: 2026-11-22
+updated: 2026-11-23
 ---
 In November 2025, **57% of Level I candidates did not pass**. In every Level I session since 2022, between 54% and 65% of candidates failed. Failing Level I is the most common outcome of a first attempt, and it says much more about method and time than about ability. Here is how to turn it into a pass.
 
@@ -58,6 +58,10 @@ Before you plan anything, try ten questions in your weakest topic and see how it
 
 - [Ethics](cfa-level-1-practice-questions-ethics.html) · [Quantitative methods](cfa-level-1-practice-questions-quant.html) · [Financial statements](cfa-level-1-practice-questions-fsa.html) · [Fixed income](cfa-level-1-practice-questions-fixed-income.html) · [Equity](cfa-level-1-practice-questions-equity.html)
 - [All ten topics, 100 questions](cfa-level-1-practice-questions.html)
+
+## Want a second pair of eyes?
+
+If you'd like someone to read your score report with you and build the retake plan together, book a [30-minute 1-to-1 session for retakers](cfa-tutor.html) (€25). It covers where the marks went, what to change in your method, and a week-by-week plan up to your next window.
 
 ## What failing does not mean
 

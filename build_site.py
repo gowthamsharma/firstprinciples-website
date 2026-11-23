@@ -24,6 +24,8 @@ ROOT = pathlib.Path(__file__).resolve().parent
 SITE = "https://firstprinciples.courses"
 TODAY = datetime.date.today().isoformat()
 NAME, EMAIL = "Gowtham Kumar", "gkinba@gmail.com"
+# 1-to-1 retake sessions: Cal.com booking links (card via Stripe, PayPal). Empty = email request button.
+BOOKING = {"card": "", "paypal": ""}
 CLARITY_ID = "zf2slpx8uv"  # Microsoft Clarity project ID; loads only after the visitor accepts the banner
 CF_BEACON = "a9877ea4bed648d990739f9b34199681"  # Cloudflare Web Analytics token (cookieless); empty = no tracking
 CHECKED = "16 November 2026"
@@ -172,7 +174,12 @@ def render_md(p):
     body = md.convert(src)
     body = re.sub(r"MATHX(\d+)X", lambda m: html.escape(maths[int(m.group(1))], quote=False), body)
     body = re.sub(r"<p>TRYBOX(\d+)X</p>", lambda m: boxes[int(m.group(1))], body)
-    body = body.replace("<table>", '<div class="tablewrap"><table>').replace("</table>", "</table></div>")
+    def wraptable(m):
+        t = m.group(0)
+        cells = [re.sub(r"<[^>]+>|MATHX\d+X", "", c) for c in re.findall(r"<td>(.*?)</td>", t, re.S)]
+        wordy = sum(1 for c in cells if len(c.split()) >= 7) >= max(1, len(cells) // 6)
+        return '<div class="tablewrap"><table' + (' class="txt"' if wordy else "") + ">" + t[7:] + "</div>"
+    body = re.sub(r"<table>.*?</table>", wraptable, body, flags=re.S)
 
     def figure_html(key, cap):
         return f'<figure class="figure wide"><div class="stage">{getattr(figures, key)()}</div>' + (f"<figcaption>{cap}</figcaption>" if cap else "") + "</figure>"
@@ -181,6 +188,16 @@ def render_md(p):
     body = re.sub(r"<p>\[\[fig:(\w+)(?:\|(.*?))?\]\]</p>", lambda m: figure_html(m.group(1), m.group(2)), body)
     body = re.sub(r"<p>\[\[widget:(\w+)\]\]</p>", lambda m: f'<div class="widget" data-widget="{m.group(1)}"></div>', body)
     body = re.sub(r"<p>\[\[practice:([\w-]+)\]\]</p>", lambda m: practice_html(m.group(1)), body)
+    body = body.replace("<blockquote>\n<p><strong>The one idea.</strong>", '<blockquote class="idea">\n<p><strong>The one idea.</strong>')
+    body = body.replace("<p>[[studymode]]</p>", f'<div class="fs-tools" data-fs="{p["slug"]}"></div>')
+    if BOOKING["card"] or BOOKING["paypal"]:
+        btns = "".join(f'<a class="btn{" ghost" if k == "paypal" else ""}" href="{BOOKING[k]}" data-track="tutor_book_{k}" rel="noopener">{lab}</a>'
+                       for k, lab in (("card", "Book and pay by card"), ("paypal", "Book and pay with PayPal")) if BOOKING[k])
+        book = f'<div class="book">{btns}<span>30 minutes · €25 · weekend times shown in your time zone</span></div>'
+    else:
+        book = (f'<div class="book"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=1-to-1%20retake%20session%20request&amp;body=Level%3A%20%0AExam%20window%20I%20sat%3A%20%0AMy%20time%20zone%3A%20" data-track="tutor_request">Request a session by email</a>'
+                '<span>30 minutes · €25 · you get the open weekend times and a card or PayPal payment link by reply</span></div>')
+    body = body.replace("<p>[[book]]</p>", book)
     body = body.replace("<p>[[waitlist]]</p>", f'<p class="waitlist"><a class="btn" href="mailto:{obfuscate(EMAIL)}?subject=First%20Principles%20course%20waitlist" data-track="waitlist_click">Email me when it opens</a><span>One email when the course opens. No newsletter, no sharing your address.</span></p>')
     return body
 
@@ -230,7 +247,8 @@ MENU = [
                         ("Self-study without coaching", "blog-cfa-self-study.html", ""), ("Choosing prep materials", "blog-choosing-prep-materials.html", "")]),
         ("Level I", [("How to pass Level I", "blog-level-1-strategy.html", ""), ("100 practice questions", "cfa-level-1-practice-questions.html", ""),
                      ("Formula sheet", "blog-cfa-level-1-formula-sheet.html", ""), ("Calculator guide", "blog-ba-ii-plus-calculator-guide.html", ""),
-                     ("Failed Level I? What next", "blog-failed-cfa-level-1.html", "")]),
+                     ("Failed Level I? What next", "blog-failed-cfa-level-1.html", ""),
+                     ("1-to-1 session for retakers", "cfa-tutor.html", "30 minutes on your score report and retake plan")]),
         ("Level II", [("How to pass Level II", "blog-level-2-item-sets.html", ""), ("Formula sheet", "blog-cfa-level-2-formula-sheet.html", ""), ("Prerequisites for valuation", "prerequisites.html", "")]),
         ("Level III", [("How to pass Level III", "blog-level-3-constructed-response.html", ""), ("Pick your pathway", "blog-level-3-pathways.html", ""),
                        ("The last four weeks", "blog-level-3-last-month.html", ""), ("Formula sheet", "blog-cfa-level-3-formula-sheet.html", "")]),
@@ -244,7 +262,7 @@ MENU = [
                    ("Level I readiness self-check", "blog-ready-for-cfa-level-1.html", "Ten questions, instant advice"),
                    ("Level I practice questions", "cfa-level-1-practice-questions.html", "100 questions with worked answers")]),
         ("Learn", [("Prerequisites course", "prerequisites.html", "50 graded lessons, with your progress saved"),
-                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("CFA in your country", "cfa-by-country.html", ""),
+                   ("The CFA course", "cfa-course.html", "Video lessons, opening 2027"), ("1-to-1 for retakers", "cfa-tutor.html", "Failed an exam? 30 minutes, €25"), ("CFA in your country", "cfa-by-country.html", ""),
                    ("Study blog", "blog.html", "")])]),
     ("Blog", "blog.html", []),
 ]
@@ -430,7 +448,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=13">
+<link rel="stylesheet" href="style.css?v=14">
 {extra_head}
 {('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
@@ -455,7 +473,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
-<script src="site.js?v=13" defer></script>{beacon}
+<script src="site.js?v=14" defer></script>{beacon}
 </body>
 </html>
 """
@@ -633,6 +651,14 @@ def course_ld(p):
     return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>"
 
 
+def service_ld(p):
+    d = {"@context": "https://schema.org", "@type": "Service", "name": "1-to-1 CFA retake session",
+         "serviceType": "CFA exam tutoring", "description": p.get("summary", ""), "url": f"{SITE}/{p['slug']}.html",
+         "provider": AUTHOR, "areaServed": "Worldwide", "availableChannel": {"@type": "ServiceChannel", "serviceUrl": f"{SITE}/{p['slug']}.html"},
+         "offers": {"@type": "Offer", "price": "25", "priceCurrency": "EUR", "description": "30-minute video session"}}
+    return '<script type="application/ld+json">' + json.dumps(d, ensure_ascii=False) + "</script>"
+
+
 def promo(kind):
     t, x, h, b = PROMO[kind]
     return (f'<aside class="promo"><div><h3>{t}</h3><p>{x}</p></div>'
@@ -753,7 +779,7 @@ def build():
     # ---- course pages
     for i, p in enumerate(courses):
         built.append(article(p, ("cfa-course.html", "The CFA course") if p["slug"] != "cfa-course" else ("index.html", "Home"), "The course", "CFA course", suffix="First Principles",
-                             title_tag=f"{p['title']} | First Principles", extra_ld=course_ld(p),
+                             title_tag=(p["seo_title"] + " | First Principles") if p.get("seo_title") else f"{p['title']} | First Principles", extra_ld=service_ld(p) if p.get("service") else course_ld(p),
                              keep=keep_reading([q for q in courses if q is not p][:3], lambda q: "Course", lambda q: "CFA course")))
 
     # ---- prerequisites course page
@@ -1101,7 +1127,7 @@ def home(cfa, blog, pre):
       <p class="dh">Quick links</p>
       <a href="cfa-dates-fees.html">2027 exam dates and fees</a><a href="cfa-by-country.html">The CFA in your country</a><a href="cfa-pass-rates.html">Pass rates</a><a href="blog-cfa-requirements.html">Requirements and eligibility</a><a href="blog-study-plan.html">Build a study plan</a><a href="blog-history-of-cfa.html">History of the CFA</a>
       <p class="dh">Featured content</p>
-      <a href="cfa-course.html">The First Principles CFA course</a><a href="blog-failed-cfa-level-1.html">Failed Level I? What to do next</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
+      <a href="cfa-course.html">The First Principles CFA course</a><a href="blog-failed-cfa-level-1.html">Failed Level I? What to do next</a><a href="cfa-tutor.html">1-to-1 session for retakers</a><a href="blog-cfa-roi.html">Is the CFA worth the money?</a><a href="blog-cfa-time-to-pass.html">How long it really takes to pass</a><a href="blog-hardest-cfa-topics.html">The hardest CFA topics</a>
     </aside>
   </div>
 </div></section>

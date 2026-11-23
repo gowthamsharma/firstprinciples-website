@@ -7,7 +7,7 @@ figure: bond_reason
 caption: Behind most of these formulas is one idea: a value today is future cash discounted back.
 tags: CFA level 1 formulas, CFA formula sheet, CFA level 1 formula sheet, CFA formulas list, CFA level 1 formula sheet pdf, CFA level 1 important formulas, CFA quant formulas, CFA fixed income formulas, CFA financial ratios, CFA level 1 formulas 2027
 group: Tools: formulas, calculator and self-study
-updated: 2026-11-22
+updated: 2026-11-23
 seo_title: CFA Level I formula sheet 2026–2027: every formula by topic
 meta: The complete CFA Level I formula sheet: about 200 formulas for quant, economics, FSA, corporate issuers, equity, fixed income, derivatives, alternatives and portfolio management.
 ---
@@ -19,9 +19,27 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 **Notation used throughout:** \(r\) = interest or discount rate per period, \(n\) = number of periods, \(t\) = tax rate, \(\sigma\) = standard deviation, \(\rho\) = correlation, \(\beta\) = beta, \(R_f\) = risk-free rate, \(D\) = dividend, \(E\) = earnings, \(P\) = price, \(V\) = value.
 
+## How to learn from this sheet
+
+Reading a list of formulas doesn't make them stick. Recalling them does. So this sheet is built to be worked, not just read:
+
+1. **Start with the one idea.** Each topic opens with a short card: the single idea behind the topic, how the other formulas follow from it, a sanity check to catch a wrong answer, and the trap examiners set most often. If you understand the card, you can rebuild a formula you've forgotten.
+2. **Test yourself.** Switch on *Quiz me* below. The formulas are hidden behind their meanings (or the other way round); try to write each one down, then reveal it and mark *Knew it* or *Not yet*.
+3. **Come back to the gaps.** Your marks are saved in this browser. Tick *Only show the ones I'm still learning* and work just those, a few minutes a day, until every topic is complete.
+
+[[studymode]]
+
 ## Quantitative methods
 
 ### Rates and returns
+
+> **The one idea.** A return is what you end with divided by what you started with, minus one. Every average and annualised figure here is a different way of combining those growth factors \((1 + R)\).
+>
+> **Build the rest from it.** Multiply growth factors over time, then take the root: \((1 + R_1)(1 + R_2) = (1 + \bar{R}_G)^2\). Annualising is the same move: \(R_{\text{annual}} = (1 + R_{\text{period}})^c - 1\). Logs turn multiplying into adding, which is why \(r_{cc}\) adds across periods.
+>
+> **Sanity check.** Returns of +50% then −50% average 0% arithmetically, yet \(1.5 \times 0.5 = 0.75\): you lost 25%. The geometric mean \(\sqrt{0.75} - 1 = -13.4\%\) tells the truth.
+>
+> **Exam trap.** Money-weighted return judges the investor (timing of their deposits counts); time-weighted judges the manager. Questions about manager skill want time-weighted.
 
 | Formula | What it says |
 |---|---|
@@ -40,6 +58,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Time value of money
 
+> **The one idea.** Money now and money later differ only by a growth factor: \(FV = PV(1 + r)^n\). Every formula in this section is that one line, rearranged or added up.
+>
+> **Build the rest from it.** Divide to discount: \(PV = FV/(1 + r)^n\). Add up level payments and you get the annuity: \(A\left[\tfrac{1}{1+r} + \dots + \tfrac{1}{(1+r)^n}\right] = A\,\tfrac{1 - (1+r)^{-n}}{r}\). Let \(n \to \infty\) and \((1+r)^{-n} \to 0\), leaving the perpetuity \(A/r\).
+>
+> **Sanity check.** At \(r = 0\) an annuity is worth exactly \(A \times n\); any positive rate must give less. A perpetuity of 5 at 5% is worth 100.
+>
+> **Exam trap.** Annuity due (payments at the start) is the ordinary annuity times \((1 + r)\). Set the calculator to BGN, or multiply; don't do both.
+
 | Formula | What it says |
 |---|---|
 | \(FV = PV(1 + r)^n\) | money grows by compounding |
@@ -56,6 +82,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(PV = \sum_{t} \dfrac{CF_t}{(1 + r)^t}\) | cash flow additivity: value pieces separately and add |
 
 ### Statistics and probability
+
+> **The one idea.** Statistics describes a spread of outcomes with two numbers: the centre (expected value) and the typical distance from it (standard deviation). Probability rules tell you how to combine events.
+>
+> **Build the rest from it.** Variance is the average squared distance: \(\sigma^2 = \sum p_i (X_i - \bar{X})^2\). Covariance does the same for two variables at once, and correlation rescales it to \([-1, 1]\): \(\rho = \tfrac{\text{Cov}}{\sigma_X \sigma_Y}\). Bayes simply reverses a conditional: \(P(A \mid B) = \tfrac{P(B \mid A)P(A)}{P(B)}\).
+>
+> **Sanity check.** If every outcome is the same, all distances are zero, so \(\sigma = 0\). A correlation above 1 means an arithmetic slip.
+>
+> **Exam trap.** Sample variance divides by \(n - 1\), not \(n\), because one degree of freedom is used up estimating the mean.
 
 | Formula | What it says |
 |---|---|
@@ -85,6 +119,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Sampling, estimation and hypothesis tests
 
+> **The one idea.** A sample mean is itself a random number. It wobbles less than single observations, by a factor of \(\sqrt{n}\): that is the standard error.
+>
+> **Build the rest from it.** Standard error \(s_{\bar{X}} = s/\sqrt{n}\). An interval is estimate ± critical value × standard error. A test statistic asks the same question backwards: how many standard errors is the estimate from the claim? \(t = \tfrac{\bar{X} - \mu_0}{s/\sqrt{n}}\).
+>
+> **Sanity check.** Quadruple the sample and the standard error halves, because \(\sqrt{4} = 2\).
+>
+> **Exam trap.** Rejecting the null when it is true is a Type I error (its probability is the significance level). Failing to reject a false null is Type II. Lowering one raises the other unless the sample grows.
+
 | Formula | What it says |
 |---|---|
 | \(s_{\bar{X}} = \dfrac{s}{\sqrt{n}}\) | standard error of the mean |
@@ -98,6 +140,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\text{Power} = 1 - P(\text{Type II error})\) | Type I: rejecting a true null (probability \(\alpha\)); Type II: failing to reject a false null |
 
 ### Simple linear regression
+
+> **The one idea.** Regression draws the line that makes the squared vertical misses as small as possible. Everything else measures how much of the variation that line explains.
+>
+> **Build the rest from it.** Slope \(\hat{b}_1 = \tfrac{\text{Cov}(X,Y)}{\sigma_X^2}\), and the line passes through the means, so \(\hat{b}_0 = \bar{Y} - \hat{b}_1\bar{X}\). Split the variation: \(SST = SSR + SSE\), so \(R^2 = \tfrac{SSR}{SST}\).
+>
+> **Sanity check.** With one regressor, \(R^2 = \rho^2\). A correlation of 0.8 explains 64% of the variation.
+>
+> **Exam trap.** \(F = t^2\) for the slope in a simple regression; don't test the same thing twice.
 
 | Formula | What it says |
 |---|---|
@@ -113,6 +163,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\ln Y = b_0 + b_1X;\quad Y = b_0 + b_1\ln X;\quad \ln Y = b_0 + b_1\ln X\) | log-lin, lin-log and log-log forms |
 
 ## Economics
+
+> **The one idea.** Most economics formulas are ratios of percentage changes (elasticities) or chains of multipliers. Exchange-rate formulas are no-arbitrage: the same money cannot earn two different riskless returns.
+>
+> **Build the rest from it.** Elasticity \(= \tfrac{\%\Delta Q}{\%\Delta P}\). Spending feeds spending, so a fiscal stimulus multiplies: \(1 + c + c^2 + \dots = \tfrac{1}{1 - c}\), with \(c = MPC(1 - t)\). Covered interest parity follows from investing at home versus converting, investing abroad and converting back: \(F = S\,\tfrac{1 + i_{\text{price}}}{1 + i_{\text{base}}}\).
+>
+> **Sanity check.** If the MPC is 0, nobody re-spends and the multiplier is 1.
+>
+> **Exam trap.** In \(F/S\), the currency with the higher interest rate trades at a forward discount. Check which currency is the price and which is the base before plugging in.
 
 | Formula | What it says |
 |---|---|
@@ -142,6 +200,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Income statement and earnings per share
 
+> **The one idea.** EPS is profit that belongs to common shareholders, divided by the shares that share it. Diluted EPS asks: what if everyone who could become a shareholder did?
+>
+> **Build the rest from it.** Basic: \(\tfrac{NI - \text{preferred dividends}}{\text{weighted avg shares}}\). Diluted adds back what conversion would save (preferred dividends, after-tax interest) and adds the new shares. Options use the treasury stock method: new shares minus those bought back with the proceeds.
+>
+> **Sanity check.** Diluted EPS can never exceed basic EPS. If a security would raise EPS, it is antidilutive and left out.
+>
+> **Exam trap.** Weight the shares by time outstanding, and restate earlier periods for stock splits and stock dividends as if they had always existed.
+
 | Formula | What it says |
 |---|---|
 | \(\text{Basic EPS} = \dfrac{\text{NI} - \text{preferred dividends}}{\text{weighted average shares}}\) | |
@@ -151,6 +217,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\text{Gross margin} = \dfrac{\text{revenue} - \text{COGS}}{\text{revenue}}\) | |
 
 ### Inventories and long-lived assets
+
+> **The one idea.** Cost has to land somewhere: either on the balance sheet (inventory, PP&E) or in the income statement (COGS, depreciation). Every method here just chooses when.
+>
+> **Build the rest from it.** Goods available for sale are split: \(\text{Beginning inv} + \text{Purchases} = \text{COGS} + \text{Ending inv}\). LIFO and FIFO differ by the LIFO reserve: \(\text{COGS}_{FIFO} = \text{COGS}_{LIFO} - \Delta\,\text{LIFO reserve}\). Depreciation spreads cost minus salvage over the useful life.
+>
+> **Sanity check.** When prices are flat, FIFO and LIFO give the same COGS and the LIFO reserve doesn't move.
+>
+> **Exam trap.** Rising prices: LIFO means higher COGS, lower profit, lower taxes and lower inventory. Capitalising a cost raises today's profit and operating cash flow.
 
 | Formula | What it says |
 |---|---|
@@ -169,6 +243,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Income taxes, debt and leases
 
+> **The one idea.** Two sets of books differ only in timing. A deferred tax liability is tax you will pay later because the tax books ran ahead; bonds and leases are present values unwinding over time.
+>
+> **Build the rest from it.** \(DTL = (\text{carrying amount} - \text{tax base}) \times t\) for assets. Tax expense \(= \text{taxes payable} + \Delta DTL - \Delta DTA\). Bond interest expense \(= \text{market rate at issue} \times \text{carrying amount}\), so the carrying amount walks to face value.
+>
+> **Sanity check.** A bond issued at par has interest expense equal to the coupon every period; the carrying amount never moves.
+>
+> **Exam trap.** Use the market rate at issue, not the coupon rate and not today's rate, for interest expense under the effective interest method.
+
 | Formula | What it says |
 |---|---|
 | \(\text{Tax expense} = \text{taxes payable} + \Delta\text{DTL} - \Delta\text{DTA}\) | |
@@ -183,6 +265,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Cash flow statement
 
+> **The one idea.** Cash is profit with the accruals undone. The indirect method starts from net income and reverses everything that wasn't cash.
+>
+> **Build the rest from it.** \(CFO = NI + \text{non-cash charges} - \text{gains} + \text{losses} - \Delta\text{current operating assets} + \Delta\text{current operating liabilities}\). Then \(FCFF = CFO + Int(1 - t) - FCInv\) and \(FCFE = CFO - FCInv + \text{net borrowing}\).
+>
+> **Sanity check.** A firm that sells only for cash and holds no inventory has CFO close to NI plus depreciation.
+>
+> **Exam trap.** An increase in an asset (receivables, inventory) uses cash, so subtract it. Under IFRS, interest and dividends can sit in different sections; check which standard the question uses.
+
 | Formula | What it says |
 |---|---|
 | \(\text{CFO} = \text{NI} + \text{non-cash charges} - \text{gains} + \text{losses} - \Delta\text{operating assets} + \Delta\text{operating liabilities}\) | indirect method |
@@ -195,6 +285,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\dfrac{\text{CFO}}{\text{total debt}};\quad \dfrac{\text{CFO} + \text{interest} + \text{taxes paid}}{\text{interest paid}}\) | debt and cash interest coverage |
 
 ### Ratios
+
+> **The one idea.** Every ratio is a speed or a share: how fast assets turn into sales, or how much of each sale survives as profit. DuPont multiplies them so the units cancel into ROE.
+>
+> **Build the rest from it.** \(ROE = \tfrac{NI}{\text{Sales}} \times \tfrac{\text{Sales}}{\text{Assets}} \times \tfrac{\text{Assets}}{\text{Equity}}\). Days ratios flip turnover into time: \(DSO = \tfrac{365}{\text{receivables turnover}}\), and the cash conversion cycle \(= DSO + DOH - DPO\).
+>
+> **Sanity check.** Cancel the units in DuPont: Sales and Assets drop out, leaving \(NI/\text{Equity}\). If they don't cancel, a term is upside down.
+>
+> **Exam trap.** Use average balance-sheet figures when a ratio mixes an income-statement flow with a balance-sheet stock.
 
 | Formula | What it says |
 |---|---|
@@ -220,6 +318,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\dfrac{\text{EBITDA}}{\text{interest}};\quad \dfrac{\text{debt}}{\text{EBITDA}};\quad \dfrac{\text{FFO}}{\text{debt}}\) | credit ratios |
 
 ## Corporate issuers
+
+> **The one idea.** A project or firm creates value only when it earns more than its money costs. WACC is that cost; NPV and leverage measures follow from it.
+>
+> **Build the rest from it.** \(WACC = w_d r_d(1 - t) + w_p r_p + w_e r_e\), with \(r_e\) from CAPM \(R_f + \beta(R_m - R_f)\). Leverage multiplies: \(DTL = DOL \times DFL\). NPV discounts every cash flow at WACC: positive means value created.
+>
+> **Sanity check.** With no debt, \(WACC = r_e\). If a project's IRR equals WACC, its NPV is exactly zero.
+>
+> **Exam trap.** Only debt gets the tax shield \((1 - t)\). Use market-value weights (or the target structure), not book values.
 
 | Formula | What it says |
 |---|---|
@@ -249,6 +355,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ## Equity investments
 
+> **The one idea.** A share is worth the cash it will pay, discounted. Multiples are the same model compressed into one number.
+>
+> **Build the rest from it.** Gordon growth: \(V_0 = \tfrac{D_1}{r - g}\). Divide by \(E_1\) and the P/E falls out: \(\tfrac{P_0}{E_1} = \tfrac{\text{payout}}{r - g}\). Growth comes from reinvesting: \(g = b \times ROE\).
+>
+> **Sanity check.** With zero growth, \(V_0 = D/r\): the perpetuity from TVM. If \(g \ge r\), the model breaks; that is a signal to use multi-stage growth.
+>
+> **Exam trap.** Use next year's dividend \(D_1 = D_0(1 + g)\), not the one just paid.
+
 | Formula | What it says |
 |---|---|
 | \(\text{Leverage ratio} = \dfrac{1}{\text{initial margin}}\) | |
@@ -271,6 +385,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 ## Fixed income
 
 ### Prices and yields
+
+> **The one idea.** A bond's price is its cash flows discounted, nothing more. A yield is the single rate that makes that sum equal the price.
+>
+> **Build the rest from it.** \(P = \sum \tfrac{C}{(1 + y)^t} + \tfrac{F}{(1 + y)^N}\). Discount each flow at its own spot rate and you get the no-arbitrage price. Forwards link spots: \((1 + S_2)^2 = (1 + S_1)(1 + f_{1,1})\).
+>
+> **Sanity check.** Coupon rate = yield → price = par. Coupon above yield → premium. Below → discount.
+>
+> **Exam trap.** Full (dirty) price = flat (clean) price + accrued interest. Quoted prices are flat; you pay full.
 
 | Formula | What it says |
 |---|---|
@@ -295,6 +417,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ### Duration, convexity and credit
 
+> **The one idea.** Duration is the slope of the price–yield curve; convexity is its bend. Together they predict how far a price moves when yields move.
+>
+> **Build the rest from it.** \(\%\Delta P \approx -\text{ModDur} \times \Delta y + \tfrac{1}{2}\,\text{Convexity} \times (\Delta y)^2\), with \(\text{ModDur} = \tfrac{\text{MacDur}}{1 + y}\). For credit, expected loss \(= PD \times LGD\), and the spread must at least cover it.
+>
+> **Sanity check.** A zero-coupon bond's Macaulay duration equals its maturity. Convexity always helps a plain bond, whichever way yields move.
+>
+> **Exam trap.** Convert basis points to decimals: 50 bp is 0.005, and \((0.005)^2 = 0.000025\). Convexity matters for big moves, not small ones.
+
 | Formula | What it says |
 |---|---|
 | \(\text{MacDur} = \sum_t t \times \dfrac{PV(CF_t)}{P}\) | weighted-average time to receive cash flows |
@@ -313,6 +443,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(\text{Credit enhancement} = \dfrac{\text{tranches below}}{\text{pool}}\) | losses hit the most junior tranche first |
 
 ## Derivatives
+
+> **The one idea.** No arbitrage: two ways to end up with the same payoff must cost the same today. Forwards, put–call parity and the binomial model all come from that.
+>
+> **Build the rest from it.** Buy the asset and borrow → you've built a forward: \(F_0 = S_0(1 + r)^T\). Stock + put = call + bond: \(S + p = c + \tfrac{X}{(1 + r)^T}\). One-period binomial: price the option under the risk-neutral probability \(\pi = \tfrac{1 + r - d}{u - d}\).
+>
+> **Sanity check.** At \(T = 0\) the forward price equals spot. A call can never be worth more than the stock.
+>
+> **Exam trap.** A forward has zero value at initiation; its price is not its value. Value changes as spot moves.
 
 | Formula | What it says |
 |---|---|
@@ -337,6 +475,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 
 ## Alternative investments
 
+> **The one idea.** Alternatives are valued with the same tools (income ÷ rate, cash flows discounted) but their fees and illiquidity reshape the return the investor actually gets.
+>
+> **Build the rest from it.** Property: \(V = \tfrac{NOI}{\text{cap rate}}\) (a perpetuity). Hedge fund fees: management fee on assets, incentive fee on profit above the hurdle and high-water mark. Net return \(= \tfrac{\text{ending NAV after fees}}{\text{starting NAV}} - 1\).
+>
+> **Sanity check.** A lower cap rate means a higher value, just as a lower discount rate does.
+>
+> **Exam trap.** Check whether the incentive fee is calculated on returns net of the management fee, and whether the high-water mark has been recovered.
+
 | Formula | What it says |
 |---|---|
 | \(\text{Management fee} = \text{rate} \times AUM\) | on start, end or average assets |
@@ -350,6 +496,14 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 | \(R = \text{spot return} + \text{roll return} + \text{collateral return}\) | commodity futures total return |
 
 ## Portfolio management
+
+> **The one idea.** Diversification works because risks only partly overlap. Portfolio variance depends on the correlation; CAPM prices only the part you can't diversify away.
+>
+> **Build the rest from it.** \(\sigma_p^2 = w_1^2\sigma_1^2 + w_2^2\sigma_2^2 + 2w_1w_2\rho\sigma_1\sigma_2\). With a risk-free asset you move along the CML. Beta measures the undiversifiable part: \(\beta = \tfrac{\rho\sigma_i}{\sigma_m}\), and CAPM prices it: \(E(R) = R_f + \beta[E(R_m) - R_f]\).
+>
+> **Sanity check.** With \(\rho = 1\), portfolio risk is just the weighted average of the two risks: no diversification benefit.
+>
+> **Exam trap.** Sharpe ratio uses total risk (σ); Treynor and Jensen's alpha use beta. Pick the one that matches the question's risk measure.
 
 | Formula | What it says |
 |---|---|
@@ -371,7 +525,7 @@ Formula sheets for the other levels: [Level II](blog-cfa-level-2-formula-sheet.h
 ## How to remember them
 
 - **Group them by idea**, not by chapter: most valuation formulas are "discount future cash", and most risk formulas are "variance plus a covariance term".
-- **Write the sheet from memory** once a week and check the gaps against this page.
+- **Write the sheet from memory** once a week and check the gaps against this page, or use *Quiz me* at the top of this page, which keeps track for you.
 - **Understand the units**: a ratio of days to turnover, or of risk to return, is half the formula.
 - **Practise with numbers:** work through the [Level I practice questions](cfa-level-1-practice-questions.html) and the [BA II Plus guide](blog-ba-ii-plus-calculator-guide.html), which shows the calculator steps for the time value, cash flow and statistics formulas.
 - For the reasoning behind many of these, see the [prerequisite concepts](prerequisites.html).
