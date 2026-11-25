@@ -623,3 +623,110 @@ def price_zones():
     s.text("price →", x1, 60, 12, DIM, "end", True, cls="")
     s.dot(X(40), 140, 5, INK, 1.8); s.text("P = 40: produce 5, lose 65 (less than the 100 of fixed cost)", X(40) - 8, 195, 12, SOFT, t=2.0)
     return s.svg()
+
+
+# ---------------------------------------------------------------- 33 market structures: HHI as an area
+def hhi_areas():
+    s = S(640, 300, "The HHI is the total area of squares whose sides are the market shares: 40, 30, 20 and 10 give 3,000")
+    shares = [(40, BLUE), (30, TEAL), (20, YEL), (10, RED)]
+    k = 4.0
+    x = 40
+    for i, (sh, c) in enumerate(shares):
+        side = sh * k
+        s.rect(x, 265 - side, side, side, c, 0.75, i * 0.4, cls="f", stroke=c)
+        s.text(f"{sh}² = {sh * sh:,}", x + side / 2, 265 - side - 8, 13, c, "middle", t=i * 0.4 + 0.3)
+        s.text(f"{sh}%", x + side / 2, 284, 12, SOFT, "middle", cls="")
+        x += side + 14
+    s.text("HHI = 1,600 + 900 + 400 + 100 = 3,000", 40, 30, 15, INK, t=1.8)
+    s.text("big firms dominate the total: squaring makes size count more than proportionally", 40, 52, 12, SOFT, italic=True, t=2.1)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 34 perfect competition
+def lr_entry():
+    s = S(640, 280, "Entry shifts market supply right until price falls to minimum average total cost and economic profit is zero")
+    x0, y0, x1, y1 = frame(s, "market quantity", "price", 70, 240, 600, 40)
+    X = lambda q: x0 + q / 100 * (x1 - x0); Y = lambda p: y0 - p / 20 * (y0 - y1)
+    s.line([(X(0), Y(21)), (X(90), Y(3))], SOFT, 2.2, 0)
+    s.text("demand", X(90), Y(3) - 8, 12, SOFT, "end", t=0.3)
+    s.line([(X(0), Y(8)), (X(50), Y(20))], BLUE, 2.4, 0.3)
+    s.text("S₀", X(50) + 6, Y(20) + 4, 12, BLUE, t=0.6)
+    s.line([(X(27), Y(8)), (X(77), Y(20))], TEAL, 2.4, 1.0)
+    s.text("S₁ after entry", X(77) + 6, Y(20) + 4, 12, TEAL, t=1.3)
+    s.line([(x0, Y(12)), (x1, Y(12))], YEL, 1.4, 1.5, dash="5 4")
+    s.text("min ATC = 12", x0 + 6, Y(12) - 6, 12, YEL, t=1.7)
+    q0 = 13 / 0.44; q1 = (21 - 8 + 0.24 * 27) / 0.44
+    s.dot(X(q0), Y(21 - 0.2 * q0), 5, BLUE, 0.8); s.text("P = 15: profit attracts entry", X(q0) - 12, Y(21 - 0.2 * q0) - 30, 12, BLUE, "end", t=0.9)
+    s.dot(X(q1), Y(21 - 0.2 * q1), 5, TEAL, 1.8); s.text("P ≈ 12: zero economic profit", X(q1) + 8, Y(21 - 0.2 * q1) + 18, 12, TEAL, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 35 monopoly
+def natural_monopoly():
+    s = S(640, 290, "A natural monopoly: average cost falls over the whole market, so one firm is cheapest; regulators choose between two prices")
+    x0, y0, x1, y1 = frame(s, "quantity", "price, cost", 70, 250, 600, 40)
+    X = lambda q: x0 + q / 100 * (x1 - x0); Y = lambda p: y0 - p / 100 * (y0 - y1)
+    s.line([(X(0), Y(90)), (X(90), Y(0))], SOFT, 2.2, 0); s.text("demand", X(22), Y(72), 12, SOFT, t=0.3)
+    s.curve(lambda q: 15 + 1200 / (q + 12), 4, 98, X, Y, color=BLUE, width=2.4, t=0.4); s.text("ATC", X(97), Y(15 + 1200 / 110) - 8, 12, BLUE, "end", t=0.8)
+    s.line([(X(0), Y(15)), (X(100), Y(15))], TEAL, 2, 0.6); s.text("MC", X(100), Y(15) + 16, 12, TEAL, "end", t=0.9)
+    # average cost pricing: demand = ATC: 90 - q = 15 + 1200/(q+12)
+    qa = next(q / 10 for q in range(200, 900) if (90 - q / 10) - (15 + 1200 / (q / 10 + 12)) > 0 and (90 - (q + 1) / 10) - (15 + 1200 / ((q + 1) / 10 + 12)) <= 0)
+    s.dot(X(qa), Y(90 - qa), 5, YEL, 1.4); s.text(f"average-cost price ≈ {90 - qa:.0f}: firm breaks even", X(qa) + 4, Y(90 - qa) - 34, 12, YEL, t=1.6)
+    s.dot(X(75), Y(15), 5, RED, 1.9); s.text("marginal-cost price 15: efficient, but a loss", X(75) - 12, Y(15) + 24, 12, RED, "end", t=2.1)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 36 price discrimination
+def third_degree():
+    s = S(640, 290, "Third-degree price discrimination with marginal cost 10: the less price-sensitive market pays 30, the other 20")
+    def panel(x, a, title, c):
+        X = lambda q: x + 30 + q * 4.6; Y = lambda p: 240 - p * 3.6
+        s.raw(f'<path d="M{x + 30},{Y(55):.0f} L{x + 30},240 L{x + 280},240" fill="none" stroke="{RULE}"/>')
+        s.line([(X(0), Y(a)), (X(a), Y(0))], SOFT, 2.2, 0)
+        s.line([(X(0), Y(a)), (X(a / 2), Y(0))], BLUE, 1.8, 0.4, dash="5 4")
+        s.line([(X(0), Y(10)), (X(52), Y(10))], TEAL, 1.6, 0.6)
+        q = (a - 10) / 2
+        s.line([(X(q), Y(10)), (X(q), Y(a - q))], DIM, 1, 1.0, dash="3 3")
+        s.dot(X(q), Y(a - q), 5, YEL, 1.2)
+        s.text(f"Q = {q:g}, P = {a - q:g}", X(q) + 8, Y(a - q) - 6, 13, YEL, t=1.4)
+        s.text(title, x + 155, 28, 14, c, "middle", cls="")
+        s.text(f"P = {a} − Q", X(a) - 2, Y(0) - 8, 11, SOFT, "end", cls="")
+        s.text("MC = 10", X(52), Y(10) - 6, 11, TEAL, "end", cls="")
+    panel(10, 50, "market A: less elastic", INK)
+    panel(330, 30, "market B: more elastic", INK)
+    s.text("blue: marginal revenue; set MR = MC in each market", 320, 280, 12, DIM, "middle", True, cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 37 GDP
+def value_added():
+    s = S(640, 260, "Value added: count each stage's contribution once; the final price of the bread equals GDP")
+    stages = [("farmer: wheat", 20, 20, BLUEB), ("miller: flour", 50, 30, BLUE), ("baker: bread", 100, 50, TEAL)]
+    y0, k = 210, 1.5
+    for i, (lab, sale, va, c) in enumerate(stages):
+        x = 70 + i * 150
+        s.rect(x, y0 - (sale - va) * k, 90, (sale - va) * k, DIM, 0.35, i * 0.5, cls="f")
+        s.rect(x, y0 - sale * k, 90, va * k, c, 0.9, i * 0.5 + 0.2)
+        s.text(f"+{va}", x + 45, y0 - sale * k + va * k / 2 + 5, 14, "#0B1F38", "middle", t=i * 0.5 + 0.5)
+        s.text(f"sells for {sale}", x + 45, y0 - sale * k - 8, 12, SOFT, "middle", t=i * 0.5 + 0.4)
+        s.text(lab, x + 45, y0 + 18, 12, SOFT, "middle", cls="")
+    s.raw(f'<line x1="50" y1="{y0}" x2="560" y2="{y0}" stroke="{RULE}"/>')
+    s.text("GDP = 20 + 30 + 50 = 100", 70, 36, 14, YEL, t=1.8)
+    s.text("not 20 + 50 + 100 = 170", 70, 56, 12, RED, italic=True, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 38 saving and investment
+def sector_balances():
+    s = S(640, 270, "Sector balances always sum to zero: private surplus +2, government deficit −5, so the rest of the world lends +3")
+    y0, k = 130, 14
+    bars = [("private (S − I)", 2, BLUE), ("government (T − G)", -5, RED), ("rest of world (M − X)", 3, TEAL)]
+    for i, (lab, v, c) in enumerate(bars):
+        x = 90 + i * 170
+        top, h = (y0 - v * k, v * k) if v > 0 else (y0, -v * k)
+        s.rect(x, top, 100, h, c, 0.88, i * 0.5, cls="f")
+        s.text(f"{v:+}% of GDP", x + 50, (top - 8) if v > 0 else (top + h + 18), 13, c, "middle", t=i * 0.5 + 0.3)
+        s.text(lab, x + 50, 250, 12, SOFT, "middle", cls="")
+    s.raw(f'<line x1="60" y1="{y0}" x2="600" y2="{y0}" stroke="{RULE}"/>')
+    s.text("trade balance X − M = −3%", 470, 40, 13, YEL, t=1.8)
+    return s.svg()
