@@ -251,3 +251,8 @@ Q = {
  ("Under the absorption approach, a depreciation improves the trade balance only if:", ["Domestic spending falls relative to income", "Spending rises", "Exports fall", "The budget deficit grows"], 0, "X − M = income − absorption, so spending must fall relative to income."),
 ],
 }
+
+
+# Nov 2026: harder five-question quizzes replace the originals lesson by lesson
+from quiz_bank2 import Q2  # noqa: E402
+Q.update(Q2)

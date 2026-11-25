@@ -1656,3 +1656,7 @@ def frontier():
     s.text("correlation 1: no diversification", X(0.16), Y(0.075) + 22, 11, DIM, "start", True, t=1.0)
     s.text("A", X(sA) + 8, Y(rA) + 4, 13, INK, t=1.0); s.text("B", X(sB) - 16, Y(rB) + 4, 13, INK, t=1.0)
     return s.svg()
+
+
+# second diagrams for the prerequisite lessons
+from figures_pre import *  # noqa: E402,F401,F403

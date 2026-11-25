@@ -461,6 +461,8 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
     beacon = (f"\n<script type=\"module\" src=\"https://static.cloudflareinsights.com/beacon.min.js\" data-cf-beacon='{{\"token\": \"{CF_BEACON}\"}}'></script>") if CF_BEACON else ""
     nav = menu_html(active)
     OBF = obfuscate(EMAIL)
+    if og_photo(path[:-5]) and image == "intro-poster.jpg":
+        image = f"img/{og_photo(path[:-5])}.jpg"
     pk = photo_key(path[:-5])
     if pk and '<section class="pagehead">' in main:
         main = main.replace('<section class="pagehead">', f'<section class="pagehead photo"{photo_style(pk)}>', 1)
@@ -481,7 +483,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&amp;display=swap">
-<link rel="stylesheet" href="style.css?v=15">
+<link rel="stylesheet" href="style.css?v=16">
 {extra_head}
 {('<meta name="fp-clarity" content="' + CLARITY_ID + '">') if CLARITY_ID else ""}
 </head>
@@ -506,7 +508,7 @@ def page(path, title, desc, main, active="", extra_head="", image="intro-poster.
   <p class="legal"><span>© 2026 {NAME}. Set in Figtree (SIL Open Font License).</span><a href="privacy.html">Privacy</a><a href="#" data-consent-open>Cookie settings</a><a href="photo-credits.html">Photo credits</a><a href="sitemap.xml">Sitemap</a></p>
 </div></div>
 </footer>
-<script src="site.js?v=15" defer></script>{beacon}
+<script src="site.js?v=16" defer></script>{beacon}
 </body>
 </html>
 """
@@ -555,9 +557,17 @@ for _k, _v in PHOTOS.items():
         PAGE_PHOTO[_slug] = _k
 
 
-def photo_key(slug, p=None):
+SHOW_PHOTOS = False   # Nov 2026: no decorative photographs on pages; images carry information (our own diagrams)
+
+
+def og_photo(slug, p=None):
+    """The photograph kept only as the social-share preview image (link cards on LinkedIn, WhatsApp...)."""
     k = (p or {}).get("photo") or PAGE_PHOTO.get(slug)
     return k if k in PHOTOS else None
+
+
+def photo_key(slug, p=None):
+    return og_photo(slug, p) if SHOW_PHOTOS else None
 
 
 def photo_style(key):
@@ -590,7 +600,11 @@ import quiz_bank, random as _random
 
 def quiz_items(slug):
     out = []
-    for i, (q, opts, c, x) in enumerate(quiz_bank.Q[slug]):
+    for i, item in enumerate(quiz_bank.Q[slug]):
+        if len(item) == 3:                       # new format: (question, [correct, wrong, wrong], explanation)
+            q, opts, x = item; c = 0
+        else:
+            q, opts, c, x = item
         order = list(range(len(opts)))
         _random.Random(f"{slug}-{i}").shuffle(order)
         out.append((q, [opts[k] for k in order], order.index(c), x))
@@ -604,7 +618,7 @@ def quiz_html(p, total):
         lis += f'<li data-c="{c}" data-x="{html.escape(x)}"><p>{html.escape(q)}</p><div class="lq-o">{btns}</div><p class="lq-e" hidden></p></li>'
     return (f'<section class="lq" id="quiz" data-lesson="{p["slug"]}" data-n="{p["n"]}" data-total="{total}">'
             f'<p class="lq-k">Lesson {p["n"]} of {total} &nbsp;·&nbsp; {p["module"]}</p><h2>Check your understanding</h2>'
-            f'<p class="lq-sub">Three questions. Get two or more right to complete the lesson; your best score is saved in this browser and counts towards your <a href="prerequisites.html">course grade</a>.</p>'
+            f'<p class="lq-sub">{len(quiz_bank.Q[p["slug"]])} exam-style questions. Get {-(-len(quiz_bank.Q[p["slug"]]) * 3 // 5)} or more right to complete the lesson; work them on paper first. Your best score is saved in this browser and counts towards your <a href="prerequisites.html">course grade</a>.</p>'
             f'<ol>{lis}</ol><div class="lq-r" aria-live="polite"></div></section>')
 
 
@@ -740,7 +754,7 @@ def article(p, back, cat, eyebrow, pager="", keep="", suffix="First Principles",
     LASTMOD[p["slug"] + ".html"] = upd(p)
     crumbs = [("Home", "index.html"), (back[1], back[0]), (p["title"], p["slug"] + ".html")]
     return page(p["slug"] + ".html", (p["seo_title"] + " | First Principles") if p.get("seo_title") else (title_tag or f"{p['title']} | {suffix}"), p.get("meta") or p.get("summary", ""), main, extra_head=kw + jsonld(p, url, crumbs) + extra_ld,
-                image=(f"img/{k}.jpg" if k else f"thumb-{p['slug']}.svg"))
+                image=(f"img/{og_photo(p['slug'], p)}.jpg" if og_photo(p['slug'], p) else "intro-poster.jpg"))
 
 
 def keep_reading(items, chip, foot):
@@ -871,7 +885,7 @@ def build():
   </section>
   <details class="crules"><summary>How grading works</summary>
     <ul>
-      <li><b>Lessons.</b> Each lesson ends with three questions. Two or more correct completes the lesson. You can retake a quiz as often as you like; your best score counts.</li>
+      <li><b>Lessons.</b> Each lesson ends with five exam-style questions, most of them calculations or short cases. Three or more correct completes the lesson. You can retake a quiz as often as you like; your best score counts.</li>
       <li><b>Final test.</b> 25 questions drawn at random from the whole course, about 40 minutes. Retake it as often as you like; your best score counts.</li>
       <li><b>Course grade.</b> 70% from your best lesson scores across all lessons (a lesson not yet taken counts as zero), 30% from your best final test: A from 90%, B from 80%, C from 70%, D from 60%.</li>
       <li><b>Completion.</b> Complete all {len(pre)} lessons and score 70% or more on the final test to unlock a printable completion record.</li>
@@ -908,7 +922,7 @@ def build():
 <script type="application/json" id="bank">{json.dumps(bank, ensure_ascii=False).replace("</", "<\\/")}</script>
 </main>"""
     built.append(page("course-test.html", "Final test: CFA prerequisites course | First Principles",
-                      "A 25-question final test on financial statement analysis and economics for CFA candidates, drawn at random from 150 questions, with instant grading and review.",
+                      f"A 25-question final test on financial statement analysis and economics for CFA candidates, drawn at random from {len(bank)} questions, with instant grading and review.",
                       main, active="prerequisites.html", extra_head='<script src="course.js" defer></script>'))
 
     # ---- blog index
@@ -984,7 +998,7 @@ def photo_credits():
   <p class="crumbs"><a href="index.html">Home</a> › Photo credits</p>
   <span class="eyebrow">Photo credits</span>
   <h1>The photographs on this site</h1>
-  <p class="lead">Diagrams and charts are our own. The photographs come from Wikimedia Commons under free licences (public domain, CC0, CC BY or CC BY-SA); they are shown cropped and with a dark overlay. Thank you to every photographer below.</p>
+  <p class="lead">Diagrams and charts are our own. The photographs below appear only as the preview picture when a page is shared on social media or in a message. They come from Wikimedia Commons under free licences (public domain, CC0, CC BY or CC BY-SA). Thank you to every photographer below.</p>
 </div></div></section>
 <div class="wrap" style="padding:3rem 1.5rem 4rem"><div class="pcs">{rows}</div></div>
 </main>"""

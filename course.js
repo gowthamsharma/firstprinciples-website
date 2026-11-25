@@ -10,6 +10,8 @@
   function save(d) { try { localStorage.setItem(KEY, JSON.stringify(d)); } catch (e) { /* private mode: progress lasts for this page only */ } }
   var LETTERS = [[90, "A"], [80, "B"], [70, "C"], [60, "D"]];
   function letter(p) { for (var i = 0; i < LETTERS.length; i++) if (p >= LETTERS[i][0]) return LETTERS[i][1]; return "Not yet"; }
+  // a lesson is complete at 60% or better (3 of 5; older 3-question records: 2 of 3)
+  function passed(best, of) { return best / (of || 3) >= 0.6 - 1e-9; }
   function today() { return new Date().toISOString().slice(0, 10); }
   function fmtDate(iso) { try { return new Date(iso + "T12:00:00").toLocaleDateString(undefined, { day: "numeric", month: "long", year: "numeric" }); } catch (e) { return iso; } }
 
@@ -23,17 +25,17 @@
       var answered = 0, right = 0;
       items.forEach(function (li) { if (li.hasAttribute("data-a")) { answered++; if (li.getAttribute("data-a") === li.getAttribute("data-c")) right++; } });
       if (answered < items.length) {
-        res.innerHTML = prev ? '<p class="lq-prev">Your best so far: <b>' + prev.best + " / " + items.length + "</b>" + (prev.best >= 2 ? " · lesson complete" : "") + "</p>" : "";
+        res.innerHTML = prev ? '<p class="lq-prev">Your best so far: <b>' + prev.best + " / " + items.length + "</b>" + (passed(prev.best, prev.of || items.length) ? " · lesson complete" : "") + "</p>" : "";
         return;
       }
       var d = load(), rec = d.lessons[slug] || { best: 0 };
       rec.best = Math.max(rec.best || 0, right); rec.last = right; rec.of = items.length; rec.at = today();
       d.lessons[slug] = rec; save(d); prev = rec;
-      if (window.fpTrack) window.fpTrack(right >= 2 ? "lesson_quiz_pass" : "lesson_quiz_fail", "last_lesson", slug);
-      var done = Object.keys(d.lessons).filter(function (k) { return d.lessons[k].best >= 2; }).length, total = +lq.getAttribute("data-total");
+      if (window.fpTrack) window.fpTrack(passed(right, items.length) ? "lesson_quiz_pass" : "lesson_quiz_fail", "last_lesson", slug);
+      var done = Object.keys(d.lessons).filter(function (k) { return passed(d.lessons[k].best, d.lessons[k].of); }).length, total = +lq.getAttribute("data-total");
       var nextA = document.querySelector(".pager .next");
-      res.innerHTML = '<div class="lq-score ' + (right >= 2 ? "pass" : "fail") + '"><b>' + right + " / " + items.length + "</b><span>" +
-        (right === items.length ? "Full marks. Lesson complete." : right >= 2 ? "Lesson complete." : "Not yet: review the lesson and try again.") +
+      res.innerHTML = '<div class="lq-score ' + (passed(right, items.length) ? "pass" : "fail") + '"><b>' + right + " / " + items.length + "</b><span>" +
+        (right === items.length ? "Full marks. Lesson complete." : passed(right, items.length) ? "Lesson complete." : "Not yet: review the lesson and try again.") +
         "</span></div><p class=\"lq-meta\">Best score " + rec.best + " / " + items.length + " · " + done + " of " + total + " lessons complete</p>" +
         '<p class="lq-acts"><button type="button" class="btn line" data-retry>Try again</button>' +
         (nextA ? ' <a class="btn" href="' + nextA.getAttribute("href") + '">Next lesson</a>' : ' <a class="btn" href="course-test.html">Take the final test</a>') +
@@ -66,7 +68,7 @@
   var dash = document.querySelector(".cdash");
   function summary(d) {
     var rows = document.querySelectorAll(".cmod li[data-s]"), total = rows.length || 50, done = 0, sum = 0, n = 0;
-    Object.keys(d.lessons).forEach(function (k) { var r = d.lessons[k]; sum += r.best / (r.of || 3); n++; if (r.best >= 2) done++; });
+    Object.keys(d.lessons).forEach(function (k) { var r = d.lessons[k]; sum += r.best / (r.of || 3); n++; if (passed(r.best, r.of)) done++; });
     var avg = n ? sum / n * 100 : 0;                // average over lessons taken
     var avgAll = sum / total * 100;                  // for the grade, lessons not taken count as zero
     var test = d.test ? d.test.best / d.test.of * 100 : null;
@@ -80,7 +82,7 @@
       lis.forEach(function (li) {
         var r = d.lessons[li.getAttribute("data-s")], st = li.querySelector(".cs");
         if (!r) return;
-        if (r.best >= 2) { c++; li.classList.add("done"); st.textContent = r.best + "/" + (r.of || 3); }
+        if (passed(r.best, r.of)) { c++; li.classList.add("done"); st.textContent = r.best + "/" + (r.of || 3); }
         else { li.classList.add("tried"); st.textContent = r.best + "/" + (r.of || 3) + " · retry"; }
       });
       var mp = mod.querySelector(".cmp"); mp.textContent = c + " / " + lis.length;
@@ -92,7 +94,7 @@
     q("test").textContent = S.test === null ? "–" : Math.round(S.test) + "%";
     q("grade").textContent = S.grade === null ? "–" : letter(S.grade);
     var order = Array.prototype.map.call(document.querySelectorAll(".cmod li[data-s]"), function (li) { return li; });
-    var nextLi = order.filter(function (li) { var r = d.lessons[li.getAttribute("data-s")]; return !r || r.best < 2; })[0];
+    var nextLi = order.filter(function (li) { var r = d.lessons[li.getAttribute("data-s")]; return !r || !passed(r.best, r.of); })[0];
     var cont = q("cont");
     if (nextLi) {
       var a = nextLi.querySelector("a");
