@@ -510,3 +510,116 @@ def roe_adjust():
     s.raw(f'<line x1="80" y1="{y0}" x2="560" y2="{y0}" stroke="{RULE}"/>')
     s.text("B: 120 ÷ (1,000 − 300 goodwill) = 17.1%", 320, 250, 12, YEL, "middle", True, t=2.0)
     return s.svg()
+
+
+# ---------------------------------------------------------------- 27 price elasticity
+def revenue_elasticity():
+    s = S(640, 290, "On demand Q = 100 − P, total revenue peaks at P = 50, where elasticity is −1")
+    x0, y0, x1, y1 = frame(s, "price", "total revenue", 70, 250, 600, 40)
+    X = lambda p: x0 + p / 100 * (x1 - x0); Y = lambda r: y0 - r / 2700 * (y0 - y1)
+    s.rect(X(0), y1, X(50) - X(0), y0 - y1, TEAL, 0.07, 0, cls="f")
+    s.rect(X(50), y1, X(100) - X(50), y0 - y1, BLUE, 0.07, 0, cls="f")
+    s.curve(lambda p: p * (100 - p), 0, 100, X, Y, color=YEL, width=2.8, t=0.2)
+    s.line([(X(50), y0), (X(50), Y(2500))], SOFT, 1.2, 1.0, dash="4 4")
+    s.dot(X(50), Y(2500), 5, YEL, 1.2)
+    s.text("max revenue 2,500 at P = 50", X(50), Y(2500) - 12, 13, YEL, "middle", t=1.4)
+    s.text("inelastic: raise price,", X(25), Y(700), 12, TEAL, "middle", True, t=1.6)
+    s.text("revenue rises", X(25), Y(700) + 15, 12, TEAL, "middle", True, t=1.6)
+    s.text("elastic: cut price,", X(75), Y(700), 12, BLUE, "middle", True, t=1.8)
+    s.text("revenue rises", X(75), Y(700) + 15, 12, BLUE, "middle", True, t=1.8)
+    s.dot(X(70), Y(2100), 5, BLUE, 2.0); s.text("P = 70: E = −2.33", X(70) - 10, Y(1500), 12, BLUE, "end", t=2.1)
+    for p in (0, 25, 50, 75, 100):
+        s.text(str(p), X(p), y0 + 16, 11, DIM, "middle", cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 28 income and cross elasticity
+def demand_shift_income():
+    s = S(640, 280, "A rise in income shifts demand right for a normal good and left for an inferior good")
+    def panel(x, title, shift, c):
+        X = lambda q: x + 20 + q * 2.4; Y = lambda p: 240 - p * 1.9
+        s.raw(f'<path d="M{x + 20},{Y(100):.0f} L{x + 20},240 L{x + 270},240" fill="none" stroke="{RULE}"/>')
+        s.text("price", x + 26, Y(100) - 6, 11, DIM, italic=True, cls=""); s.text("quantity", x + 270, 256, 11, DIM, "end", True, cls="")
+        s.line([(X(0), Y(90)), (X(80), Y(10))], SOFT, 2.2, 0)
+        s.line([(X(shift), Y(90)), (X(80 + shift), Y(10))], c, 2.6, 0.8)
+        s.text("D₀", X(80) + 4, Y(10) - 4, 12, SOFT, t=0.4)
+        s.text("D₁", X(80 + shift) + 4, Y(10) - 4, 12, c, t=1.2)
+        s.arrow(X(40) + 4, Y(50), X(40 + shift) - 4 if shift > 0 else X(40 + shift) + 4, Y(50), c, t=1.4)
+        s.text(title, x + 145, 30, 14, c, "middle", cls="")
+    panel(20, "normal good: income ↑", 18, BLUE)
+    panel(330, "inferior good: income ↑", -18, RED)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 29 substitution and income effects
+def effect_decomp():
+    s = S(640, 260, "A price fall: substitution effect +15 units, income effect −3, total +12 (an inferior good, but not a Giffen good)")
+    y0, k = 170, 6
+    bars = [("substitution", 0, 15, BLUE), ("income", 15, 12, RED), ("total", 0, 12, YEL)]
+    for i, (lab, a, b, c) in enumerate(bars):
+        x = 120 + i * 150
+        lo, hi = min(a, b), max(a, b)
+        s.rect(x, y0 - hi * k, 90, (hi - lo) * k, c, 0.88, i * 0.5)
+        s.text(f"{b - a:+}", x + 45, y0 - hi * k - 8, 15, c, "middle", t=i * 0.5 + 0.3)
+        s.text(lab, x + 45, y0 + 20, 13, SOFT, "middle", cls="")
+    s.raw(f'<line x1="90" y1="{y0}" x2="590" y2="{y0}" stroke="{RULE}"/>')
+    s.text("change in quantity demanded", 90, 40, 12, DIM, italic=True, cls="")
+    s.text("Giffen good: the income effect would be larger than +15, so the total turns negative", 340, 235, 12, SOFT, "middle", True, t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 30 marginal returns / returns to scale
+def lrac():
+    s = S(640, 280, "Long-run average cost: economies of scale, then a flat range from the minimum efficient scale, then diseconomies")
+    x0, y0, x1, y1 = frame(s, "output", "long-run average cost", 70, 240, 600, 40)
+    X = lambda q: x0 + q / 100 * (x1 - x0); Y = lambda c: y0 - c / 100 * (y0 - y1)
+    def f(q):
+        if q < 35: return 30 + (35 - q) ** 2 * 0.05
+        if q < 70: return 30
+        return 30 + (q - 70) ** 2 * 0.06
+    s.curve(f, 5, 98, X, Y, color=YEL, width=2.8, t=0)
+    s.line([(X(35), y0), (X(35), Y(30))], SOFT, 1, 1.0, dash="4 4")
+    s.text("minimum efficient scale", X(35), y0 + 18, 12, SOFT, "middle", t=1.2)
+    s.text("economies of scale", X(20), Y(85), 13, BLUE, "middle", True, t=1.4)
+    s.text("constant returns", X(52), Y(24), 13, TEAL, "middle", True, t=1.6)
+    s.text("diseconomies", X(84), Y(85), 13, RED, "middle", True, t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 31 short-run costs
+_FC, _VC = 100, [40, 70, 95, 125, 165, 215, 275]
+
+
+def atc_stack():
+    s = S(640, 290, "Average total cost = average fixed cost + average variable cost; fixed cost per unit shrinks as output grows")
+    y0, k = 250, 1.4
+    for q in range(1, 8):
+        x = 70 + (q - 1) * 74
+        afc, avc = _FC / q, _VC[q - 1] / q
+        s.rect(x, y0 - avc * k, 46, avc * k, BLUE, 0.88, q * 0.12)
+        s.rect(x, y0 - (avc + afc) * k, 46, afc * k, TEAL, 0.7, 0.5 + q * 0.12)
+        s.text(f"{afc + avc:.1f}", x + 23, y0 - (avc + afc) * k - 6, 11, YEL if q == 6 else SOFT, "middle", t=1.2 + q * 0.1)
+        s.text(str(q), x + 23, y0 + 16, 11, DIM, "middle", cls="")
+    s.raw(f'<line x1="60" y1="{y0}" x2="600" y2="{y0}" stroke="{RULE}"/>')
+    s.text("output", 600, y0 + 32, 12, DIM, "end", True, cls="")
+    s.rect(400, 40, 10, 10, BLUE, 0.9, cls=""); s.text("AVC", 415, 49, 12, SOFT, cls="")
+    s.rect(460, 40, 10, 10, TEAL, 0.9, cls=""); s.text("AFC", 475, 49, 12, SOFT, cls="")
+    s.text("minimum ATC 52.5 at 6 units", 400, 70, 12, YEL, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 32 shutdown
+def price_zones():
+    s = S(640, 220, "Three price zones: shut down below minimum AVC, operate at a loss between AVC and ATC, profit above minimum ATC")
+    x0, x1 = 60, 600
+    X = lambda p: x0 + (p - 20) / 45 * (x1 - x0)
+    zones = [(20, 31.25, RED, "shut down"), (31.25, 52.5, BLUE, "operate at a loss"), (52.5, 65, TEAL, "economic profit")]
+    for i, (a, b, c, lab) in enumerate(zones):
+        s.rect(X(a), 80, X(b) - X(a), 50, c, 0.75, i * 0.4, cls="f")
+        s.text(lab, (X(a) + X(b)) / 2, 110, 13, INK, "middle", t=i * 0.4 + 0.3)
+    for p, lab in ((31.25, "min AVC 31.25"), (52.5, "min ATC 52.5")):
+        s.raw(f'<line x1="{X(p):.1f}" y1="70" x2="{X(p):.1f}" y2="150" stroke="{YEL}" stroke-width="1.5"/>')
+        s.text(lab, X(p), 168, 13, YEL, "middle", t=1.4)
+    s.text("price →", x1, 60, 12, DIM, "end", True, cls="")
+    s.dot(X(40), 140, 5, INK, 1.8); s.text("P = 40: produce 5, lose 65 (less than the 100 of fixed cost)", X(40) - 8, 195, 12, SOFT, t=2.0)
+    return s.svg()
