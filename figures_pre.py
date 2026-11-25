@@ -311,3 +311,90 @@ def cost_layers():
     s.text("cost of sales 2,600 · inventory 1,000", 475, 280, 12, SOFT, "middle", t=1.8)
     s.text("oldest at the bottom, newest on top", 320, 30, 12, DIM, "middle", True, cls="")
     return s.svg()
+
+
+# ---------------------------------------------------------------- 16 LIFO reserve
+def lifo_reserve_split():
+    s = S(640, 280, "FIFO inventory equals LIFO inventory plus the LIFO reserve; the reserve splits into deferred tax and equity")
+    y0, k = 240, 0.18
+    s.rect(80, y0 - 600 * k, 130, 600 * k, BLUE, 0.88, 0); s.text("LIFO inventory 600", 145, y0 - 300 * k + 5, 13, "#0B1F38", "middle", t=0.3)
+    s.rect(80, y0 - 1000 * k, 130, 400 * k, TEAL, 0.88, 0.5); s.text("LIFO reserve 400", 145, y0 - 800 * k + 5, 13, "#0B1F38", "middle", t=0.8)
+    s.text("FIFO inventory 1,000", 145, y0 - 1000 * k - 10, 13, YEL, "middle", t=1.0)
+    s.arrow(220, y0 - 800 * k, 320, y0 - 800 * k, DIM, t=1.2)
+    s.rect(330, y0 - 1000 * k, 130, 100 * k, RED, 0.85, 1.6); s.text("tax 25%: 100", 470, y0 - 950 * k + 5, 13, RED, t=1.8)
+    s.rect(330, y0 - 900 * k, 130, 300 * k, YEL, 0.85, 1.9); s.text("equity +300", 470, y0 - 750 * k + 5, 13, YEL, t=2.1)
+    s.raw(f'<line x1="60" y1="{y0}" x2="610" y2="{y0}" stroke="{RULE}"/>')
+    s.text("(deferred or current tax)", 470, y0 - 950 * k + 21, 11, DIM, italic=True, t=1.9)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 17 write-downs
+def lcm_band():
+    s = S(640, 280, "US GAAP lower of cost or market for LIFO: market is replacement cost, kept between a floor and a ceiling")
+    x0, x1 = 60, 400
+    Y = lambda v: 290 - (v - 30) * 10
+    def hline(v, lab, c, t, dash=None):
+        s.line([(x0, Y(v)), (x1, Y(v))], c, 2, t, dash=dash)
+        s.text(f"{lab} {v}", x1 + 8, Y(v) + 4, 13, c, t=t + 0.3)
+    s.rect(x0, Y(45), x1 - x0, Y(40) - Y(45), TEAL, 0.18, 0.6, cls="f")
+    hline(50, "cost", SOFT, 0, "6 4")
+    hline(45, "ceiling = NRV", TEAL, 0.3)
+    hline(40, "floor = NRV − margin", TEAL, 0.5)
+    hline(38, "replacement cost", BLUE, 0.8, "3 3")
+    s.arrow(320, Y(38) + 2, 320, Y(40) + 4, YEL, t=1.4)
+    s.text("market = 40 (replacement cost is below the floor, so the floor applies)", 80, 40, 13, YEL, t=1.8)
+    s.text("write down from 50 to 40", 80, 60, 13, SOFT, italic=True, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 18 inventory ratios
+def ccc_timeline():
+    s = S(640, 250, "Cash conversion cycle: 50 days on the shelf plus 40 days to collect, minus 35 days of supplier credit = 55 days")
+    x0, k = 50, 5.6
+    y = 80
+    s.rect(x0, y, 50 * k, 34, TEAL, 0.85, 0, cls="gx" if False else "f"); s.text("inventory on hand 50 days", x0 + 25 * k, y + 22, 13, "#0B1F38", "middle", t=0.3)
+    s.rect(x0 + 50 * k, y, 40 * k, 34, BLUE, 0.85, 0.5, cls="f"); s.text("collection 40 days", x0 + 70 * k, y + 22, 13, "#0B1F38", "middle", t=0.8)
+    s.rect(x0, y + 50, 35 * k, 30, RED, 0.75, 1.0, cls="f"); s.text("supplier credit 35 days", x0 + 17.5 * k, y + 70, 12, INK, "middle", t=1.2)
+    s.rect(x0 + 35 * k, y + 96, 55 * k, 30, YEL, 0.85, 1.5, cls="f"); s.text("cash tied up: 55 days", x0 + 62.5 * k, y + 116, 13, "#0B1F38", "middle", t=1.8)
+    for d, lab in ((0, "buy goods"), (35, "pay supplier"), (50, "sell"), (90, "collect cash")):
+        s.raw(f'<line x1="{x0 + d * k:.1f}" y1="60" x2="{x0 + d * k:.1f}" y2="215" stroke="{RULE}" stroke-dasharray="3 3"/>')
+        s.text(lab, x0 + d * k, 52, 12, SOFT, "middle", True, cls="")
+        s.text(f"day {d}", x0 + d * k, 232, 11, DIM, "middle", cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 19 capitalise or expense
+def cap_cash_buckets():
+    s = S(640, 275, "Spending of 100: expensing puts it in operating cash flow, capitalising moves it to investing")
+    y0 = 130
+    s.raw(f'<line x1="60" y1="{y0}" x2="610" y2="{y0}" stroke="{RULE}"/>')
+    def pair(x, title, cfo, cfi, t0):
+        s.text(title, x + 95, 40, 14, INK, "middle", cls="")
+        for j, (lab, v, c) in enumerate((("CFO", cfo, BLUE), ("CFI", cfi, TEAL))):
+            bx = x + j * 110
+            if v:
+                s.rect(bx, y0, 80, v * 0.9, c, 0.88, t0 + j * 0.3, cls="f")
+                s.text(f"−{v}", bx + 40, y0 + v * 0.9 + 16, 13, c, "middle", t=t0 + j * 0.3 + 0.3)
+            else:
+                s.text("0", bx + 40, y0 - 8, 13, c, "middle", t=t0 + j * 0.3 + 0.3)
+            s.text(lab, bx + 40, y0 - 24 if v else y0 - 24, 12, SOFT, "middle", cls="")
+    pair(70, "expensed", 100, 0, 0)
+    pair(360, "capitalised", 0, 100, 0.8)
+    s.text("same cash out; capitalising makes operating cash flow look 100 better", 335, 266, 12, YEL, "middle", True, t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 20 revaluation
+def reval_routes():
+    s = S(640, 280, "Where revaluation changes go: increases to OCI unless they reverse an earlier loss; decreases to profit unless they reverse an earlier surplus")
+    s.box(230, 30, 180, 44, "Revaluation change", SOFT, size=14, t=0)
+    s.box(70, 110, 200, 44, "Increase", BLUE, size=14, t=0.4)
+    s.box(370, 110, 200, 44, "Decrease", RED, size=14, t=0.4)
+    s.arrow(300, 74, 190, 108, DIM, t=0.3); s.arrow(340, 74, 450, 108, DIM, t=0.3)
+    s.box(20, 200, 140, 52, "OCI surplus", YEL, size=13, t=1.0, sub="the normal case")
+    s.box(170, 200, 140, 52, "Profit", BLUE, size=13, t=1.2, sub="reverses an old loss")
+    s.box(330, 200, 140, 52, "Profit", RED, size=13, t=1.4, sub="the normal case")
+    s.box(480, 200, 140, 52, "OCI surplus falls", YEL, size=13, t=1.6, sub="reverses a surplus")
+    for a, b, t in ((140, 90, 0.8), (200, 240, 0.9), (440, 400, 1.1), (500, 550, 1.2)):
+        s.arrow(a, 154, b, 198, DIM, t=t)
+    return s.svg()

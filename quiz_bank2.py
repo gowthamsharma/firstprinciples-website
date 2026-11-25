@@ -258,6 +258,91 @@ Q2 = {
   ["Gross margin rises, but the increase is not sustainable", "Gross margin falls, because old layers carry high costs", "No effect, because LIFO always uses current costs"],
   "In a LIFO liquidation, old, cheap layers flow into cost of sales, lowering it and raising margins. The boost comes from running down stock and cannot be repeated."),
 ],
+"prereq-lifo-reserve": [
+ ("A US company using LIFO reports cost of sales of 5,000. Its LIFO reserve was 320 at the start of the year and 400 at the end. Cost of sales under FIFO would be:",
+  ["4,920", "5,080", "4,600"],
+  "FIFO cost of sales = LIFO cost of sales − increase in the reserve = 5,000 − (400 − 320) = 4,920. 5,080 adds the increase instead of subtracting it; 4,600 subtracts the whole reserve instead of the change."),
+ ("A LIFO company has current assets of 2,000, including LIFO inventory of 600, and current liabilities of 1,250. Its LIFO reserve is 400. Its current ratio adjusted to FIFO is closest to:",
+  ["1.92", "1.60", "1.84"],
+  "FIFO inventory = 600 + 400 = 1,000, so current assets become 2,400: 2,400 ÷ 1,250 = 1.92. 1.60 is the unadjusted LIFO ratio; 1.84 adds only the after-tax reserve."),
+ ("A company's LIFO reserve is 400 and its tax rate is 25%. Restating its balance sheet to FIFO increases shareholders' equity by:",
+  ["300", "400", "100"],
+  "The extra 400 of cumulative inventory profit would have been taxed at 25%, so equity rises by 400 × (1 − 0.25) = 300; the other 100 is a tax liability."),
+ ("A LIFO company's reserve rose by 80 during the year and its tax rate is 25%. Compared with LIFO, its net income under FIFO would be:",
+  ["Higher by 60", "Higher by 80", "Lower by 60"],
+  "A rising reserve means LIFO cost of sales was 80 higher than FIFO. FIFO pre-tax profit is therefore 80 higher, and net income 80 × 0.75 = 60 higher."),
+ ("Prices for a company's inputs were stable this year, yet its LIFO reserve fell from 900 to 500 while the number of units in inventory fell sharply. The most likely explanation is that:",
+  ["The company liquidated old LIFO layers, temporarily boosting gross margin and taxes", "The company switched to FIFO during the year", "Inventory was written down to net realisable value"],
+  "With stable prices, a falling reserve alongside falling quantities points to a LIFO liquidation: old, low-cost layers flowed into cost of sales, lifting margins for this year only and triggering deferred tax."),
+],
+"prereq-inventory-writedowns": [
+ ("A company holds 1,000 units that cost 100 each. They can now be sold for 90 each, with selling costs of 8 a unit. The write-down is:",
+  ["18,000", "10,000", "8,000"],
+  "NRV = 90 − 8 = 82 a unit; write-down = (100 − 82) × 1,000 = 18,000. 10,000 ignores the selling costs; 8,000 counts only the selling costs."),
+ ("After the write-down above, net realisable value recovers to 88 a unit. Under IFRS, the amount reversed is:",
+  ["6,000", "0", "18,000"],
+  "IFRS allows a reversal up to the original write-down: (88 − 82) × 1,000 = 6,000. Inventory goes back to 88 a unit, still below the original cost of 100. Under US GAAP there would be no reversal."),
+ ("A US company using LIFO holds goods that cost 50. Replacement cost is 38, net realisable value is 45 and the normal profit margin is 5. The goods are carried at:",
+  ["40", "38", "45"],
+  "Market is replacement cost held between a ceiling (NRV = 45) and a floor (NRV − normal margin = 40). Replacement cost of 38 is below the floor, so market = 40, which is lower than cost of 50."),
+ ("Under US GAAP, a company using FIFO measures its inventory at:",
+  ["The lower of cost and net realisable value, with no reversal of write-downs", "The lower of cost or market, with replacement cost as market", "The lower of cost and net realisable value, with reversals allowed"],
+  "Since 2017, US GAAP companies using FIFO or weighted average use lower of cost and NRV; the lower of cost or market test is kept for LIFO and the retail method. US GAAP never reverses inventory write-downs."),
+ ("A company writes down a large amount of obsolete inventory this year. Compared with no write-down, the most likely effect is:",
+  ["Lower gross margin this year and higher inventory turnover next year", "Higher gross margin this year and lower inventory turnover next year", "Lower operating cash flow this year"],
+  "The write-down raises cost of sales now, cutting gross margin. Next year inventory is lower, so cost of sales ÷ average inventory is higher. No cash moves when inventory is written down."),
+],
+"prereq-inventory-ratios": [
+ ("Cost of sales is 7,300. Inventory was 900 at the start of the year and 1,100 at the end. Days of inventory on hand is closest to:",
+  ["50 days", "55 days", "45 days"],
+  "Average inventory = 1,000; turnover = 7,300 ÷ 1,000 = 7.3; DOH = 365 ÷ 7.3 = 50. 55 uses closing inventory only; 45 uses opening inventory only."),
+ ("A company has days of inventory on hand of 50, days sales outstanding of 40 and days payables outstanding of 35. Its cash conversion cycle is:",
+  ["55 days", "125 days", "90 days"],
+  "Cash conversion cycle = DOH + DSO − DPO = 50 + 40 − 35 = 55. 125 adds DPO instead of subtracting it; 90 is the operating cycle, which ignores supplier credit."),
+ ("Cost of sales is 7,300, opening inventory 900, closing inventory 1,100 and average accounts payable 600. Days payables outstanding is closest to:",
+  ["29 days", "30 days", "37 days"],
+  "Purchases = 7,300 + 1,100 − 900 = 7,500; payables turnover = 7,500 ÷ 600 = 12.5; DPO = 365 ÷ 12.5 = 29.2. 30 days wrongly uses cost of sales instead of purchases."),
+ ("In a period of rising prices, compared with an otherwise identical company using FIFO, a company using LIFO will most likely report:",
+  ["Higher inventory turnover", "Lower inventory turnover", "The same inventory turnover"],
+  "LIFO puts the newest, higher costs in cost of sales and leaves older, lower costs in inventory, so cost of sales ÷ inventory is higher. The difference is accounting, not faster selling."),
+ ("Over two years a company's inventory turnover fell from 8 to 5 while its sales growth slowed and its industry peers' turnover was stable. The most likely concern is:",
+  ["Slow-moving or obsolete inventory that may need to be written down", "The company is holding too little inventory and losing sales", "The company has switched from FIFO to LIFO"],
+  "Falling turnover alongside slowing sales, while peers are stable, suggests stock is building up unsold. That raises the risk of obsolescence and a future write-down."),
+],
+"prereq-capitalise-or-expense": [
+ ("A company spends 100 on a system with a five-year life and no salvage value. Compared with expensing it, capitalising it and depreciating straight-line makes first-year pre-tax profit:",
+  ["Higher by 80", "Higher by 100", "Higher by 20"],
+  "Expensing charges 100 in year 1; capitalising charges depreciation of 20. Pre-tax profit is 80 higher. Over the five years total expense is the same."),
+ ("Compared with expensing the same spending, capitalising it in the year it is spent results in:",
+  ["Higher operating cash flow and lower investing cash flow", "Lower operating cash flow and higher investing cash flow", "Higher operating cash flow and higher total cash flow"],
+  "Capitalised spending is an investing outflow, while expensed spending is an operating outflow. Total cash flow is the same either way."),
+ ("A company has EBIT of 1,000. Its total interest cost is 200, of which 50 is capitalised into a factory under construction. Its reported interest coverage, based on interest expense in the income statement, is closest to:",
+  ["6.67", "5.00", "8.00"],
+  "Interest expense in the income statement is 200 − 50 = 150, so reported coverage = 1,000 ÷ 150 = 6.67. Coverage based on all interest owed would be 1,000 ÷ 200 = 5.00, a better measure of debt burden."),
+ ("Under IFRS, costs incurred in developing a new product, after the company has shown that the product is technically feasible and that it intends and is able to complete and sell it, are most likely:",
+  ["Capitalised as an intangible asset", "Expensed, because all research and development is expensed", "Capitalised only if the product is later sold"],
+  "IFRS requires research to be expensed but development costs to be capitalised once strict criteria (feasibility, intention and ability, probable benefits, reliable measurement) are met. US GAAP generally expenses both."),
+ ("A company replaces the roof of its warehouse, extending the building's useful life by 15 years, and repaints the office interior. Which treatment is most appropriate?",
+  ["Capitalise the roof; expense the repainting", "Expense both, because they are repairs", "Capitalise both, because both improve the property"],
+  "Spending that extends an asset's life or capacity is capitalised. Routine maintenance such as repainting only keeps the asset in its existing condition and is expensed."),
+],
+"prereq-revaluation-model": [
+ ("Under the IFRS revaluation model, a building that cost 1,000 is revalued to 1,150 in year 1 and to 950 in year 2 (ignore depreciation). The effect on year-2 profit is:",
+  ["A loss of 50", "A loss of 200", "No effect, because all changes go to OCI"],
+  "The year-2 fall of 200 first reverses the 150 surplus in OCI; only the remaining 50, below original cost, is charged to profit."),
+ ("A building was written down by 80 in an earlier year, with the loss charged to profit. This year it is revalued upwards by 120. Under IFRS:",
+  ["80 goes to profit and 40 to OCI", "All 120 goes to OCI", "All 120 goes to profit"],
+  "An increase that reverses an earlier decrease charged to profit is recognised in profit, up to that earlier loss (80). The remaining 40 is a revaluation surplus in OCI."),
+ ("A machine costs 1,000, has a 10-year life and no salvage value, and is depreciated straight-line. After two years it is revalued to 960. Annual depreciation from then on is:",
+  ["120", "100", "96"],
+  "Depreciation is based on the revalued amount over the remaining 8 years: 960 ÷ 8 = 120. 100 keeps the old basis; 96 spreads 960 over the original 10 years."),
+ ("An IFRS company holds an office building to earn rent and uses the fair value model for investment property. The building's fair value rises by 50. The company records:",
+  ["A gain of 50 in profit and no depreciation", "A gain of 50 in OCI and continues to depreciate the building", "No entry until the building is sold"],
+  "Under the fair value model for investment property, every change in fair value goes straight to profit and the property is not depreciated. The OCI route applies to PP&E under the revaluation model."),
+ ("Compared with an otherwise identical company using the cost model, an IFRS company that has revalued its PP&E upwards will most likely report:",
+  ["A lower debt-to-equity ratio and lower future return on assets", "A higher debt-to-equity ratio and higher future return on assets", "No difference in ratios, because revaluation does not affect profit"],
+  "The revaluation surplus raises assets and equity, so debt to equity falls. A larger asset base and higher depreciation on the revalued amount lower future return on assets."),
+],
 }
 
 
@@ -274,6 +359,10 @@ def check_quizzes():
     assert 500 + 80 + 15 + 40 - 30 - 25 == 580 and round(850 / 90, 2) == 9.44 and 600 / 800 == 0.75
     assert 900 - 500 - 150 - 50 - 40 + 10 + 5 == 175 and 250 + 60 + 30 - 15 + 20 - 40 - 5 - 10 + 12 + 8 == 310
     assert 600 + 20 - 15 == 605 and (50 * 8 + 150 * 10) / 200 * 120 == 1140
+    assert 5000 - (400 - 320) == 4920 and abs(2400 / 1250 - 1.92) < 1e-9 and 400 * .75 == 300 and 80 * .75 == 60
+    assert (100 - 82) * 1000 == 18000 and (88 - 82) * 1000 == 6000 and sorted([38, 40, 45])[1] == 40
+    assert 365 / (7300 / 1000) == 50 and 50 + 40 - 35 == 55 and abs(365 / (7500 / 600) - 29.2) < 1e-9
+    assert round(1000 / 150, 2) == 6.67 and 960 / 8 == 120
     for k, v in Q2.items():
         assert len(v) == 5, k
         for q, o, x in v:
