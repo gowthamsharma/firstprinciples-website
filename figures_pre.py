@@ -215,3 +215,99 @@ def liquidity_ratios():
         s.text(a, 470, 120 + i * 34, 13, c, t=1.8 + i * 0.3)
         s.text(b, 470, 136 + i * 34, 12, SOFT, t=1.9 + i * 0.3)
     return s.svg()
+
+
+# ---------------------------------------------------------------- 11 equity
+def equity_buyback():
+    s = S(640, 280, "A buyback of 150 at a price above book value: equity falls to 850 and book value per share falls from 10.00 to 9.44")
+    y0, k = 240, 0.17
+    def col(x, parts, t0, title):
+        y = y0
+        for i, (lab, v, c) in enumerate(parts):
+            h = v * k
+            s.rect(x, y - h, 130, h, c, 0.85, t0 + i * 0.3)
+            s.text(f"{lab} {v:,}", x + 65, y - h / 2 + 5, 12, INK, "middle", t=t0 + i * 0.3 + 0.3)
+            y -= h
+        s.text(title, x + 65, y0 + 20, 13, SOFT, "middle", cls="")
+        return y
+    col(70, [("share capital", 450, BLUE), ("retained earnings", 550, TEAL)], 0, "before: 100 shares")
+    top = col(290, [("share capital", 450, BLUE), ("retained earnings", 550, TEAL)], 0.9, "after: 90 shares")
+    s.rect(290, top, 130, 150 * k, RED, 0.8, 2.0, cls="f")
+    s.text("treasury shares −150", 430, top + 150 * k / 2 + 4, 12, RED, t=2.2)
+    s.raw(f'<line x1="50" y1="{y0}" x2="600" y2="{y0}" stroke="{RULE}"/>')
+    s.text("book value per share", 470, 120, 13, SOFT, t=2.4)
+    s.text("1,000 ÷ 100 = 10.00", 470, 140, 13, BLUE, t=2.5)
+    s.text("850 ÷ 90 = 9.44", 470, 160, 13, YEL, t=2.7)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 12 cash flow classification
+def cf_two_ways():
+    s = S(640, 300, "The same cash flows classified two ways: only the buckets change, the total change in cash is 15 either way")
+    x0, y0, x1, y1 = 60, 150, 600, 40
+    Y = lambda v: y0 - v * 0.33
+    s.raw(f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" stroke="{RULE}"/>')
+    groups = [("operating", 175, 210), ("investing", -280, -265), ("financing", 120, 70)]
+    for i, (lab, a, b) in enumerate(groups):
+        gx = x0 + 30 + i * 180
+        for j, (v, c) in enumerate(((a, BLUE), (b, TEAL))):
+            x = gx + j * 62
+            top, h = (Y(v), v * 0.33) if v > 0 else (y0, -v * 0.33)
+            s.rect(x, top, 52, h, c, 0.88, i * 0.3 + j * 0.15, cls="f")
+            s.text(f"{v:+}", x + 26, (top - 6) if v > 0 else (top + h + 15), 12, c, "middle", t=i * 0.3 + j * 0.15 + 0.4)
+        s.text(lab, gx + 57, 290, 13, SOFT, "middle", cls="")
+    s.rect(450, 50, 10, 10, BLUE, 0.9, cls=""); s.text("US GAAP", 465, 59, 12, SOFT, cls="")
+    s.rect(450, 70, 10, 10, TEAL, 0.9, cls=""); s.text("IFRS choices", 465, 79, 12, SOFT, cls="")
+    s.text("IFRS choices used here: interest paid → financing; interest and dividends received → investing", 60, 22, 11, DIM, italic=True, cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 13 indirect method
+def wc_signs():
+    s = S(640, 270, "Working capital adjustments: a rise in an operating asset uses cash, a rise in an operating liability provides it")
+    s.raw(f'<line x1="320" y1="50" x2="320" y2="240" stroke="{RULE}"/><line x1="70" y1="145" x2="600" y2="145" stroke="{RULE}"/>')
+    s.text("operating asset", 195, 40, 13, DIM, "middle", True, cls=""); s.text("operating liability", 460, 40, 13, DIM, "middle", True, cls="")
+    s.text("rises", 60, 100, 13, DIM, "end", True, cls=""); s.text("falls", 60, 200, 13, DIM, "end", True, cls="")
+    cells = [(195, 95, "subtract", "receivables up: sales not yet collected", RED), (460, 95, "add", "payables up: costs not yet paid", TEAL),
+             (195, 195, "add", "inventory down: sold from stock", TEAL), (460, 195, "subtract", "accrued wages down: paid off", RED)]
+    for i, (x, y, a, b, c) in enumerate(cells):
+        s.text(a, x, y, 20, c, "middle", t=i * 0.3)
+        s.text(b, x, y + 22, 12, SOFT, "middle", True, t=i * 0.3 + 0.15)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 14 inventory cost
+def overhead_allocation():
+    s = S(640, 280, "Fixed production overhead of 100,000 allocated at normal capacity of 10,000 units: producing 8,000 puts 80,000 in inventory and expenses 20,000")
+    y0, k = 230, 0.0016
+    s.text("fixed production overhead: 100,000", 60, 34, 13, SOFT, cls="")
+    s.rect(80, y0 - 100000 * k, 120, 100000 * k, DIM, 0.5, 0, stroke=SOFT)
+    s.text("normal capacity", 140, y0 + 20, 12, SOFT, "middle", cls=""); s.text("10,000 units × 10", 140, y0 + 36, 12, DIM, "middle", cls="")
+    s.rect(300, y0 - 80000 * k, 120, 80000 * k, TEAL, 0.9, 0.6)
+    s.text("80,000", 360, y0 - 40000 * k + 5, 14, "#0B1F38", "middle", t=0.9)
+    s.rect(300, y0 - 100000 * k, 120, 20000 * k, RED, 0.85, 1.2)
+    s.text("20,000", 360, y0 - 90000 * k + 5, 13, INK, "middle", t=1.4)
+    s.text("actual output", 360, y0 + 20, 12, SOFT, "middle", cls=""); s.text("8,000 units × 10", 360, y0 + 36, 12, DIM, "middle", cls="")
+    s.text("into inventory", 432, y0 - 40000 * k + 5, 13, TEAL, t=1.0)
+    s.text("unabsorbed: expensed now", 432, y0 - 90000 * k + 5, 13, RED, t=1.6)
+    s.raw(f'<line x1="60" y1="{y0}" x2="610" y2="{y0}" stroke="{RULE}"/>')
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 15 FIFO / LIFO
+def cost_layers():
+    s = S(640, 290, "Three cost layers, 200 units sold: FIFO sells the oldest layers, LIFO the newest")
+    layers = [("100 @ 10", BLUEB), ("100 @ 12", BLUE), ("100 @ 14", TEAL)]
+    def stack(x, sold, title, t0):
+        for i, (lab, c) in enumerate(layers):
+            y = 230 - (i + 1) * 52
+            gone = i in sold
+            s.rect(x, y, 150, 48, c, 0.25 if gone else 0.9, t0 + i * 0.2, cls="f", stroke=c)
+            s.text(lab + ("  → sold" if gone else "  → kept"), x + 75, y + 29, 13, c if gone else "#0B1F38", "middle", t=t0 + i * 0.2 + 0.3)
+        s.text(title, x + 75, 258, 14, INK, "middle", cls="")
+    stack(70, (0, 1), "FIFO", 0)
+    stack(400, (1, 2), "LIFO", 0.8)
+    s.text("cost of sales 2,200 · inventory 1,400", 145, 280, 12, SOFT, "middle", t=1.6)
+    s.text("cost of sales 2,600 · inventory 1,000", 475, 280, 12, SOFT, "middle", t=1.8)
+    s.text("oldest at the bottom, newest on top", 320, 30, 12, DIM, "middle", True, cls="")
+    return s.svg()
