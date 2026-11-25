@@ -88,6 +88,91 @@ Q2 = {
   ["Question whether the lower allowance is justified, because it raises reported profit without any cash", "Raise the forecast for operating cash flow", "Ignore it, because the allowance does not affect profit"],
   "A lower allowance rate means a lower bad debt expense and higher profit. Combined with receivables growing faster than sales, it can signal aggressive estimates. The allowance does affect profit through the expense, and it does not create cash."),
 ],
+"prereq-depreciation-methods": [
+ ("A machine costs 50,000, has a salvage value of 5,000 and a useful life of 5 years. Using double-declining balance, depreciation in year 2 is:",
+  ["12,000", "9,000", "10,800"],
+  "The DDB rate is 2 ÷ 5 = 40%, applied to opening book value. Year 1: 40% × 50,000 = 20,000, leaving 30,000. Year 2: 40% × 30,000 = 12,000. 9,000 is straight-line; 10,800 wrongly applies 40% to cost minus salvage (45,000 − 18,000)."),
+ ("Equipment costs 100,000, has a salvage value of 10,000 and is expected to produce 300,000 units over its life. In year 1 it produces 45,000 units. Units-of-production depreciation for year 1 is:",
+  ["13,500", "15,000", "18,000"],
+  "Depreciation per unit = (100,000 − 10,000) ÷ 300,000 = 0.30; year 1 = 0.30 × 45,000 = 13,500. 15,000 forgets to deduct salvage; 18,000 is straight-line over five years."),
+ ("A machine bought for 10,000 with salvage of 1,000 has been depreciated straight-line over an expected life of 5 years for two years. Management now expects it to last 4 more years, with salvage of 400. Annual depreciation from now on is:",
+  ["1,500", "1,600", "1,800"],
+  "Book value after two years = 10,000 − 2 × 1,800 = 6,400. The change in estimate is applied prospectively: (6,400 − 400) ÷ 4 = 1,500. 1,600 ignores the salvage value; 1,800 keeps the old estimate."),
+ ("Compared with an otherwise identical company using straight-line depreciation, a company using an accelerated method will, in the early years of its assets' lives, most likely report:",
+  ["Lower net income and higher total asset turnover", "Higher net income and lower total asset turnover", "Lower operating cash flow before taxes"],
+  "Accelerated methods put more expense into the early years, so net income is lower and net PP&E (and total assets) is lower, which raises sales ÷ total assets. Pre-tax operating cash flow is unaffected because depreciation is not a cash payment."),
+ ("A company using straight-line depreciation reports gross PP&E of 1,200, accumulated depreciation of 480 and depreciation expense of 120. Its assets' average age and remaining useful life are closest to:",
+  ["4 years old, 6 years remaining", "6 years old, 4 years remaining", "4 years old, 10 years remaining"],
+  "Average age ≈ accumulated depreciation ÷ annual expense = 480 ÷ 120 = 4 years. Remaining life ≈ net PP&E ÷ expense = (1,200 − 480) ÷ 120 = 6 years. Total life ≈ 1,200 ÷ 120 = 10 years, which is age plus remaining life, not the remaining life."),
+],
+"prereq-non-recurring-items": [
+ ("Operating profit before a one-off impairment charge is 400. The impairment is 60, interest expense is 40 and the tax rate is 25%. The company also reports profit from discontinued operations of 18, after tax. An analyst's estimate of core, continuing earnings is closest to:",
+  ["270", "243", "288"],
+  "Core earnings exclude the one-off impairment and the discontinued business: (400 − 40) × 0.75 = 270. Reported net income is (400 − 40 − 60) × 0.75 + 18 = 243. 288 wrongly keeps the discontinued profit."),
+ ("A company sells one of its three major divisions during the year. Under IFRS and US GAAP, the division's results for the year are most likely shown:",
+  ["Net of tax, as a separate line below income from continuing operations", "Before tax, within operating profit as an unusual item", "In other comprehensive income"],
+  "A separable component that has been sold or is held for sale is a discontinued operation. Its results are reported net of tax, below continuing operations, so that analysts can forecast from the business that remains."),
+ ("A company changes its inventory method from FIFO to weighted average cost because the new method better reflects its business. The change is most likely:",
+  ["Applied retrospectively, restating prior years as if the new method had always been used", "Applied prospectively, from the current year only", "Shown as a discontinued operation"],
+  "A change in accounting policy is applied retrospectively so that all years presented are comparable. Prospective treatment is for changes in estimates, such as a new useful life."),
+ ("A company has reported 'restructuring charges' of 50, 45, 60 and 55 in four consecutive years, while its revenue has barely changed. For forecasting, an analyst should most appropriately:",
+  ["Treat roughly 50 to 55 a year as a recurring operating cost", "Exclude the charges, because the company labels them non-recurring", "Add the charges back to operating cash flow"],
+  "A charge that appears every year is a normal cost of running this business, whatever its label. Excluding it would overstate sustainable earnings and value."),
+ ("A company discovers that last year's revenue was overstated by 10 because some sales were recorded twice. The correction is most likely made by:",
+  ["Restating the prior year's figures and disclosing the error", "Reducing this year's revenue by 10", "Recording a loss of 10 in other comprehensive income"],
+  "Material prior-period errors are corrected retrospectively: the comparative figures are restated, with disclosure. Pushing the correction into the current year would distort this year's results."),
+],
+"prereq-common-size": [
+ ("In year 1 a company has revenue of 1,000, cost of sales of 58% of revenue and operating expenses of 250. In year 2 revenue rises 10%, cost of sales rises to 62% of revenue and operating expenses are unchanged at 250. The year-2 operating margin is closest to:",
+  ["15.3%", "17.0%", "13.0%"],
+  "Year 2: revenue 1,100, cost of sales 682, operating profit 1,100 − 682 − 250 = 168, and 168 ÷ 1,100 = 15.3%. 17.0% is year 1; 13.0% wrongly subtracts 25% for operating expenses, which no longer equal 25% of the larger revenue."),
+ ("Company A spends 62% of revenue on cost of sales (variable) and 20% on operating expenses (fixed). Company B spends 45% and 38%. Both have revenue of 1,000. If revenue falls 10% at both, whose operating profit falls more in percentage terms?",
+  ["Company B, because a larger share of its costs is fixed", "Company A, because its cost of sales is higher", "Neither: both fall by 10% because their net margins are equal"],
+  "A: profit falls from 180 to 142 (−21%). B: from 170 to 115 (−32%). Fixed costs do not shrink with sales, so the firm with more of them (higher operating leverage) sees bigger swings in profit."),
+ ("Over three years a company's revenue grows by 15% in total while its accounts receivable grow by 40%. The most appropriate interpretation is that:",
+  ["Customers are paying more slowly, or revenue is being recognised ahead of cash, and this deserves investigation", "The company's liquidity is improving because it has more current assets", "Nothing can be inferred, because receivables are a balance sheet item"],
+  "Horizontal analysis shows receivables growing much faster than sales. Either collections are slowing or revenue is being booked aggressively; both lower earnings quality and tie up cash."),
+ ("A common-size balance sheet shows debt equal to 60% of total assets for Company X and 30% for its closest peer. All else equal, Company X most likely has:",
+  ["Higher financial leverage and more financial risk", "A higher current ratio", "Lower interest expense as a share of revenue"],
+  "Common-size balance sheets show how assets are financed. Twice the debt per unit of assets means more fixed interest obligations, so higher financial leverage and financial risk."),
+ ("A company's cost of sales rises from 55% to 60% of revenue. Based on this information alone, an analyst can conclude that:",
+  ["Either input costs rose or selling prices fell, and more information is needed to tell which", "Input costs definitely rose", "The company is selling fewer units"],
+  "A common-size ratio has two moving parts. A higher cost-of-sales percentage can come from more expensive inputs or from lower prices for the same output (or a change in mix). The notes and industry data tell which."),
+],
+"prereq-comprehensive-income": [
+ ("A company reports net income of 500. During the year, a foreign currency translation gain of 40 and a pension remeasurement loss of 15 are recorded in OCI, and dividends of 200 are paid. Total comprehensive income is:",
+  ["525", "325", "500"],
+  "Total comprehensive income = 500 + 40 − 15 = 525. Dividends are a transaction with owners and are not part of comprehensive income (325 wrongly subtracts them)."),
+ ("Opening equity is 3,000. During the year the company earns net income of 400, records an OCI loss of 50, pays dividends of 120 and buys back shares for 80. Closing equity is:",
+  ["3,150", "3,200", "3,230"],
+  "Closing equity = 3,000 + 400 − 50 − 120 − 80 = 3,150. 3,200 ignores the OCI loss; 3,230 ignores the buyback."),
+ ("Which of the following is most likely reported in other comprehensive income rather than in profit?",
+  ["A translation gain on the net assets of a foreign subsidiary", "A gain on the sale of used equipment", "Interest income on a bank deposit"],
+  "Currency translation adjustments on foreign subsidiaries are a classic OCI item. Gains on selling equipment and interest income are realised items that belong in profit."),
+ ("A company records a gain of 30 in OCI on a derivative that hedges a highly probable sale next year. When the hedged sale is recorded next year, the 30 is most likely:",
+  ["Reclassified (recycled) from OCI into profit", "Left in accumulated OCI permanently", "Transferred directly to retained earnings without passing through profit"],
+  "For a cash flow hedge, the effective gain waits in OCI so that it can be matched with the hedged transaction. When the sale affects profit, the gain is recycled into profit alongside it."),
+ ("Companies X and Y both report net income of 100 and equity of 1,000. X also has an OCI loss of 60 on pension remeasurements; Y has no OCI. An analyst comparing the two should most appropriately conclude that:",
+  ["X's owners gained less wealth this year, which return on equity based on net income hides", "The two performed identically, because net income is the same", "X performed better, because OCI losses are only unrealised"],
+  "Comprehensive income is 40 for X and 100 for Y. Return on equity based only on net income treats them as equal, but X's owners bore an economic loss of 60 that sits in OCI."),
+],
+"prereq-balance-sheet-classification": [
+ ("A company has cash of 40, short-term marketable securities of 30, receivables of 90, inventory of 200 and prepaid expenses of 20. Current liabilities are 200. Its quick ratio is closest to:",
+  ["0.80", "1.90", "0.35"],
+  "Quick ratio = (40 + 30 + 90) ÷ 200 = 0.80. 1.90 is the current ratio (380 ÷ 200); 0.35 is the cash ratio (70 ÷ 200)."),
+ ("A company has current assets of 300 and current liabilities of 200. It uses 50 of cash to pay suppliers. Its current ratio:",
+  ["Rises to 1.67", "Falls to 1.25", "Stays at 1.50"],
+  "Both current assets and current liabilities fall by 50: 250 ÷ 150 = 1.67. When a ratio is above 1, subtracting the same amount from numerator and denominator raises it."),
+ ("A company has a ten-year bank loan of 1,000, of which 100 is repayable within the next twelve months. On the balance sheet:",
+  ["100 is shown as a current liability and 900 as non-current", "All 1,000 is shown as non-current, because the loan is long-term", "All 1,000 is shown as current, because part of it is due this year"],
+  "The current portion of long-term debt, the part due within twelve months, is classified as current; the rest stays non-current."),
+ ("At its reporting date, a company has breached a covenant on a long-term loan, giving the lender the right to demand immediate repayment. The lender agrees to a waiver only after the reporting date. Under IFRS the loan is most likely classified as:",
+  ["Entirely current", "Entirely non-current, because a waiver was obtained", "Current only for the instalments due within a year"],
+  "At the reporting date the company had no right to defer settlement for at least twelve months, because the lender could demand repayment. A waiver agreed after the reporting date does not change the classification."),
+ ("A shipbuilder takes about three years to build and deliver each ship, which is its normal operating cycle. Ships under construction for customers are most likely classified as:",
+  ["Current assets, because they will be realised within the normal operating cycle", "Non-current assets, because they take more than a year to complete", "Property, plant and equipment"],
+  "Assets realised within the operating cycle are current even when that cycle is longer than twelve months. The ships are inventory for sale, not equipment the company uses."),
+],
 }
 
 
@@ -97,6 +182,10 @@ def check_quizzes():
     assert abs(12 * 3.6 / 9 - 4.8) < 1e-9 and round(1300 * 1200 / 1500) == 1040
     assert abs((5 - 5.5) - 0.3 - (-0.8)) < 1e-9
     assert 400 + 450 - 350 == 500 and 8000 * .02 + 1500 * .1 + 500 * .4 - 130 == 380 and 20000 * .03 * 40 == 24000
+    assert 50000 * .4 * .6 == 12000 and abs(90000 / 300000 * 45000 - 13500) < 1e-6 and (6400 - 400) / 4 == 1500
+    assert 480 / 120 == 4 and 720 / 120 == 6 and (400 - 40) * .75 == 270 and (400 - 40 - 60) * .75 + 18 == 243
+    assert round((1100 - 682 - 250) / 1100, 3) == 0.153 and 500 + 40 - 15 == 525 and 3000 + 400 - 50 - 120 - 80 == 3150
+    assert 160 / 200 == 0.8 and 250 / 150 > 1.66
     for k, v in Q2.items():
         assert len(v) == 5, k
         for q, o, x in v:

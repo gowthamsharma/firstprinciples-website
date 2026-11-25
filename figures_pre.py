@@ -117,3 +117,101 @@ def allowance_roll():
     s.raw(f'<line x1="50" y1="{y0}" x2="620" y2="{y0}" stroke="{RULE}"/>')
     s.text("write-offs use the allowance: no new expense", 335, 40, 13, RED, "middle", True, t=1.6)
     return s.svg()
+
+
+# ---------------------------------------------------------------- 06 depreciation
+def dep_book_value():
+    s = S(640, 280, "Book value under straight-line and double-declining balance: both end at the 1,000 salvage value")
+    x0, y0, x1, y1 = frame(s, "year", "book value", 60, 240, 600, 36)
+    X = lambda t: x0 + t / 5 * (x1 - x0); Y = lambda v: y0 - v / 10500 * (y0 - y1)
+    sl = [10000 - 1800 * t for t in range(6)]
+    ddb = [10000, 6000, 3600, 2160, 1296, 1000]
+    _grid_y(s, x0, x1, [Y(v) for v in (2500, 5000, 7500, 10000)])
+    for v in (5000, 10000):
+        s.text(f"{v:,}", x0 - 8, Y(v) + 4, 11, DIM, "end", cls="")
+    s.line([(X(t), Y(v)) for t, v in enumerate(sl)], BLUE, 2.6, 0)
+    s.line([(X(t), Y(v)) for t, v in enumerate(ddb)], TEAL, 2.6, 0.5)
+    s.line([(X(0), Y(1000)), (X(5), Y(1000))], YEL, 1.4, 1.2, dash="5 4")
+    s.text("salvage 1,000", X(5), Y(1000) - 8, 12, YEL, "end", t=1.4)
+    s.text("straight-line", X(2.6), Y(sl[2]) - 14, 13, BLUE, italic=True, t=1.0)
+    s.text("double-declining", X(0.55), Y(6600), 13, TEAL, "end", italic=True, t=1.4)
+    for t in range(6):
+        s.text(str(t), X(t), y0 + 16, 11, DIM, "middle", cls="")
+    s.text("the gap between the lines is", X(2.9), Y(8800), 12, SOFT, italic=True, t=2.0)
+    s.text("extra depreciation taken early", X(2.9), Y(8800) + 15, 12, SOFT, italic=True, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 07 non-recurring items
+def earnings_bridge():
+    s = S(640, 270, "From reported net income of 100.5 to core earnings of 135")
+    y0, k = 230, 1.3
+    steps = [("reported", 0, 100.5, BLUE), ("+ restructuring\n(after tax)", 100.5, 123, TEAL), ("+ discontinued\nloss", 123, 135, TEAL), ("core earnings", 0, 135, YEL)]
+    for i, (lab, lo, hi, c) in enumerate(steps):
+        x = 80 + i * 130
+        s.rect(x, y0 - hi * k, 80, (hi - lo) * k, c, 0.85, i * 0.45)
+        s.text(f"{hi - lo:g}", x + 40, y0 - hi * k - 8, 14, c, "middle", t=i * 0.45 + 0.4)
+        for j, part in enumerate(lab.split("\n")):
+            s.text(part, x + 40, y0 + 18 + j * 15, 12, SOFT, "middle", cls="")
+    s.raw(f'<line x1="60" y1="{y0}" x2="620" y2="{y0}" stroke="{RULE}"/>')
+    s.text("add back what will not recur, after tax", 60, 26, 13, SOFT, "start", True, t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 08 common size
+def horizontal_index():
+    s = S(640, 280, "Horizontal analysis: revenue and receivables indexed to 100 in the base year")
+    x0, y0, x1, y1 = frame(s, "year", "index (base = 100)", 70, 240, 600, 46)
+    X = lambda t: x0 + t / 3 * (x1 - x0); Y = lambda v: y0 - (v - 90) / 60 * (y0 - y1)
+    rev = [100, 106, 111, 115]; rec = [100, 112, 126, 140]
+    _grid_y(s, x0, x1, [Y(v) for v in (100, 120, 140)])
+    for v in (100, 120, 140):
+        s.text(str(v), x0 - 8, Y(v) + 4, 11, DIM, "end", cls="")
+    for t, lab in enumerate(["base", "+1", "+2", "+3"]):
+        s.text(lab, X(t), y0 + 16, 11, DIM, "middle", cls="")
+    s.line([(X(t), Y(v)) for t, v in enumerate(rev)], BLUE, 2.6, 0)
+    s.line([(X(t), Y(v)) for t, v in enumerate(rec)], RED, 2.6, 0.5)
+    for t, v in enumerate(rec):
+        s.dot(X(t), Y(v), 4, RED, 0.6 + t * 0.2)
+    s.text("receivables 140", X(3) - 6, Y(140) - 10, 13, RED, "end", t=1.4)
+    s.text("revenue 115", X(3) - 6, Y(115) + 20, 13, BLUE, "end", t=1.4)
+    s.text("customers paying more slowly, or sales booked early?", 600, 22, 12, SOFT, "end", True, t=1.9)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 09 comprehensive income
+def oci_recycling():
+    s = S(640, 270, "A hedging gain waits in OCI, then is recycled into profit when the hedged sale happens")
+    s.box(40, 60, 170, 60, "Hedge gains 30", TEAL, size=15, t=0, sub="year 1")
+    s.box(250, 60, 170, 60, "OCI reserve", YEL, size=15, t=0.5, sub="inside equity")
+    s.box(460, 60, 150, 60, "Net income", BLUE, size=15, t=1.4, sub="year 2")
+    s.arrow(210, 90, 248, 90, TEAL, t=0.4)
+    s.arrow(420, 90, 458, 90, BLUE, t=1.2)
+    s.text("recycled when the", 440, 145, 12, SOFT, "middle", True, t=1.6)
+    s.text("hedged sale is booked", 440, 161, 12, SOFT, "middle", True, t=1.7)
+    s.box(250, 195, 170, 48, "Never recycled", RED, size=14, t=2.2)
+    s.text("e.g. IFRS revaluation surplus,", 430, 212, 12, SOFT, t=2.4)
+    s.text("pension remeasurements (IFRS)", 430, 228, 12, SOFT, t=2.5)
+    s.arrow(335, 122, 335, 192, RED, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 10 balance sheet classification
+def liquidity_ratios():
+    s = S(640, 280, "Current, quick and cash ratios use smaller and smaller slices of current assets against the same liabilities")
+    x0, y0, k = 60, 250, 0.68
+    parts = [("cash 60", 60, YEL), ("securities 20", 20, BLUEB), ("receivables 40", 40, BLUE), ("inventory 180", 180, TEAL)]
+    y = y0
+    for i, (lab, v, c) in enumerate(parts):
+        h = v * k
+        s.rect(x0, y - h, 120, h, c, 0.85, i * 0.3)
+        s.text(lab, x0 + 130, y - h / 2 + 4, 12, c, t=i * 0.3 + 0.3)
+        y -= h
+    s.rect(330, y0 - 250 * k, 120, 250 * k, RED, 0.7, 1.2)
+    s.text("current liabilities 250", 390, y0 - 250 * k - 8, 12, RED, "middle", t=1.4)
+    s.raw(f'<line x1="40" y1="{y0}" x2="620" y2="{y0}" stroke="{RULE}"/>')
+    rows = [("current ratio", "300 ÷ 250 = 1.20", TEAL), ("quick ratio", "120 ÷ 250 = 0.48", BLUE), ("cash ratio", "80 ÷ 250 = 0.32", YEL)]
+    for i, (a, b, c) in enumerate(rows):
+        s.text(a, 470, 120 + i * 34, 13, c, t=1.8 + i * 0.3)
+        s.text(b, 470, 136 + i * 34, 12, SOFT, t=1.9 + i * 0.3)
+    return s.svg()
