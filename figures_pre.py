@@ -1,3 +1,4 @@
+import math
 """
 Second diagrams for the prerequisite lessons (Nov 2026 rewrite). Same drawing kit and reveal classes as figures.py:
   d = line draws itself, g = bar grows up, gx = bar grows right, f = fades in; --t = delay in seconds.
@@ -729,4 +730,202 @@ def sector_balances():
         s.text(lab, x + 50, 250, 12, SOFT, "middle", cls="")
     s.raw(f'<line x1="60" y1="{y0}" x2="600" y2="{y0}" stroke="{RULE}"/>')
     s.text("trade balance X − M = −3%", 470, 40, 13, YEL, t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 39 AD-AS
+def ad_adjust():
+    s = S(640, 300, "A demand boom: output rises above potential, then wages catch up, short-run supply shifts left and output returns to potential at a higher price level")
+    x0, y0, x1, y1 = frame(s, "real GDP", "price level", 70, 260, 600, 40)
+    X = lambda q: x0 + q / 100 * (x1 - x0); Y = lambda p: y0 - p / 100 * (y0 - y1)
+    s.line([(X(50), Y(4)), (X(50), Y(96))], DIM, 1.6, 0, dash="5 4"); s.text("LRAS (potential)", X(50) + 6, Y(96) + 4, 12, DIM, t=0.1)
+    s.line([(X(25), Y(70)), (X(85), Y(10))], BLUE, 2.4, 0.2); s.text("AD₀", X(85) + 4, Y(10) + 4, 12, BLUE, t=0.4)
+    s.line([(X(15), Y(10)), (X(85), Y(80))], TEAL, 2.4, 0.3); s.text("SRAS₀", X(85) + 4, Y(80) + 4, 12, TEAL, t=0.5)
+    s.line([(X(40), Y(75)), (X(95), Y(20))], BLUE, 2.4, 0.9); s.text("AD₁", X(95) + 4, Y(20) + 4, 12, BLUE, t=1.1)
+    s.line([(X(5), Y(20)), (X(72), Y(87))], RED, 2.4, 2.0); s.text("SRAS₁", X(72) + 4, Y(87) + 4, 12, RED, t=2.2)
+    s.dot(X(50), Y(45), 6, YEL, 0.6); s.text("1", X(50) - 16, Y(45) + 5, 13, YEL, t=0.7)
+    for i, txt in enumerate(["1: start at potential", "2: boom, output above potential", "3: wages catch up, higher prices"]):
+        s.text(txt, x0 + 10, Y(93) + i * 17, 12, YEL, t=0.7 + i * 0.9)
+    s.dot(X(60), Y(55), 6, YEL, 1.4); s.text("2", X(60) + 10, Y(55) + 18, 13, YEL, t=1.5)
+    s.dot(X(50), Y(65), 6, YEL, 2.5); s.text("3", X(50) - 18, Y(65) - 4, 13, YEL, t=2.6)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 40 growth
+def capital_deepening():
+    s = S(640, 290, "Output per worker rises with capital per worker, but by less each time; better technology lifts the whole curve")
+    x0, y0, x1, y1 = frame(s, "capital per worker", "output per worker", 70, 250, 600, 40)
+    X = lambda k: x0 + k / 100 * (x1 - x0); Y = lambda y: y0 - y / 100 * (y0 - y1)
+    f = lambda k: 9 * k ** 0.4
+    s.curve(f, 0, 100, X, Y, color=BLUE, width=2.4, t=0.2); s.text("today's technology", X(100), Y(f(100)) + 26, 12, BLUE, "end", t=0.6)
+    s.curve(lambda k: 1.3 * f(k), 0, 100, X, Y, color=TEAL, width=2.4, t=1.6); s.text("higher TFP", X(100), Y(1.3 * f(100)) - 8, 12, TEAL, "end", t=1.9)
+    for i, (a, b) in enumerate([(10, 30), (50, 70)]):
+        s.line([(X(a), Y(f(a))), (X(b), Y(f(a))), (X(b), Y(f(b)))], YEL, 1.6, 0.8 + i * 0.4)
+        s.text(f"+{f(b) - f(a):.1f}", X(b) + 6, Y((f(a) + f(b)) / 2) + 4, 12, YEL, t=1.0 + i * 0.4)
+    s.text("same +20 of capital, smaller gain each time", X(8), Y(92), 12, YEL, t=1.3)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 41 business cycle
+def indicator_timing():
+    s = S(640, 280, "Leading indicators turn before the economy, coincident indicators with it, lagging indicators after it")
+    x0, y0, x1, y1 = frame(s, "time", "", 40, 240, 610, 40)
+    X = lambda t: x0 + t / 100 * (x1 - x0)
+    rows = [("leading: building permits, share prices", 12, TEAL, 0.0), ("coincident: output, retail sales", 0, BLUE, 0.6), ("lagging: unemployment duration, unit labour costs", -12, RED, 1.2)]
+    for lab, sh, c, t in rows:
+        s.curve(lambda u, sh=sh: math.sin((u + sh - 20) / 100 * 2 * math.pi), 0, 100, X, lambda v: 150 - 70 * v, color=c, width=2.4, t=t)
+    s.text("leading: building permits, share prices", 50, 30, 12, TEAL, t=0.3)
+    s.text("coincident: output, retail sales", 300, 30, 12, BLUE, t=0.9)
+    s.text("lagging: unemployment duration", 50, 50, 12, RED, t=1.5)
+    pk = 45
+    s.line([(X(pk), 60), (X(pk), 230)], DIM, 1, 1.8, dash="4 4"); s.text("economy peaks", X(pk) + 6, 228, 12, DIM, t=2.0)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 42 unemployment
+def labour_force_tree():
+    s = S(640, 280, "Working-age population of 1,000 split into the labour force and those outside it; discouraged workers are outside")
+    s.box(220, 24, 200, 46, "working-age population", BLUE, sub="1,000", t=0)
+    s.box(60, 112, 220, 46, "labour force", TEAL, sub="640 (participation 64%)", t=0.6)
+    s.box(360, 112, 220, 46, "not in labour force", DIM, sub="360", t=0.6)
+    s.box(20, 206, 140, 46, "employed", TEAL, sub="600", t=1.2)
+    s.box(180, 206, 140, 46, "unemployed", RED, sub="40 → rate 6.25%", t=1.4)
+    s.box(360, 206, 220, 46, "includes discouraged", YEL, sub="20 want work, stopped looking", t=1.6)
+    for a, b in [((320, 70), (170, 112)), ((320, 70), (470, 112)), ((170, 158), (90, 206)), ((170, 158), (250, 206)), ((470, 158), (470, 206))]:
+        s.line([a, b], RULE, 1.2, 0.4)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 43 inflation
+def laspeyres_paasche():
+    s = S(640, 270, "Three price indexes for the same two years: the base-basket index is highest because it ignores substitution")
+    vals = [("Laspeyres (old basket)", 1000 / 9, RED), ("Fisher (geometric mean)", (1000 / 9 * 104 / 96 * 100) ** 0.5, YEL), ("Paasche (new basket)", 104 / 96 * 100, TEAL)]
+    for i, (lab, v, c) in enumerate(vals):
+        y = 60 + i * 62
+        w = (v - 100) * 30
+        s.text(lab, 40, y + 22, 13, SOFT, t=i * 0.4)
+        s.rect(240, y, w, 32, c, 0.85, i * 0.4, cls="gx")
+        s.text(f"{v:.1f}", 240 + w + 10, y + 22, 14, c, t=i * 0.4 + 0.4)
+    s.raw(f'<line x1="240" y1="44" x2="240" y2="250" stroke="{RULE}"/>')
+    s.text("bars start at 100 (no change)", 240, 36, 12, DIM, italic=True, cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 44 money
+def deposit_rounds():
+    s = S(640, 280, "Each round of lending creates a smaller new deposit; with a 10% reserve requirement 1,000 of reserves supports up to 10,000 of deposits")
+    x0, y0 = 60, 230
+    v = 1000
+    for i in range(12):
+        h = v / 1000 * 160
+        s.rect(x0 + i * 40, y0 - h, 30, h, BLUE if i == 0 else TEAL, 0.85, i * 0.15)
+        v *= 0.9
+    s.raw(f'<line x1="50" y1="{y0}" x2="560" y2="{y0}" stroke="{RULE}"/>')
+    s.text("1,000", x0 + 15, y0 - 166, 12, BLUE, "middle", t=0.2)
+    s.text("900", x0 + 55, y0 - 150, 12, TEAL, "middle", t=0.35)
+    s.text("810", x0 + 95, y0 - 136, 12, TEAL, "middle", t=0.5)
+    s.text("deposit created in each round", 60, y0 + 22, 12, DIM, italic=True, cls="")
+    s.text("1,000 + 900 + 810 + … = 1,000 ÷ 0.10 = 10,000", 300, 50, 14, YEL, "middle", t=2.0)
+    return s.svg()
+
+
+def money_layers():
+    s = S(640, 260, "Money in layers: the central bank creates the monetary base; banks create most of narrow and broad money")
+    s.box(30, 30, 580, 210, "", DIM, t=0); s.text("broad money: adds savings and time deposits", 46, 54, 13, DIM, t=0.2)
+    s.box(60, 72, 520, 150, "", BLUE, t=0.5); s.text("narrow money: notes, coins and deposits you can spend now", 76, 96, 13, BLUE, t=0.7)
+    s.box(90, 114, 250, 90, "monetary base", YEL, sub="notes, coins, bank reserves", t=1.0)
+    s.text("most of the rest is created", 370, 150, 13, TEAL, t=1.4)
+    s.text("by banks when they lend", 370, 170, 13, TEAL, t=1.4)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 45 quantity theory
+def mv_py():
+    s = S(640, 270, "In growth rates, money growth plus velocity growth equals inflation plus real growth")
+    bars = [("money 7%", 7, BLUE), ("velocity 0%", 0, DIM), ("=", None, None), ("real growth 3%", 3, TEAL), ("inflation 4%", 4, RED)]
+    base, k = 220, 20
+    x = 60
+    for i, (lab, v, c) in enumerate(bars):
+        if v is None:
+            s.text("=", x + 20, 160, 34, INK, "middle", t=1.0); x += 60; continue
+        h = v * k
+        s.rect(x, base - h, 90, h if h else 2, c, 0.85, i * 0.3)
+        s.text(lab, x + 45, base + 22, 13, c, "middle", t=i * 0.3 + 0.2)
+        x += 110
+    s.text("%ΔM + %ΔV = %ΔP + %ΔY", 320, 46, 15, YEL, "middle", t=1.6)
+    s.text("if velocity and output growth are steady, extra money growth becomes inflation", 320, 70, 12, SOFT, "middle", True, t=1.9)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 46 comparative advantage
+def ppf_trade():
+    s = S(640, 290, "Each country's production possibilities; trade lets both consume beyond their own frontier")
+    x0, y0, x1, y1 = frame(s, "cloth", "wine", 60, 250, 610, 40)
+    X = lambda c: x0 + c / 62 * (x1 - x0); Y = lambda w: y0 - w / 32 * (y0 - y1)
+    s.line([(X(0), Y(30)), (X(60), Y(0))], BLUE, 2.4, 0.2); s.text("Atlantis frontier", X(1), Y(30) - 10, 12, BLUE, t=0.5)
+    s.line([(X(0), Y(20)), (X(20), Y(0))], TEAL, 2.4, 0.5); s.text("Borealis frontier", X(2), Y(20) - 10, 12, TEAL, t=0.8)
+    s.dot(X(30), Y(15), 5, BLUE, 1.0); s.text("no trade (30, 15)", X(30) - 4, Y(15) + 22, 12, BLUE, "end", t=1.1)
+    s.dot(X(35), Y(15), 6, YEL, 1.8); s.text("with trade (35, 15)", X(35) + 10, Y(15) - 10, 12, YEL, t=1.9)
+    s.dot(X(10), Y(10), 5, TEAL, 1.2); s.text("no trade (10, 10)", X(10) - 8, Y(10) + 20, 12, TEAL, "end", t=1.3)
+    s.dot(X(15), Y(10), 6, YEL, 2.1); s.text("with trade (15, 10)", X(15) + 6, Y(10) + 24, 12, YEL, t=2.2)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 47 trade models
+def ho_factor_prices():
+    s = S(640, 270, "Heckscher–Ohlin: trade raises the return to each country's abundant factor and lowers the return to its scarce factor")
+    s.text("capital-abundant country", 160, 34, 14, BLUE, "middle", t=0)
+    s.text("labour-abundant country", 480, 34, 14, TEAL, "middle", t=0.2)
+    s.box(50, 52, 220, 44, "exports capital-intensive goods", BLUE, size=13, t=0.4)
+    s.box(370, 52, 220, 44, "exports labour-intensive goods", TEAL, size=13, t=0.6)
+    rows = [("return to capital", "↑", "↓"), ("wages (esp. low-skilled)", "↓", "↑")]
+    for i, (lab, a, b) in enumerate(rows):
+        y = 140 + i * 56
+        s.text(lab, 320, y + 6, 13, SOFT, "middle", t=1.0 + i * 0.3)
+        s.text(a, 160, y + 10, 30, YEL if a == "↑" else RED, "middle", t=1.2 + i * 0.3)
+        s.text(b, 480, y + 10, 30, YEL if b == "↑" else RED, "middle", t=1.2 + i * 0.3)
+    s.text("Ricardo has one factor (labour), so it says nothing about this split", 320, 256, 12, DIM, "middle", True, cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 48 balance of payments
+def bop_ledger():
+    s = S(640, 270, "A current account deficit of 100 is financed by a financial account inflow of 100: 70 of bond purchases and 30 of direct investment")
+    base, k = 125, 0.8
+    s.rect(110, base, 110, 100 * k, RED, 0.85, 0.2); s.text("current account −100", 165, base + 100 * k + 20, 13, RED, "middle", t=0.4)
+    s.text("imports exceed exports", 165, base - 10, 12, DIM, "middle", True, cls="")
+    s.rect(360, base - 70 * k, 110, 70 * k, BLUE, 0.85, 1.0); s.text("bonds bought by foreigners 70", 480, base - 35 * k + 4, 12, BLUE, t=1.2)
+    s.rect(360, base - 100 * k, 110, 30 * k, TEAL, 0.85, 1.5); s.text("factory (FDI) 30", 480, base - 85 * k + 4, 12, TEAL, t=1.7)
+    s.text("financial account +100", 415, base + 22, 13, INK, "middle", t=1.8)
+    s.raw(f'<line x1="70" y1="{base}" x2="600" y2="{base}" stroke="{RULE}"/>')
+    s.text("the two sides sum to zero (apart from errors and omissions)", 320, 256, 12, YEL, "middle", t=2.2)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 49 exchange rates
+def fx_asymmetry():
+    s = S(640, 250, "USD/EUR moves from 1.10 to 1.15: the euro gains 4.55% but the dollar loses only 4.35%")
+    s.box(50, 40, 230, 60, "USD/EUR 1.10", DIM, sub="1 euro costs 1.10 dollars", t=0)
+    s.box(360, 40, 230, 60, "USD/EUR 1.15", BLUE, sub="1 euro costs 1.15 dollars", t=0.4)
+    s.arrow(285, 70, 355, 70, YEL, 0.6)
+    s.text("euro: 1.15 ÷ 1.10 − 1 = +4.55%", 320, 150, 15, TEAL, "middle", t=1.2)
+    s.text("dollar: 1.10 ÷ 1.15 − 1 = −4.35%", 320, 182, 15, RED, "middle", t=1.6)
+    s.text("one currency's appreciation is not the same size as the other's depreciation", 320, 226, 12, DIM, "middle", True, cls="")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 50 trade balance
+def absorption():
+    s = S(640, 270, "The trade balance equals national income minus domestic spending; at full capacity it improves only if spending falls")
+    base, k = 230, 1.6
+    cols = [("before", 100, 104), ("depreciation, spending unchanged", 100, 104), ("spending cut", 100, 100)]
+    for i, (lab, y, a) in enumerate(cols):
+        x = 70 + i * 190
+        s.rect(x, base - y * k, 50, y * k, BLUE, 0.85, i * 0.6)
+        s.rect(x + 56, base - a * k, 50, a * k, RED if a > y else TEAL, 0.85, i * 0.6 + 0.2)
+        s.text("income", x + 25, base + 18, 11, BLUE, "middle", cls="")
+        s.text("spending", x + 81, base + 18, 11, SOFT, "middle", cls="")
+        s.text(lab, x + 53, base + 36, 12, SOFT, "middle", True, cls="")
+        tb = y - a
+        s.text(f"trade balance {tb:+d}", x + 53, base - max(y, a) * k - 10, 13, YEL if tb == 0 else RED, "middle", t=i * 0.6 + 0.5)
     return s.svg()
