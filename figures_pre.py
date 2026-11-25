@@ -398,3 +398,115 @@ def reval_routes():
     for a, b, t in ((140, 90, 0.8), (200, 240, 0.9), (440, 400, 1.1), (500, 550, 1.2)):
         s.arrow(a, 154, b, 198, DIM, t=t)
     return s.svg()
+
+
+# ---------------------------------------------------------------- 21 deferred tax
+def dt_matrix():
+    s = S(640, 270, "Compare carrying amount with tax base: four cases, two deferred tax liabilities and two deferred tax assets")
+    s.raw(f'<line x1="330" y1="50" x2="330" y2="240" stroke="{RULE}"/><line x1="120" y1="145" x2="610" y2="145" stroke="{RULE}"/>')
+    s.text("carrying amount > tax base", 220, 40, 13, DIM, "middle", True, cls=""); s.text("carrying amount < tax base", 470, 40, 13, DIM, "middle", True, cls="")
+    s.text("asset", 110, 100, 13, DIM, "end", True, cls=""); s.text("liability", 110, 200, 13, DIM, "end", True, cls="")
+    cells = [(220, 95, "DTL", "faster tax depreciation", RED), (470, 95, "DTA", "asset written down only in the books", TEAL),
+             (220, 195, "DTA", "warranty provision deductible later", TEAL), (470, 195, "DTL", "rare: tax-deductible liability", RED)]
+    for i, (x, y, a, b, c) in enumerate(cells):
+        s.text(a, x, y, 22, c, "middle", t=i * 0.3)
+        s.text(b, x, y + 22, 12, SOFT, "middle", True, t=i * 0.3 + 0.15)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 22 rate change and valuation allowance
+def dt_rate_change():
+    s = S(640, 270, "A tax rate change remeasures every deferred tax balance at once, through tax expense")
+    y0, k = 230, 0.27
+    def bar(x, v, c, lab, t):
+        s.rect(x, y0 - v * k, 70, v * k, c, 0.88, t)
+        s.text(str(v), x + 35, y0 - v * k - 8, 13, c, "middle", t=t + 0.3)
+        s.text(lab, x + 35, y0 + 18, 12, SOFT, "middle", cls="")
+    s.text("deferred tax asset", 150, 36, 13, TEAL, "middle", cls="")
+    bar(70, 300, TEAL, "at 30%", 0); bar(160, 250, TEAL, "at 25%", 0.5)
+    s.text("tax expense +50", 150, 60, 13, RED, "middle", True, t=1.0)
+    s.text("deferred tax liability", 470, 36, 13, RED, "middle", cls="")
+    bar(390, 400, RED, "at 20%", 1.2); bar(480, 500, RED, "at 25%", 1.6)
+    s.text("tax expense +100", 470, 60, 13, RED, "middle", True, t=2.0)
+    s.raw(f'<line x1="50" y1="{y0}" x2="610" y2="{y0}" stroke="{RULE}"/>')
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 23 bonds
+def _bond_path(face, cpn, mkt, n):
+    pv = sum(face * cpn / (1 + mkt) ** t for t in range(1, n + 1)) + face / (1 + mkt) ** n
+    path = [pv]
+    for _ in range(n):
+        pv = pv * (1 + mkt) - face * cpn
+        path.append(pv)
+    return path
+
+
+def bond_carrying_paths():
+    s = S(640, 280, "Carrying amounts pulled to face value: a discount bond rises, a premium bond falls")
+    x0, y0, x1, y1 = frame(s, "year", "carrying amount", 70, 240, 600, 40)
+    X = lambda t: x0 + t / 5 * (x1 - x0); Y = lambda v: y0 - (v - 880) / 240 * (y0 - y1)
+    disc, prem = _bond_path(1000, .05, .07, 5), _bond_path(1000, .05, .03, 5)
+    _grid_y(s, x0, x1, [Y(v) for v in (900, 1000, 1100)])
+    for v in (900, 1000, 1100):
+        s.text(f"{v:,}", x0 - 8, Y(v) + 4, 11, DIM, "end", cls="")
+    for t in range(6):
+        s.text(str(t), X(t), y0 + 16, 11, DIM, "middle", cls="")
+    s.line([(X(t), Y(v)) for t, v in enumerate(disc)], BLUE, 2.6, 0)
+    s.line([(X(t), Y(v)) for t, v in enumerate(prem)], TEAL, 2.6, 0.6)
+    s.line([(X(0), Y(1000)), (X(5), Y(1000))], YEL, 1.2, 1.2, dash="5 4")
+    s.text(f"discount bond: issued at {disc[0]:,.1f} (market rate 7%)", X(2.2), Y(918), 12, BLUE, t=1.2)
+    s.text(f"premium bond: issued at {prem[0]:,.1f} (market rate 3%)", X(2.2), Y(1082), 12, TEAL, t=1.6)
+    s.text("face 1,000", X(5), Y(1000) - 8, 12, YEL, "end", t=1.8)
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 24 derecognition
+def derecog_cases():
+    s = S(640, 260, "Gain or loss on retiring debt = carrying amount minus the price paid")
+    y0, base, k = 220, 850, 1.05
+    def case(x, carry, paid, title, t0):
+        s.text(title, x + 95, 30, 13, INK, "middle", cls="")
+        s.rect(x, y0 - (carry - base) * k, 80, (carry - base) * k, BLUE, 0.85, t0); s.text(f"carried {carry}", x + 40, y0 + 18, 12, BLUE, "middle", cls="")
+        s.rect(x + 110, y0 - (paid - base) * k, 80, (paid - base) * k, TEAL, 0.85, t0 + 0.4); s.text(f"paid {paid}", x + 150, y0 + 18, 12, TEAL, "middle", cls="")
+        d = carry - paid
+        c = YEL if d > 0 else RED
+        s.text(("gain " if d > 0 else "loss ") + str(abs(d)), x + 95, y0 - (max(carry, paid) - base) * k - 12, 15, c, "middle", t=t0 + 0.9)
+    s.text("axis starts at 850", 620, 250, 11, DIM, "end", True, cls="")
+    case(60, 960, 990, "called above book value", 0)
+    case(360, 980, 900, "bought back after rates rose", 1.0)
+    s.raw(f'<line x1="40" y1="{y0}" x2="620" y2="{y0}" stroke="{RULE}"/>')
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 25 credit analysis
+def credit_compare():
+    s = S(640, 270, "Two borrowers: coverage (times interest is earned) and leverage (years of EBITDA to repay debt)")
+    def panel(x, title, vals, unit, maxv, good):
+        s.text(title, x + 120, 34, 13, INK, "middle", cls="")
+        for i, (name, v, c) in enumerate(vals):
+            y = 60 + i * 70
+            w = v / maxv * 200
+            s.rect(x, y, w, 36, c, 0.88, i * 0.4, cls="f")
+            s.text(f"{name}: {v:g}{unit}", x + 4, y + 52, 12, SOFT, t=i * 0.4 + 0.3)
+        s.text(good, x, 240, 11, DIM, italic=True, cls="")
+    panel(50, "EBIT ÷ interest", [("A", 12, BLUE), ("B", 3, RED)], "×", 14, "higher is safer")
+    panel(350, "Debt ÷ EBITDA", [("A", 1.6, BLUE), ("B", 4.5, RED)], "×", 5.5, "lower is safer")
+    return s.svg()
+
+
+# ---------------------------------------------------------------- 26 analyst adjustments
+def roe_adjust():
+    s = S(640, 260, "Removing goodwill reverses the ranking: reported ROE favours A, tangible ROE favours B")
+    y0, k = 210, 7
+    groups = [("reported ROE", 15, 12), ("tangible ROE", 15, 17.1)]
+    for i, (lab, a, b) in enumerate(groups):
+        gx = 120 + i * 250
+        for j, (v, c, n) in enumerate(((a, BLUE, "A"), (b, TEAL, "B"))):
+            x = gx + j * 80
+            s.rect(x, y0 - v * k, 60, v * k, c, 0.88, i * 0.8 + j * 0.3)
+            s.text(f"{n} {v:g}%", x + 30, y0 - v * k - 8, 13, c, "middle", t=i * 0.8 + j * 0.3 + 0.3)
+        s.text(lab, gx + 70, y0 + 20, 13, SOFT, "middle", cls="")
+    s.raw(f'<line x1="80" y1="{y0}" x2="560" y2="{y0}" stroke="{RULE}"/>')
+    s.text("B: 120 ÷ (1,000 − 300 goodwill) = 17.1%", 320, 250, 12, YEL, "middle", True, t=2.0)
+    return s.svg()
